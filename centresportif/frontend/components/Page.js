@@ -1,16 +1,38 @@
 import React, {Component} from 'react';
 import Header from './Header';
 import Meta from './Meta';
+import styled, { ThemeProvider, injectGlobal } from 'styled-components';
+
+const theme ={
+    primary : 'orange',
+    second : 'red',
+    text : 'black',
+    maxWidth : '1200px'
+};
+const StyledPage = styled.div`
+    background: ${props => props.theme.second};
+    color: ${props => props.theme.text};
+`;
+
+const StyledPageContent = styled.div`
+    background: ${props => props.theme.primary};
+    max-width: ${props => props.theme.maxWidth};
+    margin: 0 auto;
+    padding: 1.5rem;
+`;
 
 class Page extends Component {
     render(){
         return(
-            <div>
+            <StyledPage>
                 <Meta />
                 <Header />
-                Visible sur toutes les pages (From component)
+                <StyledPageContent>
                 { this.props.children }
-            </div>
+                </StyledPageContent>
+                Visible sur toutes les pages (From component)
+                
+            </StyledPage>
         )
     }
 }
