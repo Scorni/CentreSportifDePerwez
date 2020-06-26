@@ -24,15 +24,15 @@ const StyledPageContent = styled.div`
 class Page extends Component {
     render(){
         return(
-            <StyledPage>
-                <Meta />
-                <Header />
-                <StyledPageContent>
-                { this.props.children }
-                </StyledPageContent>
-                Visible sur toutes les pages (From component)
+            <div>
+                <Meta ></Meta>
+                <Header ></Header>
                 
-            </StyledPage>
+                { this.props.children }
+                
+                Visible sur toutes les pages (From component)
+            </div>    
+            
         )
     }
 }
