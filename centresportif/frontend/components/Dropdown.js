@@ -9,18 +9,19 @@ const MyDropdown = (props) => {
         {...props}
         onMouseOver={() => updateIsOpen(true)}
         onFocus={() => updateIsOpen(true)}
-        onMouseLeave={() => updateIsOpen(false)}
         onBlur={() => updateIsOpen(false)}
         toggle={() => updateIsOpen(!isOpen)}
         isOpen={isOpen}
         >
-        <DropdownToggle>
+        <DropdownToggle style={{width:"140px"}}>
             {props.name}
         </DropdownToggle>
-        
-        <DropdownMenu>
-            <DropdownItem header>Header</DropdownItem>
-            <DropdownItem>{props.liste}</DropdownItem>
+        <DropdownMenu
+        onMouseOver={() => updateIsOpen(true)}
+        onMouseLeave={() => updateIsOpen(false)}
+        onBlur={() => updateIsOpen(false)}
+        >
+            <DropdownItem header>{props.header}</DropdownItem>
             <DropdownItem disabled>Action (disabled)</DropdownItem>
             <DropdownItem divider />
             <DropdownItem>Foo Action</DropdownItem>
