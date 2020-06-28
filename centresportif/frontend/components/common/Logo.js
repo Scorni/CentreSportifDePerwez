@@ -8,7 +8,7 @@ const MyLogo = (props) => {
                 backgroundImage: `url("/static/img/centresportif.jpg")`,backgroundRepeat: 'no-repeat',backgroundSize :'cover'
              }}>
                 <Link href='/'>
-                    <img src="/static/img/commune.png" style = {{maxWidth:"50%"}}></img>
+                    <img src="/static/img/commune.png" style = {{maxWidth:"100%"}}></img>
                 </Link>
             </div>
     );

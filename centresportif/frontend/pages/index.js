@@ -1,14 +1,11 @@
 import React from "react";
 import Link from "next/link";
+import MyAccueil from "./accueil"
 
 {/* Exemple d'utilisation de const avec des props */}
 const PremiereConst = props => (
     <div>
-        <Link href='/creation'>
-            <a>
-                Vers creation :)
-            </a>
-        </Link>
+        <MyAccueil></MyAccueil>
     </div>
 ) 
 
