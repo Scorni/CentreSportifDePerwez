@@ -14,16 +14,17 @@ import {  Collapse,
     ModalFooter } from 'reactstrap';
 
 import MyDropdown from './Dropdown';
+import { FaHome } from 'react-icons/fa';
+
+
 const ListeSports = [
-    {
-        category : "Sport Individuel",
-        name : "Tennis",
-    },
-    {   
-        category : "Sport individuel",
-        name:'Golf'
-    }
-]
+    "Sports individuels",
+    "Sports collectifs",   
+    "Arts martiaux",
+    "Sports de raquette",
+    "Gymnastique/Danse",
+    "Infrastructure",
+]   
 
 
 
@@ -41,10 +42,13 @@ const MyNavbar = (props) => {
             <Collapse isOpen={isOpen} navbar>
                 <Nav navbar className = 'mx-auto'>
                     <NavItem className='mr-2 mt-1'>
-                        <MyDropdown header={ListeSports[0]['category']} name ="Sports" />
+                        <Button href="/"><FaHome /></Button>
                     </NavItem>
                     <NavItem className='mr-2 mt-1'>
-                        <MyDropdown name ="Actualité" liste = {ListeSports[1]['name']} />
+                        <MyDropdown name ="Sports" liste={ListeSports}/>
+                    </NavItem>
+                    <NavItem className='mr-2 mt-1'>
+                        <MyDropdown name ="Actualité" />
                     </NavItem>
                     <NavItem className='mr-2 mt-1'>
                         <MyDropdown name ="Infos Pratiques"/>

@@ -1,6 +1,22 @@
 import React, { useState } from 'react';
 import { Dropdown,DropdownToggle, DropdownMenu, DropdownItem  } from 'reactstrap';
 
+function addItem(liste){
+  var drop = [
+    "Sports individuels",
+    "Sports collectifs",   
+    "Arts martiaux",
+    "Sports de raquette",
+    "Gymnastique/Danse",
+    "Infrastructure"
+  ];   
+  var newDrop = [];
+  for(let i=0;i < drop.length;i++){
+    newDrop[i] =<DropdownItem key={i}>{drop[i]}</DropdownItem>;
+  };
+  return newDrop;
+};
+
 const MyDropdown = (props) => {
   const [isOpen, updateIsOpen] = useState(false);
 
@@ -9,7 +25,6 @@ const MyDropdown = (props) => {
         {...props}
         onMouseOver={() => updateIsOpen(true)}
         onFocus={() => updateIsOpen(true)}
-        onBlur={() => updateIsOpen(false)}
         toggle={() => updateIsOpen(!isOpen)}
         isOpen={isOpen}
         >
@@ -17,16 +32,13 @@ const MyDropdown = (props) => {
             {props.name}
         </DropdownToggle>
         <DropdownMenu
-        onMouseOver={() => updateIsOpen(true)}
         onMouseLeave={() => updateIsOpen(false)}
         onBlur={() => updateIsOpen(false)}
         >
-            <DropdownItem header>{props.header}</DropdownItem>
-            <DropdownItem disabled>Action (disabled)</DropdownItem>
-            <DropdownItem divider />
-            <DropdownItem>Foo Action</DropdownItem>
-            <DropdownItem>Bar Action</DropdownItem>
-            <DropdownItem>Quo Action</DropdownItem>
+            
+            
+            {addItem()}
+            
         </DropdownMenu>   
     </Dropdown>
       
