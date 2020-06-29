@@ -29,8 +29,6 @@ class Page extends Component {
                 <Header ></Header>
                 
                 { this.props.children }
-                
-                Visible sur toutes les pages (From component)
             </div>    
             
         )

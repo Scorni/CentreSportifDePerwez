@@ -1,14 +1,12 @@
 import React from "react";
 import MyCarousel from "../components/accueil/carousel"
+import MyTabs from "../components/accueil/tabs"
+
 
 const Accueil = props => (
-    <div style={{maxWidth:"100%"}}>
-        <p>
-            Voici l'accueil ! Accueil
-        </p>
-        <div  style={{width:"50%",  height:"360px" }}>
-        <MyCarousel></MyCarousel>
-        </div>
+    <div>    
+                    <MyCarousel></MyCarousel>
+                    <MyTabs></MyTabs>
     </div>
 )
 export default Accueil;

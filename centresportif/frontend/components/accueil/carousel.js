@@ -1,34 +1,94 @@
-import React from 'react';
-import { UncontrolledCarousel } from 'reactstrap';
+import React,{ useRef, useLayoutEffect, useState } from 'react';
+import { MDBCarousel, MDBCarouselInner, MDBCarouselItem, MDBView,MDBCarouselCaption } from 'mdbreact';
+import styled from 'styled-components';
+import Link from "next/link";
 
-const items = [
-  {
-    src: 'data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22800%22%20height%3D%22400%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20800%20400%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_15ba800aa1d%20text%20%7B%20fill%3A%23555%3Bfont-weight%3Anormal%3Bfont-family%3AHelvetica%2C%20monospace%3Bfont-size%3A40pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_15ba800aa1d%22%3E%3Crect%20width%3D%22800%22%20height%3D%22400%22%20fill%3D%22%23777%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%22285.921875%22%20y%3D%22218.3%22%3EFirst%20slide%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E',
-    altText: 'Slide 1',
-    caption: 'Slide 1',
-    header: 'Slide 1 Header',
-    key: '1'
-  },
-  {
-    src: 'data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22800%22%20height%3D%22400%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20800%20400%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_15ba800aa20%20text%20%7B%20fill%3A%23444%3Bfont-weight%3Anormal%3Bfont-family%3AHelvetica%2C%20monospace%3Bfont-size%3A40pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_15ba800aa20%22%3E%3Crect%20width%3D%22800%22%20height%3D%22400%22%20fill%3D%22%23666%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%22247.3203125%22%20y%3D%22218.3%22%3ESecond%20slide%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E',
-    altText: 'Slide 2',
-    caption: 'Slide 2',
-    header: 'Slide 2 Header',
-    key: '2'
-  },
-  {
-    src: 'data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22800%22%20height%3D%22400%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20800%20400%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_15ba800aa21%20text%20%7B%20fill%3A%23333%3Bfont-weight%3Anormal%3Bfont-family%3AHelvetica%2C%20monospace%3Bfont-size%3A40pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_15ba800aa21%22%3E%3Crect%20width%3D%22800%22%20height%3D%22400%22%20fill%3D%22%23555%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%22277%22%20y%3D%22218.3%22%3EThird%20slide%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E',
-    altText: 'Slide 3',
-    caption: 'Slide 3',
-    header: 'Slide 3 Header',
-    key: '3'
+const StyledImg = styled.img`
+@media(max-width: 1024px) {
+    width :  50% !important
+}
+`;
+const ComponentWithDimensions = props => {
+  const targetRef = useRef();
+  const [dimensions, setDimensions] = useState({ width:0, height: 0 });
+  var img;
+
+  useLayoutEffect(() => {
+    if (targetRef.current) {
+      setDimensions({
+        width: targetRef.current.offsetWidth,
+        height: targetRef.current.offsetHeight
+      });
+    }
+  }, []);
+  if(dimensions.width > 1024){
+    img = <img className="w-100" src="/static/img/computer/first.jpg" alt="Second slide" />;
+  }else{
+    img = <img className=" w-100" src="/static/img/responsive/first.jpg" alt="Second slide" />;;
   }
-];
+  return (
+    <div ref={targetRef}>
+      {img}
 
-const MyCarousel= () => {
-    return(
-        <UncontrolledCarousel items={items} />
-    )
+    </div>
+  );
+};
+
+const MyCarousel = () => {
+  return (
+    <MDBCarousel activeItem={1} length={4} showControls={true} showIndicators={false} className="z-depth-1">
+      <MDBCarouselInner>
+        <MDBCarouselItem itemId="1">
+          <MDBView>
+          {ComponentWithDimensions()}
+          </MDBView>
+          <MDBCarouselCaption>
+            <h3 className="h3-responsive">News 1</h3>
+            <Link href='/creation'>
+              <a style={{color: "white"}}>Réservation</a>
+            </Link>
+          </MDBCarouselCaption>
+        </MDBCarouselItem>
+        <MDBCarouselItem itemId="2">
+          <MDBView>
+          {ComponentWithDimensions()}
+          </MDBView>
+          <MDBCarouselCaption>
+            <h3 className="h3-responsive">News 2</h3>
+            <Link href='/creation'>
+              <a style={{color: "white"}}>Réservation</a>
+            </Link>
+          </MDBCarouselCaption>
+        </MDBCarouselItem>
+        <MDBCarouselItem itemId="3">
+          <MDBView>
+          {ComponentWithDimensions()}
+          </MDBView>
+          <MDBCarouselCaption>
+            <h3 className="h3-responsive">News 3</h3>
+            <Link href='/creation'>
+              <a style={{color: "white"}}>Réservation</a>
+            </Link>
+          </MDBCarouselCaption>
+        </MDBCarouselItem>
+        <MDBCarouselItem itemId="4">
+          <MDBView>
+          {ComponentWithDimensions()}
+          </MDBView>
+          <MDBCarouselCaption>
+            <h3 className="h3-responsive">News 4</h3>
+            <Link href='/creation'>
+              <a style={{color: "white"}}>Réservation</a>
+            </Link>
+          </MDBCarouselCaption>
+
+        </MDBCarouselItem>
+      </MDBCarouselInner>
+    </MDBCarousel>
+    
+      
+    
+  );
 }
 
 export default MyCarousel;
