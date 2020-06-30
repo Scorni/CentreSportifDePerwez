@@ -23,9 +23,9 @@ function TabPanel(props) {
       {...other}
     >
       {value === index && (
-        <Box p={3}>
-          <Typography>{children}</Typography>
-        </Box>
+       
+          <div>{children}</div>
+       
       )}
     </div>
   );
@@ -129,7 +129,7 @@ export default function ScrollableTabsButtonAuto() {
             <Tab label="Multisports" {...a11yProps(6)} />
             </Tabs>
         </AppBar>
-        <TabPanel value={value} index={0}>
+        <TabPanel value={value} index={0} >
             {addSports(individualSports)}
         </TabPanel>
         <TabPanel value={value} index={1}>

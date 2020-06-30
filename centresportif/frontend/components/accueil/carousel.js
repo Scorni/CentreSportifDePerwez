@@ -1,19 +1,14 @@
-import React,{ useRef, useLayoutEffect, useState } from 'react';
+import React,{ useRef, useEffect, useState } from 'react';
 import { MDBCarousel, MDBCarouselInner, MDBCarouselItem, MDBView,MDBCarouselCaption } from 'mdbreact';
 import styled from 'styled-components';
 import Link from "next/link";
 
-const StyledImg = styled.img`
-@media(max-width: 1024px) {
-    width :  50% !important
-}
-`;
 const ComponentWithDimensions = props => {
   const targetRef = useRef();
   const [dimensions, setDimensions] = useState({ width:0, height: 0 });
   var img;
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     if (targetRef.current) {
       setDimensions({
         width: targetRef.current.offsetWidth,
