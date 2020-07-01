@@ -81,8 +81,9 @@ function addSports(type){
     if(type){
         var newList = [];
         for(let i =0;i < type.length;i++){
+            
             newList[i] =
-                        <li key={i} style={{float:"left",listStyle:"none",margin:"10px"}}>
+                        <li key={i} style={{display:"inline-block",listStyle:"none",margin:"10px"}}>
                             <Link  href='/creation'>
                                 <Button>{type[i]}</Button>
                             </Link>
@@ -109,7 +110,7 @@ export default function ScrollableTabsButtonAuto() {
   };
 
   return (
-    <div className={classes.root}>
+    <div className={classes.root} style={{padding:"10px"}}>
         <AppBar position="static" color="default">
             <Tabs
             value={value}
@@ -150,6 +151,6 @@ export default function ScrollableTabsButtonAuto() {
         <TabPanel value={value} index={6}>
             {addSports(multiSports)}
         </TabPanel>
-    </div>
+      </div>
   );
 }
