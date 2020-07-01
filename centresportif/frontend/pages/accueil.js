@@ -2,6 +2,7 @@ import React from "react";
 import MyCarousel from "../components/accueil/carousel"
 import MyTabs from "../components/accueil/tabs"
 import MyReservation from "../components/accueil/reservation"
+import MyTest from "../components/accueil/test"
 
 
 const Accueil = props => (
@@ -9,6 +10,7 @@ const Accueil = props => (
                     <MyCarousel></MyCarousel>
                     <MyTabs></MyTabs>
                     <MyReservation></MyReservation>
+                    {/**<MyTest></MyTest> */}
     </div>
 )
 export default Accueil;

@@ -17,6 +17,7 @@ import MyDropdown from './Dropdown';
 import { FaHome } from 'react-icons/fa';
 import Link from "next/link";
 import styled from 'styled-components';
+import { Dropdown,DropdownToggle, DropdownMenu, DropdownItem  } from 'reactstrap';
 
 
 
@@ -79,6 +80,7 @@ const MyNavbar = (props) => {
                     <NavItem className='mr-2 mt-1'>
                         <MyDropdown name ="Infos Pratiques" list={ListeInfos}/>
                     </NavItem>  
+                    
                     <NavItem className='mr-2 mt-1 mb-1'>
                         <Link href='/creation'>
                             <Button style={{width:"140px"}}>
