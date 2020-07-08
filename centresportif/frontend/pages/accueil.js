@@ -10,7 +10,6 @@ const Accueil = props => (
                     <MyCarousel></MyCarousel>
                     <MyTabs></MyTabs>
                     <MyReservation></MyReservation>
-                    {/**<MyTest></MyTest> */}
     </div>
 )
 export default Accueil;
