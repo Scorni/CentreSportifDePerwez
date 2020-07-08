@@ -1,16 +1,48 @@
 import React, { useState } from 'react';
 import { Dropdown,DropdownToggle, DropdownMenu, DropdownItem  } from 'reactstrap';
+import Link from "next/link";
 
-function addItem(list){  
-  if(list){  
-    var newList = [];
-    for(let i=0;i < list.length;i++){
-      newList[i] =<DropdownItem key={i}>{list[i]}</DropdownItem>;
-    };
+const DropDownItemsTabs = [
+  {
+    sports:["Sports individuels",
+            "Sports collectifs",
+            "Arts martiaux",
+            "Sports de raquette",
+            "Gymnastique",
+            "Danse",
+            "Infrastructure"
+    ],
+    actualite:[
+            "Actualité Sportives",
+            "Evènements",
+            "Actualité du Centre",
+            "Stage"
+    ],
+    infos:[
+            "Histoire du Centre",
+            "Cafétaria",
+            "Foire aux questions",
+            "Contact",
+            "Horaire"
+    ]
   }
-  return newList;
-};
-
+]
+function objectSort(tabs,cat){
+  var newList= [];
+  var linkWithoutSpace;
+  for (let index in tabs) {
+    for(let value in tabs[index][cat]){
+      linkWithoutSpace = (tabs[index][cat][value]).replace(/\s+/g, '-');
+      newList[value] = 
+        <DropdownItem key={tabs[index][cat][value]}>
+          <Link href={'/'+linkWithoutSpace}>
+            <a>{tabs[index][cat][value]}</a>
+          </Link>
+        </DropdownItem>
+    }
+  }
+  return(newList)
+}
 const MyDropdown = (props) => {
   const [isOpen, updateIsOpen] = useState(false);
 
@@ -24,7 +56,7 @@ const MyDropdown = (props) => {
           {props.name}
         </DropdownToggle>
         <DropdownMenu>            
-          {addItem(props.list)} 
+          {objectSort(DropDownItemsTabs,props.list)} 
         </DropdownMenu>   
     </Dropdown>
       
