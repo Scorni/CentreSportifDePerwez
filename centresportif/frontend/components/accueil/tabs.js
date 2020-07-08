@@ -76,7 +76,7 @@ const sportsTabs =[
       "Step",
       "Biodanza"
     ],
-    "MultiSports":[
+    "Multisports":[
       "Multisports"
     ]
   }
@@ -155,7 +155,7 @@ export default function ScrollableTabsButtonAuto() {
           {objectSort(sportsTabs,"Danse")}
         </TabPanel>
         <TabPanel value={value} index={6}>
-          {objectSort(sportsTabs,"MultiSports")}
+          {objectSort(sportsTabs,"Multisports")}
         </TabPanel>
       </div>
   );

@@ -10,6 +10,7 @@ const DropDownItemsTabs = [
             "Sports de raquette",
             "Gymnastique",
             "Danse",
+            "Multisports",
             "Infrastructure"
     ],
     actualite:[

@@ -1,5 +1,6 @@
 import React from 'react';
 import { Container, Row, Col,Button } from 'reactstrap';
+import Link from "next/link";
 
 const MyReservation = (props) => {
     return (
@@ -8,7 +9,9 @@ const MyReservation = (props) => {
             <Row style={{padding:"15px",boxShadow :"0px 2px 4px -1px rgba(0,0,0,0.2), 0px 4px 5px 0px rgba(0,0,0,0.14), 0px 1px 10px 0px rgba(0,0,0,0.12)"}}>
                 <Col sm={{ size: 'auto', offset: 3 }}>
                     <h5>Souhaitez-vous effectuer une réservation?
-                    <Button style={{marginLeft:"30px"}}>Cliquez ici !</Button>
+                    <Link  href={'/Reservation'}>
+                        <Button style={{marginLeft:"30px"}}>Cliquez ici !</Button>
+                    </Link>
                     </h5>
                 </Col>
             </Row>
