@@ -10,6 +10,7 @@ const DropDownItemsTabs = [
             "Sports de raquette",
             "Gymnastique",
             "Danse",
+            "Multisports",
             "Infrastructure"
     ],
     actualite:[
@@ -30,12 +31,16 @@ const DropDownItemsTabs = [
 function objectSort(tabs,cat){
   var newList= [];
   var linkWithoutSpace;
+  var linkWithoutSpaceHidden;
   for (let index in tabs) {
     for(let value in tabs[index][cat]){
       linkWithoutSpace = (tabs[index][cat][value]).replace(/\s+/g, '-');
+      if(cat == "sports"){
+        linkWithoutSpaceHidden = cat + "/"+(tabs[index][cat][value]).replace(/\s+/g, '');
+      }
       newList[value] = 
         <DropdownItem key={tabs[index][cat][value]}>
-          <Link href={'/'+linkWithoutSpace}>
+          <Link href={'/'+linkWithoutSpaceHidden} as={'/'+linkWithoutSpace}>
             <a>{tabs[index][cat][value]}</a>
           </Link>
         </DropdownItem>

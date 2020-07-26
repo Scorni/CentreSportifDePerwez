@@ -1,8 +1,7 @@
 import React from 'react';
-import { Container, Row, Col,Button } from 'reactstrap';
 import Link from "next/link";
 
-const MyReservation = (props) => {
+const MyGenerator = (props) => {
     return (
     <div >
         <Container style={{padding:"10px"}} >
@@ -21,4 +20,4 @@ const MyReservation = (props) => {
     );
   }
   
-  export default MyReservation;
+  export default MyGenerator;

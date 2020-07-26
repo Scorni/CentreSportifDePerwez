@@ -43,54 +43,60 @@ function a11yProps(index) {
     'aria-controls': `scrollable-auto-tabpanel-${index}`,
   };
 }
-const individualSports =[
-    "Fitness",
-    "Athlétisme"
-]
-const collectiveSports =[
-    "Football",
-    "Mini-Foot",
-    "Handball",
-    "Hockey",
-    "Volley-ball"
-]
-const martialArts =[
-    "Judo",
-    "Taï-Jutsu",
-    "Ju-Jutsu"
-]
-const racketSports=[
-    "Badminton",
-    "Tennis",
-    "Tennis de table"
-]
-const gymnastic =[
-    "Gymnastique"
-]
-const dance =[
-    "Danse moderne",
-    "Hip hop",
-    "Step",
-    "Biodanza"
-]
-const multiSports=[
-    "Multisports"
-]
-function addSports(type){
 
-    if(type){
-        var newList = [];
-        for(let i =0;i < type.length;i++){
-            
-            newList[i] =
-                        <li key={i} style={{display:"inline-block",listStyle:"none",margin:"10px"}}>
-                            <Link  href='/creation'>
-                                <Button>{type[i]}</Button>
-                            </Link>
-                        </li>
-        }
+const sportsTabs =[
+  {
+    "Sports individuels":[
+      "Fitness",
+      "Athlétisme"
+    ],
+    "Sports collectifs":[
+      "Football",
+      "Mini-Foot",
+      "Handball",
+      "Hockey",
+      "Volley-ball"
+    ],
+    "Arts martiaux":[
+      "Judo",
+      "Taï-Jutsu",
+      "Ju-Jutsu"
+    ],
+    "Sports de raquette":[
+      "Badminton",
+      "Tennis",
+      "Tennis de table"
+    ],
+    "Gymnastique":[
+      "Gymnastique"
+    ],
+    "Danse":[
+      "Danse moderne",
+      "Hip hop",
+      "Step",
+      "Biodanza"
+    ],
+    "Multisports":[
+      "Multisports"
+    ]
+  }
+]
+
+function objectSort(tabs,cat){
+  var newList= [];
+  var linkWithoutSpace;
+  for (let index in tabs) {
+    for(let value in tabs[index][cat]){
+      linkWithoutSpace = (cat).replace(/\s+/g, '-')+"/"+ (tabs[index][cat][value]).replace(/\s+/g, '-');
+      newList[value] = 
+        <li key={tabs[index][cat][value]} style={{display:"inline-block",listStyle:"none",margin:"10px"}}>
+          <Link  href={'/'+linkWithoutSpace}>
+              <Button>{tabs[index][cat][value]}</Button>
+          </Link>
+        </li>
     }
-    return newList;
+  }
+  return(newList)
 }
 
 const useStyles = makeStyles((theme) => ({
@@ -131,25 +137,25 @@ export default function ScrollableTabsButtonAuto() {
             </Tabs>
         </AppBar>
         <TabPanel value={value} index={0} >
-            {addSports(individualSports)}
+          {objectSort(sportsTabs,"Sports individuels")}
         </TabPanel>
         <TabPanel value={value} index={1}>
-            {addSports(collectiveSports)}
+          {objectSort(sportsTabs,"Sports collectifs")}
         </TabPanel>
         <TabPanel value={value} index={2}>
-            {addSports(martialArts)}
+          {objectSort(sportsTabs,"Arts martiaux")}
         </TabPanel>
         <TabPanel value={value} index={3}>
-            {addSports(racketSports)}
+          {objectSort(sportsTabs,"Sports de raquette")}
         </TabPanel>
         <TabPanel value={value} index={4}>
-            {addSports(gymnastic)}
+          {objectSort(sportsTabs,"Gymnastique")}
         </TabPanel>
         <TabPanel value={value} index={5}>
-            {addSports(dance)}
+          {objectSort(sportsTabs,"Danse")}
         </TabPanel>
         <TabPanel value={value} index={6}>
-            {addSports(multiSports)}
+          {objectSort(sportsTabs,"Multisports")}
         </TabPanel>
       </div>
   );
