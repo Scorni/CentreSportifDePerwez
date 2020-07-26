@@ -21,7 +21,6 @@ const SportIndividuels = (props) => {
     return (
         <div>
             {Card(), Card()}
-            test
         </div>
  
     );
