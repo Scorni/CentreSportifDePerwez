@@ -14,10 +14,10 @@ const DropDownItemsTabs = [
             "Infrastructure"
     ],
     actualite:[
-            "Actualité Sportives",
+            "Actualités Sportives",
             "Evènements",
-            "Actualité du Centre",
-            "Stage"
+            "Actualités du Centre",
+            "Stages"
     ],
     infos:[
             "Histoire du Centre",
