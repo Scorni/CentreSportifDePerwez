@@ -16,6 +16,19 @@ body,
   overflow: hidden;
   background: #f0f0f0;
 }
+.responsiveCard {
+  width: 15ch;
+  height: 15ch;
+  background: grey;
+  border-radius: 5px;
+  
+  background-size: cover;
+  background-position: center center;
+  box-shadow: 0px 10px 30px -5px rgba(0, 0, 0, 0.3);
+  transition: box-shadow 0.5s;
+  will-change: transform;
+  border: 15px solid white;
+}
 .defaultCard {
   width: 40ch;
   height: 40ch;
@@ -29,9 +42,7 @@ body,
   will-change: transform;
   border: 15px solid white;
 }
-.card {
-  background-image: url(https://www.smashbros.com/assets_v2/img/fighter/toon_link/main8.png);
-}
+
 
 .card:hover {
   box-shadow: 0px 30px 100px -10px rgba(0, 0, 0, 0.4);

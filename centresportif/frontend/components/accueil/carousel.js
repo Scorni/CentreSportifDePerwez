@@ -1,6 +1,5 @@
 import React,{ useRef, useEffect, useState } from 'react';
 import { MDBCarousel, MDBCarouselInner, MDBCarouselItem, MDBView,MDBCarouselCaption } from 'mdbreact';
-import styled from 'styled-components';
 import Link from "next/link";
 
 const ComponentWithDimensions = props => {
@@ -16,6 +15,7 @@ const ComponentWithDimensions = props => {
       });
     }
   }, []);
+  console.log(dimensions)
   if(dimensions.width > 1024){
     img = <img className="w-100" src="/static/img/computer/first.jpg" alt="Second slide" />;
   }else{

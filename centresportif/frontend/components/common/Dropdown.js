@@ -40,7 +40,7 @@ function objectSort(tabs,cat){
       }
       newList[value] = 
         <DropdownItem key={tabs[index][cat][value]}>
-          <Link href={'/'+linkWithoutSpaceHidden} as={'/'+linkWithoutSpace}>
+          <Link href={'/'+linkWithoutSpaceHidden}>
             <a>{tabs[index][cat][value]}</a>
           </Link>
         </DropdownItem>
