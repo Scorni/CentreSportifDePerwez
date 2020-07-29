@@ -1,22 +1,15 @@
-import React,{ useRef, useEffect, useState } from 'react';
+import React from 'react';
 import {CardGenerator} from './Generator';
 import { Container, Row, Col } from 'reactstrap';
+import  useWindowDimensions  from '../../common/WindowsProperties'
 
-
+/** definir la taille pour la page des sports individuels */
 const SportIndividuels = (props) => {
-  const targetRef = useRef();
-  const [dimensions, setDimensions] = useState({ width:0, height: 0 });
+  const {width,height} = useWindowDimensions();
 
-  useEffect(() => {
-    if (targetRef.current) {
-      setDimensions({
-        width: targetRef.current.offsetWidth,
-        height: targetRef.current.offsetHeight
-      });
-    }
-  }, []);
-  if(dimensions.width < 450){
-    console.log(dimensions)
+  
+  if(width > 450){
+    
     return (
       <Container className="themed-container">
         <Row className="mx-auto">
@@ -33,9 +26,11 @@ const SportIndividuels = (props) => {
       </Container>
     )
   }else{
-    <div>
-      <p>cheh</p>
-    </div>
+    return (
+      <div>
+        <p>cheh</p>
+      </div>
+    )
   }
 }
   export default SportIndividuels;
