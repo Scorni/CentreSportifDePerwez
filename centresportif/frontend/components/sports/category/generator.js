@@ -24,7 +24,7 @@ export function HeadGenerator({title}){
   );
     
 }
-export function CardGenerator({tabs,title,link}) {
+export function CardGenerator({tabs,title}) {
     const [props, set] = useSpring(() => ({ xys: [0, 0, 1], config: { mass: 10, tension: 500, friction: 200 } }));
     const router = useRouter();
     useEffect(() => {
@@ -32,7 +32,8 @@ export function CardGenerator({tabs,title,link}) {
         if (performance.navigation.type == 1) {
           if(document.getElementById('tinyCard')){
             if(document.getElementById('tinyCard').contains(document.getElementById('defaultTitle')))
-              router.push({link});          
+              console.log(window.location.pathname)
+              router.push('./reloadPage?link='+window.location.pathname);          
           }
         }
       }

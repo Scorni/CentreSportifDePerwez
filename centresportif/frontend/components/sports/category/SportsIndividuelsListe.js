@@ -15,7 +15,7 @@ const SportIndividuels = (props) => {
         <Container className="themed-container">
           <Row className="mx-5">
             <Col className =" mt-3 " sm={{offset : 2}} >
-              <CardGenerator tabs = {"athlétisme.jpg"} title = {"Athlétisme"} link = {"./SportsIndividuels"}/>
+              <CardGenerator tabs = {"athlétisme.jpg"} title = {"Athlétisme"}/>
             </Col>
             <Col className =" mt-3">
               <CardGenerator tabs = {"boxe.jpg"} title = {"Boxe anglaise"} />
@@ -72,15 +72,6 @@ const SportIndividuels = (props) => {
         </Container>
       </div>
     )
-  }else if(width){
-    return (
-      <p>
-        salam
-      </p>
-    )
   }
 }
-
-  export default SportIndividuels;
-
-  /** dimenension ==> >,1024,768,450,< */
+export default SportIndividuels;

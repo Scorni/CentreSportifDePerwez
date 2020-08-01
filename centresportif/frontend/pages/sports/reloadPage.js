@@ -1,19 +1,23 @@
-import React,{useEffect, useState } from "react";
-import Sportsindividuel from "../../components/sports/category/SportsIndividuelsListe";
+import React,{useEffect} from "react";
 import { useRouter } from 'next/router'
 
 
 const reloadPage = props => {
     const router = useRouter();
+    function getUrlParameter(name) {
+      name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+      let regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+      let results = regex.exec(window.location.search);
+      return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+    };
     useEffect(() => {
         if (window.performance) {
           if (performance.navigation.type == 1 ) {
-
-            router.push("./Sportsindividuels")
+            router.push(getUrlParameter('link'))
             
           } 
         }
       })
-      return(<p></p>)
+      return(<p>reloading...</p>)
 }
 export default reloadPage;
