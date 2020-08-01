@@ -14,10 +14,10 @@ const DropDownItemsTabs = [
             "Infrastructure"
     ],
     actualite:[
-            "Actualité Sportives",
+            "Actualités Sportives",
             "Evènements",
-            "Actualité du Centre",
-            "Stage"
+            "Actualités du Centre",
+            "Stages"
     ],
     infos:[
             "Histoire du Centre",
@@ -40,7 +40,7 @@ function objectSort(tabs,cat){
       }
       newList[value] = 
         <DropdownItem key={tabs[index][cat][value]}>
-          <Link href={'/'+linkWithoutSpaceHidden} as={'/'+linkWithoutSpace}>
+          <Link href={'/'+linkWithoutSpaceHidden}>
             <a>{tabs[index][cat][value]}</a>
           </Link>
         </DropdownItem>

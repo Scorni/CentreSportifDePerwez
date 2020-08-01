@@ -4,21 +4,21 @@ import { Container, Row, Col } from 'reactstrap';
 import  useWindowDimensions  from '../../common/WindowsProperties'
 
 /** definir la taille pour la page des sports individuels */
-const SportIndividuels = (props) => {
+const ArtsMartiaux = (props) => {
   const {width,height} = useWindowDimensions();
   
   if(width > 1024){
     
     return (
       <div>
-        <HeadGenerator title={"Sports Individuels"} />
+        <HeadGenerator title={"Arts Martiaux"} />
         <Container className="themed-container">
           <Row className="mx-5">
             <Col className =" mt-3 " sm={{offset : 2}} >
-              <CardGenerator tabs = {"athlétisme.jpg"} title = {"Athlétisme"}/>
+              <CardGenerator tabs = {"boxe.jpg"} title = {"Athlétisme"}/>
             </Col>
             <Col className =" mt-3">
-              <CardGenerator tabs = {"boxe.jpg"} title = {"Boxe anglaise"} />
+              <CardGenerator tabs = {"athlétisme.jpg"} title = {"Boxe anglaise"} />
             </Col>
           </Row>
         </Container>
@@ -74,4 +74,4 @@ const SportIndividuels = (props) => {
     )
   }
 }
-export default SportIndividuels;
+export default ArtsMartiaux;
