@@ -30,8 +30,7 @@ export function CardGenerator({tabs,title}) {
     useEffect(() => {
       if (window.performance) {
         if (performance.navigation.type == 1) {
-          if(document.getElementById('tinyCard')){
-            if(document.getElementById('tinyCard').contains(document.getElementById('defaultTitle')))
+          if(document.getElementById('reload')){
               console.log(window.location.pathname)
               router.push('./reloadPage?link='+window.location.pathname);          
           }
@@ -66,12 +65,11 @@ export function CardGenerator({tabs,title}) {
           style={{backgroundImage: "url("+ "../../../static/img/"+tabs +")"}}
           >
             <div className = {"textAnimatedDiv"}>
-              <h3>{title}</h3>
+              <h3 id="BigTitle">{title}</h3>
             </div>
           </animated.div>
         )
       }else if(width > 450){
-        /** trouver une soluce car les headers ne rentrent pas comme papa dans maman */
         return(
           <animated.div 
           key= {tabs}
@@ -79,12 +77,11 @@ export function CardGenerator({tabs,title}) {
           style={{backgroundImage: "url("+ "../../../static/img/"+tabs +")"}}
           >
             <div className = {"textAnimatedDivTiny"}>
-              <p>{title}</p>
+              <p id="normalTitle">{title}</p>
             </div>
           </animated.div>
         )
-      }else if(width < 50){
-        console.log("petit")
+      }else if(width > 50){
         return(
           <animated.div 
           id ={"tinyCard"}
@@ -93,9 +90,15 @@ export function CardGenerator({tabs,title}) {
           style={{backgroundImage: "url("+ "../../../static/img/"+tabs +")"}}
           >
             <div className = {"textAnimatedDivTiny"}>
-              <p>petit</p>
+              <p>{title}</p>
             </div>
           </animated.div>
+        )
+      }
+      else if(width < 50){
+        console.log("petit")
+        return(
+          <div id= "reload"></div>
         )
       }
       else if(width ==0){
@@ -107,4 +110,6 @@ export function CardGenerator({tabs,title}) {
       }
 }
 
-/** ajout de conditions en fonction du width de l'écran (taille des images et animation ou non) */
+/** ajout de conditions en fonction du width de l'écran (taille des images et animation ou non) 
+ * Resoudre pour 450 width
+*/
