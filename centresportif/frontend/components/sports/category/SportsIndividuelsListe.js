@@ -1,4 +1,4 @@
-import React, { useEffect }  from 'react';
+import React, { useEffect, useState }  from 'react';
 import {HeadGenerator,CardGenerator} from './Generator';
 import { Container, Row, Col } from 'reactstrap';
 import  useWindowDimensions  from '../../common/WindowsProperties'
@@ -6,22 +6,19 @@ import  useWindowDimensions  from '../../common/WindowsProperties'
 /** definir la taille pour la page des sports individuels */
 const SportIndividuels = (props) => {
   const {width,height} = useWindowDimensions();
-
-  useEffect(() => {
-    console.log("it works");
-  })
+  
   if(width > 1024){
     
     return (
       <div>
-        <HeadGenerator />
+        <HeadGenerator title={"Sports Individuels"} />
         <Container className="themed-container">
           <Row className="mx-5">
             <Col className =" mt-3 " sm={{offset : 2}} >
-              <CardGenerator tabs = {"athlétisme.jpg"} title = {"Athlétisme"} />
+              <CardGenerator tabs = {"athlétisme.jpg"} title = {"Athlétisme"} link = {"./SportsIndividuels"}/>
             </Col>
             <Col className =" mt-3">
-              <CardGenerator tabs = {"boxe.jpg"} title = {"Boxe anglaise"}/>
+              <CardGenerator tabs = {"boxe.jpg"} title = {"Boxe anglaise"} />
             </Col>
           </Row>
         </Container>
