@@ -1,5 +1,5 @@
 import React, { useEffect }  from 'react';
-import {CardGenerator} from './Generator';
+import {HeadGenerator,CardGenerator} from './Generator';
 import { Container, Row, Col } from 'reactstrap';
 import  useWindowDimensions  from '../../common/WindowsProperties'
 
@@ -13,55 +13,67 @@ const SportIndividuels = (props) => {
   if(width > 1024){
     
     return (
-      <Container className="themed-container">
-        <Row className="mx-5">
-          <Col className =" mt-3 " sm={{offset : 2}} >
-            <CardGenerator tabs = {"athlétisme.jpg"} title = {"Athlétisme"} />
-          </Col>
-          <Col className =" mt-3">
-            <CardGenerator tabs = {"boxe.jpg"} title = {"Boxe anglaise"}/>
-          </Col>
-        </Row>
-      </Container>
+      <div>
+        <HeadGenerator />
+        <Container className="themed-container">
+          <Row className="mx-5">
+            <Col className =" mt-3 " sm={{offset : 2}} >
+              <CardGenerator tabs = {"athlétisme.jpg"} title = {"Athlétisme"} />
+            </Col>
+            <Col className =" mt-3">
+              <CardGenerator tabs = {"boxe.jpg"} title = {"Boxe anglaise"}/>
+            </Col>
+          </Row>
+        </Container>
+      </div>
     )
   }else if(width > 768){
     return (
-      <Container className="themed-container">
-      <Row className="mx-auto">
-        <Col className =" mt-3" sm={{offset : 2}} >
-          <CardGenerator tabs = {"athlétisme.jpg"} title = {"Athlétisme"}/>
-        </Col>
-        <Col className =" mt-3">
-          <CardGenerator tabs = {"boxe.jpg"} title = {"Boxe anglaise"}/>
-        </Col>
-      </Row>
-    </Container>
+      <div>
+        <HeadGenerator />
+        <Container className="themed-container">
+          <Row className="mx-auto">
+            <Col className =" mt-3" sm={{offset : 2}} >
+              <CardGenerator tabs = {"athlétisme.jpg"} title = {"Athlétisme"}/>
+            </Col>
+            <Col className =" mt-3">
+              <CardGenerator tabs = {"boxe.jpg"} title = {"Boxe anglaise"}/>
+            </Col>
+          </Row>
+        </Container>
+      </div>
     )
   }else if(width > 450){
     return (
-      <Container className="themed-container">
-      <Row className="mx-auto">
-        <Col className =" mt-3" sm={{offset : 2}} >
-          <CardGenerator tabs = {"athlétisme.jpg"} title = {"Athlétisme"}/>
-        </Col>
-        <Col className =" mt-3">
-          <CardGenerator tabs = {"boxe.jpg"} title = {"Boxe anglaise"}/>
-        </Col>
-      </Row>
-    </Container>
+      <div>
+        <HeadGenerator />
+        <Container className="themed-container">
+          <Row className="mx-auto">
+            <Col className =" mt-3" sm={{offset : 2}} >
+              <CardGenerator tabs = {"athlétisme.jpg"} title = {"Athlétisme"}/>
+            </Col>
+            <Col className =" mt-3">
+              <CardGenerator tabs = {"boxe.jpg"} title = {"Boxe anglaise"}/>
+            </Col>
+          </Row>
+        </Container>
+      </div>
     )
   }else if(width < 450){
     return (
-      <Container className="themed-container">
-      <Row className="mx-auto">
-        <Col className =" mt-3" >
-          <CardGenerator tabs = {"athlétisme.jpg"} title = {"Athlétisme"}/>
-        </Col>
-        <Col className =" mt-3">
-          <CardGenerator tabs = {"boxe.jpg"} title = {"Boxe anglaise"}/>
-        </Col>
-      </Row>
-    </Container>
+      <div>
+        <HeadGenerator />
+        <Container className="themed-container">
+          <Row className="mx-auto">
+            <Col className =" mt-3" >
+              <CardGenerator tabs = {"athlétisme.jpg"} title = {"Athlétisme"}/>
+            </Col>
+            <Col className =" mt-3">
+              <CardGenerator tabs = {"boxe.jpg"} title = {"Boxe anglaise"}/>
+            </Col>
+          </Row>
+        </Container>
+      </div>
     )
   }else if(width){
     return (
