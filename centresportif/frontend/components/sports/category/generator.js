@@ -32,7 +32,7 @@ export function CardGenerator({tabs,title}) {
         if (performance.navigation.type == 1) {
           if(document.getElementById('reload')){
               console.log(window.location.pathname)
-              router.push('./reloadPage?link='+window.location.pathname);          
+              router.push('./ReloadPage?link='+window.location.pathname);          
           }
         }
       }
@@ -101,7 +101,3 @@ export function CardGenerator({tabs,title}) {
         )
       }
 }
-
-/** ajout de conditions en fonction du width de l'écran (taille des images et animation ou non) 
- * Resoudre pour 450 width
-*/
