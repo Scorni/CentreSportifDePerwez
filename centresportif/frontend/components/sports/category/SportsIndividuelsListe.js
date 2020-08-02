@@ -40,7 +40,7 @@ const SportIndividuels = (props) => {
         </Container>
       </div>
     )
-  }else if(width > 450){
+  }else if(width > 449){
     return (
       <div>
         <HeadGenerator />

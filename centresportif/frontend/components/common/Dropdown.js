@@ -7,7 +7,7 @@ const DropDownItemsTabs = [
     sports:["Sports individuels",
             "Sports collectifs",
             "Arts martiaux",
-            "Sports de raquette",
+            "Sports de raquettes",
             "Gymnastique",
             "Danse",
             "Multisports",

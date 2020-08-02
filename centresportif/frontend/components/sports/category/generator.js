@@ -69,7 +69,7 @@ export function CardGenerator({tabs,title}) {
             </div>
           </animated.div>
         )
-      }else if(width > 450){
+      }else if(width > 449){
         return(
           <animated.div 
           key= {tabs}
@@ -77,7 +77,7 @@ export function CardGenerator({tabs,title}) {
           style={{backgroundImage: "url("+ "../../../static/img/"+tabs +")"}}
           >
             <div className = {"textAnimatedDivTiny"}>
-              <p id="normalTitle">{title}</p>
+              <p className = {"textInside"}>{title}</p>
             </div>
           </animated.div>
         )
@@ -90,22 +90,14 @@ export function CardGenerator({tabs,title}) {
           style={{backgroundImage: "url("+ "../../../static/img/"+tabs +")"}}
           >
             <div className = {"textAnimatedDivTiny"}>
-              <p>{title}</p>
+              <p className = {"textInside"}>{title}</p>
             </div>
           </animated.div>
         )
       }
       else if(width < 50){
-        console.log("petit")
         return(
           <div id= "reload"></div>
-        )
-      }
-      else if(width ==0){
-        return(
-          <p>
-            salam
-          </p>
         )
       }
 }

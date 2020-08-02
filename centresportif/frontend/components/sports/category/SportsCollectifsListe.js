@@ -1,32 +1,29 @@
-import React, { useEffect, useState }  from 'react';
+import React  from 'react';
 import {HeadGenerator,CardGenerator} from './Generator';
 import { Container, Row, Col } from 'reactstrap';
 import  useWindowDimensions  from '../../common/WindowsProperties'
 
 /** definir la taille pour la page des sports individuels */
-const ArtsMartiaux = (props) => {
+const SportsCollectifs = (props) => {
   const {width,height} = useWindowDimensions();
   
   if(width > 1024){
     
     return (
       <div>
-        <HeadGenerator title={"Arts Martiaux"} />
+        <HeadGenerator title={"Sports Collectifs"} />
         <Container className="themed-container">
           <Row className="mx-5">
             <Col className =" mt-3 " sm={{offset : 2}} >
-              <CardGenerator tabs = {"judo.jpg"} title = {"Judo"}/>
+              <CardGenerator tabs = {"Volleyball.jpg"} title = {"Volley-ball"}/>
             </Col>
             <Col className =" mt-3">
-              <CardGenerator tabs = {"jujutsu.jpg"} title = {"Ju-jutsu"} />
+              <CardGenerator tabs = {"handball.jpg"} title = {"Handball"} />
             </Col>
           </Row>
           <Row className="mx-5">
-            <Col className =" mt-3 " sm={{offset : 2}} >
-              <CardGenerator tabs = {"taekwendo.jpg"} title = {"Taekwendo"}/>
-            </Col>
-            <Col className =" mt-3">
-              <CardGenerator tabs = {"kravmaga.jpg"} title = {"Krav-maga"} />
+            <Col className =" mt-3 " sm={{offset : 4}} >
+              <CardGenerator tabs = {"football.jpg"} title = {"Football"}/>
             </Col>
           </Row>
         </Container>
@@ -39,18 +36,15 @@ const ArtsMartiaux = (props) => {
         <Container className="themed-container">
           <Row className="mx-auto">
             <Col className =" mt-3" sm={{offset : 2}} >
-              <CardGenerator tabs = {"judo.jpg"} title = {"Judo"}/>
+              <CardGenerator tabs = {"Volleyball.jpg"} title = {"Volley-ball"}/>
             </Col>
             <Col className =" mt-3">
-              <CardGenerator tabs = {"jujutsu.jpg"} title = {"Ju-jutsu"}/>
+              <CardGenerator tabs = {"handball.jpg"} title = {"Handball"}/>
             </Col>
           </Row>
           <Row className="mx-auto">
-            <Col className =" mt-3" sm={{offset : 2}} >
-              <CardGenerator tabs = {"taekwendo.jpg"} title = {"Taekwendo"}/>
-            </Col>
-            <Col className =" mt-3">
-              <CardGenerator tabs = {"kravmaga.jpg"} title = {"Krav-maga"}/>
+            <Col className =" mt-3" sm={{offset : 4}} >
+              <CardGenerator tabs = {"football.jpg"} title = {"Football"}/>
             </Col>
           </Row>
         </Container>
@@ -63,18 +57,15 @@ const ArtsMartiaux = (props) => {
         <Container className="themed-container">
           <Row className="mx-auto">
             <Col className =" mt-3" sm={{offset : 2}} >
-              <CardGenerator tabs = {"judo.jpg"} title = {"Judo"}/>
+              <CardGenerator tabs = {"Volleyball.jpg"} title = {"Volley-ball"}/>
             </Col>
             <Col className =" mt-3">
-              <CardGenerator tabs = {"jujutsu.jpg"} title = {"Ju-jutsu"}/>
+              <CardGenerator tabs = {"handball.jpg"} title = {"Handball"}/>
             </Col>
           </Row>
           <Row className="mx-auto">
-            <Col className =" mt-3" sm={{offset : 2}} >
-              <CardGenerator tabs = {"taekwendo.jpg"} title = {"Taekwendo"}/>
-            </Col>
-            <Col className =" mt-3">
-              <CardGenerator tabs = {"kravmaga.jpg"} title = {"Krav-maga"}/>
+            <Col className =" mt-3" sm={{offset : 4}} >
+              <CardGenerator tabs = {"football.jpg"} title = {"Football"}/>
             </Col>
           </Row>
         </Container>
@@ -87,18 +78,15 @@ const ArtsMartiaux = (props) => {
         <Container className="themed-container">
           <Row className="mx-auto">
             <Col className =" mt-3" >
-              <CardGenerator tabs = {"judo.jpg"} title = {"Judo"}/>
+              <CardGenerator tabs = {"Volleyball.jpg"} title = {"Volley-ball"}/>
             </Col>
-            <Col className =" mt-3">
-              <CardGenerator tabs = {"jujutsu.jpg"} title = {"Ju-jutsu"}/>
+            <Col className =" mt-3" >
+              <CardGenerator tabs = {"handball.jpg"} title = {"Handball"}/>
             </Col>
           </Row>
           <Row className="mx-auto">
             <Col className =" mt-3" >
-              <CardGenerator tabs = {"taekwendo.jpg"} title = {"Taekwendo"}/>
-            </Col>
-            <Col className =" mt-3">
-              <CardGenerator tabs = {"kravmaga.jpg"} title = {"Krav-maga"}/>
+              <CardGenerator tabs = {"football.jpg"} title = {"Football"}/>
             </Col>
           </Row>
         </Container>
@@ -106,4 +94,4 @@ const ArtsMartiaux = (props) => {
     )
   }
 }
-export default ArtsMartiaux;
+export default SportsCollectifs;

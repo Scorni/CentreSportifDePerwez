@@ -1,0 +1,1 @@
+Computer size : 400x100
