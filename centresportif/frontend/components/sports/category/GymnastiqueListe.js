@@ -3,12 +3,10 @@ import {HeadGenerator,CardGenerator} from './Generator';
 import { Container, Row, Col } from 'reactstrap';
 import  useWindowDimensions  from '../../common/WindowsProperties'
 
-/** definir la taille pour la page des sports individuels */
 const Gymnastique = (props) => {
   const {width,height} = useWindowDimensions();
   
   if(width > 1024){
-    
     return (
       <div>
         <HeadGenerator title={"Gymnastique"} />

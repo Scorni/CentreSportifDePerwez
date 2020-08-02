@@ -3,7 +3,7 @@ import Sportsindividuel from "../../components/sports/category/SportsIndividuels
 
 const Sports = props => (
     <div>    
-                    <Sportsindividuel></Sportsindividuel>
+        <Sportsindividuel></Sportsindividuel>
     </div>
 )
 export default Sports;

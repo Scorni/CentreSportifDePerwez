@@ -1,9 +1,8 @@
-import React, { useEffect, useState }  from 'react';
+import React from 'react';
 import {HeadGenerator,CardGenerator} from './Generator';
 import { Container, Row, Col } from 'reactstrap';
 import  useWindowDimensions  from '../../common/WindowsProperties'
 
-/** definir la taille pour la page des sports individuels */
 const ArtsMartiaux = (props) => {
   const {width,height} = useWindowDimensions();
   

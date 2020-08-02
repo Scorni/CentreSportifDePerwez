@@ -3,7 +3,7 @@ import ArtsMartiaux from "../../components/sports/category/ArtsMartiauxListe"
 
 const Sports = props => (
     <div>    
-                    <ArtsMartiaux></ArtsMartiaux>
+        <ArtsMartiaux></ArtsMartiaux>
     </div>
 )
 export default Sports;

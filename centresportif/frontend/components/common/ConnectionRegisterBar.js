@@ -60,9 +60,6 @@ import {  Collapse,
                             <MyModal buttonLabel="S'enregistrer"></MyModal>
                         </NavItem>
                     </Nav>
-                    
- 
-                    
                 </Collapse>
             </Navbar>
         </div>
