@@ -1,9 +1,9 @@
 import React from "react";
-import Sportsindividuel from "../../components/sports/category/SportsIndividuelsListe"
+import Multisports from "../../components/sports/category/MultisportsListe"
 
 const Sports = props => (
     <div>    
-        <Sportsindividuel></Sportsindividuel>
+        <Multisports></Multisports>
     </div>
 )
 export default Sports;

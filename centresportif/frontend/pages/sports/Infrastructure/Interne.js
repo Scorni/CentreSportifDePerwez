@@ -1,9 +1,9 @@
 import React from "react";
-import Danse from "../../components/sports/category/DanseListe"
+import Interne from "../../../components/sports/Infrastructure/Interne"
 
 const Sports = props => (
     <div>    
-        <Danse></Danse>
+        <Interne></Interne>
     </div>
 )
 export default Sports;

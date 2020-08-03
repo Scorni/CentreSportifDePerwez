@@ -13,15 +13,15 @@ const SportsDeRaquettes = (props) => {
         <Container className="themed-container">
           <Row className="mx-5">
             <Col className =" mt-3 " sm={{offset : 2}} >
-              <CardGenerator tabs = {"tennis.jpg"} title = {"Tennis"}/>
+              <CardGenerator tabs = {"tennis.jpg"} title = {"Tennis"} link ={"Tennis"}/>
             </Col>
             <Col className =" mt-3">
-              <CardGenerator tabs = {"pingpong.jpg"} title = {"Tennis de Table"} />
+              <CardGenerator tabs = {"pingpong.jpg"} title = {"Tennis de Table"} link ={"TennisDeTable"} />
             </Col>
           </Row>
           <Row className="mx-5">
             <Col className =" mt-3 " sm={{offset : 4}} >
-              <CardGenerator tabs = {"badminton.jpg"} title = {"Badminton"}/>
+              <CardGenerator tabs = {"badminton.jpg"} title = {"Badminton"} link ={"Badminton"}/>
             </Col>
           </Row>
         </Container>
@@ -34,15 +34,15 @@ const SportsDeRaquettes = (props) => {
         <Container className="themed-container">
           <Row className="mx-auto">
             <Col className =" mt-3" sm={{offset : 2}} >
-              <CardGenerator tabs = {"tennis.jpg"} title = {"Tennis"}/>
+              <CardGenerator tabs = {"tennis.jpg"} title = {"Tennis"} link ={"Tennis"}/>
             </Col>
             <Col className =" mt-3">
-              <CardGenerator tabs = {"pingpong.jpg"} title = {"Tennis de Table"}/>
+              <CardGenerator tabs = {"pingpong.jpg"} title = {"Tennis de Table"} link ={"TennisDeTable"}/>
             </Col>
           </Row>
           <Row className="mx-auto">
             <Col className =" mt-3" sm={{offset : 4}} >
-              <CardGenerator tabs = {"badminton.jpg"} title = {"Badminton"}/>
+              <CardGenerator tabs = {"badminton.jpg"} title = {"Badminton"} link ={"Badminton"}/>
             </Col>
           </Row>
         </Container>
@@ -55,15 +55,15 @@ const SportsDeRaquettes = (props) => {
         <Container className="themed-container">
           <Row className="mx-auto">
             <Col className =" mt-3" sm={{offset : 2}} >
-              <CardGenerator tabs = {"tennis.jpg"} title = {"Tennis"}/>
+              <CardGenerator tabs = {"tennis.jpg"} title = {"Tennis"} link ={"Tennis"}/>
             </Col>
             <Col className =" mt-3">
-              <CardGenerator tabs = {"pingpong.jpg"} title = {"Tennis de Table"}/>
+              <CardGenerator tabs = {"pingpong.jpg"} title = {"Tennis de Table"} link ={"TennisDeTable"}/>
             </Col>
           </Row>
           <Row className="mx-auto">
             <Col className =" mt-3" sm={{offset : 4}} >
-              <CardGenerator tabs = {"badminton.jpg"} title = {"Badminton"}/>
+              <CardGenerator tabs = {"badminton.jpg"} title = {"Badminton"} link ={"Badminton"}/>
             </Col>
           </Row>
         </Container>
@@ -76,15 +76,15 @@ const SportsDeRaquettes = (props) => {
         <Container className="themed-container">
           <Row className="mx-auto">
             <Col className =" mt-3" >
-              <CardGenerator tabs = {"tennis.jpg"} title = {"Tennis"}/>
+              <CardGenerator tabs = {"tennis.jpg"} title = {"Tennis"} link ={"Tennis"}/>
             </Col>
             <Col className =" mt-3" >
-              <CardGenerator tabs = {"pingpong.jpg"} title = {"Tennis de Table"}/>
+              <CardGenerator tabs = {"pingpong.jpg"} title = {"Tennis de Table"} link ={"TennisDeTable"}/>
             </Col>
           </Row>
           <Row className="mx-auto">
             <Col className =" mt-3" >
-              <CardGenerator tabs = {"badminton.jpg"} title = {"Badminton"}/>
+              <CardGenerator tabs = {"badminton.jpg"} title = {"Badminton"} link ={"Badminton"}/>
             </Col>
           </Row>
         </Container>

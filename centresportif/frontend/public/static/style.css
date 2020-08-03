@@ -82,11 +82,19 @@ body,
   color: white;
   opacity: 0.7;
 }
+.cardLink{
+  color: white;
+}
+.cardLink:hover{
+  color: white;
+  text-decoration: white underline;
+}
 .textInside {
   text-align: center;
+  color: white;
 }
 .headGenerator{
   text-align: center;
-  
 }
+
 

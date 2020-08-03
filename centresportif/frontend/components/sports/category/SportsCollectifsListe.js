@@ -13,15 +13,15 @@ const SportsCollectifs = (props) => {
         <Container className="themed-container">
           <Row className="mx-5">
             <Col className =" mt-3 " sm={{offset : 2}} >
-              <CardGenerator tabs = {"Volleyball.jpg"} title = {"Volley-ball"}/>
+              <CardGenerator tabs = {"Volleyball.jpg"} title = {"Volley-ball"} link ={"Volleyball"}/>
             </Col>
             <Col className =" mt-3">
-              <CardGenerator tabs = {"handball.jpg"} title = {"Handball"} />
+              <CardGenerator tabs = {"handball.jpg"} title = {"Handball"} link ={"Handball"}/>
             </Col>
           </Row>
           <Row className="mx-5">
             <Col className =" mt-3 " sm={{offset : 4}} >
-              <CardGenerator tabs = {"football.jpg"} title = {"Football"}/>
+              <CardGenerator tabs = {"football.jpg"} title = {"Football"} link ={"Football"}/>
             </Col>
           </Row>
         </Container>
@@ -30,19 +30,19 @@ const SportsCollectifs = (props) => {
   }else if(width > 768){
     return (
       <div>
-        <HeadGenerator />
+        <HeadGenerator title={"Sports Collectifs"}/>
         <Container className="themed-container">
           <Row className="mx-auto">
             <Col className =" mt-3" sm={{offset : 2}} >
-              <CardGenerator tabs = {"Volleyball.jpg"} title = {"Volley-ball"}/>
+              <CardGenerator tabs = {"Volleyball.jpg"} title = {"Volley-ball"} link ={"Volleyball"}/>
             </Col>
             <Col className =" mt-3">
-              <CardGenerator tabs = {"handball.jpg"} title = {"Handball"}/>
+              <CardGenerator tabs = {"handball.jpg"} title = {"Handball"} link ={"Handball"}/>
             </Col>
           </Row>
           <Row className="mx-auto">
             <Col className =" mt-3" sm={{offset : 4}} >
-              <CardGenerator tabs = {"football.jpg"} title = {"Football"}/>
+              <CardGenerator tabs = {"football.jpg"} title = {"Football"} link ={"Football"}/>
             </Col>
           </Row>
         </Container>
@@ -51,19 +51,19 @@ const SportsCollectifs = (props) => {
   }else if(width > 450){
     return (
       <div>
-        <HeadGenerator />
+        <HeadGenerator title={"Sports Collectifs"}/>
         <Container className="themed-container">
           <Row className="mx-auto">
             <Col className =" mt-3" sm={{offset : 2}} >
-              <CardGenerator tabs = {"Volleyball.jpg"} title = {"Volley-ball"}/>
+              <CardGenerator tabs = {"Volleyball.jpg"} title = {"Volley-ball"} link ={"Volleyball"}/>
             </Col>
             <Col className =" mt-3">
-              <CardGenerator tabs = {"handball.jpg"} title = {"Handball"}/>
+              <CardGenerator tabs = {"handball.jpg"} title = {"Handball"} link ={"Handball"}/>
             </Col>
           </Row>
           <Row className="mx-auto">
             <Col className =" mt-3" sm={{offset : 4}} >
-              <CardGenerator tabs = {"football.jpg"} title = {"Football"}/>
+              <CardGenerator tabs = {"football.jpg"} title = {"Football"} link ={"Football"}/>
             </Col>
           </Row>
         </Container>
@@ -72,19 +72,19 @@ const SportsCollectifs = (props) => {
   }else if(width < 450){
     return (
       <div>
-        <HeadGenerator />
+        <HeadGenerator title={"Sports Collectifs"}/>
         <Container className="themed-container">
           <Row className="mx-auto">
             <Col className =" mt-3" >
-              <CardGenerator tabs = {"Volleyball.jpg"} title = {"Volley-ball"}/>
+              <CardGenerator tabs = {"Volleyball.jpg"} title = {"Volley-ball"} link ={"Volleyball"}/>
             </Col>
             <Col className =" mt-3" >
-              <CardGenerator tabs = {"handball.jpg"} title = {"Handball"}/>
+              <CardGenerator tabs = {"handball.jpg"} title = {"Handball"} link ={"Handball"}/>
             </Col>
           </Row>
           <Row className="mx-auto">
             <Col className =" mt-3" >
-              <CardGenerator tabs = {"football.jpg"} title = {"Football"}/>
+              <CardGenerator tabs = {"football.jpg"} title = {"Football"} link ={"Football"}/>
             </Col>
           </Row>
         </Container>
