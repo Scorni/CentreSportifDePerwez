@@ -9,14 +9,14 @@ const SportIndividuels = (props) => {
   if(width > 1024){
     return (
       <div>
-        <HeadGenerator title={"Sports Individuels"} />
+        <HeadGenerator title={"Infrastructure"} />
         <Container className="themed-container">
           <Row className="mx-5">
             <Col className =" mt-3 " sm={{offset : 2}} >
-              <CardGenerator tabs = {"athlétisme.jpg"} title = {"Athlétisme"} link ={"Athlétisme"}/>
+              <CardGenerator tabs = {"Infrastructure/interne.jpg"} title = {"Interne"} link ={"Interne"}/>
             </Col>
             <Col className =" mt-3">
-              <CardGenerator tabs = {"boxe.jpg"} title = {"Boxe anglaise"} link ={"BoxeAnglaise"}/>
+              <CardGenerator tabs = {"Infrastructure/externe.jpg"} title = {"Externe"} link ={"Externe"}/>
             </Col>
           </Row>
         </Container>
@@ -25,14 +25,14 @@ const SportIndividuels = (props) => {
   }else if(width > 768){
     return (
       <div>
-        <HeadGenerator title={"Sports Individuels"}/>
+        <HeadGenerator title={"Infrastructure"}/>
         <Container className="themed-container">
           <Row className="mx-auto">
             <Col className =" mt-3" sm={{offset : 2}} >
-              <CardGenerator tabs = {"athlétisme.jpg"} title = {"Athlétisme"} link ={"Athlétisme"}/>
+              <CardGenerator tabs = {"Infrastructure/interne.jpg"} title = {"Interne"} link ={"Interne"}/>
             </Col>
             <Col className =" mt-3">
-              <CardGenerator tabs = {"boxe.jpg"} title = {"Boxe anglaise"} link ={"BoxeAnglaise"}/>
+              <CardGenerator tabs = {"Infrastructure/externe.jpg"} title = {"Externe"} link ={"Externe"}/>
             </Col>
           </Row>
         </Container>
@@ -41,14 +41,14 @@ const SportIndividuels = (props) => {
   }else if(width > 449){
     return (
       <div>
-        <HeadGenerator title={"Sports Individuels"}/>
+        <HeadGenerator title={"Infrastructure"}/>
         <Container className="themed-container">
           <Row className="mx-auto">
             <Col className =" mt-3" sm={{offset : 2}} >
-              <CardGenerator tabs = {"athlétisme.jpg"} title = {"Athlétisme"} link ={"Athlétisme"}/>
+              <CardGenerator tabs = {"Infrastructure/interne.jpg"} title = {"Interne"} link ={"Interne"}/>
             </Col>
             <Col className =" mt-3">
-              <CardGenerator tabs = {"boxe.jpg"} title = {"Boxe anglaise"} link ={"BoxeAnglaise"}/>
+              <CardGenerator tabs = {"Infrastructure/externe.jpg"} title = {"Externe"} link ={"Externe"}/>
             </Col>
           </Row>
         </Container>
@@ -57,14 +57,14 @@ const SportIndividuels = (props) => {
   }else if(width < 450){
     return (
       <div>
-        <HeadGenerator title={"Sports Individuels"}/>
+        <HeadGenerator title={"Infrastructure"}/>
         <Container className="themed-container">
           <Row className="mx-auto">
             <Col className =" mt-3" >
-              <CardGenerator tabs = {"athlétisme.jpg"} title = {"Athlétisme"} link ={"Athlétisme"}/>
+              <CardGenerator tabs = {"Infrastructure/interne.jpg"} title = {"Interne"} link ={"Interne"}/>
             </Col>
             <Col className =" mt-3">
-              <CardGenerator tabs = {"boxe.jpg"} title = {"Boxe anglaise"} link ={"BoxeAnglaise"}/>
+              <CardGenerator tabs = {"Infrastructure/externe.jpg"} title = {"Externe"} link ={"Externe"}/>
             </Col>
           </Row>
         </Container>

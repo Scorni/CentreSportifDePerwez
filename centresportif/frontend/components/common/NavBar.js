@@ -5,19 +5,12 @@ import {  Collapse,
     NavbarBrand,
     Nav,
     NavItem,
-    NavLink,
-    NavbarText,
     Button, 
-    Modal, 
-    ModalHeader, 
-    ModalBody, 
-    ModalFooter } from 'reactstrap';
+} from 'reactstrap';
 
 import MyDropdown from './Dropdown';
 import { FaHome } from 'react-icons/fa';
 import Link from "next/link";
-import styled from 'styled-components';
-import { Dropdown,DropdownToggle, DropdownMenu, DropdownItem  } from 'reactstrap';
 
 const MyNavbar = (props) => {
     const [isOpen, setIsOpen] = useState(false);

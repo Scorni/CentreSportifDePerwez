@@ -7,7 +7,7 @@ const DropDownItemsTabs = [
     sports:["Sports individuels",
             "Sports collectifs",
             "Arts martiaux",
-            "Sports de raquette",
+            "Sports de raquettes",
             "Gymnastique",
             "Danse",
             "Multisports",
@@ -50,7 +50,6 @@ function objectSort(tabs,cat){
 }
 const MyDropdown = (props) => {
   const [isOpen, updateIsOpen] = useState(false);
-
   return (
     <Dropdown
         {...props}

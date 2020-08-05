@@ -76,13 +76,9 @@ const MyCarousel = () => {
               <a style={{color: "white"}}>Réservation</a>
             </Link>
           </MDBCarouselCaption>
-
         </MDBCarouselItem>
       </MDBCarouselInner>
     </MDBCarousel>
-    
-      
-    
   );
 }
 
