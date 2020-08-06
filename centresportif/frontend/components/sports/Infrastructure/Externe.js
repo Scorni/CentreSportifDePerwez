@@ -148,7 +148,7 @@ export default function Externe() {
                 </Typography>
                 <Typography variant="body1"  component="p">
                   -Barre de tractions,barre de dips,planche pour abdominaux,etc.<br/>
-                  -Engin de réeduction et de mise en forme.<br/>
+                  -Engin de réeducation et de mise en forme.<br/>
                 </Typography>
               </CardContent>
             </CardActionArea>
