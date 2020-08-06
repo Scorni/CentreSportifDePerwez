@@ -69,7 +69,7 @@ export function CardGenerator({tabs,title,link}) {
           style={{backgroundImage: "url("+ "../../../static/img/"+tabs +")"}}
           >
             <div className = {"textAnimatedDiv"}>
-              <Link href={'/'} >
+              <Link href={window.location.pathname +'/'+ link} >
                 <a className="cardLink">
                   <h3>{title}</h3>
                 </a>
@@ -85,7 +85,7 @@ export function CardGenerator({tabs,title,link}) {
           style={{backgroundImage: "url("+ "../../../static/img/"+tabs +")"}}
           >
             <div className = {"textAnimatedDivTiny"}>
-              <Link href={'/'}>
+              <Link href={window.location.pathname +'/'+ link}>
                 <a className="cardLink">
                   <p className = {"textInside"}>{title}</p>
                 </a>
@@ -102,7 +102,7 @@ export function CardGenerator({tabs,title,link}) {
           style={{backgroundImage: "url("+ "../../../static/img/"+tabs +")"}}
           >
             <div className = {"textAnimatedDivTiny"}>
-              <Link href={'/'}>
+              <Link href={window.location.pathname +'/'+ link}>
                 <a className="cardLink">
                   <p className = {"textInside"}>{title}</p>
                 </a>
