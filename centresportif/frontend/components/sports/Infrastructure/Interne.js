@@ -34,7 +34,7 @@ export default function interne() {
               
               image="../../../static/img/Infrastructure/interne.jpg"
               title=""
-            ></CardMedia>
+            />
             <CardActionArea>
               <CardContent>
                 <Typography gutterBottom variant="h5" component="h2">
@@ -77,7 +77,7 @@ export default function interne() {
               
               image="../../../static/img/Infrastructure/interne.jpg"
               title=""
-            ></CardMedia>
+            />
             <CardActionArea>
               <CardContent>
                 <Typography gutterBottom variant="h5" component="h2">

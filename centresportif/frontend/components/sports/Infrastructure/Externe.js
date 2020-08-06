@@ -32,7 +32,7 @@ export default function Externe() {
               
               image="../../../static/img/Infrastructure/externe.jpg"
               title=""
-            ></CardMedia>
+            />
             <CardActionArea>
               <CardContent>
                 <Typography gutterBottom variant="h5" component="h2">
@@ -76,7 +76,7 @@ export default function Externe() {
               
               image="../../../static/img/Infrastructure/externe.jpg"
               title=""
-            ></CardMedia>
+            />
             <CardActionArea>
               <CardContent>
                 <Typography gutterBottom variant="h5" component="h2">
