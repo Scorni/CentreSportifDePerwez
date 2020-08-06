@@ -2,13 +2,13 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
-import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
-import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-import { MDBContainer,MDBCarousel, MDBCarouselInner, MDBCarouselItem, MDBView,MDBCarouselCaption } from 'mdbreact';
 import  useWindowDimensions  from '../../common/WindowsProperties'
+import {HeadGenerator} from '../../sports/category/Generator';
+import { Container, Row, Col } from 'reactstrap';
+
 
 
 
@@ -23,29 +23,77 @@ export default function interne() {
   const classes = useStyles();
 
   return (
-    <Card className={classes.root}>
-        <CardMedia
-          component="img"
-          height= {height/2}
-          
-          image="../../../static/img/Infrastructure/Interne.jpg"
-          title="Contemplative Reptile"
-        />
-     
-      <CardActionArea>
-        
-        <CardContent>
-          <Typography gutterBottom variant="h5" component="h2">
-            Infrastructure interne
-          </Typography>
-          <Typography variant="body1"  component="p">
-            Le centre sportif de Perwez met à votre disposition  :
-            <br/>-Une salle omnisports composée de 3 plateaux
-            <br/>-2 salles polyvalentes
-            <br/>-3 terrains de tennis
-          </Typography>
-        </CardContent>
-      </CardActionArea>
-    </Card>
+    <div>
+    <HeadGenerator title={"Infrastructure interne"} />
+    <Container className="themed-container">
+      <Row className="mx-auto">
+        <Col className =" mt-3" >
+          <Card className={classes.root}>
+            <CardMedia
+              component="img"
+              
+              image="../../../static/img/Infrastructure/interne.jpg"
+              title=""
+            />
+            <CardActionArea>
+              <CardContent>
+                <Typography gutterBottom variant="h5" component="h2">
+                  Salle omnisports
+                </Typography>
+                <Typography variant="body1"  component="p">
+                  -Composée de 3 plateaux.<br/>
+                  -revêtement en ... <br/>
+                </Typography>
+              </CardContent>
+            </CardActionArea>
+          </Card>
+        </Col>
+        <Col className =" mt-3">
+          <Card className={classes.root}>
+            <CardMedia
+              component="img"
+              image="../../../static/img/Infrastructure/interne.jpg"
+            />
+            <CardActionArea>
+              <CardContent>
+                <Typography gutterBottom variant="h5" component="h2">
+                  2 salles polyvalentes
+                </Typography>
+                <Typography variant="body1"  component="p">
+                  -possibilité de différent revêtement(ex: tatami).<br/>
+                  -une des 2 salles possédant un miroir.<br/>
+                </Typography>
+              </CardContent>
+            </CardActionArea>
+          </Card>
+        </Col>
+      </Row>
+      <Row className="mx-auto">
+
+      <Col className =" mt-3" >
+          <Card className={classes.root}>
+            <CardMedia
+              component="img"
+              
+              image="../../../static/img/Infrastructure/interne.jpg"
+              title=""
+            />
+            <CardActionArea>
+              <CardContent>
+                <Typography gutterBottom variant="h5" component="h2">
+                  3 terrains de Tennis
+                </Typography>
+                <Typography variant="body1"  component="p">
+                  -Se situant dans le batiment annexe au Centre Sportif de Perwez<br/>
+                  -Le revetement des terrains est constitué de terre battue.<br/>
+                  -Ventilation du terrain.<br/>
+                </Typography>
+              </CardContent>
+            </CardActionArea>
+          </Card>
+        </Col>
+      </Row>
+    </Container>
+  </div>
   );
 }
