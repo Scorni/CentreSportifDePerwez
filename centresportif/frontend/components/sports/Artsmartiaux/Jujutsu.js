@@ -8,7 +8,7 @@ import Typography from '@material-ui/core/Typography';
 import  useWindowDimensions  from '../../common/WindowsProperties';
 import { Container, Row, Col } from 'reactstrap';
 import {HeadGenerator} from '../../sports/category/Generator';
-import { AiOutlinePhone,AiOutlineMail } from 'react-icons/ai';
+import { AiOutlinePhone,AiOutlineMail,AiOutlineFacebook } from 'react-icons/ai';
 import { GiEarthAfricaEurope } from 'react-icons/gi';
 
 
@@ -43,8 +43,10 @@ return (
 
                 Présidence : Frédéric Villers<br/>
                 <AiOutlinePhone className="icon"/> 0496/88.05.63<br/> 
-                <AiOutlineMail className="icon" /><a href='mailto:seishinkyoikuasbl@gmail.com'>  Mail</a><br/>
-                <GiEarthAfricaEurope className="icon"  /><a href='http://www.seishinkyoiku.be'>  Site web</a>
+                <AiOutlineMail className="icon" /><a href='mailto:seishinkyoikuasbl@gmail.com'>  seishinkyoikuasbl@gmail.com</a><br/>
+                <GiEarthAfricaEurope className="icon"  /><a href='http://www.seishinkyoiku.be' target="_blank">  Site web</a><br/>
+                <AiOutlineFacebook className="icon"/><a href="https://www.facebook.com/seishinkyoiku/" target="_blank"> Page Facebook</a>
+
               </Typography>
               
             </CardContent>

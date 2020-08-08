@@ -8,8 +8,9 @@ import Typography from '@material-ui/core/Typography';
 import  useWindowDimensions  from '../../common/WindowsProperties';
 import { Container, Row, Col } from 'reactstrap';
 import {HeadGenerator} from '../../sports/category/Generator';
-import { AiOutlinePhone,AiOutlineMail } from 'react-icons/ai';
+import { AiOutlinePhone,AiOutlineMail,AiOutlineFacebook } from 'react-icons/ai';
 import { GiEarthAfricaEurope } from 'react-icons/gi';
+
 
 
 export default function Judo() {
@@ -46,8 +47,10 @@ return (
                 <AiOutlinePhone className="icon"/> 0473/35.76.88<br/> 
                 Secrétariat : Landry Johan<br/>
                 <AiOutlinePhone className="icon"/> 0476/42.26.53<br/> 
-                <AiOutlineMail className="icon" /><a href='mailto:judoclubthorembais@gmail.com'>  Mail</a><br/>
-                <GiEarthAfricaEurope className="icon"  /><a href='https://judoclubthorembais.be/'>  Site web</a>
+                <AiOutlineMail className="icon" /><a href='mailto:judoclubthorembais@gmail.com'>  judoclubthorembais@gmail.com</a><br/>
+                <GiEarthAfricaEurope className="icon"  /><a href='https://judoclubthorembais.be/' target="_blank">  Site web</a><br/>
+                <AiOutlineFacebook className="icon"/><a href="https://www.facebook.com/groups/169760053047953/" target="_blank"> Page Facebook</a>
+
               </Typography>
               
             </CardContent>
