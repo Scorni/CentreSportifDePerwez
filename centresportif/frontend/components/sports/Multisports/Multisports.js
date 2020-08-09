@@ -51,6 +51,30 @@ return (
           </CardActionArea>
         </Card>
       </Col>
+      <Col className =" mt-3" >
+        <Card className={classes.root}>
+          <CardMedia
+            component="img"
+            
+            image="../../../static/img/Multisports/CopainsDuSport.png"
+          />
+          <CardActionArea>
+            <CardContent>
+              <Typography gutterBottom variant="h5" component="h2">
+              Les Copains Du Sport
+              </Typography>
+              <Typography variant="body1"  component="p">
+                Responsables : Maxim Buts et Anaïs Godeau<br/>
+                <AiOutlinePhone className="icon"/> 0498/06.02.56<br/> 
+                <AiOutlineMail className="icon" /><a href='mailto:lescopainsdusport@hotmail.com'>  lescopainsdusport@hotmail.com</a><br/>
+                <GiEarthAfricaEurope className="icon"  /><a href='http://www.lescopainsdusport.be/' target="_blank">  Site web</a><br/>
+                <AiOutlineFacebook className="icon"/><a href="https://www.facebook.com/LesCopainsDuSport/" target="_blank"> Page Facebook</a>
+              </Typography>
+              
+            </CardContent>
+          </CardActionArea>
+        </Card>
+      </Col>
     </Row> 
   </Container>
 </div>

@@ -8,7 +8,7 @@ import uuidv4 from 'uuid/v4'
 
 
 class MyApp extends App{
-    state = {
+    /**state = {
         isRouteChanging: false,
         loadingKey: null,
       }
@@ -42,12 +42,12 @@ class MyApp extends App{
         router.events.on('routeChangeStart', routeChangeStartHandler)
         router.events.on('routeChangeComplete', routeChangeEndHandler)
         router.events.on('routeChangeError', routeChangeEndHandler)
-      }
+      }*/
     render(){
         const {Component, pageProps} = this.props;
         return (
             <Page>
-                <Loading {...this.state}/>
+                {/*<Loading {...this.state}/> */}
                 <Component {...pageProps}/>
             </Page>
         )
