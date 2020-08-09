@@ -3,7 +3,7 @@ import {HeadGenerator,CardGenerator} from './Generator';
 import { Container, Row, Col } from 'reactstrap';
 import  useWindowDimensions  from '../../common/WindowsProperties'
 
-const SportIndividuels = (props) => {
+const Infrastructure = (props) => {
   const {width,height} = useWindowDimensions();
   
   if(width > 1024){
@@ -72,4 +72,4 @@ const SportIndividuels = (props) => {
     )
   }
 }
-export default SportIndividuels;
+export default Infrastructure;

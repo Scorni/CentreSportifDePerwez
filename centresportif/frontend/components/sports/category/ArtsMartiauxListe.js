@@ -28,6 +28,11 @@ const ArtsMartiaux = (props) => {
               <CardGenerator tabs = {"kravmaga.jpg"} title = {"Krav-maga"} link ={"Kravmaga"}/>
             </Col>
           </Row>
+          <Row className="mx-5">
+            <Col className =" mt-3 " sm={{offset : 4}} >
+              <CardGenerator tabs = {"aikido.jpg"} title = {"Aïkido"} link ={"Aikido"}/>
+            </Col>
+          </Row>
         </Container>
       </div>
     )
@@ -50,6 +55,11 @@ const ArtsMartiaux = (props) => {
             </Col>
             <Col className =" mt-3">
               <CardGenerator tabs = {"kravmaga.jpg"} title = {"Krav-maga"} link ={"Kravmaga"}/>
+            </Col>
+          </Row>
+          <Row className="mx-5">
+            <Col className =" mt-3" sm={{offset : 4}} >
+              <CardGenerator tabs = {"aikido.jpg"} title = {"Aïkido"} link ={"Aikido"}/>
             </Col>
           </Row>
         </Container>
@@ -76,6 +86,11 @@ const ArtsMartiaux = (props) => {
               <CardGenerator tabs = {"kravmaga.jpg"} title = {"Krav-maga"} link ={"Kravmaga"}/>
             </Col>
           </Row>
+          <Row className="mx-auto">
+            <Col className =" mt-3" sm={{offset : 4}}>
+              <CardGenerator tabs = {"aikido.jpg"} title = {"Aïkido"} link ={"Aikido"}/>
+            </Col>
+          </Row>
         </Container>
       </div>
     )
@@ -98,6 +113,11 @@ const ArtsMartiaux = (props) => {
             </Col>
             <Col className =" mt-3">
               <CardGenerator tabs = {"kravmaga.jpg"} title = {"Krav-maga"} link ={"Kravmaga"}/>
+            </Col>
+          </Row>
+          <Row className="mx-auto">
+            <Col className =" mt-3" sm={{offset : 4}}>
+              <CardGenerator tabs = {"aikido.jpg"} title = {"Aïkido"} link ={"Aikido"}/>
             </Col>
           </Row>
         </Container>

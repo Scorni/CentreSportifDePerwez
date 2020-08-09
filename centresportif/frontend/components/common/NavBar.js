@@ -53,6 +53,7 @@ const MyNavbar = (props) => {
                 </Nav>                
             </Collapse>
         </Navbar>
+        
     </div>
   );
 }

@@ -96,5 +96,9 @@ body,
 .headGenerator{
   text-align: center;
 }
+.icon{
+  position: relative;
+  bottom: 2px;
+}
 
 
