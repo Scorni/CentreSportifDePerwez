@@ -7,7 +7,7 @@
 .next
 /.pnp
 .pnp.js
-
+/backend/variable.env
 # testing
 /coverage
 
