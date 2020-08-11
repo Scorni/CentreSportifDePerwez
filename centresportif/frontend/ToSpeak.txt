@@ -1,2 +1,13 @@
+INFRASTRUCTURE
 Description des différentes salles et terrains de l' infrastructure
 Photo des différentes salles et terrains
+
+CLUBS
+Les différents clubs sont-ils bons?
+Les infos sont-elles bonnes?
+Les clubs non trouvés sur google
+-Quality Tennis Developement(logo + info)
+-Aîkido(logo)
+-Relaxation et Respiration(logo + infos)
+-Phenomena(autre logo)
+-2D on stage (logo + infos)

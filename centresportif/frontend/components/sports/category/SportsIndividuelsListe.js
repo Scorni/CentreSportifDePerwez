@@ -5,7 +5,6 @@ import  useWindowDimensions  from '../../common/WindowsProperties'
 
 const SportIndividuels = (props) => {
   const {width,height} = useWindowDimensions();
-  
   if(width > 1024){
     return (
       <div>
@@ -13,7 +12,7 @@ const SportIndividuels = (props) => {
         <Container className="themed-container">
           <Row className="mx-5">
             <Col className =" mt-3 " sm={{offset : 2}} >
-              <CardGenerator tabs = {"athlétisme.jpg"} title = {"Athlétisme"} link ={"Athlétisme"}/>
+              <CardGenerator tabs = {"athlétisme.jpg"} title = {"Athlétisme"} link ={"Athletisme"}/>
             </Col>
             <Col className =" mt-3">
               <CardGenerator tabs = {"boxe.jpg"} title = {"Boxe anglaise"} link ={"BoxeAnglaise"}/>
@@ -29,7 +28,7 @@ const SportIndividuels = (props) => {
         <Container className="themed-container">
           <Row className="mx-auto">
             <Col className =" mt-3" sm={{offset : 2}} >
-              <CardGenerator tabs = {"athlétisme.jpg"} title = {"Athlétisme"} link ={"Athlétisme"}/>
+              <CardGenerator tabs = {"athlétisme.jpg"} title = {"Athlétisme"} link ={"Athletisme"}/>
             </Col>
             <Col className =" mt-3">
               <CardGenerator tabs = {"boxe.jpg"} title = {"Boxe anglaise"} link ={"BoxeAnglaise"}/>
@@ -45,7 +44,7 @@ const SportIndividuels = (props) => {
         <Container className="themed-container">
           <Row className="mx-auto">
             <Col className =" mt-3" sm={{offset : 2}} >
-              <CardGenerator tabs = {"athlétisme.jpg"} title = {"Athlétisme"} link ={"Athlétisme"}/>
+              <CardGenerator tabs = {"athlétisme.jpg"} title = {"Athlétisme"} link ={"Athletisme"}/>
             </Col>
             <Col className =" mt-3">
               <CardGenerator tabs = {"boxe.jpg"} title = {"Boxe anglaise"} link ={"BoxeAnglaise"}/>
@@ -61,7 +60,7 @@ const SportIndividuels = (props) => {
         <Container className="themed-container">
           <Row className="mx-auto">
             <Col className =" mt-3" >
-              <CardGenerator tabs = {"athlétisme.jpg"} title = {"Athlétisme"} link ={"Athlétisme"}/>
+              <CardGenerator tabs = {"athlétisme.jpg"} title = {"Athlétisme"} link ={"Athletisme"}/>
             </Col>
             <Col className =" mt-3">
               <CardGenerator tabs = {"boxe.jpg"} title = {"Boxe anglaise"} link ={"BoxeAnglaise"}/>
