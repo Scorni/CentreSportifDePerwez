@@ -5,49 +5,12 @@ import {  Collapse,
     NavbarBrand,
     Nav,
     NavItem,
-    NavLink,
-    NavbarText,
     Button, 
-    Modal, 
-    ModalHeader, 
-    ModalBody, 
-    ModalFooter } from 'reactstrap';
+} from 'reactstrap';
 
 import MyDropdown from './Dropdown';
 import { FaHome } from 'react-icons/fa';
 import Link from "next/link";
-import styled from 'styled-components';
-
-
-
-const ListSports = [
-    "Sports individuels",
-    "Sports collectifs",   
-    "Arts martiaux",
-    "Sports de raquette",
-    "Gymnastique",
-    "Danse",
-    "Infrastructure",
-]   
-const ListNews = [
-    "Actualité Sportives",
-    "Evènements",
-    "Actualité du Centre",
-    "Stage"
-]
-const ListeInfos= [
-    "Histoire du Centre",
-    "Cafétaria",
-    "Foire aux questions",
-    "Contact",
-    "Horaire"
-]
-
-const StyledLink = styled(Link)`
-    color: white;
-    text-color:white;
-`
-
 
 const MyNavbar = (props) => {
     const [isOpen, setIsOpen] = useState(false);
@@ -71,14 +34,15 @@ const MyNavbar = (props) => {
                     </Link>
                     </NavItem>
                     <NavItem className='mr-2 mt-1'>
-                        <MyDropdown name ="Sports" list={ListSports}/>
+                        <MyDropdown name ="Sports" list={"sports"}/>
                     </NavItem>
                     <NavItem className='mr-2 mt-1'>
-                        <MyDropdown name ="Actualité" list={ListNews} />
+                        <MyDropdown name ="Actualité" list={"actualite"} />
                     </NavItem>
                     <NavItem className='mr-2 mt-1'>
-                        <MyDropdown name ="Infos Pratiques" list={ListeInfos}/>
+                        <MyDropdown name ="Infos Pratiques" list={"infos"}/>
                     </NavItem>  
+                    
                     <NavItem className='mr-2 mt-1 mb-1'>
                         <Link href='/creation'>
                             <Button style={{width:"140px"}}>
@@ -89,6 +53,7 @@ const MyNavbar = (props) => {
                 </Nav>                
             </Collapse>
         </Navbar>
+        
     </div>
   );
 }
