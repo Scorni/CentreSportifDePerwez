@@ -1,7 +1,10 @@
 type Mutation {
-    testMutation: String
+    createPerson(name: String!): Person
+}
+type Query {
+    Person: [Person!]!
 }
 
-type Query {
-    testQuery: String
-}
+type Person {
+    name: String!
+    }
