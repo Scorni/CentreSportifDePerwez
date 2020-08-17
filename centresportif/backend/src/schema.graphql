@@ -1,10 +1,19 @@
+#import * from './generated/prisma.graphql'
+
 type Mutation {
-    createPerson(name: String!): Person
+    createClient(
+        name: String!
+        surname: String!
+        mail: String!
+        adress: String!
+        ): Client!
 }
 type Query {
-    Person: [Person!]!
+    clients: [Client!]!
 }
-
-type Person {
-    name: String!
+type Client {
+    name: String!,
+    surname: String!,
+    mail: String!,
+    adress: String!,
     }

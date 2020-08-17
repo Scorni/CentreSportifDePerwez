@@ -4,3 +4,12 @@ type User {
   surname: String
   email: String
 }
+
+type Client {
+  id: ID! @id
+  name: String!
+  surname: String!
+  mail: String!
+  adress: String!
+  createdAt : DateTime! @createdAt
+}
