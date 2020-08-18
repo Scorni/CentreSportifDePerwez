@@ -1,10 +1,10 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import Clients from '../../components/list/Clients'
 
 const clients = props => {
     return (
         <div>
-            
+            <Clients />
         </div>
     );
 };
