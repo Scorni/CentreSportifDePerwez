@@ -12,7 +12,7 @@ class Clients extends Component {
                         if(loading) return <p> Loading...</p>
                         if(error) return <p> Error : { error.message }</p>
                         console.log(data);
-                        return <div>{data.clients.map(clients => <li> {clients.name + " " + clients.surname }</li>)} </div>
+                        return <div>{data.clients.map(clients => <li> {clients.name + " || " + clients.surname + " || " + clients.mail + " || " + clients.adress }</li>)} </div>
                     }}
                 </Query>
             </div>

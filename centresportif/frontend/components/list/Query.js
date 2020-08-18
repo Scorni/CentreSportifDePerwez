@@ -7,7 +7,9 @@ const CLIENTS_QUERY = gql`
     query CLIENTS_QUERY {
         clients{
             name,
-            surname
+            surname,
+            adress,
+            mail
         }
     }
 `;
