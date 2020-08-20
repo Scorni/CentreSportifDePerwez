@@ -7,7 +7,27 @@ const Mutations = {
             }
         },info);
            
-        return await client
+        return await client;
+    },
+    async createRoom(parent, args, ctx, info) {
+
+        const room = await ctx.db.mutation.createRoom({
+            data: { 
+                ...args
+            }
+        },info);
+           
+        return await room;
+    },
+    async createLocation(parent, args, ctx, info) {
+
+        const location = await ctx.db.mutation.createLocation({
+            data: { 
+                ...args
+            }
+        },info);
+           
+        return await location;
     }
 };
 

@@ -1,6 +1,6 @@
 import withApollo from 'next-with-apollo';
 import ApolloClient from 'apollo-boost';
-import endpoint from '../config'
+import endpoint from './config'
 
 function createClient({ component }) {
     return new ApolloClient({

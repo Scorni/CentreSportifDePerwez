@@ -1,19 +1,46 @@
 #import * from './generated/prisma.graphql'
 
+##query or mutation
 type Mutation {
     createClient(
         name: String!
         surname: String!
         mail: String!
         adress: String!
-        ): Client!
+    ): Client!,
+    createRoom(
+        name: String!
+        price: Float!
+    ): Room!,
+    createLocation(
+        sport: String!
+        is_paid: Boolean
+        
+    ): Location!,
 }
 type Query {
-    clients: [Client!]!
+    clients: [Client!]!,
+    rooms: [Room!]!,
+    location: [Location!]!
 }
+
+## not query or mutation
+### Client example
 type Client {
     name: String!,
     surname: String!,
     mail: String!,
     adress: String!,
-    }
+}
+### Room
+type Room {
+    name: String!,
+    price: Float!
+}
+### Location
+type Location {
+    sport: String!
+    is_paid: Boolean
+    id_user: ID!
+    id_room: Room!
+}
