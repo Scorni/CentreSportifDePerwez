@@ -36,6 +36,7 @@ type Query {
 ## not query or mutation
 ### Client example
 type Client {
+    id: ID!
     name: String!
     surname: String!
     mail: String!
@@ -48,6 +49,7 @@ type Room {
 }
 ### Location
 type Location {
+    id: ID!
     sport: String!
     is_paid: Boolean
     id_user: User!
@@ -55,6 +57,7 @@ type Location {
 }
 ### User
 type User {
+    id: ID!
     name: String!
     surname: String!
     mail: String!
