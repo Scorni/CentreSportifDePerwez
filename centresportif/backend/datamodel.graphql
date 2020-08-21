@@ -4,7 +4,7 @@ type Client {
   surname: String!
   mail: String!
   adress: String!
-  createdAt : DateTime! @createdAt
+  createdAt: DateTime! @createdAt
 }
 
 type User {
@@ -13,11 +13,10 @@ type User {
   surname: String!
   mail: String! @unique
   adress: String!
-  createdAt : DateTime! @createdAt
+  createdAt: DateTime! @createdAt
   has_bill : Boolean! @default(value: false)
   is_Admin : Boolean! @default(value: false)
   is_Client: Boolean! @default(value: true)
-  location : [Location!]!
 }
 
 type Location {

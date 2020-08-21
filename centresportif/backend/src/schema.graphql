@@ -15,32 +15,48 @@ type Mutation {
     createLocation(
         sport: String!
         is_paid: Boolean
+        id_user: String!
+        id_room: String!
         
     ): Location!,
+    createUser(
+        name: String!
+        surname: String!
+        mail: String!
+        adress: String!
+    ): User!
 }
 type Query {
     clients: [Client!]!,
     rooms: [Room!]!,
-    location: [Location!]!
+    locations: [Location!]!,
+    users: [User!]!
 }
 
 ## not query or mutation
 ### Client example
 type Client {
-    name: String!,
-    surname: String!,
-    mail: String!,
-    adress: String!,
+    name: String!
+    surname: String!
+    mail: String!
+    adress: String!
 }
 ### Room
 type Room {
-    name: String!,
+    name: String!
     price: Float!
 }
 ### Location
 type Location {
     sport: String!
     is_paid: Boolean
-    id_user: ID!
+    id_user: User!
     id_room: Room!
+}
+### User
+type User {
+    name: String!
+    surname: String!
+    mail: String!
+    adress: String!
 }
