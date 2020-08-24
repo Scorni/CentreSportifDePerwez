@@ -41,7 +41,7 @@ return (
               </Typography>
               <Typography variant="body1"  component="p">
                 Responsable : Charly MUTAMBAIE<br/>
-                <AiOutlinePhone className="icon"/> 0493/32.29.55<br/> 
+                <AiOutlinePhone className="icon"/> 0488/48.11.02<br/> 
                 <AiOutlineMail className="icon" /><a href='mailto:simbawarriors@hotmail.com'>  simbawarriors@hotmail.com</a><br/>
                 <AiOutlineFacebook className="icon"/><a href="https://www.facebook.com/thesimbawarriors/" target="_blank"> Page Facebook</a>
               </Typography>              

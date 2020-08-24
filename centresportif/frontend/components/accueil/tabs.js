@@ -41,37 +41,39 @@ function a11yProps(index) {
 const sportsTabs =[
   {
     "Sports individuels":[
-      "Fitness",
-      "Athlétisme"
+      "Athletisme",
+      "Boxe Anglaise"
     ],
     "Sports collectifs":[
       "Football",
-      "Mini-Foot",
       "Handball",
-      "Hockey",
-      "Volley-ball"
+      "Volleyball"
     ],
     "Arts martiaux":[
       "Judo",
-      "Taï-Jutsu",
-      "Ju-Jutsu"
+      "Taekwendo",
+      "Jujutsu",
+      "Kravmaga",
+      "Aikido"
     ],
-    "Sports de raquette":[
+    "Sports de raquettes":[
       "Badminton",
       "Tennis",
       "Tennis de table"
     ],
     "Gymnastique":[
-      "Gymnastique"
+      "Musculation",
+      "Relaxation"
     ],
     "Danse":[
-      "Danse moderne",
-      "Hip hop",
-      "Step",
-      "Biodanza"
+      "Danse"
     ],
     "Multisports":[
       "Multisports"
+    ],
+    "Infrastructure":[
+      "Interne",
+      "Externe"
     ]
   }
 ]
@@ -81,10 +83,10 @@ function objectSort(tabs,cat){
   var linkWithoutSpace;
   for (let index in tabs) {
     for(let value in tabs[index][cat]){
-      linkWithoutSpace = (cat).replace(/\s+/g, '-')+"/"+ (tabs[index][cat][value]).replace(/\s+/g, '-');
+      linkWithoutSpace = (cat).replace(/\s+/g, '')+"/"+ (tabs[index][cat][value]).replace(/\s+/g, '');
       newList[value] = 
         <li key={tabs[index][cat][value]} style={{display:"inline-block",listStyle:"none",margin:"10px"}}>
-          <Link  href={'/'+linkWithoutSpace}>
+          <Link  href={'/sports/'+linkWithoutSpace}>
               <Button>{tabs[index][cat][value]}</Button>
           </Link>
         </li>
@@ -128,6 +130,8 @@ export default function ScrollableTabsButtonAuto() {
             <Tab label="Gymnastique" {...a11yProps(4)} />
             <Tab label="Danse" {...a11yProps(5)} />
             <Tab label="Multisports" {...a11yProps(6)} />
+            <Tab label="Infrastructure" {...a11yProps(7)} />
+
             </Tabs>
         </AppBar>
         <TabPanel value={value} index={0} >
@@ -140,7 +144,7 @@ export default function ScrollableTabsButtonAuto() {
           {objectSort(sportsTabs,"Arts martiaux")}
         </TabPanel>
         <TabPanel value={value} index={3}>
-          {objectSort(sportsTabs,"Sports de raquette")}
+          {objectSort(sportsTabs,"Sports de raquettes")}
         </TabPanel>
         <TabPanel value={value} index={4}>
           {objectSort(sportsTabs,"Gymnastique")}
@@ -150,6 +154,9 @@ export default function ScrollableTabsButtonAuto() {
         </TabPanel>
         <TabPanel value={value} index={6}>
           {objectSort(sportsTabs,"Multisports")}
+        </TabPanel>
+        <TabPanel value={value} index={7}>
+          {objectSort(sportsTabs,"Infrastructure")}
         </TabPanel>
       </div>
   );
