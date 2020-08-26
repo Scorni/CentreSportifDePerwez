@@ -1,5 +1,5 @@
 # source: https://eu1.prisma.sh/maxscorni-dce3a0/centresportifbe/dev
-# timestamp: Fri Aug 21 2020 14:23:46 GMT+0200 (GMT+02:00)
+# timestamp: Wed Aug 26 2020 19:19:57 GMT+0200 (GMT+02:00)
 
 type AggregateClient {
   count: Int!
@@ -376,11 +376,14 @@ scalar DateTime
 
 type Location implements Node {
   id: ID!
-  createdAt: DateTime!
   sport: String!
+  hour: String!
+  day: String!
+  roomName: Room!
+  userId: User!
   is_paid: Boolean!
-  id_user: User!
-  id_room: Room!
+  uniqueLocationsRoomHourDay: String!
+  createdAt: DateTime!
 }
 
 """A connection to a list of items."""
@@ -396,9 +399,12 @@ type LocationConnection {
 input LocationCreateInput {
   id: ID
   sport: String!
+  hour: String!
+  day: String!
   is_paid: Boolean
-  id_user: UserCreateOneInput!
-  id_room: RoomCreateOneInput!
+  uniqueLocationsRoomHourDay: String!
+  roomName: RoomCreateOneInput!
+  userId: UserCreateOneInput!
 }
 
 """An edge in a connection."""
@@ -413,19 +419,28 @@ type LocationEdge {
 enum LocationOrderByInput {
   id_ASC
   id_DESC
-  createdAt_ASC
-  createdAt_DESC
   sport_ASC
   sport_DESC
+  hour_ASC
+  hour_DESC
+  day_ASC
+  day_DESC
   is_paid_ASC
   is_paid_DESC
+  uniqueLocationsRoomHourDay_ASC
+  uniqueLocationsRoomHourDay_DESC
+  createdAt_ASC
+  createdAt_DESC
 }
 
 type LocationPreviousValues {
   id: ID!
-  createdAt: DateTime!
   sport: String!
+  hour: String!
+  day: String!
   is_paid: Boolean!
+  uniqueLocationsRoomHourDay: String!
+  createdAt: DateTime!
 }
 
 type LocationSubscriptionPayload {
@@ -469,14 +484,20 @@ input LocationSubscriptionWhereInput {
 
 input LocationUpdateInput {
   sport: String
+  hour: String
+  day: String
   is_paid: Boolean
-  id_user: UserUpdateOneRequiredInput
-  id_room: RoomUpdateOneRequiredInput
+  uniqueLocationsRoomHourDay: String
+  roomName: RoomUpdateOneRequiredInput
+  userId: UserUpdateOneRequiredInput
 }
 
 input LocationUpdateManyMutationInput {
   sport: String
+  hour: String
+  day: String
   is_paid: Boolean
+  uniqueLocationsRoomHourDay: String
 }
 
 input LocationWhereInput {
@@ -528,28 +549,6 @@ input LocationWhereInput {
 
   """All values not ending with the given string."""
   id_not_ends_with: ID
-  createdAt: DateTime
-
-  """All values that are not equal to given value."""
-  createdAt_not: DateTime
-
-  """All values that are contained in given list."""
-  createdAt_in: [DateTime!]
-
-  """All values that are not contained in given list."""
-  createdAt_not_in: [DateTime!]
-
-  """All values less than the given value."""
-  createdAt_lt: DateTime
-
-  """All values less than or equal the given value."""
-  createdAt_lte: DateTime
-
-  """All values greater than the given value."""
-  createdAt_gt: DateTime
-
-  """All values greater than or equal the given value."""
-  createdAt_gte: DateTime
   sport: String
 
   """All values that are not equal to given value."""
@@ -590,16 +589,159 @@ input LocationWhereInput {
 
   """All values not ending with the given string."""
   sport_not_ends_with: String
+  hour: String
+
+  """All values that are not equal to given value."""
+  hour_not: String
+
+  """All values that are contained in given list."""
+  hour_in: [String!]
+
+  """All values that are not contained in given list."""
+  hour_not_in: [String!]
+
+  """All values less than the given value."""
+  hour_lt: String
+
+  """All values less than or equal the given value."""
+  hour_lte: String
+
+  """All values greater than the given value."""
+  hour_gt: String
+
+  """All values greater than or equal the given value."""
+  hour_gte: String
+
+  """All values containing the given string."""
+  hour_contains: String
+
+  """All values not containing the given string."""
+  hour_not_contains: String
+
+  """All values starting with the given string."""
+  hour_starts_with: String
+
+  """All values not starting with the given string."""
+  hour_not_starts_with: String
+
+  """All values ending with the given string."""
+  hour_ends_with: String
+
+  """All values not ending with the given string."""
+  hour_not_ends_with: String
+  day: String
+
+  """All values that are not equal to given value."""
+  day_not: String
+
+  """All values that are contained in given list."""
+  day_in: [String!]
+
+  """All values that are not contained in given list."""
+  day_not_in: [String!]
+
+  """All values less than the given value."""
+  day_lt: String
+
+  """All values less than or equal the given value."""
+  day_lte: String
+
+  """All values greater than the given value."""
+  day_gt: String
+
+  """All values greater than or equal the given value."""
+  day_gte: String
+
+  """All values containing the given string."""
+  day_contains: String
+
+  """All values not containing the given string."""
+  day_not_contains: String
+
+  """All values starting with the given string."""
+  day_starts_with: String
+
+  """All values not starting with the given string."""
+  day_not_starts_with: String
+
+  """All values ending with the given string."""
+  day_ends_with: String
+
+  """All values not ending with the given string."""
+  day_not_ends_with: String
   is_paid: Boolean
 
   """All values that are not equal to given value."""
   is_paid_not: Boolean
-  id_user: UserWhereInput
-  id_room: RoomWhereInput
+  uniqueLocationsRoomHourDay: String
+
+  """All values that are not equal to given value."""
+  uniqueLocationsRoomHourDay_not: String
+
+  """All values that are contained in given list."""
+  uniqueLocationsRoomHourDay_in: [String!]
+
+  """All values that are not contained in given list."""
+  uniqueLocationsRoomHourDay_not_in: [String!]
+
+  """All values less than the given value."""
+  uniqueLocationsRoomHourDay_lt: String
+
+  """All values less than or equal the given value."""
+  uniqueLocationsRoomHourDay_lte: String
+
+  """All values greater than the given value."""
+  uniqueLocationsRoomHourDay_gt: String
+
+  """All values greater than or equal the given value."""
+  uniqueLocationsRoomHourDay_gte: String
+
+  """All values containing the given string."""
+  uniqueLocationsRoomHourDay_contains: String
+
+  """All values not containing the given string."""
+  uniqueLocationsRoomHourDay_not_contains: String
+
+  """All values starting with the given string."""
+  uniqueLocationsRoomHourDay_starts_with: String
+
+  """All values not starting with the given string."""
+  uniqueLocationsRoomHourDay_not_starts_with: String
+
+  """All values ending with the given string."""
+  uniqueLocationsRoomHourDay_ends_with: String
+
+  """All values not ending with the given string."""
+  uniqueLocationsRoomHourDay_not_ends_with: String
+  createdAt: DateTime
+
+  """All values that are not equal to given value."""
+  createdAt_not: DateTime
+
+  """All values that are contained in given list."""
+  createdAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  createdAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  createdAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  createdAt_lte: DateTime
+
+  """All values greater than the given value."""
+  createdAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  createdAt_gte: DateTime
+  roomName: RoomWhereInput
+  userId: UserWhereInput
 }
 
 input LocationWhereUniqueInput {
   id: ID
+  uniqueLocationsRoomHourDay: String
 }
 
 """
@@ -687,6 +829,8 @@ type Room implements Node {
   id: ID!
   name: String!
   price: Float!
+  sport: String!
+  uniqueNameSport: String!
 }
 
 """A connection to a list of items."""
@@ -703,6 +847,8 @@ input RoomCreateInput {
   id: ID
   name: String!
   price: Float!
+  sport: String!
+  uniqueNameSport: String!
 }
 
 input RoomCreateOneInput {
@@ -726,12 +872,18 @@ enum RoomOrderByInput {
   name_DESC
   price_ASC
   price_DESC
+  sport_ASC
+  sport_DESC
+  uniqueNameSport_ASC
+  uniqueNameSport_DESC
 }
 
 type RoomPreviousValues {
   id: ID!
   name: String!
   price: Float!
+  sport: String!
+  uniqueNameSport: String!
 }
 
 type RoomSubscriptionPayload {
@@ -776,16 +928,22 @@ input RoomSubscriptionWhereInput {
 input RoomUpdateDataInput {
   name: String
   price: Float
+  sport: String
+  uniqueNameSport: String
 }
 
 input RoomUpdateInput {
   name: String
   price: Float
+  sport: String
+  uniqueNameSport: String
 }
 
 input RoomUpdateManyMutationInput {
   name: String
   price: Float
+  sport: String
+  uniqueNameSport: String
 }
 
 input RoomUpdateOneRequiredInput {
@@ -911,11 +1069,91 @@ input RoomWhereInput {
 
   """All values greater than or equal the given value."""
   price_gte: Float
+  sport: String
+
+  """All values that are not equal to given value."""
+  sport_not: String
+
+  """All values that are contained in given list."""
+  sport_in: [String!]
+
+  """All values that are not contained in given list."""
+  sport_not_in: [String!]
+
+  """All values less than the given value."""
+  sport_lt: String
+
+  """All values less than or equal the given value."""
+  sport_lte: String
+
+  """All values greater than the given value."""
+  sport_gt: String
+
+  """All values greater than or equal the given value."""
+  sport_gte: String
+
+  """All values containing the given string."""
+  sport_contains: String
+
+  """All values not containing the given string."""
+  sport_not_contains: String
+
+  """All values starting with the given string."""
+  sport_starts_with: String
+
+  """All values not starting with the given string."""
+  sport_not_starts_with: String
+
+  """All values ending with the given string."""
+  sport_ends_with: String
+
+  """All values not ending with the given string."""
+  sport_not_ends_with: String
+  uniqueNameSport: String
+
+  """All values that are not equal to given value."""
+  uniqueNameSport_not: String
+
+  """All values that are contained in given list."""
+  uniqueNameSport_in: [String!]
+
+  """All values that are not contained in given list."""
+  uniqueNameSport_not_in: [String!]
+
+  """All values less than the given value."""
+  uniqueNameSport_lt: String
+
+  """All values less than or equal the given value."""
+  uniqueNameSport_lte: String
+
+  """All values greater than the given value."""
+  uniqueNameSport_gt: String
+
+  """All values greater than or equal the given value."""
+  uniqueNameSport_gte: String
+
+  """All values containing the given string."""
+  uniqueNameSport_contains: String
+
+  """All values not containing the given string."""
+  uniqueNameSport_not_contains: String
+
+  """All values starting with the given string."""
+  uniqueNameSport_starts_with: String
+
+  """All values not starting with the given string."""
+  uniqueNameSport_not_starts_with: String
+
+  """All values ending with the given string."""
+  uniqueNameSport_ends_with: String
+
+  """All values not ending with the given string."""
+  uniqueNameSport_not_ends_with: String
 }
 
 input RoomWhereUniqueInput {
   id: ID
-  name: String
+  uniqueNameSport: String
 }
 
 type Subscription {
@@ -929,12 +1167,13 @@ type User implements Node {
   id: ID!
   name: String!
   surname: String!
+  password: String!
   mail: String!
   adress: String!
-  createdAt: DateTime!
   has_bill: Boolean!
   is_Admin: Boolean!
-  is_Client: Boolean!
+  is_SAdmin: Boolean!
+  createdAt: DateTime!
 }
 
 """A connection to a list of items."""
@@ -951,11 +1190,12 @@ input UserCreateInput {
   id: ID
   name: String!
   surname: String!
+  password: String!
   mail: String!
   adress: String!
   has_bill: Boolean
   is_Admin: Boolean
-  is_Client: Boolean
+  is_SAdmin: Boolean
 }
 
 input UserCreateOneInput {
@@ -979,30 +1219,33 @@ enum UserOrderByInput {
   name_DESC
   surname_ASC
   surname_DESC
+  password_ASC
+  password_DESC
   mail_ASC
   mail_DESC
   adress_ASC
   adress_DESC
-  createdAt_ASC
-  createdAt_DESC
   has_bill_ASC
   has_bill_DESC
   is_Admin_ASC
   is_Admin_DESC
-  is_Client_ASC
-  is_Client_DESC
+  is_SAdmin_ASC
+  is_SAdmin_DESC
+  createdAt_ASC
+  createdAt_DESC
 }
 
 type UserPreviousValues {
   id: ID!
   name: String!
   surname: String!
+  password: String!
   mail: String!
   adress: String!
-  createdAt: DateTime!
   has_bill: Boolean!
   is_Admin: Boolean!
-  is_Client: Boolean!
+  is_SAdmin: Boolean!
+  createdAt: DateTime!
 }
 
 type UserSubscriptionPayload {
@@ -1047,31 +1290,34 @@ input UserSubscriptionWhereInput {
 input UserUpdateDataInput {
   name: String
   surname: String
+  password: String
   mail: String
   adress: String
   has_bill: Boolean
   is_Admin: Boolean
-  is_Client: Boolean
+  is_SAdmin: Boolean
 }
 
 input UserUpdateInput {
   name: String
   surname: String
+  password: String
   mail: String
   adress: String
   has_bill: Boolean
   is_Admin: Boolean
-  is_Client: Boolean
+  is_SAdmin: Boolean
 }
 
 input UserUpdateManyMutationInput {
   name: String
   surname: String
+  password: String
   mail: String
   adress: String
   has_bill: Boolean
   is_Admin: Boolean
-  is_Client: Boolean
+  is_SAdmin: Boolean
 }
 
 input UserUpdateOneRequiredInput {
@@ -1215,6 +1461,46 @@ input UserWhereInput {
 
   """All values not ending with the given string."""
   surname_not_ends_with: String
+  password: String
+
+  """All values that are not equal to given value."""
+  password_not: String
+
+  """All values that are contained in given list."""
+  password_in: [String!]
+
+  """All values that are not contained in given list."""
+  password_not_in: [String!]
+
+  """All values less than the given value."""
+  password_lt: String
+
+  """All values less than or equal the given value."""
+  password_lte: String
+
+  """All values greater than the given value."""
+  password_gt: String
+
+  """All values greater than or equal the given value."""
+  password_gte: String
+
+  """All values containing the given string."""
+  password_contains: String
+
+  """All values not containing the given string."""
+  password_not_contains: String
+
+  """All values starting with the given string."""
+  password_starts_with: String
+
+  """All values not starting with the given string."""
+  password_not_starts_with: String
+
+  """All values ending with the given string."""
+  password_ends_with: String
+
+  """All values not ending with the given string."""
+  password_not_ends_with: String
   mail: String
 
   """All values that are not equal to given value."""
@@ -1295,6 +1581,18 @@ input UserWhereInput {
 
   """All values not ending with the given string."""
   adress_not_ends_with: String
+  has_bill: Boolean
+
+  """All values that are not equal to given value."""
+  has_bill_not: Boolean
+  is_Admin: Boolean
+
+  """All values that are not equal to given value."""
+  is_Admin_not: Boolean
+  is_SAdmin: Boolean
+
+  """All values that are not equal to given value."""
+  is_SAdmin_not: Boolean
   createdAt: DateTime
 
   """All values that are not equal to given value."""
@@ -1317,18 +1615,6 @@ input UserWhereInput {
 
   """All values greater than or equal the given value."""
   createdAt_gte: DateTime
-  has_bill: Boolean
-
-  """All values that are not equal to given value."""
-  has_bill_not: Boolean
-  is_Admin: Boolean
-
-  """All values that are not equal to given value."""
-  is_Admin_not: Boolean
-  is_Client: Boolean
-
-  """All values that are not equal to given value."""
-  is_Client_not: Boolean
 }
 
 input UserWhereUniqueInput {

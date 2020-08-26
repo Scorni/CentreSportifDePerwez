@@ -13,7 +13,10 @@ const Mutations = {
 
         const room = await ctx.db.mutation.createRoom({
             data: { 
-                ...args
+                name : args.name,
+                price : args.price,
+                sport : args.sport,
+                uniqueNameSport : args.name + "_" + args.sport
             }
         },info);
            
@@ -25,16 +28,19 @@ const Mutations = {
             data: { 
                 sport : args.sport,
                 is_paid : args.is_paid,
-                id_user:{
+                hour: args.hour,
+                day: args.day,
+                userId:{
                     connect: {
-                        id: args.id_user
+                        id: args.userId
                     }
                 },
-                id_room:{
+                roomName:{
                     connect: {
-                        id: args.id_room
+                        name: args.roomName
                     }
-                }
+                },
+                uniqueLocationsRoomHourDay:  args.roomName + "_" + args.day + "_" + args.hour
 
             }
         },info);

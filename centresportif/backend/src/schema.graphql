@@ -11,17 +11,23 @@ type Mutation {
     createRoom(
         name: String!
         price: Float!
+        sport: String!
     ): Room!,
     createLocation(
         sport: String!
-        is_paid: Boolean
-        id_user: String!
-        id_room: String!
-        
+        hour: String!
+        day: String!
+        roomName: String!
+        userId: String!
+        is_paid: Boolean!
     ): Location!,
     createUser(
         name: String!
         surname: String!
+        password: String!
+        has_bill : Boolean! 
+        is_Admin : Boolean!
+        is_SAdmin : Boolean!
         mail: String!
         adress: String!
     ): User!
@@ -30,7 +36,8 @@ type Query {
     clients: [Client!]!,
     rooms: [Room!]!,
     locations: [Location!]!,
-    users: [User!]!
+    users: [User!]!,
+    roomsFilter(sport : String!): [Room!]!
 }
 
 ## not query or mutation
@@ -44,16 +51,22 @@ type Client {
 }
 ### Room
 type Room {
+    id: ID!
     name: String!
     price: Float!
+    sport : String!
+    uniqueNameSport : String!
 }
 ### Location
 type Location {
     id: ID!
     sport: String!
+    hour: String!
+    day: String!
     is_paid: Boolean
-    id_user: User!
-    id_room: Room!
+    roomName: Room!
+    userId: User!
+    uniqueLocationsRoomHourDay: String!
 }
 ### User
 type User {
@@ -62,4 +75,8 @@ type User {
     surname: String!
     mail: String!
     adress: String!
+    password: String!
+    has_bill : Boolean!    
+    is_Admin : Boolean!    
+    is_SAdmin : Boolean!   
 }

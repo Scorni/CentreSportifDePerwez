@@ -11,25 +11,31 @@ type User {
   id: ID! @id
   name: String!
   surname: String!
+  password: String!
   mail: String! @unique
   adress: String!
-  createdAt: DateTime! @createdAt
   has_bill : Boolean! @default(value: false)
   is_Admin : Boolean! @default(value: false)
-  is_Client: Boolean! @default(value: true)
+  is_SAdmin : Boolean! @default(value: false)
+  createdAt: DateTime! @createdAt
 }
 
 type Location {
   id: ID! @id
-  createdAt: DateTime! @createdAt
   sport: String!
+  hour: String!
+  day: String!
+  roomName: Room!
+  userId: User! @relation(link : INLINE)
   is_paid: Boolean! @default(value: false)
-  id_user: User! @relation(link : INLINE)
-  id_room: Room!
+  uniqueLocationsRoomHourDay: String! @unique
+  createdAt: DateTime! @createdAt
 }
 
 type Room {
   id: ID! @id
-  name : String! @unique
+  name : String! 
   price : Float!
+  sport : String!
+  uniqueNameSport: String! @unique
 }
