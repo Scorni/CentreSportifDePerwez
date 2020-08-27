@@ -2,6 +2,8 @@ import App, {Container} from 'next/app';
 import Page from '../components/Page';
 import 'bootstrap/dist/css/bootstrap.css';
 import '../public/static/style.css';
+import DateFnsUtils from '@date-io/date-fns';
+
 import Loading from '../components/common/ProgressBar';
 import uuidv4 from 'uuid/v4'
 import { ApolloProvider } from 'react-apollo';

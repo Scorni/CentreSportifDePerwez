@@ -35,8 +35,8 @@ export const LOCATIONS_QUERY = gql`
             id
             sport,
             is_paid,
-            id_room{name},
-            id_user{name,surname}
+            roomName{name},
+            userId{name,surname}
             }
     }
 `;

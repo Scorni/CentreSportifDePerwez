@@ -29,10 +29,10 @@ class Locations extends Component {
                                         locations => 
                                             <tr>
                                                 <td>{locations.id}</td>
-                                                <td>{locations.id_room.name}</td>
+                                                <td>{locations.roomName.name}</td>
                                                 <td>{locations.sport}</td>
-                                                <td>{locations.id_user.name}</td>
-                                                <td>{locations.id_user.surname}</td>
+                                                <td>{locations.userId.name}</td>
+                                                <td>{locations.userId.surname}</td>
                                                 <td>{locations.is_paid}</td>
                                             </tr>
                                         )
