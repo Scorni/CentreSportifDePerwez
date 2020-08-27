@@ -1,7 +1,82 @@
+#import * from './generated/prisma.graphql'
+
+##query or mutation
 type Mutation {
-    testMutation: String
+    createClient(
+        name: String!
+        surname: String!
+        mail: String!
+        adress: String!
+    ): Client!,
+    createRoom(
+        name: String!
+        price: Float!
+        sport: String!
+    ): Room!,
+    createLocation(
+        sport: String!
+        hour: String!
+        day: String!
+        roomName: String!
+        userId: String!
+        is_paid: Boolean!
+    ): Location!,
+    createUser(
+        name: String!
+        surname: String!
+        password: String!
+        has_bill : Boolean! 
+        is_Admin : Boolean!
+        is_SAdmin : Boolean!
+        mail: String!
+        adress: String!
+    ): User!
+}
+type Query {
+    clients: [Client!]!,
+    rooms: [Room!]!,
+    locations: [Location!]!,
+    users: [User!]!,
+    roomsFilter(sport : String!): [Room!]!
 }
 
-type Query {
-    testQuery: String
+## not query or mutation
+### Client example
+type Client {
+    id: ID!
+    name: String!
+    surname: String!
+    mail: String!
+    adress: String!
+}
+### Room
+type Room {
+    id: ID!
+    name: String!
+    price: Float!
+    sport : String!
+    uniqueNameSport : String!
+}
+### Location
+type Location {
+    id: ID!
+    sport: String!
+    hour: String!
+    day: String!
+    is_paid: Boolean
+    roomName: Room!
+    userId: User!
+    uniqueLocationsRoomHourDay: String!
+}
+### User
+type User {
+    id: ID!
+    name: String!
+    surname: String!
+    mail: String!
+    adress: String!
+    password: String!
+    has_bill : Boolean!    
+    is_Admin : Boolean!    
+    is_SAdmin : Boolean!   
 }

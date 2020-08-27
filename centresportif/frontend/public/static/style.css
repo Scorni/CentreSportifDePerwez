@@ -100,5 +100,14 @@ body,
   position: relative;
   bottom: 2px;
 }
-
-
+.styledForm{
+  margin-left : 25px;
+  margin-right: 25px;
+  margin-bottom: 25px;
+  padding : 1em;
+  border: 2px solid gray;
+  border-radius: 15px ;
+}
+.datePicker{
+  border: 2 px solid gray !important
+}

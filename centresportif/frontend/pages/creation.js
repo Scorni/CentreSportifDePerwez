@@ -1,10 +1,9 @@
 import React from "react";
+import CreateLocation from '../components/list/CreateLocation'
 
 const Creation = props => (
-    <div>
-        <p>
-            Creation
-        </p>
-    </div>
+  
+            <CreateLocation/>
+    
 )
 export default Creation;

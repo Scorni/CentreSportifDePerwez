@@ -16,7 +16,7 @@ const SportsDeRaquettes = (props) => {
               <CardGenerator tabs = {"tennis.jpg"} title = {"Tennis"} link ={"Tennis"}/>
             </Col>
             <Col className =" mt-3">
-              <CardGenerator tabs = {"pingpong.jpg"} title = {"Tennis de Table"} link ={"TennisDeTable"} />
+              <CardGenerator tabs = {"pingpong.jpg"} title = {"Tennis de Table"} link ={"Tennisdetable"} />
             </Col>
           </Row>
           <Row className="mx-5">
@@ -37,7 +37,7 @@ const SportsDeRaquettes = (props) => {
               <CardGenerator tabs = {"tennis.jpg"} title = {"Tennis"} link ={"Tennis"}/>
             </Col>
             <Col className =" mt-3">
-              <CardGenerator tabs = {"pingpong.jpg"} title = {"Tennis de Table"} link ={"TennisDeTable"}/>
+              <CardGenerator tabs = {"pingpong.jpg"} title = {"Tennis de Table"} link ={"Tennisdetable"}/>
             </Col>
           </Row>
           <Row className="mx-auto">
@@ -58,7 +58,7 @@ const SportsDeRaquettes = (props) => {
               <CardGenerator tabs = {"tennis.jpg"} title = {"Tennis"} link ={"Tennis"}/>
             </Col>
             <Col className =" mt-3">
-              <CardGenerator tabs = {"pingpong.jpg"} title = {"Tennis de Table"} link ={"TennisDeTable"}/>
+              <CardGenerator tabs = {"pingpong.jpg"} title = {"Tennis de Table"} link ={"Tennisdetable"}/>
             </Col>
           </Row>
           <Row className="mx-auto">
@@ -79,7 +79,7 @@ const SportsDeRaquettes = (props) => {
               <CardGenerator tabs = {"tennis.jpg"} title = {"Tennis"} link ={"Tennis"}/>
             </Col>
             <Col className =" mt-3" >
-              <CardGenerator tabs = {"pingpong.jpg"} title = {"Tennis de Table"} link ={"TennisDeTable"}/>
+              <CardGenerator tabs = {"pingpong.jpg"} title = {"Tennis de Table"} link ={"Tennisdetable"}/>
             </Col>
           </Row>
           <Row className="mx-auto">

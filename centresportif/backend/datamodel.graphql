@@ -1,0 +1,41 @@
+type Client {
+  id: ID! @id
+  name: String!
+  surname: String!
+  mail: String!
+  adress: String!
+  createdAt: DateTime! @createdAt
+}
+
+type User {
+  id: ID! @id
+  name: String!
+  surname: String!
+  password: String!
+  mail: String! @unique
+  adress: String!
+  has_bill : Boolean! @default(value: false)
+  is_Admin : Boolean! @default(value: false)
+  is_SAdmin : Boolean! @default(value: false)
+  createdAt: DateTime! @createdAt
+}
+
+type Location {
+  id: ID! @id
+  sport: String!
+  hour: String!
+  day: String!
+  roomName: Room!
+  userId: User! @relation(link : INLINE)
+  is_paid: Boolean! @default(value: false)
+  uniqueLocationsRoomHourDay: String! @unique
+  createdAt: DateTime! @createdAt
+}
+
+type Room {
+  id: ID! @id
+  name : String! 
+  price : Float!
+  sport : String!
+  uniqueNameSport: String! @unique
+}

@@ -2,9 +2,12 @@ import App, {Container} from 'next/app';
 import Page from '../components/Page';
 import 'bootstrap/dist/css/bootstrap.css';
 import '../public/static/style.css';
+import DateFnsUtils from '@date-io/date-fns';
+
 import Loading from '../components/common/ProgressBar';
 import uuidv4 from 'uuid/v4'
-
+import { ApolloProvider } from 'react-apollo';
+import withData from '../withData';
 
 
 class MyApp extends App{
@@ -12,7 +15,7 @@ class MyApp extends App{
         isRouteChanging: false,
         loadingKey: null,
       }
-    
+    */
       static async getInitialProps({ Component, ctx }) {
         let pageProps = {}
     
@@ -23,7 +26,7 @@ class MyApp extends App{
         return { pageProps }
       }
     
-      componentDidMount() {
+      /**componentDidMount() {
         const { router } = this.props
     
         const routeChangeStartHandler = () => {
@@ -44,14 +47,16 @@ class MyApp extends App{
         router.events.on('routeChangeError', routeChangeEndHandler)
       }*/
     render(){
-        const {Component, pageProps} = this.props;
+        const {Component, pageProps, apollo} = this.props;
         return (
+            <ApolloProvider client={apollo}>
             <Page>
                 {/*<Loading {...this.state}/> */}
                 <Component {...pageProps}/>
             </Page>
+            </ApolloProvider>
         )
     }
 }
 
-export default MyApp;
+export default withData(MyApp);

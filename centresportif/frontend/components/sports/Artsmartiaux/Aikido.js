@@ -25,7 +25,7 @@ const classes = useStyles();
 
 return (
 <div>
-  <HeadGenerator title={"Judo"} />
+  <HeadGenerator title={"Aïkido"} />
   <Container className="themed-container">
     <Row className="mx-auto">
       <Col className =" mt-3" >

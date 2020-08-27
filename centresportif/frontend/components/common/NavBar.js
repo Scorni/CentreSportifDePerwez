@@ -44,7 +44,7 @@ const MyNavbar = (props) => {
                     </NavItem>  
                     
                     <NavItem className='mr-2 mt-1 mb-1'>
-                        <Link href='/creation'>
+                        <Link href='/list/locations'>
                             <Button style={{width:"140px"}}>
                                 <a style={{color: "white"}}>Réservation</a>
                             </Button>
