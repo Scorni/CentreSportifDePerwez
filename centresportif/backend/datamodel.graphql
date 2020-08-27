@@ -9,7 +9,7 @@ type Client {
 
 type User {
   id: ID! @id
-  name: String!
+  name: String! @unique
   surname: String!
   password: String!
   mail: String! @unique

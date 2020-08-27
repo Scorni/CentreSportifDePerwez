@@ -38,6 +38,8 @@ type Query {
     locations: [Location!]!,
     users: [User!]!,
     roomsFilter(sport : String!): [Room!]!
+    userFilter(id: String!): [User!]!
+    locationFilter(userId: String!): [Location!]!
 }
 
 ## not query or mutation
@@ -52,7 +54,7 @@ type Client {
 ### Room
 type Room {
     id: ID!
-    name: String!
+    name: String! 
     price: Float!
     sport : String!
     uniqueNameSport : String!

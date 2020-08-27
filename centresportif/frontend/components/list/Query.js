@@ -40,5 +40,25 @@ export const LOCATIONS_QUERY = gql`
             }
     }
 `;
+export const ROOMS_QUERY = gql`
+    
+    query ROOMS_QUERY {
+        rooms{
+            name,
+            id,
+            uniqueNameSport,
+            sport
+            }
+    }
+`;
+export const ROOMSFILTER_QUERY = gql`
+    
+    query ROOMSFILTER_QUERY {
+
+        roomsFilter{
+            name
+        }
+    }
+`;
 
 export default CLIENTS_QUERY

@@ -10,6 +10,18 @@ const Query = {
             where:{
                 sport : args.sport,
         }})
+    },
+    async userFilter(parent, args, context, info) {
+        return await context.db.query.users({
+            where:{
+                id : args.id,
+        }})
+    },
+    async locationFilter(parent, args, context, info) {
+        return await context.db.query.users({
+            where:{
+                id: args.userId           
+        }})
     }
 };
 
