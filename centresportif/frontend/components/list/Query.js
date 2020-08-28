@@ -35,6 +35,8 @@ export const LOCATIONS_QUERY = gql`
             id
             sport,
             is_paid,
+            hour,
+            day
             roomName{name},
             userId{name,surname}
             }
