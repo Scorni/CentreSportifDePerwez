@@ -12,96 +12,53 @@ import {
 import {ROOMS_QUERY} from '../list/Query'
 import { Query } from 'react-apollo';
 import {Table} from 'reactstrap'
+import { validate } from 'graphql';
 
-const currencies = [
-    {
-        value : 'choose',
-        label : 'choose'
-      },
+
+const sportPicks = [
   {
-    value: 'USD',
-    label: '$',
+    value: 'Football',
+    label: 'Football',
   },
   {
-    value: 'EUR',
-    label: '€',
+    value: 'Tennis',
+    label: 'Tennis',
   },
   {
-    value: 'BTC',
-    label: '฿',
+    value: 'Badminton',
+    label: 'Badminton',
   },
   {
-    value: 'JPY',
-    label: '¥',
+    value: 'Athletisme',
+    label: 'Athletisme',
+  },
+  {
+    value: 'Judo',
+    label: 'Judo',
   },
 ];
-const sportPicks = [
-    {
-        value : 'choose',
-        label : 'choose'
-      },
-    {
-      value: 'ballon',
-      label: 'football',
-    },
-    {
-      value: 'balle',
-      label: 'tennis',
-    },
-    {
-      value: 'volant',
-      label: 'badminton',
-    },
-    {
-      value: 'baton',
-      label: 'course-relais',
-    },
-  ];
 
   const hourPicks = [
-      {
-        value : 'choose',
-        label : 'choose'
-      },
-    {
-      value: 'ballon',
-      label: 'football',
-    },
-    {
-      value: 'balle',
-      label: 'tennis',
-    },
-    {
-      value: 'volant',
-      label: 'badminton',
-    },
-    {
-      value: 'baton',
-      label: 'course-relais',
-    },
+   
+  {
+    value: 'Football',
+    label: 'Football',
+  },
+  {
+    value: 'tennis',
+    label: 'tenns',
+  },
+  {
+    value: 'badminton',
+    label: 'badmintn',
+  },
+  {
+    value: 'course-relais',
+    label: 'course-reais',
+  },
   ];
-  const roomPicks = [
-    {
-        value : 'choose',
-        label : 'choose'
-      },
-    {
-      value: 'ballon',
-      label: 'football',
-    },
-    {
-      value: 'balle',
-      label: 'tennis',
-    },
-    {
-      value: 'volant',
-      label: 'badminton',
-    },
-    {
-      value: 'baton',
-      label: 'course-relais',
-    },
-  ];
+  const roomPicks = [];
+  
 const test= <Query query={ROOMS_QUERY}>
             {({ data, error, loading }) => {
                 console.log(data)
@@ -110,7 +67,26 @@ const test= <Query query={ROOMS_QUERY}>
                 return data.rooms.map( rooms => rooms.name)
             }}
             </Query>;
+function sortData(data,sportPick){
+  var dataMaped = data.rooms.map(rooms => rooms)
+  var validated = [];
+  
+  console.log(sportPick)
+  for ( let i in dataMaped) {
+    console.log(dataMaped[i].name)
+    if( dataMaped[i].sport === sportPick){
+      validated[i] = dataMaped[i].name;
+      roomPicks[i] = { 
+        value : dataMaped[i].name,
+        label : dataMaped[i].name,
 
+      }
+    }
+  }
+  console.log(roomPicks)
+  console.log("validated  : " + validated)
+  return roomPicks
+}
 const useStyles = makeStyles((theme) => ({
   root: {
     '& .MuiTextField-root': {
@@ -124,10 +100,10 @@ const initialFormData = Object.freeze({
   });
 export default function MultilineTextFields(props) {
 
-    const [currency, setCurrency] = React.useState('choose');
-    const [sportPick, setSportPick] = React.useState('choose');
-    const [hourPick, setHourPick] = React.useState('choose');
-    const [roomPick, setRoomPick] = React.useState('choose');
+    const [currency, setCurrency] = React.useState('');
+    const [sportPick, setSportPick] = React.useState('');
+    const [hourPick, setHourPick] = React.useState('');
+    const [roomPick, setRoomPick] = React.useState('');
     const [selectedDate, setSelectedDate] = React.useState(new Date());
     const [formData, updateFormData] = React.useState(initialFormData)
 
@@ -163,14 +139,17 @@ export default function MultilineTextFields(props) {
     const handleSubmit = (e) => {
         e.preventDefault()
         // ... submit to API or something
+        //console.log(formData)
         
     };
-    console.log(test.name);
+    console.log(test);
     if(Object.keys(formData).length > 0){
+      /** SUPPRIMER PARAGRAPHE P */
         return (
             <div>
-                <p>formdata existe</p>
+                <p>formdata existe</p> 
                 <div>
+                  <FormGroup>
                     <TextField
                     id="Sport"
                     label="Sport"
@@ -178,7 +157,7 @@ export default function MultilineTextFields(props) {
                     select
                     value={sportPick}
                     onChange={handleChangeSport}
-                    helperText="Veuillez choisir votre sport svp."
+                    helperText="Veuillez choisir votre sport."
                     >
                     {sportPicks.map((option) => (
                         <MenuItem key={option.value} value={option.value} name= "menuSport">
@@ -186,7 +165,35 @@ export default function MultilineTextFields(props) {
                         </MenuItem>
                     ))}
                     </TextField>
+                  </FormGroup>
                 </div>
+                {(() => {
+                  console.log("roomPick" +roomPicks)
+                  if(roomPicks){
+                    return(
+                    <div>
+                      <FormGroup>
+                        <TextField
+                        id="Room"
+                        label="Salle / Terrain"
+                        name ="Room"
+                        select
+                        value={roomPick}
+                        onChange={handleChangeRoom}
+                        helperText="Veuillez choisir votre salle / terrain."
+                        >
+                        {roomPicks.map((option) => (
+                        <MenuItem key={option.value} value={option.value}>
+                        {option.label}
+                            </MenuItem>
+                        ))}
+                        </TextField>
+                      </FormGroup>
+                    </div>
+                  )
+                  }
+                })()}
+                
                 <div>
                     <FormGroup>
                         <MuiPickersUtilsProvider utils={DateFnsUtils}>        
@@ -222,24 +229,7 @@ export default function MultilineTextFields(props) {
                     ))}
                     </TextField>
                 </div>
-                <div>
-                    <TextField
-                    id="Room"
-                    label="Salle / Terrain"
-                    name ="Room"
-                    select
-                    value={roomPick}
-                    onChange={handleChangeRoom}
-                    helperText="Veuillez choisir votre salle / terrain."
-                    >
-                    {roomPicks.map((option) => (
-                    <MenuItem key={option.value} value={option.value}>
-                    {option.label}
-                        </MenuItem>
-                    ))}
-                    </TextField>
-                    
-                </div>
+                
                 <div>
                     <Button onClick={handleSubmit}>Submit</Button>
                 </div>
@@ -247,7 +237,7 @@ export default function MultilineTextFields(props) {
                 <p> Les réservations </p>
                 <Query query={ROOMS_QUERY}>
                     {({ data, error, loading }) => {
-                        
+                        if(data.rooms) sortData(data,sportPick)
                         if(loading) return <p> Loading...</p>
                         if(error) return <p> Error : { error.message }</p>
                         return <div>
@@ -261,9 +251,9 @@ export default function MultilineTextFields(props) {
                                 <tbody>
                                     {data.rooms.map(
                                         rooms => 
-                                            <tr>
-                                                <td>{rooms.name}</td>
-                                                <td>{rooms.sport}</td>
+                                            <tr key= {rooms.name}>
+                                                <td key= {rooms.name}>{rooms.name}</td>
+                                                <td key= {rooms.sport}>{rooms.sport}</td>
                                             </tr>
                                         )
                                     }
@@ -288,7 +278,7 @@ export default function MultilineTextFields(props) {
                     select
                     value={sportPick}
                     onChange={handleChangeSport}
-                    helperText="Veuillez choisir votre sport svp."
+                    helperText="Veuillez choisir votre sport."
                     >
                     {sportPicks.map((option) => (
                         <MenuItem key={option.value} value={option.value} name= "menuSport">
@@ -332,24 +322,32 @@ export default function MultilineTextFields(props) {
                     ))}
                     </TextField>
                 </div>
-                <div>
-                    <TextField
-                    id="Room"
-                    label="Salle / Terrain"
-                    name ="Room"
-                    select
-                    value={roomPick}
-                    onChange={handleChangeRoom}
-                    helperText="Veuillez choisir votre salle / terrain."
-                    >
-                    {roomPicks.map((option) => (
-                    <MenuItem key={option.value} value={option.value}>
-                    {option.label}
-                        </MenuItem>
-                    ))}
-                    </TextField>
-                    
-                </div>
+                {(() => {
+                  console.log("roomPick" + roomPick)
+                  /**if(roomPick){
+                    return(
+                    <div>
+                      <FormGroup>
+                        <TextField
+                        id="Room"
+                        label="Salle / Terrain"
+                        name ="Room"
+                        select
+                        value={roomPick}
+                        onChange={handleChangeRoom}
+                        helperText="Veuillez choisir votre salle / terrain."
+                        >
+                        {roomPicks.map((option) => (
+                        <MenuItem key={option.value} value={option.value}>
+                        {option.label}
+                            </MenuItem>
+                        ))}
+                        </TextField>
+                      </FormGroup>
+                    </div>
+                  )
+                  }*/
+                })()}
                 <div>
                     <Button onClick={handleSubmit}>Submit</Button>
                 </div>

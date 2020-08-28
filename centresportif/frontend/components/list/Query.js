@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Query } from 'react-apollo';
+import { Query,useQuery } from 'react-apollo';
 import gql from 'graphql-tag';
 
  export const CLIENTS_QUERY = gql`
