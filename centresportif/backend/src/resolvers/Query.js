@@ -8,7 +8,8 @@ const Query = {
     async roomsFilter(parent, args, context, info) {
         return await context.db.query.rooms({
             where:{
-                sport : args.sport,
+                name : args.name,
+                sport : args.sport
         }})
     },
     async userFilter(parent, args, context, info) {

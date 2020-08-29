@@ -37,7 +37,7 @@ type Query {
     rooms: [Room!]!,
     locations: [Location!]!,
     users: [User!]!,
-    roomsFilter(sport : String!): [Room!]!
+    roomsFilter(name: String!,sport : String!): [Room!]!
     userFilter(id: String!): [User!]!
     locationFilter(userId: String!): [Location!]!
 }

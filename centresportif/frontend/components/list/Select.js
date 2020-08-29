@@ -2,17 +2,15 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import MenuItem from '@material-ui/core/MenuItem';
-import { Button,  FormGroup, Label, Input, FormText } from 'reactstrap';
+import { Button,  FormGroup} from 'reactstrap';
 import DateFnsUtils from '@date-io/date-fns'; // choose your lib
 import {
   MuiPickersUtilsProvider,
   KeyboardDatePicker,
 } from '@material-ui/pickers'
-import {ROOMS_QUERY,LOCATIONS_QUERY} from '../list/Query'
-import { Query } from 'react-apollo';
-import {Table} from 'reactstrap'
-import { validate } from 'graphql';
-
+import {ROOMS_QUERY,LOCATIONS_QUERY,ROOMSFILTER_QUERY} from '../list/Query'
+import {CREATE_LOCATION_MUTATION} from '../list/Mutation'
+import { Query,Mutation } from 'react-apollo';
 
 const sportPicks = [
   {
@@ -37,7 +35,29 @@ const sportPicks = [
   },
 ];
 
- 
+const ErrorMessage = ({error}) => {
+  if(!error || !error.message) return null;
+  if(
+    error.networkError &&
+    error.networkError.result &&
+    error.networkError.result.errors.length
+    ){
+      return error.networkError.result.errors.map((error, i) => (
+        <p>
+          <strong>
+            ERREUR : {error.message.replace("GrapQL error: ", "")}
+          </strong>
+        </p>
+      ));
+    }
+  return(
+    <p>
+          <strong>
+            ERREUR : {error.message.replace("GrapQL error: ", "")}
+          </strong>
+        </p>
+  );
+};
  
 function sortDataRoom(data,sportPick,setRoomPicks,setOldSportPick){
   var dataMaped = data.rooms.map(rooms => rooms)
@@ -55,7 +75,50 @@ function sortDataRoom(data,sportPick,setRoomPicks,setOldSportPick){
 }
 function sortDataHour(data,hourPick,roomPick,datePick,setHourPicks,setOldHourPick){
   var dataMaped = data.locations.map(locations => locations)
-  var hours = [8,9,10,11,12,13,14,15,16,17,18,19,20,21,22]
+  var hours = [
+    {
+    value : 8,
+    label : 8
+  },{
+    value : 9,
+    label : 9
+  },{
+    value : 10,
+    label : 10
+  },{
+    value : 11,
+    label : 11
+  },{
+    value : 12,
+    label : 12
+  },{
+    value : 13,
+    label : 13
+  },{
+    value : 14,
+    label : 14
+  },{
+    value : 15,
+    label : 15
+  },{
+    value : 16,
+    label : 16
+  },{
+    value : 17,
+    label : 17
+  },{
+    value : 18,
+    label : 18
+  },{
+    value : 20,
+    label : 20
+  },{
+    value : 21,
+    label : 21
+  },{
+    value : 22,
+    label : 22
+  }]
   
   /*for ( let i in dataMaped) {
     if( dataMaped[i].sport === sportPick){
@@ -67,12 +130,13 @@ function sortDataHour(data,hourPick,roomPick,datePick,setHourPicks,setOldHourPic
       setOldSportPick(sportPick);
     }
   }*/
-  setHourPicks(hourPicks => [...hourPicks,
-    {
-    value : "8",
-    label : "8"
-  }])
-  setOldHourPick(hourPick);
+  for ( let i in hours) {
+    setHourPicks(hourPicks => [...hourPicks,{
+      value : hours[i].value,
+      label : hours[i].label,
+    }])
+    setOldHourPick(hourPick);
+  }
 
 
 }
@@ -83,7 +147,7 @@ export default function MultilineTextFields(props) {
     const [sportPick, setSportPick] = React.useState('');
     const [hourPick, setHourPick] = React.useState('');
     const [roomPick, setRoomPick] = React.useState('');
-    const [datePick, setdatePick] = React.useState(new Date());
+    const [datePick, setdatePick] = React.useState(new Date('Jan 01 2020'));
     const [formData, updateFormData] = React.useState(initialFormData);
     /** sort part */
     const [roomPicks, setRoomPicks] = React.useState([])
@@ -91,7 +155,7 @@ export default function MultilineTextFields(props) {
     const [oldHourPick, setOldHourPick] = React.useState('')
     const [hourPicks, setHourPicks] = React.useState([]);
 
-
+    
     /** Handle part */ 
     const handleChangeSport = (event) => {
         updateFormData({
@@ -104,7 +168,7 @@ export default function MultilineTextFields(props) {
     const handleChangeHour = (event) => {
         updateFormData({
             ...formData,
-            [event.target.name]: event.target.value.trim()
+            [event.target.name]: event.target.value
         });
         setHourPick(event.target.value);
 
@@ -118,187 +182,230 @@ export default function MultilineTextFields(props) {
 
     };
     const handleDateChange = (date) => {
-        setdatePick(date);
-        
+      setdatePick(date);
+      var lefrr;
+      
+      if((date.getMonth()+1) < 10){
+        lefrr = (date.getDate() + "/0" + (date.getMonth()+1) + "/"+ date.getFullYear());
+
+      }else{
+        lefrr = (date.getDate() + "/" + (date.getMonth()+1) +"/"+ date.getFullYear());
+
+      }
+      
+      updateFormData({
+        ...formData,
+        ["Date"]: lefrr
+      });
     };
     const handleSubmit = (e) => {
-        e.preventDefault()
+      /*var lefrr
+      
+      if(formData.Date === undefined){
+        if((datePick.getMonth()+1) < 10){
+          lefrr = (datePick.getDate() + "/0" + (datePick.getMonth()+1) + "/"+ datePick.getFullYear());
+  
+        }else{
+          lefrr = (datePick.getDate() + "/" + (datePick.getMonth()+1) +"/"+ datePick.getFullYear());
+  
+        }
+        updateFormData({
+          ...formData,
+          ["Date"]: lefrr
+        });
+      }
+      console.log(formData)
+      console.log(e)
+     
+        e.preventDefault();
         // ... submit to API or something
-        console.log(formData)
-        
+        response = createLocation({ variables: { sport: formData.Sport,hour: formData.Hour, day: formData.Date }});
+        console.log(response)
+        Router.push({
+          query : {sport : response.e.createLocation.sport}
+        })
+      return <div></div>
+        */
     };
+
     if(Object.keys(formData).length > 0){
         return (
-            <div>
-                <div>
-                  <FormGroup>
-                    <TextField
-                    id="Sport"
-                    label="Sport"
-                    name ="Sport"
-                    select
-                    value={sportPick}
-                    onChange={handleChangeSport}
-                    helperText="Veuillez choisir votre sport."
-                    >
-                    {sportPicks.map((option) => (
-                        <MenuItem key={option.value} value={option.value} name= "menuSport">
-                        {option.label}
+          
+      <Mutation mutation={CREATE_LOCATION_MUTATION} >
+        {(createLocation, {data, loading, error}) =>(
+          <form
+          aria-disabled={loading} 
+          disabled={loading}
+          onSubmit= {
+            async e => {
+              console.log(formData.Date)
 
-                        </MenuItem>
-                    ))}
-                    </TextField>
-                  </FormGroup>
-                </div>
-                {(() => {
-                  if(roomPicks.length > 0){
-                    return(
-                    <div>
-                      <FormGroup>
-                        <TextField
-                        id="Room"
-                        label="Salle / Terrain"
-                        name ="Room"
-                        select
-                        value={roomPick}
-                        onChange={handleChangeRoom}
-                        helperText="Veuillez choisir votre salle / terrain."
-                        >
-                        {roomPicks.map((option) => (
-                        <MenuItem key={option.value} value={option.value}>
-                          {option.label}
-                        </MenuItem>
-                        ))}
-                        </TextField>
-                      </FormGroup>
-                    </div>
-                  )
-                  }
-                })()}              
-                <div>
-                    <FormGroup>
-                        <MuiPickersUtilsProvider utils={DateFnsUtils}>        
-                            <KeyboardDatePicker
-                                margin="normal"
-                                id="Date"
-                                name = "Date"
-                                label="Date"
-                                format="dd/MM/yyyy"
-                                value={datePick}
-                                onChange={handleDateChange}
-                                KeyboardButtonProps={{
-                                'aria-label': 'change date',
-                                }}
-                            />      
-                        </MuiPickersUtilsProvider>
-                    </FormGroup>
-                </div>
-                <div>
-                    <TextField
-                    id="Hour"
-                    label="Heure"
-                    name ="Heure"
-                    select
-                    value={hourPick}
-                    onChange={handleChangeHour}
-                    helperText="La réservation commence à l'heure choisie dans ce formulaire et ce,sur une période de 1H00"
-                    >
-                    {hourPicks.map((option) => (
-                        <MenuItem key={option.value} value={option.value}>
-                        {option.label}
-                        </MenuItem>
-                    ))}
-                    </TextField>
-                </div>
+              e.preventDefault();
+              const response = await createLocation({ variables :{sport :formData.Sport,hour:formData.Hour,day:formData.Date}});
+              console.log(response);
+              /**Router.push({
+                pathname : '/creation',
+                query : {sport : "Football"}
                 
-                <div>
-                    <Button onClick={handleSubmit}>Submit</Button>
-                </div>
-                <div>
-                <p> Les réservations </p>
-                <Query query={ROOMS_QUERY}>
-                    {({ data, error, loading }) => {
-                       if(data.rooms) {
-                          //setRoomPicks(roomPicks => [...roomPicks, sortData(data,sportPick)])
-                          if(roomPicks.length == 0){
-                            sortDataRoom(data,sportPick,setRoomPicks,setOldSportPick)
-                          }else if(oldSportPick !== sportPick){
-                            sortDataRoom(data,sportPick,setRoomPicks,setOldSportPick)
-                          }                         
-                        }
-                        if(loading) return <p> Loading...</p>
-                        if(error) return <p> Error : { error.message }</p>
-                        return <div>
-                            <Table dark hover responsive striped>
-                            <thead>
-                                    <tr>
-                                        <th>Salle</th>
-                                        <th>Sport</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {data.rooms.map(
-                                        rooms => 
-                                            <tr key= {rooms.id}>
-                                                <td key= {rooms.name}>{rooms.name}</td>
-                                                <td key= {rooms.sport}>{rooms.sport}</td>
-                                            </tr>
-                                        )
-                                    }
-                                </tbody>
-                            </Table> 
-                        </div>
-                        }               
-                    }
-                </Query>
-                <Query query={LOCATIONS_QUERY}>
-                    {({ data, error, loading }) => {
-                   if(data.locations) {
-                          //setRoomPicks(roomPicks => [...roomPicks, sortData(data,sportPick)])
-                          console.log(data.locations)
-                          if(hourPicks.length == 0){
+              });*/
+            }} 
+            
+          >
+            <ErrorMessage error={error}/>
+            <div>
+              <div>
+                <FormGroup>
+                  <TextField
+                  id="Sport"
+                  label="Sport"
+                  name ="Sport"
+                  select
+                  value={sportPick}
+                  onChange={handleChangeSport}
+                  helperText="Veuillez choisir votre sport."
+                  >
+                  {sportPicks.map((option) => (
+                      <MenuItem key={option.value} value={option.value} name= "menuSport">
+                      {option.label}
 
-                            sortDataHour(data,sportPick,roomPick,datePick,setHourPicks,setOldHourPick)
-                            console.log(datePick)
-                            console.log(hourPicks)
-                            console.log("t nouvo toi")
-                          }else if(oldHourPick !== hourPick){
-                            console.log(oldHourPick)
-                            console.log(hourPick)
-                            console.log("pas les memes frr")
-                            sortDataHour(data,sportPick,roomPick,datePick,setHourPicks,setOldHourPick)
-                          }                         
-                        }
-                        console.log(roomPick)
-                        console.log(datePick)
-                        if(loading) return <p> Loading...</p>
-                        if(error) return <p> Error : { error.message }</p>
-                        return <div>
-                            <Table dark hover responsive striped>
-                            <thead>
-                                    <tr>
-                                        <th>Heure</th>
-                                        <th>Sport</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {data.locations.map(
-                                        locations => 
-                                            <tr key= {locations.id}>
-                                                <td key= {locations.hour}>{locations.hour}</td>
-                                                <td key= {locations.sport}>{locations.sport}</td>
-                                            </tr>
-                                        )
-                                    }
-                                </tbody>
-                            </Table> 
+                      </MenuItem>
+                  ))}
+                  </TextField>
+                </FormGroup>
+              </div>
+              {(() => {
+                if(sportPick){
+                  console.log("sportPick : " + sportPick)
+                  
+                  return(
+                    <div>
+                      <div>
+                    <FormGroup>
+                      <TextField
+                      id="Room"
+                      label="Salle / Terrain"
+                      name ="Room"
+                      select
+                      value={roomPick}
+                      onChange={handleChangeRoom}
+                      helperText="Veuillez choisir votre salle / terrain."
+                      >
+                      {roomPicks.map((option) => (
+                      <MenuItem key={option.value} value={option.value}>
+                        {option.label}
+                      </MenuItem>
+                      ))}
+                      </TextField>
+                    </FormGroup>
+                  </div>       
+                </div>
+                )}})()}
+                {(() => {
+                  if(sportPick && roomPick){
+                    return(
+                      <div>
+                        <FormGroup>
+                            <MuiPickersUtilsProvider utils={DateFnsUtils}>        
+                                <KeyboardDatePicker
+                                    margin="normal"
+                                    id="Date"
+                                    name = "Date"
+                                    label="Date"
+                                    format="dd/MM/yyyy"
+                                    value={datePick}
+                                    onChange={handleDateChange}
+                                    KeyboardButtonProps={{
+                                    'aria-label': 'change date',
+                                    }}
+                                    helperText="Veuillez choisir votre date."
+
+                                />      
+                            </MuiPickersUtilsProvider>
+                        </FormGroup>
+                      </div>
+                  )}})()}
+                  {(() => {
+                  if(sportPick && roomPick && datePick){
+                    console.log(datePick)
+                    return(
+                      <div>
+                        <FormGroup>
+                            <TextField
+                            id="Hour"
+                            label="Heure"
+                            name ="Hour"
+                            select
+                            value={hourPick}
+                            onChange={handleChangeHour}
+                            helperText="La période de réservation s'étend sur une heure à partir de celle choisie"
+                            >
+                            {hourPicks.map((option) => (
+                                <MenuItem key={option.value} value={option.value}>
+                                {option.label}
+                                </MenuItem>
+                            ))}
+                            </TextField>
+                          </FormGroup>
+                      </div>
+                    )}})()}
+                    {(() => {
+                    if(sportPick && roomPick && datePick && hourPick){
+                    return(
+                      <div>
+                          <div>
+                          <Button type="submit">Submit</Button>
+                          
                         </div>
-                        }               
+                      </div>
+                      
+                    )}})()}
+                
+                
+              <Query query={ROOMS_QUERY}>
+                  {({ data, error, loading }) => {
+                      if(data.rooms) {
+                        if(roomPicks.length == 0){
+                          sortDataRoom(data,sportPick,setRoomPicks,setOldSportPick)
+                        }else if(oldSportPick !== sportPick){
+                          sortDataRoom(data,sportPick,setRoomPicks,setOldSportPick)
+                        }                         
+                      }
+                      return <div></div>
+                      }               
+                  }
+              </Query>
+              <Query query={LOCATIONS_QUERY}>
+                  {({ data, error, loading }) => {
+                    if(data.locations) {
+                      if(hourPicks.length == 0){
+                        sortDataHour(data,sportPick,roomPick,datePick,setHourPicks,setOldHourPick)
+                      }else if(oldHourPick !== hourPick){
+                        if(sportPick !== oldSportPick){
+                          if(roomPick){
+                            sortDataHour(data,sportPick,roomPick,datePick,setHourPicks,setOldHourPick)
+                          }
+                        }
+                      }                         
                     }
-                </Query>
-            </div>
-               
-            </div>
+                      return <div></div>
+                  }}
+              </Query>
+              <Query query={ROOMSFILTER_QUERY}>
+                  {(roomsFilter ) => {
+                    async e => {
+
+                    const value  = await roomsFilter({variables : {name: formData.Room, sport: formData.sport}})
+                    console.log(value)
+                    
+                    }
+                    return <div></div>
+                  }}
+              </Query>
+          </div>     
+        
+        </form>
+      )}
+    </Mutation>
         )          
     }else {
         return (
@@ -320,69 +427,8 @@ export default function MultilineTextFields(props) {
                     ))}
                     </TextField>
                 </div>
-                
-                <div>
-                      <FormGroup>
-                        <TextField
-                        id="Room"
-                        label="Salle / Terrain"
-                        name ="Room"
-                        select
-                        value={roomPick}
-                        onChange={handleChangeRoom}
-                        helperText="Veuillez choisir votre salle / terrain."
-                        >
-                        {roomPicks.map((option) => (
-                        <MenuItem key={option.value} value={option.value}>
-                        {option.label}
-                            </MenuItem>
-                        ))}
-                        </TextField>
-                      </FormGroup>
-                    </div>
-                <div>
-                    <FormGroup>
-                        <MuiPickersUtilsProvider utils={DateFnsUtils}>        
-                            <KeyboardDatePicker
-                                margin="normal"
-                                id="Date"
-                                name = "Date"
-                                label="Date"
-                                format="dd/MM/yyyy"
-                                value={datePick}
-                                onChange={handleDateChange}
-                                KeyboardButtonProps={{
-                                'aria-label': 'change date',
-                                }}
-                            />      
-                        </MuiPickersUtilsProvider>
-                    </FormGroup>
-                </div>
-                <div>
-                    <TextField
-                    id="Hour"
-                    label="Heure"
-                    name ="Heure"
-                    select
-                    value={hourPick}
-                    onChange={handleChangeHour}
-                    helperText="La réservation commence à l'heure choisie dans ce formulaire et ce,sur une période de 1H00"
-                    >
-                    {hourPicks.map((option) => (
-                        <MenuItem key={option.value} value={option.value}>
-                        {option.label}
-                        </MenuItem>
-                    ))}
-                    </TextField>
-                </div>
-                
-                 
-                <div>
-                    <Button onClick={handleSubmit}>Submit</Button>
-                </div>
-               
             </div>
         )
-                    }
-        
     }
+        
+}

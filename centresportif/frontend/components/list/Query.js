@@ -55,9 +55,12 @@ export const ROOMS_QUERY = gql`
 `;
 export const ROOMSFILTER_QUERY = gql`
     
-    query ROOMSFILTER_QUERY {
+    query ROOMSFILTER_QUERY (
+        $name: String!
+        $sport: String!
+    ){
 
-        roomsFilter{
+        roomsFilter(name: $name,sport:$sport){
             name
         }
     }
