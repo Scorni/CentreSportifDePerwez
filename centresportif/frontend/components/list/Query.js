@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Query } from 'react-apollo';
+import { Query,useQuery } from 'react-apollo';
 import gql from 'graphql-tag';
 
  export const CLIENTS_QUERY = gql`
@@ -35,9 +35,34 @@ export const LOCATIONS_QUERY = gql`
             id
             sport,
             is_paid,
+            hour,
+            day
             roomName{name},
             userId{name,surname}
             }
+    }
+`;
+export const ROOMS_QUERY = gql`
+    
+    query ROOMS_QUERY {
+        rooms{
+            name,
+            id,
+            uniqueNameSport,
+            sport
+            }
+    }
+`;
+export const ROOMSFILTER_QUERY = gql`
+    
+    query ROOMSFILTER_QUERY (
+        $name: String!
+        $sport: String!
+    ){
+
+        roomsFilter(name: $name,sport:$sport){
+            name
+        }
     }
 `;
 

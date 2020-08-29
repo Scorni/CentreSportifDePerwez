@@ -37,7 +37,7 @@ const Mutations = {
                 },
                 roomName:{
                     connect: {
-                        name: args.roomName
+                        id: args.roomName
                     }
                 },
                 uniqueLocationsRoomHourDay:  args.roomName + "_" + args.day + "_" + args.hour
