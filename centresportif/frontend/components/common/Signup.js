@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Mutation } from 'react-apollo';
 import {CREATE_USER_MUTATION} from './Mutation'
+import { CURRENT_USER_QUERY } from '../common/Query';
 import TextField from '@material-ui/core/TextField';
 import {  
     Button, 
@@ -20,21 +21,13 @@ class Signup extends Component{
 
 render(){
     return(
-        <Mutation mutation={CREATE_USER_MUTATION} >
+        <Mutation mutation={CREATE_USER_MUTATION} variables={this.state} refetchQueries={[{query : CURRENT_USER_QUERY}]} >
             {(signup, {data, loading, error}) =>(
             <form
             method='post'
             onSubmit={async e => {
                 e.preventDefault();
-                const response = await signup({ variables :{
-                    email : this.state.email,
-                    name : this.state.name,
-                    surname : this.state.surname,
-                    password : this.state.password, 
-                    adress : this.state.adress, 
-                    city : this.state.city }});
-
-            console.log(response);
+                await signup();
             this.setState({
                 name: '',
                 email: '',

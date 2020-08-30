@@ -9,15 +9,19 @@ type Client {
 
 type User {
   id: ID! @id
-  name: String! @unique
+  name: String!
   surname: String!
   password: String!
-  mail: String! @unique
+  email: String! @unique
   adress: String!
+  city: String!
   has_bill : Boolean! @default(value: false)
   is_Admin : Boolean! @default(value: false)
   is_SAdmin : Boolean! @default(value: false)
   createdAt: DateTime! @createdAt
+  resetToken: String
+  resetTokenExpiry: Float
+  permissions: [Permission] @scalarList (strategy:RELATION)
 }
 
 type Location {
@@ -38,4 +42,10 @@ type Room {
   price : Float!
   sport : String!
   uniqueNameSport: String! @unique
+}
+
+enum Permission {
+  SADMIN
+  ADMIN
+  USER
 }

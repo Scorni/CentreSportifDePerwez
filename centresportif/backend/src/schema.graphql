@@ -21,15 +21,17 @@ type Mutation {
         userId: String!
         is_paid: Boolean!
     ): Location!,
-    createUser(
+    
+    signup(
+        email: String!
+        password: String!
         name: String!
         surname: String!
-        password: String!
+        adress: String!
+        city: String!
         has_bill : Boolean! 
         is_Admin : Boolean!
         is_SAdmin : Boolean!
-        mail: String!
-        adress: String!
     ): User!
 }
 type Query {
@@ -37,9 +39,10 @@ type Query {
     rooms: [Room!]!,
     locations: [Location!]!,
     users: [User!]!,
-    roomsFilter(name: String!,sport : String!): [Room!]!
-    userFilter(id: String!): [User!]!
-    locationFilter(userId: String!): [Location!]!
+    roomsFilter(name: String!,sport : String!): [Room!]!,
+    userFilter(id: String!): [User!]!,
+    locationFilter(userId: String!): [Location!]!,
+    me:User
 }
 
 ## not query or mutation
@@ -75,10 +78,12 @@ type User {
     id: ID!
     name: String!
     surname: String!
-    mail: String!
+    email: String!
     adress: String!
+    city: String!
     password: String!
     has_bill : Boolean!    
     is_Admin : Boolean!    
     is_SAdmin : Boolean!   
+    permissions : [Permission!]!
 }

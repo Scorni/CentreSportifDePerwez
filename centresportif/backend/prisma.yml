@@ -1,6 +1,6 @@
-endpoint: ${env:PRISMA_ENDPOINT}
+endpoint: "https://eu1.prisma.sh/maxscorni-dce3a0/centresportifbe/dev"
 datamodel: datamodel.graphql
-# secret : ${env:PRISMA_SECRET}
+secret : "test123"
 
 generate:
   - generator: graphql-schema
