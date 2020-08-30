@@ -191,16 +191,6 @@ function sortDataHour(data,sportPick,roomPick,datePick,setHourPicks,hourPick,set
       
     setOldHourPick(hourPick);
  
- 
-  /*
-  for ( let i in hours) {
-    setHourPicks(hourPicks => [...hourPicks,{
-      value : hours[i].value,
-      label : hours[i].label,
-    }])
-    setOldHourPick(hourPick);
-  }
-*/
 
 }
 const initialFormData = Object.freeze({});
@@ -310,7 +300,6 @@ export default function MultilineTextFields(props) {
 
               e.preventDefault();
               const response = await createLocation({ variables :{sport :formData.Sport,hour:formData.Hour,day:formData.Date}});
-              console.log(response);
               /**Router.push({
                 pathname : '/creation',
                 query : {sport : "Football"}
@@ -343,8 +332,6 @@ export default function MultilineTextFields(props) {
               </div>
               {(() => {
                 if(sportPick){
-                  console.log("sportPick : " + sportPick)
-                  
                   return(
                     <div>
                       <div>
@@ -386,7 +373,6 @@ export default function MultilineTextFields(props) {
                                     'aria-label': 'change date',
                                     }}
                                     helperText="Veuillez choisir votre date."
-
                                 />      
                             </MuiPickersUtilsProvider>
                         </FormGroup>
@@ -394,7 +380,6 @@ export default function MultilineTextFields(props) {
                   )}})()}
                   {(() => {
                   if(sportPick && roomPick && datePick){
-                    console.log(datePick)
                     return(
                       <div>
                         <FormGroup>
@@ -422,13 +407,9 @@ export default function MultilineTextFields(props) {
                       <div>
                           <div>
                           <Button type="submit">Submit</Button>
-                          
                         </div>
                       </div>
-                      
                     )}})()}
-                
-                
               <Query query={ROOMS_QUERY}>
                   {({ data, error, loading }) => {
                       if(data.rooms) {
@@ -439,7 +420,7 @@ export default function MultilineTextFields(props) {
                         }                         
                       }
                       return <div></div>
-                      }               
+                    }               
                   }
               </Query>
               <Query query={LOCATIONS_QUERY}>
@@ -457,35 +438,25 @@ export default function MultilineTextFields(props) {
                         }
                       }                         
                     }
-                      return <div></div>
+                    return <div></div>
                   }}
               </Query>
-             
-                
-                
-                  <Query query={ROOMSFILTER_QUERY} variables={{name: formData.Room,sport : formData.Sport}}>
-                      {({ data, error, loading }) => {
-                        if(roomPick.length){
-                        if(data.roomsFilter){
-                        console.log(data)
-                        setIdRoomPicks(data.roomsFilter.id)
-                        console.log(idRoomPicks)
-                        }
-                        }
-                        return <div></div>
-
+              <Query query={ROOMSFILTER_QUERY} variables={{name: formData.Room,sport : formData.Sport}}>
+                  {({ data, error, loading }) => {
+                    if(roomPick.length){
+                      if(data.roomsFilter){
+                      setIdRoomPicks(data.roomsFilter.id)
                       }
-                      
                     }
-                  </Query>
-              
-              
-          </div>     
-        
-        </form>
-      )}
-    </Mutation>
-        )          
+                    return <div></div>
+                  }
+                }
+              </Query>
+            </div>     
+          </form>
+        )}
+      </Mutation>
+    )          
     }else {
         return (
             <div>
