@@ -16,7 +16,7 @@ export const CREATE_LOCATION_MUTATION = gql`
             hour: $hour
             day: $day
             roomName: "ckecqhr5ypm7v0a32faivetpj"
-            userId: "ckecqhpxepm7j0a32tra1552l"
+            userId: "ckeh62s2w8tww0a35ygxz8wvc"
             is_paid: true
         ){
             sport

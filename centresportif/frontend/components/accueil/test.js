@@ -8,17 +8,15 @@ import gql from 'graphql-tag';
 
 
 const User = props => (
-<Query query={CURRENT_USER_QUERY}>
-    {({ data, error, loading }) => {
-        return(data.name)
-    }}
+<Query {...props} query={CURRENT_USER_QUERY}>
+     {payload => props.children(payload)}
 </Query>
 );
 
 const Test = () => {
     
     return (
-        <Query query={CURRENT_USER_QUERY} variables={{id:"ckeh6lpjt79u90a32i3zzqpey"}}>
+        <Query query={CURRENT_USER_QUERY}>
         {({ data, error, loading }) => {
         if(data){
             console.log(data)
@@ -31,4 +29,4 @@ const Test = () => {
     );
    };
   
-  export default Test;
+  export default User;

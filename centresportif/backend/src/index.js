@@ -11,15 +11,14 @@ const server = createServer();
 
 server.express.use(cookieParser());
 
+//decode the JWT to get the user Id
 
 server.express.use((req, res, next) => {
     const { token } = req.cookies;
     console.log(token)
     if (token) {
       const { userId } = jwt.verify(token, "test123");
-      console.log("userId: " + userId)
       req.userId = userId;
-      console.log("req.userId: " +req.userId)
      }
      next();
   });

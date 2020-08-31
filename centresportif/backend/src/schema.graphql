@@ -32,7 +32,20 @@ type Mutation {
         has_bill : Boolean! 
         is_Admin : Boolean!
         is_SAdmin : Boolean!
+    ): User!, 
+    signin(
+        email: String!,
+        password: String!,
     ): User!
+    signout: SuccessMessage,
+    requestReset(
+        email: String!)
+    : SuccessMessage
+    resetPassword(
+        resetToken : String!,
+        password: String!, 
+        confirmPassword: String
+    !): User!
 }
 type Query {
     clients: [Client!]!,
@@ -81,9 +94,11 @@ type User {
     email: String!
     adress: String!
     city: String!
-    password: String!
     has_bill : Boolean!    
     is_Admin : Boolean!    
     is_SAdmin : Boolean!   
     permissions : [Permission!]!
+}
+type SuccessMessage{
+    message : String
 }

@@ -6,6 +6,7 @@ import TextField from '@material-ui/core/TextField';
 import {  
     Button, 
  } from 'reactstrap';
+import Error from './ErrorMessage';
 class Signup extends Component{
   state = {
     name : "",
@@ -38,6 +39,8 @@ render(){
             });
             }}
             >
+            <Error error={error}/>
+            <fieldset disabled={loading} aria-busy={loading}>
                 <label htmlFor="email">
                     <TextField
                     re
@@ -100,7 +103,8 @@ render(){
                     />
                 </label>
                 <br/><br/>
-                <Button type="submit" color="secondary">Cancel</Button>
+                <Button type="submit" color="secondary">S'enregistrer</Button>
+                </fieldset>
             </form>)}
         </Mutation>
         )

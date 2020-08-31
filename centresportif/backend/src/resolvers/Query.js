@@ -24,7 +24,7 @@ const Query = {
                 id: args.userId           
         }})
     },
-      me(parent, args, ctx, info) {
+    me(parent, args, ctx, info) {
     // check if there is a current user ID
     if (!ctx.request.userId) {
       return null;

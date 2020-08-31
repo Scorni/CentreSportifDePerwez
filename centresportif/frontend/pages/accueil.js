@@ -8,7 +8,7 @@ const Accueil = props => (
         <MyCarousel></MyCarousel>
         <MyTabs></MyTabs>
         <MyReservation></MyReservation>
-        <Test></Test>
+        
     </div>
 )
 export default Accueil;

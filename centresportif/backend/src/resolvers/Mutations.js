@@ -1,6 +1,8 @@
 const jwt = require("jsonwebtoken");
 const bcrypt = require('bcryptjs');
-
+const { randomBytes } = require('crypto');
+const { promisify } =require('util');
+const { singleFieldOnlyMessage } = require("graphql/validation/rules/SingleFieldSubscriptions");
 const Mutations = {
     async createClient(parent, args, ctx, info) {
 
@@ -67,30 +69,24 @@ const Mutations = {
             }
         */
     },
-    async signup(parent, { password, email, name, surname,adress,city}, ctx, info) {
+    async signup(parent, args, ctx, info) {
         // lowercase email
-        email = email.toLowerCase();
+        args.email = args.email.toLowerCase();
         // hash password  
-        const passwordCrypted = await bcrypt.hash(password, 10);
+        const password = await bcrypt.hash(args.password, 10);
         // create user in DB
         const user = await ctx.db.mutation.createUser(
             {
              data: {
-             email,
-             name,
-             surname,
-             adress,
-             city,
-             password: passwordCrypted,
-             permissions: {
-              set: ["USER"]
-             }
-            }
+                ...args,
+                password,
+                permissions: { set: ["USER"]},
+            },
             },
             info
             );
         // create jwt token           
-        const token = jwt.sign({ userId: name }, "test123");
+        const token = jwt.sign({ userId: user.id }, "test123");
         // set jwt as a cookie 
         ctx.response.cookie("token", token, {
             httpOnly: true,
@@ -98,8 +94,88 @@ const Mutations = {
           });
           
         return user;
+    },
+    async signin(parent,{email,password},ctx,info){
+        //check user with that email
+        const user = await ctx.db.query.user({where: {email}})
+        if(!user){
+            throw new Error('Aucun utilisateur trouvé pour cette adresse mail' + email);
+        }
+        //check if password is correct
+        const valid = await bcrypt.compare(password, user.password)
+        if(!valid){
+            throw new Error('Mot de passe incorrect!')
+        }
+        //generate the jwt token
+        const token = jwt.sign({ userId : user.id}, "test123")
+        //set the cookie with the token
+        ctx.response.cookie("token",token, {
+            httpOnly: true,
+            maxAge: 1000 *60 *60 *24 *365 
+         });
+        //return the user
+        return user;
+    },
+    signout(parent,args,ctx,info){
+        ctx.response.clearCookie('token');
+        return{message: "Au revoir !"};
+    },
+    async requestReset(parent,args,ctx,info){
+        // check if real user
+        const user = await ctx.db.query.user({where: {email: args.email}})
+        if(!user){
+            throw new Error("Pas d'utilisateur correspondant à cette email : " + args.email)
+        }
+        // set reset token
+        const randomBytesPromiseified =promisify(randomBytes);
+        const resetToken = (await randomBytesPromiseified(20)).toString('hex');
+        const resetTokenExpiry = Date.now() + 3600000;
+        const res = await ctx.db.mutation.updateUser({
+            where:{email: args.email},
+            data:{resetToken,resetTokenExpiry}
+        })
+        console.log(res);
+        return{message: 'Merci !'}
+        // email the reset token
+        
+    },
+    async resetPassword (parent,args,ctx,info){
+        //check if password equals
+        if(args.password !== args.confirmPassword){
+            throw new Error('Les mots de passe ne correspondent pas :( ')
+        }
+        //check if token is legit
+        //check if its expired
+        const [user] = await ctx.db.query.users({
+            where : {
+                resetToken: args.resetToken,
+                resetTokenExpiry_gte: Date.now() - 3600000
+            }
+        });
+        if(!user){
+            throw new Error("Le token est invalide ou est expiré")
+        }
+        //hash new password
+        const password = await bcrypt.hash(args.password,10);
+        //save the new password and remove resettoken field
+        const updatedUser = await ctx.db.mutation.updateUser({
+            where : {email : user.email},
+            data : {
+                password,
+                resetToken: null,
+                resetTokenExpiry: null,
+            }
+        })
+        //generate jwt
+        const token = jwt.sign({userId: updatedUser.id},"test123")
+        //set jwt cookie
+        ctx.response.cookie('token',token,{
+           httpOnly: true,
+           maxAge: 1000 *60 *60 *24 *365 
+        })
+        //return new user
+        return updatedUser;
     }
-
 };
 
 

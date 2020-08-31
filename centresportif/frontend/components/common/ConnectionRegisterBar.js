@@ -16,11 +16,14 @@ import {  Collapse,
 import { Mutation } from 'react-apollo';
 import gql from 'graphql-tag';
 import Signup from '../common/Signup';
+import Signin from '../common/SignIn';
+import User from '../common/User';
+import Link from "next/link";
+import Signout from './Signout';
 
 
 
-
-const MyModal = (props) => {
+const MyModalSignUp = (props) => {
   const {
       buttonLabel,
       className
@@ -42,6 +45,28 @@ const MyModal = (props) => {
       </div>
     );
 }
+const MyModalSignIn = (props) => {
+  const {
+      buttonLabel,
+      className
+    } = props;
+  
+    const [modal, setModal] = useState(false);
+  
+    const toggle = () => setModal(!modal);
+  
+    return (
+      <div>
+        <Button onClick={toggle}>{buttonLabel}</Button>
+        <Modal isOpen={modal} toggle={toggle} className={className}>
+          <ModalHeader toggle={toggle}>{props.title}</ModalHeader>
+          <ModalBody>
+            <Signin />
+          </ModalBody>
+        </Modal>
+      </div>
+    );
+}
 
 const MyConnectionRegistrerBar = (props) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -55,13 +80,43 @@ const MyConnectionRegistrerBar = (props) => {
           <NavbarToggler onClick={toggle} className ="ml-auto"></NavbarToggler>
           <Collapse isOpen={isOpen} navbar>
               <Nav navbar className = 'ml-auto'>
-                  
-                  <NavItem className='mr-1 mt-1'>
-                      <MyModal title = {"Se connecter"} buttonLabel="Se connecter"></MyModal>
-                  </NavItem>
-                  <NavItem className='mr-1 mt-1'>
-                      <MyModal title = {"S'enregistrer"} buttonLabel="S'enregistrer"></MyModal>
-                  </NavItem>
+                <User>
+                    {({data}) => {
+                      
+                      const me = data ? data.me : null
+                      if(me){ 
+                        return(
+                          <>
+                            <NavItem className='mr-1 mt-1'>
+                            <Link href='/profile'>
+                                <Button>
+                                    <a style={{color: "white"}}>
+                                        Mon Profile                                  
+                                    </a>
+                                </Button>  
+                            </Link>
+                            </NavItem>
+                            <NavItem className='mr-1 mt-1'>
+                            <Link href='/'>
+                                <Signout />
+                            </Link>
+                            </NavItem>
+                          </>
+                        )
+                      }else if (!me){
+                        return(
+                          <>
+                            <NavItem className='mr-1 mt-1'>
+                              <MyModalSignUp title = {"S'enregistrer"} buttonLabel="S'enregistrer"></MyModalSignUp>
+                            </NavItem>
+                            <NavItem className='mr-1 mt-1'>
+                              <MyModalSignIn title = {"Se connecter"} buttonLabel="Se connecter"></MyModalSignIn>
+                            </NavItem>
+                          </>
+                        )
+                      }
+                    }}
+                </User>
               </Nav>
           </Collapse>
       </Navbar>

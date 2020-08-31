@@ -14,6 +14,7 @@ export const CREATE_USER_MUTATION = gql`
         $city : String!
     ){
         signup(
+            
             email:  $email
             password: $password
             name: $name
@@ -23,6 +24,18 @@ export const CREATE_USER_MUTATION = gql`
             has_bill: false
             is_Admin: false
             is_SAdmin: false
-        ){name}
+        ){id}
+    }
+`;
+export const SIGNIN_MUTATION = gql`
+
+    mutation SIGNIN_MUTATION(
+        $email : String!   
+        $password : String!
+    ){
+        signin(
+            email:  $email
+            password: $password           
+        ){id}
     }
 `;

@@ -49,12 +49,14 @@ class MyApp extends App{
     render(){
         const {Component, pageProps, apollo} = this.props;
         return (
+          <Container>
             <ApolloProvider client={apollo}>
             <Page>
                 {/*<Loading {...this.state}/> */}
                 <Component {...pageProps}/>
             </Page>
             </ApolloProvider>
+            </Container>
         )
     }
 }
