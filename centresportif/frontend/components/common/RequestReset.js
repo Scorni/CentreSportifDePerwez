@@ -1,16 +1,15 @@
 import React, { Component } from 'react';
 import { Mutation } from 'react-apollo';
-import {SIGNIN_MUTATION} from './Mutation'
+import { REQUEST_RESET_MUTATION } from './Mutation'
 import { CURRENT_USER_QUERY } from '../common/Query';
 import TextField from '@material-ui/core/TextField';
 import {  
     Button, 
  } from 'reactstrap';
 import Error from './ErrorMessage';
-class Signin extends Component{
+class RequestReset extends Component{
   state = {
     email : "",
-    password : "",
   }
   saveToState = e => {
     this.setState({ [e.target.name]: e.target.value });
@@ -19,23 +18,22 @@ class Signin extends Component{
 render(){
     return(
         <Mutation 
-        mutation={SIGNIN_MUTATION} 
+        mutation={REQUEST_RESET_MUTATION} 
         variables={this.state} 
-        refetchQueries={[{query : CURRENT_USER_QUERY}]} 
         >
-            {(signup, {data, loading, error}) =>(
+            {(requestReset, {data, loading, error, called}) =>(
             <form
             method='post'
             onSubmit={async e => {
                 e.preventDefault();
-                await signup();
+                await requestReset();
             this.setState({
                 email: '',
-                password: '',
             });
             }}
             >
             <Error error={error}/>
+            {!error && !loading && called && <p>Demande effectuée !<br/> Vous allez recevoir un lien dans votre boite mail pour changer votre mot de passe.</p>}
             <fieldset disabled={loading} aria-busy={loading}>
                 <label htmlFor="email">
                     <TextField
@@ -48,21 +46,11 @@ render(){
                 />
                 </label>
                 <br/>
-                <label htmlFor="password">
-                    <TextField
-                    type="password"
-                    name="password"
-                    label="Mot de passe"
-                    value={this.state.password}
-                    onChange={this.saveToState}
-                    />
-                </label>
-                <br/><br/>
-                <Button type="submit" color="secondary">S'enregistrer</Button>
+                <Button type="submit" color="secondary">Confirmer</Button>
                 </fieldset>
             </form>)}
         </Mutation>
         )
     }
 }
-export default Signin;
+export default RequestReset;

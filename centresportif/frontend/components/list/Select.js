@@ -299,7 +299,7 @@ export default function MultilineTextFields(props) {
             async e => {
 
               e.preventDefault();
-              const response = await createLocation({ variables :{sport :formData.Sport,hour:formData.Hour,day:formData.Date}});
+              const response = await createLocation({ variables :{sport :formData.Sport,hour:formData.Hour,day:formData.Date,room:formData.Room}});
               /**Router.push({
                 pathname : '/creation',
                 query : {sport : "Football"}

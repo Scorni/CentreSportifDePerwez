@@ -3,7 +3,7 @@ import { Query } from 'react-apollo';
 import gql from 'graphql-tag';
 
 
-export const CURRENT_USER_QUERY = gql`
+const CURRENT_USER_QUERY = gql`
  query {
     me {
         id
@@ -26,3 +26,4 @@ User.propTypes = {
 };
 
 export default User;
+export { CURRENT_USER_QUERY};

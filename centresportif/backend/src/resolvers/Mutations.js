@@ -3,6 +3,7 @@ const bcrypt = require('bcryptjs');
 const { randomBytes } = require('crypto');
 const { promisify } =require('util');
 const { singleFieldOnlyMessage } = require("graphql/validation/rules/SingleFieldSubscriptions");
+const { transport , MakeANiceEmail, makeANiceEmail } = require("../mail")
 const Mutations = {
     async createClient(parent, args, ctx, info) {
 
@@ -29,6 +30,9 @@ const Mutations = {
     },
     async createLocation(parent, args, ctx, info) {
 
+        if(!ctx.request.userId){
+            throw new Error('Pour effectuer une réservation,vous devez être connecté!')
+        }
         const location = await ctx.db.mutation.createLocation({
             data: { 
                 sport : args.sport,
@@ -37,7 +41,7 @@ const Mutations = {
                 day: args.day,
                 userId:{
                     connect: {
-                        id: args.userId
+                        id: ctx.request.userId
                     }
                 },
                 roomName:{
@@ -134,9 +138,18 @@ const Mutations = {
             where:{email: args.email},
             data:{resetToken,resetTokenExpiry}
         })
-        console.log(res);
-        return{message: 'Merci !'}
         // email the reset token
+        const mailRes = await transport.sendMail({
+            from: 'maxscorni@hotmail.com',
+            to : args.email,
+            subject: 'Your Password Reset Token',
+            html: makeANiceEmail(`Voici le lien pour changer votre mot de pase ! \n\n <a href='${process.env.FRONTEND_URL}/requestReset?resetToken=${resetToken}'>Cliquez ici !</a>`)
+        }
+
+        )
+
+        return{message: 'Merci !'}
+        
         
     },
     async resetPassword (parent,args,ctx,info){

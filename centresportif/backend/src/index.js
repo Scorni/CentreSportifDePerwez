@@ -15,10 +15,13 @@ server.express.use(cookieParser());
 
 server.express.use((req, res, next) => {
     const { token } = req.cookies;
+    console.log(req.cookies)
     console.log(token)
     if (token) {
       const { userId } = jwt.verify(token, "test123");
       req.userId = userId;
+      console.log(userId)
+      console.log(req.userId)
      }
      next();
   });
@@ -33,3 +36,4 @@ server.start(
         console.log(`Serveur démarré http://localhost:${response.port}`)
     }
 )
+

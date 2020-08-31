@@ -20,6 +20,7 @@ import Signin from '../common/SignIn';
 import User from '../common/User';
 import Link from "next/link";
 import Signout from './Signout';
+import RequestReset from './RequestReset';
 
 
 
@@ -61,7 +62,32 @@ const MyModalSignIn = (props) => {
         <Modal isOpen={modal} toggle={toggle} className={className}>
           <ModalHeader toggle={toggle}>{props.title}</ModalHeader>
           <ModalBody>
-            <Signin />
+            <Signin/>
+            <br></br>
+            <MyModalRequestReset title = {" Demandez un nouveau mot de passe ! "} buttonLabel="Mot de passe oublié"></MyModalRequestReset>
+          </ModalBody>
+        </Modal>
+      </div>
+    );
+}
+
+const MyModalRequestReset = (props) => {
+  const {
+      buttonLabel,
+      className
+    } = props;
+  
+    const [modal, setModal] = useState(false);
+  
+    const toggle = () => setModal(!modal);
+  
+    return (
+      <div>
+        <Button onClick={toggle}>{buttonLabel}</Button>
+        <Modal isOpen={modal} toggle={toggle} className={className}>
+          <ModalHeader toggle={toggle}>{props.title}</ModalHeader>
+          <ModalBody>
+            <RequestReset />
           </ModalBody>
         </Modal>
       </div>
@@ -82,7 +108,7 @@ const MyConnectionRegistrerBar = (props) => {
               <Nav navbar className = 'ml-auto'>
                 <User>
                     {({data}) => {
-                      
+                      console.log(data)
                       const me = data ? data.me : null
                       if(me){ 
                         return(
@@ -91,7 +117,7 @@ const MyConnectionRegistrerBar = (props) => {
                             <Link href='/profile'>
                                 <Button>
                                     <a style={{color: "white"}}>
-                                        Mon Profile                                  
+                                        Mon Profil                                  
                                     </a>
                                 </Button>  
                             </Link>

@@ -10,7 +10,7 @@ const SportIndividuels = (props) => {
       <div>
         <HeadGenerator title={"Sports Individuels"} />
         <Container className="themed-container">
-          <Row className="mx-5">
+          <Row className="mx-5 ">
             <Col className =" mt-3 " sm={{offset : 2}} >
               <CardGenerator tabs = {"athlétisme.jpg"} title = {"Athlétisme"} link ={"Athletisme"}/>
             </Col>

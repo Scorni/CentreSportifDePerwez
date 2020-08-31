@@ -27,7 +27,7 @@ return (
 <div>
   <HeadGenerator title={"Aïkido"} />
   <Container className="themed-container">
-    <Row className="mx-auto">
+    <Row className="mx-auto" >
       <Col className =" mt-3" >
         <Card className={classes.root}>
           <CardMedia

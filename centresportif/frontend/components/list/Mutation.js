@@ -9,14 +9,13 @@ export const CREATE_LOCATION_MUTATION = gql`
         $sport : String!
         $hour : String!
         $day : String!
-        
+        $roomName : String!
     ){
         createLocation(
             sport:  $sport
             hour: $hour
             day: $day
-            roomName: "ckecqhr5ypm7v0a32faivetpj"
-            userId: "ckeh62s2w8tww0a35ygxz8wvc"
+            roomName: $roomName
             is_paid: true
         ){
             sport

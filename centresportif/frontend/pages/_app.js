@@ -23,9 +23,10 @@ class MyApp extends App{
           pageProps = await Component.getInitialProps(ctx)
         }
     
-        return { pageProps }
+        pageProps.query = ctx.query;
+        return { pageProps };
       }
-    
+     
       /**componentDidMount() {
         const { router } = this.props
     
