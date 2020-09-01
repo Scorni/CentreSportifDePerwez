@@ -15,7 +15,6 @@ const ComponentWithDimensions = props => {
       });
     }
   }, []);
-  console.log(dimensions)
   if(dimensions.width > 1024){
     img = <img className="w-100" src="/static/img/computer/first.jpg" alt="Second slide" />;
   }else{

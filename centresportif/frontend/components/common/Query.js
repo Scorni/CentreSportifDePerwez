@@ -25,4 +25,14 @@ User.propTypes = {
   children: PropTypes.func.isRequired,
 };
 
+export const ALL_USERS_QUERY = gql`
+query {
+   users {
+   id
+   name
+   email
+   permissions
+ }
+}
+`;
 export default User;

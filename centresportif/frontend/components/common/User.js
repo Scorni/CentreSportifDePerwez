@@ -10,6 +10,8 @@ const CURRENT_USER_QUERY = gql`
         email
         name
         surname
+        city
+        adress
         permissions
   }
 }

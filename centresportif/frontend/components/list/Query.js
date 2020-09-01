@@ -23,7 +23,8 @@ export const USERS_QUERY = gql`
             name,
             surname,
             adress,
-            mail
+            city,
+            email
         }
     }
 `;
@@ -66,4 +67,4 @@ export const ROOMSFILTER_QUERY = gql`
     }
 `;
 
-export default CLIENTS_QUERY
+export default USERS_QUERY

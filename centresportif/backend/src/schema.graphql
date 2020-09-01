@@ -18,7 +18,6 @@ type Mutation {
         hour: String!
         day: String!
         roomName: String!
-        userId: String!
         is_paid: Boolean!
     ): Location!,
     
@@ -45,17 +44,19 @@ type Mutation {
         resetToken : String!,
         password: String!, 
         confirmPassword: String
-    !): User!
+    !): User!,
+    updatePermissions(permissions: [Permission],userId: ID!): User
 }
 type Query {
     clients: [Client!]!,
     rooms: [Room!]!,
     locations: [Location!]!,
-    users: [User!]!,
+    users: [User]!,
     roomsFilter(name: String!,sport : String!): [Room!]!,
     userFilter(id: String!): [User!]!,
     locationFilter(userId: String!): [Location!]!,
-    me:User
+    me:User,
+    
 }
 
 ## not query or mutation

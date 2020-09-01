@@ -3,7 +3,8 @@ const bcrypt = require('bcryptjs');
 const { randomBytes } = require('crypto');
 const { promisify } =require('util');
 const { singleFieldOnlyMessage } = require("graphql/validation/rules/SingleFieldSubscriptions");
-const { transport , MakeANiceEmail, makeANiceEmail } = require("../mail")
+const { transport , MakeANiceEmail, makeANiceEmail } = require("../mail");
+const { hasPermission } = require("../utils");
 const Mutations = {
     async createClient(parent, args, ctx, info) {
 
@@ -188,6 +189,31 @@ const Mutations = {
         })
         //return new user
         return updatedUser;
+    },
+    async updatePermissions(parent,args,ctx,info){
+        if(!ctx.request.userId){
+            throw new Error('Pour effectuer une réservation,vous devez être connecté!')
+        }
+        const currentUser = await ctx.db.query.user({
+            where: {
+                id : ctx.request.userId,
+            }
+        },
+        info
+        );
+        hasPermission(currentUser, ['SADMIN'])
+        return ctx.db.mutation.updateUser({
+            data: {
+                permissions: {
+                    set: args.permissions
+                }
+            },
+            where: {
+                id: args.userId
+            },
+        },
+        info
+        )
     }
 };
 

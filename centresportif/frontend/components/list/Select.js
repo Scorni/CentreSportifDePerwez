@@ -236,6 +236,12 @@ export default function MultilineTextFields(props) {
         });
         setRoomPick(event.target.value);
         setHourPicks([]);
+        if(idRoomPicks){
+            updateFormData({
+              ...formData,
+              ["RoomId"]: idRoomPicks
+          });
+        }
         console.log("juste en dessous")
         console.log(formData)
     };
@@ -299,7 +305,7 @@ export default function MultilineTextFields(props) {
             async e => {
 
               e.preventDefault();
-              const response = await createLocation({ variables :{sport :formData.Sport,hour:formData.Hour,day:formData.Date,room:formData.Room}});
+              const response = await createLocation({ variables :{sport :formData.Sport,hour:formData.Hour,day:formData.Date,room:formData.Room,roomName:formData.RoomId}});
               /**Router.push({
                 pathname : '/creation',
                 query : {sport : "Football"}
@@ -445,7 +451,7 @@ export default function MultilineTextFields(props) {
                   {({ data, error, loading }) => {
                     if(roomPick.length){
                       if(data.roomsFilter){
-                      setIdRoomPicks(data.roomsFilter.id)
+                        setIdRoomPicks(data.roomsFilter[0].id)
                       }
                     }
                     return <div></div>

@@ -110,38 +110,42 @@ const MyConnectionRegistrerBar = (props) => {
                     {({data}) => {
                       console.log(data)
                       const me = data ? data.me : null
-                      if(me){ 
-                        return(
-                          <>
-                            <NavItem className='mr-1 mt-1'>
-                            <Link href='/profile'>
-                                <Button>
-                                    <a style={{color: "white"}}>
-                                        Mon Profil                                  
-                                    </a>
-                                </Button>  
-                            </Link>
-                            </NavItem>
-                            <NavItem className='mr-1 mt-1'>
-                            <Link href='/'>
-                                <Signout />
-                            </Link>
-                            </NavItem>
-                          </>
-                        )
-                      }else if (!me){
-                        return(
-                          <>
-                            <NavItem className='mr-1 mt-1'>
-                              <MyModalSignUp title = {"S'enregistrer"} buttonLabel="S'enregistrer"></MyModalSignUp>
-                            </NavItem>
-                            <NavItem className='mr-1 mt-1'>
-                              <MyModalSignIn title = {"Se connecter"} buttonLabel="Se connecter"></MyModalSignIn>
-                            </NavItem>
-                          </>
-                        )
-                      }
-                    }}
+                        if(me){ 
+                          
+                  
+                          return(
+                            <>
+                              <NavItem className='mr-1 mt-1'>
+                              <Link href='/account/profile'>
+                                  <Button>
+                                      <a style={{color: "white"}}>
+                                          Mon Profil                                  
+                                      </a>
+                                  </Button>  
+                              </Link>
+                              </NavItem>
+                              <NavItem className='mr-1 mt-1'>
+                              <Link href='/'>
+                                  <Signout />
+                              </Link>
+                              </NavItem>
+                              
+                            </>
+                          )
+                        }
+                        else if (!me){
+                          return(
+                            <>
+                              <NavItem className='mr-1 mt-1'>
+                                <MyModalSignUp title = {"S'enregistrer"} buttonLabel="S'enregistrer"></MyModalSignUp>
+                              </NavItem>
+                              <NavItem className='mr-1 mt-1'>
+                                <MyModalSignIn title = {"Se connecter"} buttonLabel="Se connecter"></MyModalSignIn>
+                              </NavItem>
+                            </>
+                          )
+                        }}
+                    }
                 </User>
               </Nav>
           </Collapse>

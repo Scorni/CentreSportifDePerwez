@@ -15,16 +15,24 @@ server.express.use(cookieParser());
 
 server.express.use((req, res, next) => {
     const { token } = req.cookies;
-    console.log(req.cookies)
-    console.log(token)
     if (token) {
       const { userId } = jwt.verify(token, "test123");
       req.userId = userId;
-      console.log(userId)
-      console.log(req.userId)
      }
      next();
   });
+
+//second middlewaire for populatin user on each request
+
+server.express.use(async( req,res,next) => {
+    if(!req.userId) return next();
+    const user = await db.query.user(
+        { where: {id: req.userId}},
+        '{id,permissions,email,name}'
+    );
+    req.user = user;
+    next()
+})
 server.start(
     {
         cors: {
