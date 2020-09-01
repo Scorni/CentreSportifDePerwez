@@ -23,7 +23,8 @@ export const USERS_QUERY = gql`
             name,
             surname,
             adress,
-            mail
+            city,
+            email
         }
     }
 `;
@@ -37,7 +38,7 @@ export const LOCATIONS_QUERY = gql`
             is_paid,
             hour,
             day
-            roomName{name},
+            roomName{name,id},
             userId{name,surname}
             }
     }
@@ -61,9 +62,9 @@ export const ROOMSFILTER_QUERY = gql`
     ){
 
         roomsFilter(name: $name,sport:$sport){
-            name
+            id
         }
     }
 `;
 
-export default CLIENTS_QUERY
+export default USERS_QUERY
