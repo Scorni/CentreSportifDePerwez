@@ -30,9 +30,53 @@ const sportPicks = [
     label: 'Athletisme',
   },
   {
+    value: 'Boxe Anglaise',
+    label: 'Boxe Anglaise',
+  },
+  {
+    value: 'Handball',
+    label: 'Handball',
+  },
+  {
+    value: 'Volley',
+    label: 'Volley',
+  },
+  {
     value: 'Judo',
     label: 'Judo',
   },
+  {
+    value: 'Danse',
+    label: 'Danse',
+  },
+  {
+    value: 'Relaxation',
+    label: 'Relaxation',
+  },
+  {
+    value: 'Musculation',
+    label: 'Musculation',
+  },
+  {
+    value: 'Tennis de Table',
+    label: 'Tennis de Table'
+  },
+  {
+    value: 'Aikido',
+    label: 'Aikido'
+  },
+  {
+    value: 'Krav-maga',
+    label: 'Krav-maga'
+  },
+  {
+    value: 'Jujutsu',
+    label: 'Jujutsu'
+  },
+  {
+    value: 'Taekwendo',
+    label: 'Taekwendo'
+  }
 ];
 
 const ErrorMessage = ({error}) => {
@@ -42,7 +86,6 @@ const ErrorMessage = ({error}) => {
     error.networkError.result &&
     error.networkError.result.errors.length
     ){
-      console.log(error.networkError.result.errors[0].message)
       if(error.networkError.result.errors[0].message === `Variable "$day" of required type "String!" was not provided.`)
       {
         return (<p>
@@ -59,7 +102,6 @@ const ErrorMessage = ({error}) => {
         </p>
       ));
     }
-    console.log(error.message)
     if(error.message === `GraphQL error: A unique constraint would be violated on Location. Details: Field name = uniqueLocationsRoomHourDay`)
     {
       return (<p>
@@ -245,8 +287,6 @@ export default function MultilineTextFields(props) {
         });
         setRoomPick(event.target.value);
         setHourPicks([]);
-        console.log("juste en dessous")
-        console.log(formData)
         
         
     };
@@ -281,13 +321,10 @@ export default function MultilineTextFields(props) {
           ["Date"]: lefrr
         });
       }
-      console.log(formData)
-      console.log(e)
      
         e.preventDefault();
         // ... submit to API or something
         response = createLocation({ variables: { sport: formData.Sport,hour: formData.Hour, day: formData.Date }});
-        console.log(response)
         Router.push({
           query : {sport : response.e.createLocation.sport}
         })
@@ -308,9 +345,6 @@ export default function MultilineTextFields(props) {
 
               e.preventDefault();
               var defaultDate;
-              if(theTest){
-                console.log(theTest)
-              }
               if(!formData.Date){
                 defaultDate = rightFormatDate(new Date())
                 updateFormData({
@@ -323,12 +357,6 @@ export default function MultilineTextFields(props) {
                 const response = await createLocation({ variables :{sport :formData.Sport,hour:formData.Hour,day:formData.Date,room:formData.Room,roomName:theTest}});
 
               }
-              console.log(formData.Date)
-              /**Router.push({
-                pathname : '/creation',
-                query : {sport : "Football"}
-                
-              });*/
             }} 
             
           >
@@ -438,7 +466,6 @@ export default function MultilineTextFields(props) {
                   {({ data, error, loading }) => {
                       if(data.rooms) {
                         if(roomPicks.length == 0){
-                          console.log(data.rooms)
                           sortDataRoom(data,sportPick,setRoomPicks,setOldSportPick,setTest)
                         }else if(oldSportPick !== sportPick){
                           sortDataRoom(data,sportPick,setRoomPicks,setOldSportPick,setTest)
@@ -452,9 +479,7 @@ export default function MultilineTextFields(props) {
                   {({ data, error, loading }) => {
                     if(data.locations) {
                       if(hourPicks.length == 0){
-                        console.log(data)
                         sortDataHour(data,sportPick,roomPick,datePick,setHourPicks,hourPick,setOldHourPick)
-                        console.log(hourPicks)
                       }else if(oldHourPick !== hourPick){
                         if(sportPick !== oldSportPick){
                           if(roomPick){

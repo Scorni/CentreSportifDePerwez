@@ -1,5 +1,5 @@
 import React, { useEffect, useState }  from 'react';
-import {HeadGenerator,CardGenerator} from './Generator';
+import {HeadGenerator,CardGenerator} from './generator';
 import { Container, Row, Col } from 'reactstrap';
 import  useWindowDimensions  from '../../common/WindowsProperties'
 

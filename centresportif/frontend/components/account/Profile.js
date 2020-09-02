@@ -2,11 +2,10 @@ import React, { Component } from 'react';
 import { Query } from 'react-apollo';
 import USERS_QUERY from '../../components/list/Query'
 import {Table} from 'reactstrap'
-import clients from '../../pages/list/clients';
 import User from '../common/User';
 import Link from "next/link";
 import { Button,Container, Row, } from 'reactstrap';
-import {HeadGenerator} from '../sports/category/Generator';
+import {HeadGenerator} from '../sports/category/generator';
 
 
 class Profile extends Component {
@@ -16,13 +15,12 @@ class Profile extends Component {
                 <HeadGenerator title={"Mon Profil"} />
                 <User>
                     {({data}) => {
-                      console.log(data)
                       const me = data ? data.me : null
                       if(me){
                         if(me.permissions[1] === "ADMIN" && me.permissions[2] === "SADMIN"){ 
                             return(
                                 <>
-                                    <Container className="themed-container" fluid={true} className="" >
+                                    <Container className="themed-container" fluid={true}>
                                         
                                         <Row className="mx-auto justify-content-center">
                                             <div className="styledDiv" >
@@ -52,7 +50,7 @@ class Profile extends Component {
                             }else if(me.permissions[1] === "ADMIN"){
                                 return(
                                     <>
-                                        <Container className="themed-container" fluid={true} className="" >
+                                        <Container className="themed-container" fluid={true}>
                                             
                                             <Row className="mx-auto justify-content-center">
                                                 <div className="styledDiv" >
@@ -79,7 +77,7 @@ class Profile extends Component {
                             }
                         else if(me.permissions[0] === "USER"){
                             return(
-                                <Container className="themed-container" fluid={true} className="" >
+                                <Container className="themed-container" fluid={true}>
                                 
                                 <Row className="mx-auto justify-content-center">
                                     <div className="styledDiv" >

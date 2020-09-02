@@ -3,7 +3,7 @@ import Error from './ErrorMessage';
 import {ALL_USERS_QUERY} from './Query';
 import {UPDATE_PERMISSIONS_MUTATION} from './Mutation';
 import { Container, Row, Col } from 'reactstrap';
-import {HeadGenerator} from '../sports/category/Generator';
+import HeadGenerator from '../sports/category/generator';
 import {Table} from 'reactstrap';
 import { Button } from 'reactstrap';
 import PropTypes from 'prop-types';
@@ -80,7 +80,6 @@ class UserPermission extends React.Component{
             updatedPermissions= updatedPermissions.filter(permission => permission !== checkbox.value)
         }
         this.setState({ permissions: updatedPermissions})
-        console.log(updatedPermissions);
 
     }
     render(){

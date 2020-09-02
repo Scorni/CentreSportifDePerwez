@@ -6,16 +6,7 @@ const { singleFieldOnlyMessage } = require("graphql/validation/rules/SingleField
 const { transport , MakeANiceEmail, makeANiceEmail } = require("../mail");
 const { hasPermission } = require("../utils");
 const Mutations = {
-    async createClient(parent, args, ctx, info) {
-
-        const client = await ctx.db.mutation.createClient({
-            data: { 
-                ...args
-            }
-        },info);
-           
-        return await client;
-    },
+    
     async createRoom(parent, args, ctx, info) {
 
         const room = await ctx.db.mutation.createRoom({
@@ -220,6 +211,16 @@ const Mutations = {
         },
         info
         )
+    },
+    async deleteMyLocation(parent,args,ctx,info){
+        if(!ctx.request.userId){
+            throw new Error('Pour annuler une réservation,vous devez être connecté!')
+        }
+        const where = {id : args.locationId};
+
+        const item = await ctx.db.query.location({where},`{id}`);
+
+        return ctx.db.mutation.deleteLocation({where},info);
     }
 };
 

@@ -108,7 +108,6 @@ const MyConnectionRegistrerBar = (props) => {
               <Nav navbar className = 'ml-auto'>
                 <User>
                     {({data}) => {
-                      console.log(data)
                       const me = data ? data.me : null
                         if(me){ 
                           

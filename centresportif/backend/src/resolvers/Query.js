@@ -1,7 +1,6 @@
 const {forwardTo} = require('prisma-binding');
 const {hasPermission} = require('../utils');
 const Query = {
-    clients:forwardTo('db'),
     rooms:forwardTo('db'),
     locations:forwardTo('db'),
     async roomsFilter(parent, args, context, info) {

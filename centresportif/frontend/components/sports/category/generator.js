@@ -33,7 +33,6 @@ export function CardGenerator({tabs,title,link}) {
       if (window.performance) {
         if (performance.navigation.type == 1) {
           if(document.getElementById('reload')){
-              console.log(window.location.pathname)
               router.push('./ReloadPage?link='+window.location.pathname);          
           }
         }
@@ -117,3 +116,4 @@ export function CardGenerator({tabs,title,link}) {
         )
       }
 }
+export default HeadGenerator;

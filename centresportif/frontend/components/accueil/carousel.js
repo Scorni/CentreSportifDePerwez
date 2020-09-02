@@ -37,7 +37,7 @@ const MyCarousel = () => {
           {ComponentWithDimensions()}
           </MDBView>
           <MDBCarouselCaption>
-            <h3 className="h3-responsive">News 1</h3>
+            <h3 className="h3-responsive">L'été est là !</h3>
             <Link href='/creation'>
               <a style={{color: "white"}}>Réservation</a>
             </Link>
@@ -48,7 +48,7 @@ const MyCarousel = () => {
           {ComponentWithDimensions()}
           </MDBView>
           <MDBCarouselCaption>
-            <h3 className="h3-responsive">News 2</h3>
+            <h3 className="h3-responsive">L'été s'en va !</h3>
             <Link href='/creation'>
               <a style={{color: "white"}}>Réservation</a>
             </Link>
@@ -59,7 +59,7 @@ const MyCarousel = () => {
           {ComponentWithDimensions()}
           </MDBView>
           <MDBCarouselCaption>
-            <h3 className="h3-responsive">News 3</h3>
+            <h3 className="h3-responsive">L'été revient ! </h3>
             <Link href='/creation'>
               <a style={{color: "white"}}>Réservation</a>
             </Link>
@@ -70,8 +70,8 @@ const MyCarousel = () => {
           {ComponentWithDimensions()}
           </MDBView>
           <MDBCarouselCaption>
-            <h3 className="h3-responsive">News 4</h3>
-            <Link href='/creation'>
+            <h3 className="h3-responsive">L'été dort !</h3>
+            <Link href='/actuality/actuality'>
               <a style={{color: "white"}}>Réservation</a>
             </Link>
           </MDBCarouselCaption>

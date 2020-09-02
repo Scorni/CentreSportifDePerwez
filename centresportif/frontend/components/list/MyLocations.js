@@ -1,11 +1,28 @@
 import React, { Component } from 'react';
-import { Query } from 'react-apollo';
+import { Query, Mutation } from 'react-apollo';
 import {MYLOCATIONS_QUERY} from '../../components/list/Query'
+import Error from '../common/ErrorMessage';
 import {Table} from 'reactstrap'
 import { Button,Container, Row, } from 'reactstrap';
-import {HeadGenerator} from '../sports/category/Generator';
-
+import {HeadGenerator} from '../sports/category/generator';
+import PropTypes from 'prop-types';
+import {DeleteLocation} from '../list/DeleteLocation';
 class Locations extends Component {
+    static propTypes = {
+        location: PropTypes.shape({
+            id: PropTypes.string,
+        }).isRequired, 
+    };
+    state = {
+        id: "",
+    }
+    handleClick = (id) => {
+        if(this.state.id === ""){
+        this.setState({id : id})
+        console.log(this.state.id)
+        }
+        console.log(this.state.id)
+    }
     render() {
         return (
             <div>
@@ -14,10 +31,9 @@ class Locations extends Component {
                     {({ data, error, loading }) => {
                         if(loading) return <p> Loading...</p>
                         if(error) return <p> Error : { error.message }</p>
-                        console.log(data)
                         return <>
-                            <Container className="themed-container" fluid={true} className="" >       
-                                <Row className=" justify-content-center">
+                            <Container className="themed-container" fluid={true}  >       
+                                <Row className="mx-auto justify-content-center">
                                     <Table dark hover responsive striped>
                                         <thead>
                                             <tr>
@@ -25,6 +41,7 @@ class Locations extends Component {
                                                 <th>Sport</th>
                                                 <th>Jour</th>
                                                 <th>Heure</th>
+                                                <th>Annuler sa réservation</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -35,6 +52,7 @@ class Locations extends Component {
                                                         <td>{locationFilter.sport}</td>
                                                         <td>{locationFilter.day}</td>
                                                         <td>{locationFilter.hour + "H00"}</td>
+                                                        <td><DeleteLocation locationId= {locationFilter.id}></DeleteLocation></td>
                                                     </tr>
                                                 )
                                             }

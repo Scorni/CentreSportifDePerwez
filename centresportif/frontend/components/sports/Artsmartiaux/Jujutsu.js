@@ -7,12 +7,12 @@ import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
 import  useWindowDimensions  from '../../common/WindowsProperties';
 import { Container, Row, Col } from 'reactstrap';
-import {HeadGenerator} from '../../sports/category/Generator';
+import {HeadGenerator} from '../category/generator';
 import { AiOutlinePhone,AiOutlineMail,AiOutlineFacebook } from 'react-icons/ai';
 import { GiEarthAfricaEurope } from 'react-icons/gi';
 
 
-export default function Jujutsu() {
+export function Jujutsu() {
   const {width,height} = useWindowDimensions();
   const useStyles = makeStyles({
       root: {
@@ -58,3 +58,5 @@ return (
 </div>
   );
 }
+
+export default Jujutsu;

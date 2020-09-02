@@ -37,6 +37,16 @@ function objectSort(tabs,cat){
       linkWithoutSpace = (tabs[index][cat][value]).replace(/\s+/g, '-');
       if(cat == "sports"){
         linkWithoutSpaceHidden = cat + "/"+(tabs[index][cat][value]).replace(/\s+/g, '');
+      }else if( cat == "actualite"){
+        if(tabs[index][cat][value] === "Actualités Sportives"){
+          linkWithoutSpaceHidden = cat + "/actuality"
+        }else if(tabs[index][cat][value] === "Evènements"){
+          linkWithoutSpaceHidden = cat + "/evenements"
+        }else if(tabs[index][cat][value] === "Actualités du centre"){
+          linkWithoutSpaceHidden = cat + "/actualiteDuCentre"
+        }else if(tabs[index][cat][value] === "Stages"){
+          linkWithoutSpaceHidden = cat + "/stage"
+        }
       }
       newList[value] = 
         <DropdownItem key={tabs[index][cat][value]}>

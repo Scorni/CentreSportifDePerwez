@@ -5,7 +5,6 @@ import '../public/static/style.css';
 import DateFnsUtils from '@date-io/date-fns';
 
 import Loading from '../components/common/ProgressBar';
-import uuidv4 from 'uuid/v4'
 import { ApolloProvider } from 'react-apollo';
 import withData from '../withData';
 
@@ -50,14 +49,14 @@ class MyApp extends App{
     render(){
         const {Component, pageProps, apollo} = this.props;
         return (
-          <Container>
+          
             <ApolloProvider client={apollo}>
             <Page>
                 {/*<Loading {...this.state}/> */}
                 <Component {...pageProps}/>
             </Page>
             </ApolloProvider>
-            </Container>
+           
         )
     }
 }

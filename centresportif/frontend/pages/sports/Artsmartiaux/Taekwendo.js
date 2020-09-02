@@ -1,9 +1,9 @@
 import React from "react";
-import Taekwendo from "../../../components/sports/ArtsMartiaux/Taekwendo"
+import Taekwendo from "../../../components/sports/Artsmartiaux/Taekwendo";
 
 const Sports = props => (
     <div>    
-        <Taekwendo></Taekwendo>
+        <Taekwendo/>
     </div>
 )
 export default Sports;
