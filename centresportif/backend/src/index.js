@@ -35,10 +35,7 @@ server.express.use(async( req,res,next) => {
 })
 server.start(
     {
-        cors: {
-            credentials: true,
-            origin: process.env.FRONTEND_URL
-        }
+        
     },
     response => {
         console.log(`Serveur démarré http://localhost:${response.port}`)
