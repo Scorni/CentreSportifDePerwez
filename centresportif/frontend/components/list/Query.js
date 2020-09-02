@@ -67,4 +67,16 @@ export const ROOMSFILTER_QUERY = gql`
     }
 `;
 
+export const MYLOCATIONS_QUERY = gql`
+    
+    query LOCATIONS_QUERY {
+        locationFilter{
+            id
+            sport
+            day
+            hour
+            is_paid
+            }
+    }
+`;
 export default USERS_QUERY

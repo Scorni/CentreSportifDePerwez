@@ -34,6 +34,12 @@ const Mutations = {
         if(!ctx.request.userId){
             throw new Error('Pour effectuer une réservation,vous devez être connecté!')
         }
+        const [user] = await ctx.db.query.users({
+            where : {
+                resetToken: args.resetToken,
+                resetTokenExpiry_gte: Date.now() - 3600000
+            }
+        });
         const location = await ctx.db.mutation.createLocation({
             data: { 
                 sport : args.sport,

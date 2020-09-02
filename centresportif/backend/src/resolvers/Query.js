@@ -5,23 +5,26 @@ const Query = {
     rooms:forwardTo('db'),
     locations:forwardTo('db'),
     async roomsFilter(parent, args, context, info) {
-        return await context.db.query.rooms({
-            where:{
-                name : args.name,
-                sport : args.sport
-        }})
+      return await ctx.db.query.rooms({
+          where:{
+              name : args.name,
+              sport : args.sport
+      }})
     },
-    async userFilter(parent, args, context, info) {
-        return await context.db.query.users({
-            where:{
-                id : args.id,
-        }})
+    async userFilter(parent, args, ctx, info) {
+      return await ctx.db.query.users({
+          where:{
+              id : args.id,
+      }})
     },
-    async locationFilter(parent, args, context, info) {
-        return await context.db.query.users({
-            where:{
-                id: args.userId           
-        }})
+    async locationFilter(parent, args, ctx, info) {
+      if(!ctx.request.userId){
+        throw new Error('Vous devez être connecté !')
+      }
+      return await ctx.db.query.locations({
+        where:{
+          userId : { id : ctx.request.userId},
+    }})
     },
     me(parent, args, ctx, info) {
     // check if there is a current user ID

@@ -58,7 +58,7 @@ render(){
                     />
                 </label>
                 <br/><br/>
-                <Button type="submit" color="secondary">S'enregistrer</Button>
+                <Button type="submit" color="secondary">Se connecter</Button>
                 </fieldset>
             </form>)}
         </Mutation>

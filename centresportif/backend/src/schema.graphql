@@ -54,7 +54,7 @@ type Query {
     users: [User]!,
     roomsFilter(name: String!,sport : String!): [Room!]!,
     userFilter(id: String!): [User!]!,
-    locationFilter(userId: String!): [Location!]!,
+    locationFilter: [Location!]!,
     me:User,
     
 }
