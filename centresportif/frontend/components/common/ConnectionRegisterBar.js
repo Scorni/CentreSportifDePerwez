@@ -110,8 +110,6 @@ const MyConnectionRegistrerBar = (props) => {
                     {({data}) => {
                       const me = data ? data.me : null
                         if(me){ 
-                          
-                  
                           return(
                             <>
                               <NavItem className='mr-1 mt-1'>
