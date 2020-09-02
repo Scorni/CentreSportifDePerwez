@@ -42,7 +42,7 @@ type Mutation {
 }
 type Query {
     rooms: [Room!]!,
-    locations: [Location!]!,
+    locations: [Location]!,
     users: [User]!,
     roomsFilter(name: String!,sport : String!): [Room!]!,
     userFilter(id: String!): [User!]!,

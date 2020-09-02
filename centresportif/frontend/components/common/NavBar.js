@@ -10,7 +10,7 @@ import {  Collapse,
 
 import MyDropdown from './Dropdown';
 import { FaHome } from 'react-icons/fa';
-import Link from "next/link";
+import Link from "@material-ui/core/Link";
 
 const MyNavbar = (props) => {
     const [isOpen, setIsOpen] = useState(false);
@@ -25,11 +25,11 @@ const MyNavbar = (props) => {
             <Collapse isOpen={isOpen} navbar>
                 <Nav navbar className = 'mx-auto'>
                     <NavItem className='mr-2 mt-1'>
-                    <Link href='/'>
+                    <Link href='/' style={{color: "white"}}>
                         <Button>
-                            <a style={{color: "white"}}>
+                            
                                 <FaHome />                                    
-                            </a>
+                            
                         </Button>  
                     </Link>
                     </NavItem>
@@ -45,8 +45,8 @@ const MyNavbar = (props) => {
                     
                     <NavItem className='mr-2 mt-1 mb-1'>
                         <Link href='/createLocation'>
-                            <Button style={{width:"140px"}}>
-                                <a style={{color: "white"}}>Réservation</a>
+                            <Button style={{width:"140px"}} style={{color: "white"}}>
+                                Réservation
                             </Button>
                         </Link>
                     </NavItem>  
