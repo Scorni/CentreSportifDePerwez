@@ -22,3 +22,17 @@ export const CREATE_LOCATION_MUTATION = gql`
         }
     }
 `;
+
+export const DELETE_MY_LOCATION = gql`
+
+        mutation DELETE_MY_LOCATION(
+            $locationId: String!
+        ){
+            deleteMyLocation(
+                locationId: $locationId
+            ){
+                id
+            }
+        }       
+        
+`;

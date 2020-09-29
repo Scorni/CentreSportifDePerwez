@@ -9,8 +9,5 @@ const locations = props => {
     );
 };
 
-locations.propTypes = {
-    
-};
 
 export default locations;

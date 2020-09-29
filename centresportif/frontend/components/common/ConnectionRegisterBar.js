@@ -18,7 +18,7 @@ import gql from 'graphql-tag';
 import Signup from '../common/Signup';
 import Signin from '../common/SignIn';
 import User from '../common/User';
-import Link from "next/link";
+import Link from "@material-ui/core/Link";
 import Signout from './Signout';
 import RequestReset from './RequestReset';
 
@@ -108,23 +108,18 @@ const MyConnectionRegistrerBar = (props) => {
               <Nav navbar className = 'ml-auto'>
                 <User>
                     {({data}) => {
-                      console.log(data)
                       const me = data ? data.me : null
                         if(me){ 
-                          
-                  
                           return(
                             <>
                               <NavItem className='mr-1 mt-1'>
-                              <Link href='/account/profile'>
+                              <Link href='/account/profile' style={{color: "white"}}>
                                   <Button>
-                                      <a style={{color: "white"}}>
-                                          Mon Profil                                  
-                                      </a>
+                                          Mon Profil     
                                   </Button>  
                               </Link>
                               </NavItem>
-                              <NavItem className='mr-1 mt-1'>
+                              <NavItem className='mr-1 mt-1' >
                               <Link href='/'>
                                   <Signout />
                               </Link>

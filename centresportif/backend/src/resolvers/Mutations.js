@@ -6,16 +6,7 @@ const { singleFieldOnlyMessage } = require("graphql/validation/rules/SingleField
 const { transport , MakeANiceEmail, makeANiceEmail } = require("../mail");
 const { hasPermission } = require("../utils");
 const Mutations = {
-    async createClient(parent, args, ctx, info) {
-
-        const client = await ctx.db.mutation.createClient({
-            data: { 
-                ...args
-            }
-        },info);
-           
-        return await client;
-    },
+    
     async createRoom(parent, args, ctx, info) {
 
         const room = await ctx.db.mutation.createRoom({
@@ -34,6 +25,12 @@ const Mutations = {
         if(!ctx.request.userId){
             throw new Error('Pour effectuer une réservation,vous devez être connecté!')
         }
+        const [user] = await ctx.db.query.users({
+            where : {
+                resetToken: args.resetToken,
+                resetTokenExpiry_gte: Date.now() - 3600000
+            }
+        });
         const location = await ctx.db.mutation.createLocation({
             data: { 
                 sport : args.sport,
@@ -91,7 +88,7 @@ const Mutations = {
             info
             );
         // create jwt token           
-        const token = jwt.sign({ userId: user.id }, "test123");
+        const token = jwt.sign({ userId: user.id }, process.env.APP_SECRET);
         // set jwt as a cookie 
         ctx.response.cookie("token", token, {
             httpOnly: true,
@@ -112,7 +109,7 @@ const Mutations = {
             throw new Error('Mot de passe incorrect!')
         }
         //generate the jwt token
-        const token = jwt.sign({ userId : user.id}, "test123")
+        const token = jwt.sign({ userId : user.id}, process.env.APP_SECRET)
         //set the cookie with the token
         ctx.response.cookie("token",token, {
             httpOnly: true,
@@ -214,6 +211,16 @@ const Mutations = {
         },
         info
         )
+    },
+    async deleteMyLocation(parent,args,ctx,info){
+        if(!ctx.request.userId){
+            throw new Error('Pour annuler une réservation,vous devez être connecté!')
+        }
+        const where = {id : args.locationId};
+
+        const item = await ctx.db.query.location({where},`{id}`);
+
+        return ctx.db.mutation.deleteLocation({where},info);
     }
 };
 

@@ -1,5 +1,5 @@
 import React from "react";
-import Football from "../../../components/sports/Sportscollectifs/Football"
+import Football from "../../../components/sports/SportsCollectifs/Football"
 
 const Sports = props => (
     <div>    

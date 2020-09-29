@@ -1,16 +1,33 @@
 import React, { Component } from 'react';
-import { Query } from 'react-apollo';
-import {LOCATIONS_QUERY} from '../../components/list/Query'
+import { Query, Mutation } from 'react-apollo';
+import {MYLOCATIONS_QUERY} from '../../components/list/Query'
+import Error from '../common/ErrorMessage';
 import {Table} from 'reactstrap'
 import { Button,Container, Row, } from 'reactstrap';
 import {HeadGenerator} from '../sports/category/generator';
-
+import PropTypes from 'prop-types';
+import {DeleteLocation} from '../list/DeleteLocation';
 class Locations extends Component {
+    static propTypes = {
+        location: PropTypes.shape({
+            id: PropTypes.string,
+        }).isRequired, 
+    };
+    state = {
+        id: "",
+    }
+    handleClick = (id) => {
+        if(this.state.id === ""){
+        this.setState({id : id})
+        console.log(this.state.id)
+        }
+        console.log(this.state.id)
+    }
     render() {
         return (
             <div>
-                <HeadGenerator title="Liste des réservations"/>
-                <Query query={LOCATIONS_QUERY}>
+                <HeadGenerator title="Liste de mes réservations"/>
+                <Query query={MYLOCATIONS_QUERY}>
                     {({ data, error, loading }) => {
                         if(loading) return <p> Loading...</p>
                         if(error) return <p> Error : { error.message }</p>
@@ -21,25 +38,21 @@ class Locations extends Component {
                                         <thead>
                                             <tr>
                                                 <th>ID</th>
-                                                <th>Salle</th>
                                                 <th>Sport</th>
                                                 <th>Jour</th>
                                                 <th>Heure</th>
-                                                <th>Nom du client</th>
-                                                <th>Prénom du client</th>
+                                                <th>Annuler sa réservation</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            {data.locations.map(
-                                                locations => 
+                                            {data.locationFilter.map(
+                                                locationFilter => 
                                                     <tr>
-                                                        <td>{locations.id}</td>
-                                                        <td>{locations.roomName.name}</td>
-                                                        <td>{locations.sport}</td>
-                                                        <td>{locations.day}</td>
-                                                        <td>{locations.hour + "H00"}</td>
-                                                        <td>{locations.userId.name}</td>
-                                                        <td>{locations.userId.surname}</td>
+                                                        <td>{locationFilter.id}</td>
+                                                        <td>{locationFilter.sport}</td>
+                                                        <td>{locationFilter.day}</td>
+                                                        <td>{locationFilter.hour + "H00"}</td>
+                                                        <td><DeleteLocation locationId= {locationFilter.id}></DeleteLocation></td>
                                                     </tr>
                                                 )
                                             }

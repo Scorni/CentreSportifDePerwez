@@ -1,8 +1,7 @@
 import React from 'react';
 import { Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
-import {HeadGenerator} from '../sports/category/Generator';
+import {HeadGenerator} from '../sports/category/generator';
 import { Container, Row, Col } from 'reactstrap';
-import MaterialUIPickers from '../list/DatePicker';
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import MenuItem from '@material-ui/core/MenuItem';

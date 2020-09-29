@@ -59,6 +59,7 @@ render(){
                     label="Mot de passe"
                     value={this.state.password}
                     onChange={this.saveToState}
+                    inputProps={{pattern:"(?=.*[a-z])(?=.*[A-Z]).{8,16}",title:"Un nombre,une majuscule et au moins une minuscule sont requis dans un mot de passe de 8 charactères minimum."}}
                     />
                 </label>
                 <br/>

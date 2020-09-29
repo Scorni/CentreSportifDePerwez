@@ -2,8 +2,8 @@ const { Prisma } = require('prisma-binding')
 
 const db = new Prisma({
     typeDefs: 'src/generated/prisma.graphql',
-    endpoint: 'https://eu1.prisma.sh/maxscorni-dce3a0/centresportifbe/dev',
-    secret: "test123",
+    endpoint: process.env.PRISMA_ENDPOINT,
+    secret: process.env.PRISMA_SECRET,
     debug: false
 });
 

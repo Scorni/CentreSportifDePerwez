@@ -30,9 +30,53 @@ const sportPicks = [
     label: 'Athletisme',
   },
   {
+    value: 'Boxe Anglaise',
+    label: 'Boxe Anglaise',
+  },
+  {
+    value: 'Handball',
+    label: 'Handball',
+  },
+  {
+    value: 'Volley',
+    label: 'Volley',
+  },
+  {
     value: 'Judo',
     label: 'Judo',
   },
+  {
+    value: 'Danse',
+    label: 'Danse',
+  },
+  {
+    value: 'Relaxation',
+    label: 'Relaxation',
+  },
+  {
+    value: 'Musculation',
+    label: 'Musculation',
+  },
+  {
+    value: 'Tennis de Table',
+    label: 'Tennis de Table'
+  },
+  {
+    value: 'Aikido',
+    label: 'Aikido'
+  },
+  {
+    value: 'Krav-maga',
+    label: 'Krav-maga'
+  },
+  {
+    value: 'Jujutsu',
+    label: 'Jujutsu'
+  },
+  {
+    value: 'Taekwendo',
+    label: 'Taekwendo'
+  }
 ];
 
 const ErrorMessage = ({error}) => {
@@ -42,7 +86,6 @@ const ErrorMessage = ({error}) => {
     error.networkError.result &&
     error.networkError.result.errors.length
     ){
-      console.log(error.networkError.result.errors[0].message)
       if(error.networkError.result.errors[0].message === `Variable "$day" of required type "String!" was not provided.`)
       {
         return (<p>
@@ -59,7 +102,6 @@ const ErrorMessage = ({error}) => {
         </p>
       ));
     }
-    console.log(error.message)
     if(error.message === `GraphQL error: A unique constraint would be violated on Location. Details: Field name = uniqueLocationsRoomHourDay`)
     {
       return (<p>
@@ -77,7 +119,7 @@ const ErrorMessage = ({error}) => {
   );
 };
  
-function sortDataRoom(data,sportPick,setRoomPicks,setOldSportPick){
+function sortDataRoom(data,sportPick,setRoomPicks,setOldSportPick,setTest){
   var dataMaped = data.rooms.map(rooms => rooms)
   setRoomPicks([])
   for ( let i in dataMaped) {
@@ -87,10 +129,23 @@ function sortDataRoom(data,sportPick,setRoomPicks,setOldSportPick){
         value : dataMaped[i].name,
         label : dataMaped[i].name,
       }])
+      setTest(dataMaped[i].id)
       setOldSportPick(sportPick);
     }
   }
 }
+function rightFormatDate(dateToChange){
+  let conformDate;
+  if((dateToChange.getMonth()+1) < 10){
+    conformDate = (dateToChange.getDate() + "/0" + (dateToChange.getMonth()+1) + "/"+ dateToChange.getFullYear());
+
+  }else{
+    conformDate = (dateToChange.getDate() + "/" + (dateToChange.getMonth()+1) +"/"+ dateToChange.getFullYear());
+
+  }
+  return conformDate;
+}
+
 function sortDataHour(data,sportPick,roomPick,datePick,setHourPicks,hourPick,setOldHourPick){
   var dataMaped = data.locations.map(locations => locations)
   var hours = [
@@ -141,14 +196,8 @@ function sortDataHour(data,sportPick,roomPick,datePick,setHourPicks,hourPick,set
     label : "22"
   }]
   var tab =[];
-  var conformDate;
-  if((datePick.getMonth()+1) < 10){
-    conformDate = (datePick.getDate() + "/0" + (datePick.getMonth()+1) + "/"+ datePick.getFullYear());
+  rightFormatDate(datePick);
 
-  }else{
-    conformDate = (datePick.getDate() + "/" + (datePick.getMonth()+1) +"/"+ datePick.getFullYear());
-
-  }
   /*for(let i in hours) {
     for(let j in dataMaped){
       if(dataMaped[j].sport === sportPick){
@@ -163,7 +212,6 @@ function sortDataHour(data,sportPick,roomPick,datePick,setHourPicks,hourPick,set
     }
   }*/
   
-  var tabWithoutDuplicate = [...new Set(tab)]
   for(let i in hours){
     setHourPicks(hourPicks => [...hourPicks,{
       value : hours[i].value,
@@ -200,7 +248,7 @@ export default function MultilineTextFields(props) {
     const [sportPick, setSportPick] = React.useState('');
     const [hourPick, setHourPick] = React.useState('');
     const [roomPick, setRoomPick] = React.useState('');
-    const [datePick, setdatePick] = React.useState(new Date('Jan 01 2020'));
+    const [datePick, setdatePick] = React.useState(new Date());
     const [formData, updateFormData] = React.useState(initialFormData);
     /** sort part */
     const [roomPicks, setRoomPicks] = React.useState([])
@@ -208,6 +256,8 @@ export default function MultilineTextFields(props) {
     const [oldHourPick, setOldHourPick] = React.useState('')
     const [hourPicks, setHourPicks] = React.useState([]);
     const [idRoomPicks, setIdRoomPicks] = React.useState('')
+
+    const[theTest,setTest] = React.useState('');
     
     /** Handle part */ 
     const handleChangeSport = (event) => {
@@ -227,6 +277,7 @@ export default function MultilineTextFields(props) {
         });
         setHourPick(event.target.value);
         
+        
 
     };
     const handleChangeRoom = (event) => {
@@ -236,30 +287,21 @@ export default function MultilineTextFields(props) {
         });
         setRoomPick(event.target.value);
         setHourPicks([]);
-        if(idRoomPicks){
-            updateFormData({
-              ...formData,
-              ["RoomId"]: idRoomPicks
-          });
-        }
-        console.log("juste en dessous")
-        console.log(formData)
+        
+        
     };
+    const handleChangeIdRoom = ()=> {
+      updateFormData({
+        ...formData,
+        ["RoomName"]: idRoomPicks
+      })
+    }
     const handleDateChange = (date) => {
       setdatePick(date);
-      var lefrr;
-      
-      if((date.getMonth()+1) < 10){
-        lefrr = (date.getDate() + "/0" + (date.getMonth()+1) + "/"+ date.getFullYear());
-
-      }else{
-        lefrr = (date.getDate() + "/" + (date.getMonth()+1) +"/"+ date.getFullYear());
-
-      }
       
       updateFormData({
         ...formData,
-        ["Date"]: lefrr
+        ["Date"]: rightFormatDate(date)
       });
       setHourPicks([]);
     };
@@ -279,13 +321,10 @@ export default function MultilineTextFields(props) {
           ["Date"]: lefrr
         });
       }
-      console.log(formData)
-      console.log(e)
      
         e.preventDefault();
         // ... submit to API or something
         response = createLocation({ variables: { sport: formData.Sport,hour: formData.Hour, day: formData.Date }});
-        console.log(response)
         Router.push({
           query : {sport : response.e.createLocation.sport}
         })
@@ -305,12 +344,19 @@ export default function MultilineTextFields(props) {
             async e => {
 
               e.preventDefault();
-              const response = await createLocation({ variables :{sport :formData.Sport,hour:formData.Hour,day:formData.Date,room:formData.Room,roomName:formData.RoomId}});
-              /**Router.push({
-                pathname : '/creation',
-                query : {sport : "Football"}
+              var defaultDate;
+              if(!formData.Date){
+                defaultDate = rightFormatDate(new Date())
+                updateFormData({
+                  ...formData,
+                  ["Date"]: defaultDate
+              });
+                const response = await createLocation({ variables :{sport :formData.Sport,hour:formData.Hour,day:defaultDate,room:formData.Room,roomName:theTest}});
                 
-              });*/
+              }else{
+                const response = await createLocation({ variables :{sport :formData.Sport,hour:formData.Hour,day:formData.Date,room:formData.Room,roomName:theTest}});
+
+              }
             }} 
             
           >
@@ -412,7 +458,7 @@ export default function MultilineTextFields(props) {
                     return(
                       <div>
                           <div>
-                          <Button type="submit">Submit</Button>
+                          <Button type="submit">Confirmer</Button>
                         </div>
                       </div>
                     )}})()}
@@ -420,9 +466,9 @@ export default function MultilineTextFields(props) {
                   {({ data, error, loading }) => {
                       if(data.rooms) {
                         if(roomPicks.length == 0){
-                          sortDataRoom(data,sportPick,setRoomPicks,setOldSportPick)
+                          sortDataRoom(data,sportPick,setRoomPicks,setOldSportPick,setTest)
                         }else if(oldSportPick !== sportPick){
-                          sortDataRoom(data,sportPick,setRoomPicks,setOldSportPick)
+                          sortDataRoom(data,sportPick,setRoomPicks,setOldSportPick,setTest)
                         }                         
                       }
                       return <div></div>
@@ -433,9 +479,7 @@ export default function MultilineTextFields(props) {
                   {({ data, error, loading }) => {
                     if(data.locations) {
                       if(hourPicks.length == 0){
-                        console.log(data)
                         sortDataHour(data,sportPick,roomPick,datePick,setHourPicks,hourPick,setOldHourPick)
-                        console.log(hourPicks)
                       }else if(oldHourPick !== hourPick){
                         if(sportPick !== oldSportPick){
                           if(roomPick){
@@ -447,17 +491,7 @@ export default function MultilineTextFields(props) {
                     return <div></div>
                   }}
               </Query>
-              <Query query={ROOMSFILTER_QUERY} variables={{name: formData.Room,sport : formData.Sport}}>
-                  {({ data, error, loading }) => {
-                    if(roomPick.length){
-                      if(data.roomsFilter){
-                        setIdRoomPicks(data.roomsFilter[0].id)
-                      }
-                    }
-                    return <div></div>
-                  }
-                }
-              </Query>
+              
             </div>     
           </form>
         )}

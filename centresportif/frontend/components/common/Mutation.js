@@ -22,8 +22,6 @@ export const CREATE_USER_MUTATION = gql`
             adress: $adress
             city: $city
             has_bill: false
-            is_Admin: false
-            is_SAdmin: false
         ){id}
     }
 `;

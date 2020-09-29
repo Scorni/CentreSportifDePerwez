@@ -2,18 +2,7 @@ import React, { Component } from 'react';
 import { Query,useQuery } from 'react-apollo';
 import gql from 'graphql-tag';
 
- export const CLIENTS_QUERY = gql`
-    
-    query CLIENTS_QUERY {
-        clients{
-            id
-            name,
-            surname,
-            adress,
-            mail
-        }
-    }
-`;
+
 
 export const USERS_QUERY = gql`
     
@@ -67,4 +56,16 @@ export const ROOMSFILTER_QUERY = gql`
     }
 `;
 
+export const MYLOCATIONS_QUERY = gql`
+    
+    query LOCATIONS_QUERY {
+        locationFilter{
+            id
+            sport
+            day
+            hour
+            is_paid
+            }
+    }
+`;
 export default USERS_QUERY

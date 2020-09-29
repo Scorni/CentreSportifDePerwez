@@ -5,13 +5,13 @@ import {Table} from 'reactstrap'
 import User from '../common/User';
 import Link from "next/link";
 import { Button,Container, Row, } from 'reactstrap';
-import {HeadGenerator} from '../sports/category/Generator';
+import {HeadGenerator} from '../sports/category/generator';
 
 class Users extends Component {
     render() {
         return (
             <div>
-            <HeadGenerator title={"Liste des utilisateurs"} />
+            <HeadGenerator title="Liste des utilisateurs"/>
             <User>
                 {({data}) => {
                   const me = data ? data.me : null
@@ -24,7 +24,6 @@ class Users extends Component {
                             {({ data, error, loading }) => {
                                 if(loading) return <p> Loading...</p>
                                 if(error) return <p> Error : { error.message }</p>
-                                console.log(data);
                                 return <div><Container className="themed-container" fluid={true} className="" >
                                 <Row className="mx-auto justify-content-center">
                                     

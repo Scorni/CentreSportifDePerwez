@@ -14,7 +14,7 @@ export function HeadGenerator({title}){
   const {width,height} = useWindowDimensions();
   
   return (
-    <div>
+    
       <div>
         <Slide direction="left" in={true} mountOnEnter unmountOnExit>
           <h1 className ="headGenerator">
@@ -22,7 +22,7 @@ export function HeadGenerator({title}){
           </h1>
         </Slide>
       </div>
-    </div>
+   
   );
     
 }
@@ -33,7 +33,6 @@ export function CardGenerator({tabs,title,link}) {
       if (window.performance) {
         if (performance.navigation.type == 1) {
           if(document.getElementById('reload')){
-              console.log(window.location.pathname)
               router.push('./ReloadPage?link='+window.location.pathname);          
           }
         }
@@ -42,7 +41,7 @@ export function CardGenerator({tabs,title,link}) {
     const {width,height} = useWindowDimensions();
     if(width > 1024){
         return(
-          <Slide direction="right" in={true} mountOnEnter unmountOnExit>
+          <div>
             <animated.div
             id = {"defaultCard"}
             key= {tabs}
@@ -59,10 +58,11 @@ export function CardGenerator({tabs,title,link}) {
               </Link>
               </div>         
             </animated.div>
-          </Slide>
+          </div>
         )
       }else if(width > 768){
         return(
+          <div>
           <animated.div 
           key= {tabs}
           className= {"responsiveCardBig"}
@@ -76,9 +76,11 @@ export function CardGenerator({tabs,title,link}) {
               </Link>
             </div>
           </animated.div>
+          </div>
         )
       }else if(width > 449){
         return(
+          <div>
           <animated.div 
           key= {tabs}
           className= {"responsiveCardNormal"}
@@ -92,9 +94,11 @@ export function CardGenerator({tabs,title,link}) {
               </Link>
             </div>
           </animated.div>
+          </div>
         )
       }else if(width > 50){
         return(
+          <div>
           <animated.div 
           id ={"tinyCard"}
           key= {tabs}
@@ -109,6 +113,7 @@ export function CardGenerator({tabs,title,link}) {
               </Link>
             </div>
           </animated.div>
+          </div>
         )
       }
       else if(width < 50){
@@ -117,3 +122,4 @@ export function CardGenerator({tabs,title,link}) {
         )
       }
 }
+export default HeadGenerator;

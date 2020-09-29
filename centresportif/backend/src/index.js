@@ -1,13 +1,13 @@
 const cookieParser = require("cookie-parser");
 const jwt = require("jsonwebtoken");
 
-require("dotenv").config({
-    path: "variable.env"
-});
+require('dotenv').config({ path: 'variables.env' });
+
 const createServer = require("./createServer");
 const db = require("./db");
 
 const server = createServer();
+
 
 server.express.use(cookieParser());
 
@@ -16,10 +16,10 @@ server.express.use(cookieParser());
 server.express.use((req, res, next) => {
     const { token } = req.cookies;
     if (token) {
-      const { userId } = jwt.verify(token, "test123");
-      req.userId = userId;
+        const { userId } = jwt.verify(token, process.env.APP_SECRET);
+        req.userId = userId;
      }
-     next();
+    next();
   });
 
 //second middlewaire for populatin user on each request
@@ -35,7 +35,7 @@ server.express.use(async( req,res,next) => {
 })
 server.start(
     {
-        cors: {
+        cors :{
             credentials: true,
             origin: process.env.FRONTEND_URL
         }
