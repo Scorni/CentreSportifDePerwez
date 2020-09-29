@@ -88,7 +88,7 @@ const Mutations = {
             info
             );
         // create jwt token           
-        const token = jwt.sign({ userId: user.id }, "test123");
+        const token = jwt.sign({ userId: user.id }, process.env.APP_SECRET);
         // set jwt as a cookie 
         ctx.response.cookie("token", token, {
             httpOnly: true,
@@ -109,7 +109,7 @@ const Mutations = {
             throw new Error('Mot de passe incorrect!')
         }
         //generate the jwt token
-        const token = jwt.sign({ userId : user.id}, "test123")
+        const token = jwt.sign({ userId : user.id}, process.env.APP_SECRET)
         //set the cookie with the token
         ctx.response.cookie("token",token, {
             httpOnly: true,

@@ -7,7 +7,7 @@ const SportIndividuels = (props) => {
   const {width,height} = useWindowDimensions();
   if(width > 1024){
     return (
-      <div>
+      <>
         <HeadGenerator title={"Sports Individuels"} />
         <Container className="themed-container">
           <Row className="mx-5 justify-content-center">
@@ -19,11 +19,11 @@ const SportIndividuels = (props) => {
             </Col>
           </Row>
         </Container>
-      </div>
+      </>
     )
   }else if(width > 768){
     return (
-      <div>
+      <>
         <HeadGenerator title={"Sports Individuels"}/>
         <Container className="themed-container">
           <Row className="mx-auto">
@@ -35,11 +35,11 @@ const SportIndividuels = (props) => {
             </Col>
           </Row>
         </Container>
-      </div>
+      </>
     )
   }else if(width > 449){
     return (
-      <div>
+      <>
         <HeadGenerator title={"Sports Individuels"}/>
         <Container className="themed-container">
           <Row className="mx-auto">
@@ -51,11 +51,11 @@ const SportIndividuels = (props) => {
             </Col>
           </Row>
         </Container>
-      </div>
+      </>
     )
   }else if(width < 450){
     return (
-      <div>
+      <>
         <HeadGenerator title={"Sports Individuels"}/>
         <Container className="themed-container">
           <Row className="mx-auto">
@@ -67,7 +67,7 @@ const SportIndividuels = (props) => {
             </Col>
           </Row>
         </Container>
-      </div>
+      </>
     )
   }
 }
