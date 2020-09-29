@@ -1,8 +1,10 @@
-endpoint: "https://eu1.prisma.sh/maxscorni-dce3a0/centresportifbe/dev"
-#endpoint: https://centre-sportif-6557c07dd1.herokuapp.com/centre-sportif-prod/prod
+#endpoint: "https://eu1.prisma.sh/maxscorni-dce3a0/centresportifbe/dev"
+endpoint: https://centre-sportif-6557c07dd1.herokuapp.com/centre-sportif-prod/prod
 
 datamodel: datamodel.graphql
-secret : ${env:PRISMA_SECRET}
+
+#find solution about that
+secret : "lCbaSfnNbntVQeAE"
 
 generate:
   - generator: graphql-schema
