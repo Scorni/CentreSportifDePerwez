@@ -92,6 +92,7 @@ const Mutations = {
         // set jwt as a cookie 
         ctx.response.cookie("token", token, {
             httpOnly: true,
+            domain: 'https://csperwez-next-prod.herokuapp.com/',
             maxAge: 1000 * 60 * 60 * 24 * 365
           });
           
@@ -113,6 +114,7 @@ const Mutations = {
         //set the cookie with the token
         ctx.response.cookie("token",token, {
             httpOnly: true,
+            domain: 'https://csperwez-next-prod.herokuapp.com/',
             maxAge: 1000 *60 *60 *24 *365 
          });
         //return the user

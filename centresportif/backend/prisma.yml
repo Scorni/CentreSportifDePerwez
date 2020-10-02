@@ -4,7 +4,7 @@ endpoint: https://centre-sportif-6557c07dd1.herokuapp.com/centre-sportif-prod/pr
 datamodel: datamodel.graphql
 
 #find solution about that
-secret : "lCbaSfnNbntVQeAE"
+secret : process.env.APP_SECRET
 
 generate:
   - generator: graphql-schema
