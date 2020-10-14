@@ -6,8 +6,7 @@ import User from '../common/User';
 import Link from "next/link";
 import { Button,Container, Row, } from 'reactstrap';
 import {HeadGenerator} from '../sports/category/generator';
-
-
+import SVGTest from '../../public/static/img/svg/generatedJsFromsvg/profile.js';
 class Profile extends Component {
     render() {
         return (
@@ -50,7 +49,7 @@ class Profile extends Component {
                             }else if(me.permissions[1] === "ADMIN"){
                                 return(
                                     <>
-                                        <Container className="themed-container" fluid={true}>
+                                        <Container className="themed-container profilesvg" fluid={true}>
                                             
                                             <Row className="mx-auto justify-content-center">
                                                 <div className="styledDiv" >
@@ -77,10 +76,9 @@ class Profile extends Component {
                             }
                         else if(me.permissions[0] === "USER"){
                             return(
-                                <Container className="themed-container" fluid={true}>
-                                
-                                <Row className="mx-auto justify-content-center">
-                                    <div className="styledDiv" >
+                            <Container className="themed-container profilesvg" fluid={true}>   
+                                <Row className="mx-auto justify-content-center ">
+                                    <div className="styledDiv bluredInformations" >
                                         <h2>Informations personnelles</h2>
                                         <p><strong>Prenom :</strong> {me.surname}</p>
                                         <p><strong>Nom :</strong> {me.name}</p>
@@ -91,15 +89,15 @@ class Profile extends Component {
                                     </div>
                                 </Row>
                                 <Row className="mx-auto justify-content-center">
-                                            <Link href='/list/mylocations' >
-                                                <Button className="m-2 mt-1">Voir mes réservations</Button>
-                                            </Link>
-                                        </Row>
+                                    <Link href='/list/mylocations' >
+                                        <Button className="m-2 mt-1">Voir mes réservations</Button>
+                                    </Link>
+                                </Row>
                             </Container>
                             )
                         }}else{
                             return(
-                                <Container className="themed-container" fluid={true} className="" >
+                                <Container className="themed-container profilesvg" fluid={true} >
                                     <Row className="mx-auto justify-content-center">
                                         <div className= "styledDiv">
                                             <p>

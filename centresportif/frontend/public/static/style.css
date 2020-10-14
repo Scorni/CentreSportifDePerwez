@@ -95,6 +95,7 @@ body,
 }
 .headGenerator{
   text-align: center;
+  backdrop-filter: grayscale(40%);
 }
 .icon{
   position: relative;
@@ -118,4 +119,34 @@ body,
 }
 .datePicker{
   border: 2 px solid gray !important
+}
+
+/** profile part*/
+
+.profilesvg{
+  height: 70vh;
+  background-image: url("../../public/static/img/svg/people.svg");
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position:center bottom;
+
+}
+.bluredInformations{
+  backdrop-filter: blur(15px);
+}
+.locationsvg{
+  
+  height: 70vh;
+  background-image: url("../../public/static/img/svg/booking.svg");
+  background-repeat: no-repeat;
+  background-size:contain;
+  background-position:center bottom;
+}
+.bluredTable{
+  backdrop-filter: blur(15px);
+}
+.fullsize{
+  
+  width: 100%;
+  height: 100%;
 }

@@ -4,6 +4,7 @@ import  useWindowDimensions  from '../../common/WindowsProperties';
 import { Slide } from  '@material-ui/core';
 import { useRouter } from 'next/router';
 import Link from "next/link";
+import { Button,Container, Row, } from 'reactstrap';
 
 
 const calc = (x, y) => [-(y - window.innerHeight / 2) / 20, (x - window.innerWidth / 2) / 20, 1.1]
@@ -16,11 +17,13 @@ export function HeadGenerator({title}){
   return (
     
       <div>
-        <Slide direction="left" in={true} mountOnEnter unmountOnExit>
-          <h1 className ="headGenerator">
-            {title}
-          </h1>
-        </Slide>
+        <Container className="themed-container"   >
+          <Slide direction="left" in={true} mountOnEnter unmountOnExit>
+            <h1 className ="headGenerator">
+              {title}
+            </h1>
+          </Slide>
+        </Container>
       </div>
    
   );

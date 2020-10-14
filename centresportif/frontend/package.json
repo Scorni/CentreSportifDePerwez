@@ -9,7 +9,7 @@
     "start": "next start -p $PORT",
     "test": "NODE_ENV=test jest --watch",
     "test-win": "SET NODE_ENV=test&& jest --watch",
-    "heroku-postbuild": "next build"
+    "heroku-postbuild": "next build",
   },
   "author": "",
   "license": "ISC",
@@ -56,6 +56,7 @@
     "waait": "^1.0.2"
   },
   "devDependencies": {
+    "@svgr/cli": "^5.4.0",
     "babel-jest": "^26.3.0",
     "babel-plugin-module-resolver": "^3.2.0",
     "casual": "^1.6.2",
