@@ -101,11 +101,11 @@ const MyConnectionRegistrerBar = (props) => {
 
   return (
   <div>
-      <Navbar color="light" light expand="md">
-          <NavbarBrand>Connexion</NavbarBrand>
+      <Navbar color="light" light expand="md" className="customNav">
+          <NavbarBrand style={{color: "white"}} >Connexion</NavbarBrand>
           <NavbarToggler onClick={toggle} className ="ml-auto"></NavbarToggler>
           <Collapse isOpen={isOpen} navbar>
-              <Nav navbar className = 'ml-auto'>
+              <Nav navbar className = 'ml-auto ' >
                 <User>
                     {({data}) => {
                       const me = data ? data.me : null
@@ -114,13 +114,13 @@ const MyConnectionRegistrerBar = (props) => {
                             <>
                               <NavItem className='mr-1 mt-1'>
                               <Link href='/account/profile' style={{color: "white"}}>
-                                  <Button>
+                                  <Button style={{width:"140px",backgroundColor:"white",color: "black",borderColor:"white"}}>
                                           Mon Profil     
                                   </Button>  
                               </Link>
                               </NavItem>
                               <NavItem className='mr-1 mt-1' >
-                              <Link href='/'>
+                              <Link href='/' >
                                   <Signout />
                               </Link>
                               </NavItem>

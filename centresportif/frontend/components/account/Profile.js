@@ -6,7 +6,6 @@ import User from '../common/User';
 import Link from "next/link";
 import { Button,Container, Row, } from 'reactstrap';
 import {HeadGenerator} from '../sports/category/generator';
-import SVGTest from '../../public/static/img/svg/generatedJsFromsvg/profile.js';
 class Profile extends Component {
     render() {
         return (

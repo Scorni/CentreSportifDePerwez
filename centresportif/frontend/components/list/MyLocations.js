@@ -34,7 +34,7 @@ class Locations extends Component {
                         return <>
                             <Container className="themed-container"   >       
                                 <Row className="mx-auto justify-content-center">
-                                    <Table  hover responsive striped className='bluredTable'>
+                                    <Table  hover responsive striped className='bluredTable' size="sm">
                                         <thead>
                                             <tr>
                                                 <th>ID</th>

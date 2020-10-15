@@ -118,9 +118,34 @@ body,
   border-radius: 15px ;
 }
 .datePicker{
-  border: 2 px solid gray !important
+  border: 2 px solid rgb(128, 128, 128) !important
 }
+.customNav{
+  background: linear-gradient(90deg, rgba(137,29,182,1) 6%, rgba(194,81,81,1) 53%);
+  
+}
+.customDropdown{
+  width: 140px;
+  background-color:  rgb(255, 255, 255);
+  color: rgba(0, 0, 0);
+  border-color: #ffffff;
+}
+.customTabs{
+  background: linear-gradient(90deg, rgba(137,29,182,1) 6%, rgba(194,81,81,1) 53%);
+  color: white;
+}
+.customButton{
+  background: rgba(137,29,182,1); 
+  width: 140px;
+  color: white;
+  border-color:  white  ;
+}
+.customButton:hover{
+  background:  rgba(194,81,81,1);
+  color: white;
+  border-color:  white  ;
 
+}
 /** profile part*/
 
 .profilesvg{
@@ -141,12 +166,36 @@ body,
   background-repeat: no-repeat;
   background-size:contain;
   background-position:center bottom;
+  
 }
 .bluredTable{
-  backdrop-filter: blur(15px);
+  backdrop-filter: blur(10px) ;
 }
 .fullsize{
   
   width: 100%;
   height: 100%;
+}
+/* home  */
+.locationHomeSvg{
+  
+  height: 40vh;
+  background-image: url("../../public/static/img/svg/calendar.svg");
+  background-repeat: no-repeat;
+  background-size:contain;
+  background-position: center  ;
+  
+}
+.locationHomeQ{
+  margin:auto ;
+  text-align: center;
+  padding-top: 70px;
+}
+
+.bluredTitle{
+  backdrop-filter: blur(10px) ;
+  background: #e75864;
+  border-radius: 0.25rem;
+  color: whitesmoke;
+  padding:4px
 }

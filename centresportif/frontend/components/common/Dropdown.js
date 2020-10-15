@@ -65,8 +65,9 @@ const MyDropdown = (props) => {
         {...props}
         toggle={() => updateIsOpen(!isOpen)}
         isOpen={isOpen}
+        
         >
-        <DropdownToggle style={{width:"140px"}}>
+        <DropdownToggle className="customDropdown"  >
           {props.name}
         </DropdownToggle>
         <DropdownMenu>            
