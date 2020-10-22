@@ -10,7 +10,7 @@ import {  Collapse,
 
 import MyDropdown from './Dropdown';
 import { FaHome } from 'react-icons/fa';
-import Link from "@material-ui/core/Link";
+import Link from "next/link";
 
 const MyNavbar = (props) => {
     const [isOpen, setIsOpen] = useState(false);
@@ -19,14 +19,14 @@ const MyNavbar = (props) => {
 
     return (
     <div>
-        <Navbar color="light" light expand="md" className="customNav">
+        <Navbar  light expand="md" className="customNav">
             <NavbarBrand style={{color: "white"}}>Navigation</NavbarBrand>
             <NavbarToggler onClick={toggle} />
             <Collapse isOpen={isOpen} navbar>
                 <Nav navbar className = 'mx-auto'>
                     <NavItem className='mr-2 mt-1'>
                     <Link href='/' style={{color: "white"}}>
-                        <Button color="light">
+                        <Button color="light" className = "customButton">
                             
                                 <FaHome />                                    
                             
@@ -45,7 +45,7 @@ const MyNavbar = (props) => {
                     
                     <NavItem className='mr-2 mt-1 mb-1'>
                         <Link href='/createLocation'>
-                            <Button style={{width:"140px",backgroundColor:"white",color: "black",borderColor:"white"}}>
+                            <Button className = "customButton">
                                 Réservation
                             </Button>
                         </Link>

@@ -1,13 +1,12 @@
 html,
 body,
 #root {
-  width: 100%;
-  height: 100%;
   margin: 0;
   padding: 0;
-  background-color: white;
-}
-
+  background-color: #FF3CAC;
+  background-image: linear-gradient(225deg, #2B86C5 0%,#784BA0 50%,#91253c 100% );
+        
+  }
 .responsiveCardBig {
   width: 30ch;
   height: 30ch;
@@ -95,7 +94,6 @@ body,
 }
 .headGenerator{
   text-align: center;
-  backdrop-filter: grayscale(40%);
 }
 .icon{
   position: relative;
@@ -121,8 +119,7 @@ body,
   border: 2 px solid rgb(128, 128, 128) !important
 }
 .customNav{
-  background: linear-gradient(90deg, rgba(137,29,182,1) 6%, rgba(194,81,81,1) 53%);
-  
+  border-bottom: white solid 1px;
 }
 .customDropdown{
   width: 140px;
@@ -131,10 +128,10 @@ body,
   border-color: #ffffff;
 }
 .customTabs{
-  background: linear-gradient(90deg, rgba(137,29,182,1) 6%, rgba(194,81,81,1) 53%);
+  background: linear-gradient(to right, #141e30 6%, #243b55 53%);
   color: white;
 }
-.customButton{
+/*.customButton{
   background: rgba(137,29,182,1); 
   width: 140px;
   color: white;
@@ -145,7 +142,50 @@ body,
   color: white;
   border-color:  white  ;
 
+}*/
+
+.btn-grad {background-image: linear-gradient(to right, #141e30 0%, #243b55  51%, #141e30  100%)}
+.btn-grad {
+   margin: 10px;
+   padding: 15px 45px;
+   text-align: center;
+   text-transform: uppercase;
+   transition: 0.5s;
+   background-size: 200% auto;
+   color: white;            
+   box-shadow: 0 0 20px #eee;
+   border-radius: 10px;
+   display: block;
+ }
+
+ .btn-grad:hover {
+   background-position: right center; /* change the direction of the change here */
+   color: #fff;
+   text-decoration: none;
+ }
+
+.customButton {
+  background-image:  linear-gradient(to right, #141e30 0%, #243b55  51%, #141e30  100%)
 }
+.customButton {
+   width : 140px;
+   text-align: center;
+   transition: 0.5s;
+   background-size: 200% auto;
+   color: #fff;
+
+
+   display: block;
+ }
+
+ .customButton:hover {
+   background-position: right center; /* change the direction of the change here */
+   text-decoration: none;
+   color: #000000;
+
+ }
+
+
 /** profile part*/
 
 .profilesvg{

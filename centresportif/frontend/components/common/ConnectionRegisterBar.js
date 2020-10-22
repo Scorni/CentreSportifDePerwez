@@ -101,7 +101,7 @@ const MyConnectionRegistrerBar = (props) => {
 
   return (
   <div>
-      <Navbar color="light" light expand="md" className="customNav">
+      <Navbar light expand="md" className="customNav">
           <NavbarBrand style={{color: "white"}} >Connexion</NavbarBrand>
           <NavbarToggler onClick={toggle} className ="ml-auto"></NavbarToggler>
           <Collapse isOpen={isOpen} navbar>
