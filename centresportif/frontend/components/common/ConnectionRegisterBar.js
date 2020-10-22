@@ -114,15 +114,15 @@ const MyConnectionRegistrerBar = (props) => {
                             <>
                               <NavItem className='mr-1 mt-1'>
                               <Link href='/account/profile' style={{color: "white"}}>
-                                  <Button style={{width:"140px",backgroundColor:"white",color: "black",borderColor:"white"}}>
+                                  <Button className = "customButton">
                                           Mon Profil     
                                   </Button>  
                               </Link>
                               </NavItem>
                               <NavItem className='mr-1 mt-1' >
-                              <Link href='/' >
+                              
                                   <Signout />
-                              </Link>
+                              
                               </NavItem>
                               
                             </>

@@ -121,48 +121,56 @@ body,
 .customNav{
   border-bottom: white solid 1px;
 }
+/** Dropdown  part */
+.customDropdown {
+  background-image:  linear-gradient(to right, #141e30 0%, #243b55  51%, #141e30  100%)
+}
 .customDropdown{
   width: 140px;
-  background-color:  rgb(255, 255, 255);
-  color: rgba(0, 0, 0);
-  border-color: #ffffff;
+  text-align: center;
+  transition: 0.5s;
+  background-size: 200% auto;
+  color: #fff;
+  display: block;
+  text-decoration: none;
+  
+}
+.customDropdown:hover {
+  background-position: right center; /* change the direction of the change here */
+  text-decoration: none;
+  color: white;
+}
+
+/** DropdownItem  part */
+
+.customDropdownItem {
+  background-image:  linear-gradient(to right, #141e30 0%, #243b55  51%, #141e30  100%)
+}
+.customDropdownItem{
+  width: 100%;
+  text-align: center;
+  transition: 0.5s;
+  background-size: 200% auto;
+  color: #fff;
+  display: block;
+  text-decoration: none;
+
+}
+.customDropdownItem:hover {
+  background-position: right center; /* change the direction of the change here */
+  text-decoration: none;
+  color: white;
+}
+
+.customDropdownMenu{
+  background-image:  linear-gradient(#141e30 0%, #243b55  51%, #141e30  100%);
+  padding: 0%;  
+  border: solid white 1.8px;
 }
 .customTabs{
   background: linear-gradient(to right, #141e30 6%, #243b55 53%);
   color: white;
 }
-/*.customButton{
-  background: rgba(137,29,182,1); 
-  width: 140px;
-  color: white;
-  border-color:  white  ;
-}
-.customButton:hover{
-  background:  rgba(194,81,81,1);
-  color: white;
-  border-color:  white  ;
-
-}*/
-
-.btn-grad {background-image: linear-gradient(to right, #141e30 0%, #243b55  51%, #141e30  100%)}
-.btn-grad {
-   margin: 10px;
-   padding: 15px 45px;
-   text-align: center;
-   text-transform: uppercase;
-   transition: 0.5s;
-   background-size: 200% auto;
-   color: white;            
-   box-shadow: 0 0 20px #eee;
-   border-radius: 10px;
-   display: block;
- }
-
- .btn-grad:hover {
-   background-position: right center; /* change the direction of the change here */
-   color: #fff;
-   text-decoration: none;
- }
 
 .customButton {
   background-image:  linear-gradient(to right, #141e30 0%, #243b55  51%, #141e30  100%)
@@ -181,7 +189,7 @@ body,
  .customButton:hover {
    background-position: right center; /* change the direction of the change here */
    text-decoration: none;
-   color: #000000;
+   color: white;
 
  }
 

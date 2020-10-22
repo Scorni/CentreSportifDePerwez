@@ -26,10 +26,8 @@ const MyNavbar = (props) => {
                 <Nav navbar className = 'mx-auto'>
                     <NavItem className='mr-2 mt-1'>
                     <Link href='/' style={{color: "white"}}>
-                        <Button color="light" className = "customButton">
-                            
-                                <FaHome />                                    
-                            
+                        <Button  className = "customButton">
+                                <FaHome />                         
                         </Button>  
                     </Link>
                     </NavItem>
