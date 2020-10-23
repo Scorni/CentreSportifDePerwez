@@ -44,7 +44,7 @@ export function CardGenerator({tabs,title,link}) {
     const {width,height} = useWindowDimensions();
     if(width > 1024){
         return(
-          <div>
+          <>
             <animated.div
             id = {"defaultCard"}
             key= {tabs}
@@ -61,7 +61,7 @@ export function CardGenerator({tabs,title,link}) {
               </Link>
               </div>         
             </animated.div>
-          </div>
+          </>
         )
       }else if(width > 768){
         return(

@@ -3,7 +3,8 @@ import { Mutation } from  'react-apollo';
 import gql from 'graphql-tag';
 import { CURRENT_USER_QUERY } from './User';
 import  { Button } from 'reactstrap';
-import Link from "@material-ui/core/Link";
+import Link from "next/link";
+/**import Link from "@material-ui/core/Link"; si jamais j'ai besoin de revenir sur un autre type de link*/
 
 const SIGN_OUT_MUTATION = gql`
     mutation SIGN_OUT_MUTATION{

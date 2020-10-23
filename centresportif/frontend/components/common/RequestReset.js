@@ -46,7 +46,7 @@ render(){
                 />
                 </label>
                 <br/>
-                <Button type="submit" color="secondary">Confirmer</Button>
+                <Button type="submit" className = "customButton">Confirmer</Button>
                 </fieldset>
             </form>)}
         </Mutation>

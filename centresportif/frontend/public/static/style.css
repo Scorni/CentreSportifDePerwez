@@ -3,10 +3,11 @@ body,
 #root {
   margin: 0;
   padding: 0;
-  background-color: #FF3CAC;
-  background-image: linear-gradient(225deg, #2B86C5 0%,#784BA0 50%,#91253c 100% );
-        
-  }
+  background: linear-gradient(225deg, #2B86C5 0%,#784BA0 50%,#91253c 100% );
+  ;
+  background-attachment: fixed;
+
+}
 .responsiveCardBig {
   width: 30ch;
   height: 30ch;
@@ -123,7 +124,8 @@ body,
 }
 /** Dropdown  part */
 .customDropdown {
-  background-image:  linear-gradient(to right, #141e30 0%, #243b55  51%, #141e30  100%)
+  background-image: linear-gradient(to right, #908d91 0%, #5f5f5f  51%, #908d91  100%);
+  border: none;
 }
 .customDropdown{
   width: 140px;
@@ -144,12 +146,13 @@ body,
 /** DropdownItem  part */
 
 .customDropdownItem {
-  background-image:  linear-gradient(to right, #141e30 0%, #243b55  51%, #141e30  100%)
+  border: none;
+
 }
 .customDropdownItem{
   width: 100%;
   text-align: center;
-  transition: 0.5s;
+  transition: 1s;
   background-size: 200% auto;
   color: #fff;
   display: block;
@@ -163,20 +166,27 @@ body,
 }
 
 .customDropdownMenu{
-  background-image:  linear-gradient(#141e30 0%, #243b55  51%, #141e30  100%);
+  background-image: linear-gradient(to right, #784BA0 0%, #2B86C5  100%);
   padding: 0%;  
-  border: solid white 1.8px;
+  border: solid #908d91 1.8px;
 }
+
+/** clubs sportifs */
 .customTabs{
-  background: linear-gradient(to right, #141e30 6%, #243b55 53%);
+  background-image: linear-gradient(to right, #908d91 0%, #5f5f5f  51%, #908d91  100%);
   color: white;
+  border: none;
+
 }
 
 .customButton {
-  background-image:  linear-gradient(to right, #141e30 0%, #243b55  51%, #141e30  100%)
+
+  background-image: linear-gradient(to right, #908d91 0%, #5f5f5f  51%, #908d91  100%);
+  border: none;
 }
+
 .customButton {
-   width : 140px;
+   width : 160px;
    text-align: center;
    transition: 0.5s;
    background-size: 200% auto;
@@ -247,3 +257,57 @@ body,
   color: whitesmoke;
   padding:4px
 }
+
+.customReservationButton {
+  background-image: linear-gradient(to right, #908d91 0%, #5f5f5f  51%, #908d91  100%);
+  border: none;
+
+}
+.customReservationButton {
+  margin: auto;
+  width : 140px;
+  text-align: center;
+  transition: 0.5s;
+  background-size: 200% auto;
+  color: #fff;
+  display: block;
+ }
+
+ .customReservationButton:hover{
+  background-position: right center; /* change the direction of the change here */
+  text-decoration: none;
+  color: white;
+
+}
+
+/** modal button */
+
+.customModalButton {
+  background-image: linear-gradient(to right, #908d91 0%, #5f5f5f  51%, #908d91  100%);
+  border: none;
+}
+.customModalButton {
+   width : 180px;
+   text-align: center;
+   transition: 0.5s;
+   background-size: 200% auto;
+   color: #fff;
+
+
+   display: block;
+ }
+
+ .customModalButton:hover {
+   background-position: right center; /* change the direction of the change here */
+   text-decoration: none;
+   color: white;
+  border: none;
+
+ }
+/** Footer **/
+ .customNavFooter
+  {
+    border-top: white solid 1px;
+    
+  }
+ 
