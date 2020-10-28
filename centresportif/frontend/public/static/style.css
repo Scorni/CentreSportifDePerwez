@@ -3,7 +3,7 @@ body,
 #root {
   margin: 0;
   padding: 0;
-  background: linear-gradient(225deg, #2B86C5 0%,#784BA0 50%,#91253c 100% );
+  background: linear-gradient(225deg, #2B86C5 0%,rgb(120, 75, 160) 50%,#91253c 100% );
   ;
   background-attachment: fixed;
 
@@ -20,6 +20,13 @@ body,
   transition: box-shadow 0.5s;
   will-change: transform;
   border: 15px solid white;
+  margin-bottom: 50px;
+
+}
+.ContainerCard{
+  margin-bottom: 100px;
+  margin-top: 50px;
+
 }
 .responsiveCardNormal {
   width: 20ch;
@@ -33,6 +40,8 @@ body,
   transition: box-shadow 0.5s;
   will-change: transform;
   border: 15px solid white;
+  margin-bottom: 50px;
+  
 }
 .responsiveCardTiny {
   width: 15ch;
@@ -46,6 +55,8 @@ body,
   transition: box-shadow 0.5s;
   will-change: transform;
   border: 15px solid white;
+  margin-bottom: 50px;
+
 }
 .defaultCard {
   width: 40ch;
@@ -59,6 +70,10 @@ body,
   transition: box-shadow 0.5s;
   will-change: transform;
   border: 15px solid white;
+  margin-top: 50px;
+  margin-left: 60px;
+  margin-bottom: 50px;
+
 }
 .card:hover {
   box-shadow: 0px 30px 100px -10px rgba(0, 0, 0, 0.4);
@@ -124,7 +139,7 @@ body,
 }
 /** Dropdown  part */
 .customDropdown {
-  background-image: linear-gradient(to right, #908d91 0%, #5f5f5f  51%, #908d91  100%);
+  background-image: linear-gradient(to right, #152F4F 0%, #10253f  51%, #152F4F  100%);
   border: none;
 }
 .customDropdown{
@@ -147,6 +162,7 @@ body,
 
 .customDropdownItem {
   border: none;
+  background-image: linear-gradient(to right, #152F4F 0%, #10253f  51%, #152F4F  100%);
 
 }
 .customDropdownItem{
@@ -161,19 +177,20 @@ body,
 }
 .customDropdownItem:hover {
   background-position: right center; /* change the direction of the change here */
+  background-image: linear-gradient(to right, #152F4F 0%, #10253f  51%, #152F4F  100%);
   text-decoration: none;
   color: white;
 }
 
 .customDropdownMenu{
-  background-image: linear-gradient(to right, #784BA0 0%, #2B86C5  100%);
+  background-image: linear-gradient(to right, #152F4F 0%, #10253f  51%, #152F4F  100%);
   padding: 0%;  
   border: solid #908d91 1.8px;
 }
 
 /** clubs sportifs */
 .customTabs{
-  background-image: linear-gradient(to right, #908d91 0%, #5f5f5f  51%, #908d91  100%);
+  background-image: linear-gradient(to right, #152F4F 0%, #021b3a  51%, #152F4F  100%);
   color: white;
   border: none;
 
@@ -181,7 +198,7 @@ body,
 
 .customButton {
 
-  background-image: linear-gradient(to right, #908d91 0%, #5f5f5f  51%, #908d91  100%);
+  background-image: linear-gradient(to right, rgb(21, 47, 79) 0%, rgb(16, 37, 63)  51%, rgb(21, 47, 79)  100%);
   border: none;
 }
 
@@ -191,7 +208,7 @@ body,
    transition: 0.5s;
    background-size: 200% auto;
    color: #fff;
-
+   width: auto;
 
    display: block;
  }
@@ -224,10 +241,9 @@ body,
   background-repeat: no-repeat;
   background-size:contain;
   background-position:center bottom;
-  
 }
-.bluredTable{
-  backdrop-filter: blur(10px) ;
+.transparentTable{
+  background: linear-gradient(225deg, rgba(43, 134, 197,0.5) 0%,rgba(120, 75, 160,0.5) 50%,rgba(145, 37, 60,0.5) 100% );
 }
 .fullsize{
   
@@ -305,9 +321,52 @@ body,
 
  }
 /** Footer **/
- .customNavFooter
-  {
-    border-top: white solid 1px;
-    
-  }
- 
+.footer{
+  background-image: linear-gradient(to right, #152F4F 0%, #021b3a  51%, #152F4F  100%);
+  color:white; 
+}
+.footer .links ul {
+  list-style-type: none;
+}
+.footer .links li a{
+      color: white;
+      transition: color .2s;
+}
+.footer .links li a:hover{
+        text-decoration:none;
+        color:#4180CB;
+        }
+.about-company i{
+  font-size: 25px;
+}
+.about-company a{
+      color:white;
+      transition: color .2s;
+}
+.about-company a:hover{
+  color:#4180CB
+}
+.location i{
+  font-size: 18px;
+}
+.location  .copyright p{
+  border-top:1px solid rgba(255,255,255,.1);
+} 
+
+/** News part */
+
+.newsvg{
+  height: 70vh;
+  background-image: url("../../public/static/img/svg/newspaper.svg");
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position:center bottom;
+   
+}
+.bluredNews{
+  backdrop-filter: blur(15px);
+}
+.customTypo{
+  max-height: 180px;
+  overflow-Y: auto
+}

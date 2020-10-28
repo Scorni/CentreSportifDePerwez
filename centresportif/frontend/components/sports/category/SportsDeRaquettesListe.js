@@ -11,16 +11,16 @@ const SportsDeRaquettes = (props) => {
       <div>
         <HeadGenerator title={"Sports de Raquettes"} />
         <Container className="themed-container">
-          <Row className="mx-5">
-            <Col className =" mt-3 " sm={{offset : 2}} >
+          <Row className="mx-auto">
+            <Col className =" mt-3 " sm={{offset : 1}} >
               <CardGenerator tabs = {"tennis.jpg"} title = {"Tennis"} link ={"Tennis"}/>
             </Col>
             <Col className =" mt-3">
               <CardGenerator tabs = {"pingpong.jpg"} title = {"Tennis de Table"} link ={"Tennisdetable"} />
             </Col>
           </Row>
-          <Row className="mx-5">
-            <Col className =" mt-3 " sm={{offset : 4}} >
+          <Row className="mx-auto">
+            <Col className =" mt-3 " sm={{offset : 1}} >
               <CardGenerator tabs = {"badminton.jpg"} title = {"Badminton"} link ={"Badminton"}/>
             </Col>
           </Row>
@@ -41,7 +41,7 @@ const SportsDeRaquettes = (props) => {
             </Col>
           </Row>
           <Row className="mx-auto">
-            <Col className =" mt-3" sm={{offset : 4}} >
+            <Col className =" mt-3" sm={{offset : 2}} >
               <CardGenerator tabs = {"badminton.jpg"} title = {"Badminton"} link ={"Badminton"}/>
             </Col>
           </Row>
@@ -54,7 +54,7 @@ const SportsDeRaquettes = (props) => {
         <HeadGenerator title={"Sports de Raquettes"} />
         <Container className="themed-container">
           <Row className="mx-auto">
-            <Col className =" mt-3" sm={{offset : 2}} >
+            <Col className =" mt-3" sm={{offset : 1}} >
               <CardGenerator tabs = {"tennis.jpg"} title = {"Tennis"} link ={"Tennis"}/>
             </Col>
             <Col className =" mt-3">
@@ -62,7 +62,7 @@ const SportsDeRaquettes = (props) => {
             </Col>
           </Row>
           <Row className="mx-auto">
-            <Col className =" mt-3" sm={{offset : 4}} >
+            <Col className =" mt-3" sm={{offset : 1}} >
               <CardGenerator tabs = {"badminton.jpg"} title = {"Badminton"} link ={"Badminton"}/>
             </Col>
           </Row>

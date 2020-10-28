@@ -18,10 +18,10 @@ class Profile extends Component {
                         if(me.permissions[1] === "ADMIN" && me.permissions[2] === "SADMIN"){ 
                             return(
                                 <>
-                                    <Container className="themed-container" fluid={true}>
+                                    <Container className="themed-container profilesvg" fluid={true}>
                                         
                                         <Row className="mx-auto justify-content-center">
-                                            <div className="styledDiv" >
+                                            <div className="styledDiv bluredInformations" >
                                                 <h2>Informations personnelles</h2>
                                                 <p><strong>Prenom :</strong> {me.surname}</p>
                                                 <p><strong>Nom :</strong> {me.name}</p>
@@ -51,7 +51,7 @@ class Profile extends Component {
                                         <Container className="themed-container profilesvg" fluid={true}>
                                             
                                             <Row className="mx-auto justify-content-center">
-                                                <div className="styledDiv" >
+                                                <div className="styledDiv bluredInformations" >
                                                     <h2>Informations personnelles</h2>
                                                     <p><strong>Prenom :</strong> {me.surname}</p>
                                                     <p><strong>Nom :</strong> {me.name}</p>

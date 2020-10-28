@@ -25,16 +25,16 @@ class Locations extends Component {
     }
     render() {
         return (
-            <div className="locationsvg">
+            <div console>
                 <HeadGenerator title="Mes réservations"/>
                 <Query query={MYLOCATIONS_QUERY}>
                     {({ data, error, loading }) => {
                         if(loading) return <p> Loading...</p>
                         if(error) return <p> Error : { error.message }</p>
-                        return <>
+                        return <div className="locationsvg">
                             <Container className="themed-container"   >       
                                 <Row className="mx-auto justify-content-center">
-                                    <Table  hover responsive striped className='bluredTable' size="sm">
+                                    <Table  hover responsive striped className='transparentTable' size="sm">
                                         <thead>
                                             <tr>
                                                 <th>ID</th>
@@ -60,7 +60,7 @@ class Locations extends Component {
                                     </Table> 
                                 </Row>
                             </Container>
-                        </>
+                        </div>
                         }               
                     }
                 </Query>

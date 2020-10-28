@@ -26,7 +26,7 @@ const classes = useStyles();
 return (
 <div>
   <HeadGenerator title={"Aïkido"} />
-  <Container className="themed-container">
+  <Container className="themed-container ContainerCard">
     <Row className="mx-auto" >
       <Col className =" mt-3" >
         <Card className={classes.root}>
