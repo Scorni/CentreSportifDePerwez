@@ -3,6 +3,7 @@ import Page from '../components/Page';
 import 'bootstrap/dist/css/bootstrap.css';
 import '../public/static/style.css';
 import DateFnsUtils from '@date-io/date-fns';
+import '../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 
 import Loading from '../components/common/ProgressBar';
 import { ApolloProvider } from 'react-apollo';
