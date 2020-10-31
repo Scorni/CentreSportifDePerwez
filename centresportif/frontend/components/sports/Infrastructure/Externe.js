@@ -7,7 +7,7 @@ import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
 import  useWindowDimensions  from '../../common/WindowsProperties';
 import { Container, Row, Col } from 'reactstrap';
-import {HeadGenerator} from '../../sports/category/Generator';
+import {HeadGenerator} from '../../sports/category/generator';
 
 
 
@@ -23,7 +23,7 @@ export default function Externe() {
   return (
   <div>
     <HeadGenerator title={"Infrastructure externe"} />
-    <Container className="themed-container">
+    <Container className="themed-container ContainerCard">
       <Row className="mx-auto">
         <Col className =" mt-3" >
           <Card className={classes.root}>

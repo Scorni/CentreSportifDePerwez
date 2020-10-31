@@ -1,6 +1,10 @@
-endpoint: ${env:PRISMA_ENDPOINT}
-datamodel: datamodel.prisma
-# secret : ${env:PRISMA_SECRET}
+endpoint: "https://eu1.prisma.sh/maxscorni-dce3a0/centresportifbe/dev"
+#endpoint: https://centre-sportif-6557c07dd1.herokuapp.com/centre-sportif-prod/prod
+
+datamodel: datamodel.graphql
+
+#find solution about that
+secret : ${env:API_SECRET}
 
 generate:
   - generator: graphql-schema
@@ -9,3 +13,4 @@ hooks:
   post-deploy:
     - graphql get-schema --p prisma
     - graphql prepare
+    

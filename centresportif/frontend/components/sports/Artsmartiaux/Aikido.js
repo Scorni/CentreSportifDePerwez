@@ -7,13 +7,13 @@ import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
 import  useWindowDimensions  from '../../common/WindowsProperties';
 import { Container, Row, Col } from 'reactstrap';
-import {HeadGenerator} from '../../sports/category/Generator';
+import {HeadGenerator} from '../category/generator';
 import { AiOutlinePhone,AiOutlineMail,AiOutlineFacebook } from 'react-icons/ai';
 import { GiEarthAfricaEurope } from 'react-icons/gi';
 
 
 
-export default function Aikido() {
+export function Aikido() {
   const {width,height} = useWindowDimensions();
   const useStyles = makeStyles({
       root: {
@@ -25,9 +25,9 @@ const classes = useStyles();
 
 return (
 <div>
-  <HeadGenerator title={"Judo"} />
-  <Container className="themed-container">
-    <Row className="mx-auto">
+  <HeadGenerator title={"Aïkido"} />
+  <Container className="themed-container ContainerCard">
+    <Row className="mx-auto" >
       <Col className =" mt-3" >
         <Card className={classes.root}>
           <CardMedia
@@ -61,3 +61,5 @@ return (
 </div>
   );
 }
+
+export default Aikido;

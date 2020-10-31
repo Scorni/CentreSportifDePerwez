@@ -1,10 +1,11 @@
 import App, {Container} from 'next/app';
 import Page from '../components/Page';
-import 'bootstrap/dist/css/bootstrap.css';
 import '../public/static/style.css';
-import Loading from '../components/common/ProgressBar';
-import uuidv4 from 'uuid/v4'
+import '../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 
+import Loading from '../components/common/ProgressBar';
+import { ApolloProvider } from 'react-apollo';
+import withData from '../withData';
 
 
 class MyApp extends App{
@@ -12,7 +13,7 @@ class MyApp extends App{
         isRouteChanging: false,
         loadingKey: null,
       }
-    
+    */
       static async getInitialProps({ Component, ctx }) {
         let pageProps = {}
     
@@ -20,10 +21,11 @@ class MyApp extends App{
           pageProps = await Component.getInitialProps(ctx)
         }
     
-        return { pageProps }
+        pageProps.query = ctx.query;
+        return { pageProps };
       }
-    
-      componentDidMount() {
+     
+      /**componentDidMount() {
         const { router } = this.props
     
         const routeChangeStartHandler = () => {
@@ -44,14 +46,18 @@ class MyApp extends App{
         router.events.on('routeChangeError', routeChangeEndHandler)
       }*/
     render(){
-        const {Component, pageProps} = this.props;
+        const {Component, pageProps, apollo} = this.props;
         return (
+          
+            <ApolloProvider client={apollo}>
             <Page>
                 {/*<Loading {...this.state}/> */}
                 <Component {...pageProps}/>
             </Page>
+            </ApolloProvider>
+           
         )
     }
 }
 
-export default MyApp;
+export default withData(MyApp);

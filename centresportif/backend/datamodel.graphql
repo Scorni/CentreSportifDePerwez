@@ -1,0 +1,41 @@
+
+type User {
+  id: ID! @id
+  name: String!
+  surname: String!
+  password: String!
+  email: String! @unique
+  adress: String!
+  city: String!
+  has_bill : Boolean! @default(value: false)
+  createdAt: DateTime! @createdAt
+  resetToken: String
+  resetTokenExpiry: Float
+  permissions: [Permission] @scalarList (strategy:RELATION)
+}
+
+type Location {
+  id: ID! @id
+  sport: String!
+  hour: String!
+  day: String!
+  roomName: Room!
+  userId: User! @relation(link : INLINE)
+  is_paid: Boolean! @default(value: false)
+  uniqueLocationsRoomHourDay: String! @unique
+  createdAt: DateTime! @createdAt
+}
+
+type Room {
+  id: ID! @id
+  name : String! 
+  price : Float!
+  sport : String!
+  uniqueNameSport: String! @unique
+}
+
+enum Permission {
+  SADMIN
+  ADMIN
+  USER
+}

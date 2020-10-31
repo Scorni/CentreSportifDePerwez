@@ -45,3 +45,14 @@ Pull peut générer des conflits car il ne demande pas de validation des fichier
 
 --> Git push
 
+### Files in case working in localhost
+
+config.js
+withdata.js
+prisma.yml
+-> secret : ${env:API_SECRET} /!\
+variables.env
+
+## Command to enter
+
+npm run deploy

@@ -1,5 +1,5 @@
 import React  from 'react';
-import {HeadGenerator,CardGenerator} from './Generator';
+import {HeadGenerator,CardGenerator} from './generator';
 import { Container, Row, Col } from 'reactstrap';
 import  useWindowDimensions  from '../../common/WindowsProperties'
 
@@ -12,7 +12,7 @@ const Danse = (props) => {
         <HeadGenerator title={"Danse"} />
         <Container className="themed-container">
           <Row className="mx-5">
-            <Col className =" mt-3 " sm={{offset : 4}} >
+            <Col className =" mt-3 " sm={{offset : 3}} >
               <CardGenerator tabs = {"danse.jpg"} title = {"Danse"} link ={"Danse"}/>
             </Col>
           </Row>

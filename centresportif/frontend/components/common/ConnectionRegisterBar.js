@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, Component } from 'react';
 import {  Collapse,
     Navbar,
     NavbarToggler,
@@ -13,56 +13,136 @@ import {  Collapse,
     ModalBody, 
     ModalFooter } from 'reactstrap';
 
-    const MyModal = (props) => {
-        const {
-            buttonLabel,
-            className
-          } = props;
-        
-          const [modal, setModal] = useState(false);
-        
-          const toggle = () => setModal(!modal);
-        
-          return (
-            <div>
-              <Button onClick={toggle}>{buttonLabel}</Button>
-              <Modal isOpen={modal} toggle={toggle} className={className}>
-                <ModalHeader toggle={toggle}>Modal title</ModalHeader>
-                <ModalBody>
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                </ModalBody>
-                <ModalFooter>
-                  <Button color="primary" onClick={toggle}>Do Something</Button>{' '}
-                  <Button color="secondary" onClick={toggle}>Cancel</Button>
-                </ModalFooter>
-              </Modal>
-            </div>
-          );
-    }
+import { Mutation } from 'react-apollo';
+import gql from 'graphql-tag';
+import Signup from '../common/Signup';
+import Signin from '../common/SignIn';
+import User from '../common/User';
+import Link from "next/link";
+import Signout from './Signout';
+import RequestReset from './RequestReset';
 
-    const MyConnectionRegistrerBar = (props) => {
-        const [isOpen, setIsOpen] = useState(false);
-    
-        const toggle = () => setIsOpen(!isOpen);
-    
-        return (
-        <div>
-            <Navbar color="light" light expand="md">
-                <NavbarBrand>Connexion</NavbarBrand>
-                <NavbarToggler onClick={toggle} className ="ml-auto"></NavbarToggler>
-                <Collapse isOpen={isOpen} navbar>
-                    <Nav navbar className = 'ml-auto'>
-                       
-                        <NavItem className='mr-1 mt-1'>
-                            <MyModal buttonLabel="Se connecter"></MyModal>
-                        </NavItem>
-                        <NavItem className='mr-1 mt-1'>
-                            <MyModal buttonLabel="S'enregistrer"></MyModal>
-                        </NavItem>
-                    </Nav>
-                </Collapse>
-            </Navbar>
-        </div>
-      );
-    }
+
+
+const MyModalSignUp = (props) => {
+  const {
+      buttonLabel,
+      className
+    } = props;
+  
+    const [modal, setModal] = useState(false);
+  
+    const toggle = () => setModal(!modal);
+  
+    return (
+      <div>
+        <Button onClick={toggle} className = "customButton">{buttonLabel}</Button>
+        <Modal isOpen={modal} toggle={toggle} className={className}>
+          <ModalHeader toggle={toggle}>{props.title}</ModalHeader>
+          <ModalBody>
+            <Signup />
+          </ModalBody>
+        </Modal>
+      </div>
+    );
+}
+const MyModalSignIn = (props) => {
+  const {
+      buttonLabel,
+      className
+    } = props;
+  
+    const [modal, setModal] = useState(false);
+  
+    const toggle = () => setModal(!modal);
+  
+    return (
+      <div>
+        <Button onClick={toggle} className = "customButton">{buttonLabel}</Button>
+        <Modal isOpen={modal} toggle={toggle} className={className}>
+          <ModalHeader toggle={toggle}>{props.title}</ModalHeader>
+          <ModalBody>
+            <Signin/>
+            <br></br>
+            <MyModalRequestReset title = {" Demandez un nouveau mot de passe ! "} buttonLabel="Mot de passe oublié"></MyModalRequestReset>
+          </ModalBody>
+        </Modal>
+      </div>
+    );
+}
+
+const MyModalRequestReset = (props) => {
+  const {
+      buttonLabel,
+      className
+    } = props;
+  
+    const [modal, setModal] = useState(false);
+  
+    const toggle = () => setModal(!modal);
+  
+    return (
+      <div>
+        <Button onClick={toggle} className = "customModalButton">{buttonLabel}</Button>
+        <Modal isOpen={modal} toggle={toggle} className={className}>
+          <ModalHeader toggle={toggle}>{props.title}</ModalHeader>
+          <ModalBody>
+            <RequestReset />
+          </ModalBody>
+        </Modal>
+      </div>
+    );
+}
+
+const MyConnectionRegistrerBar = (props) => {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const toggle = () => setIsOpen(!isOpen);
+
+  return (
+  <div>
+      <Navbar light expand="md" className="customNav">
+          <NavbarBrand style={{color: "white"}} >Connexion</NavbarBrand>
+          <NavbarToggler onClick={toggle} className ="ml-auto"></NavbarToggler>
+          <Collapse isOpen={isOpen} navbar>
+              <Nav navbar className = 'ml-auto ' >
+                <User>
+                    {({data}) => {
+                      const me = data ? data.me : null
+                        if(me){ 
+                          return(
+                            <>
+                              <NavItem className='mr-1 mt-1'>
+                              <Link href='/account/profile' >
+                                  <Button className = "customButton">
+                                          Mon Profil     
+                                  </Button>  
+                              </Link>
+                              </NavItem>
+                              <NavItem className='mr-1 mt-1' >
+                                  <Signout />
+                              </NavItem>
+                            </>
+                          )
+                        }
+                        else if (!me){
+                          return(
+                            <>
+                              <NavItem className='mr-1 mt-1'>
+                                <MyModalSignUp title = {"S'enregistrer"} buttonLabel="S'enregistrer"></MyModalSignUp>
+                              </NavItem>
+                              <NavItem className='mr-1 mt-1'>
+                                <MyModalSignIn title = {"Se connecter"} buttonLabel="Se connecter"></MyModalSignIn>
+                              </NavItem>
+                            </>
+                          )
+                        }}
+                    }
+                </User>
+              </Nav>
+          </Collapse>
+      </Navbar>
+  </div>
+);
+}
 export default MyConnectionRegistrerBar;
