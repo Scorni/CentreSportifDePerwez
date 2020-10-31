@@ -1,13 +1,13 @@
 html,
 body,
 #root {
-  width: 100%;
-  height: 100%;
   margin: 0;
   padding: 0;
-  background-color: white;
-}
+  background: linear-gradient(225deg, #2B86C5 0%,rgb(120, 75, 160) 50%,#91253c 100% );
+  ;
+  background-attachment: fixed;
 
+}
 .responsiveCardBig {
   width: 30ch;
   height: 30ch;
@@ -20,6 +20,13 @@ body,
   transition: box-shadow 0.5s;
   will-change: transform;
   border: 15px solid white;
+  margin-bottom: 50px;
+
+}
+.ContainerCard{
+  margin-bottom: 100px;
+  margin-top: 50px;
+
 }
 .responsiveCardNormal {
   width: 20ch;
@@ -33,6 +40,8 @@ body,
   transition: box-shadow 0.5s;
   will-change: transform;
   border: 15px solid white;
+  margin-bottom: 50px;
+  
 }
 .responsiveCardTiny {
   width: 15ch;
@@ -46,6 +55,8 @@ body,
   transition: box-shadow 0.5s;
   will-change: transform;
   border: 15px solid white;
+  margin-bottom: 50px;
+
 }
 .defaultCard {
   width: 40ch;
@@ -59,6 +70,10 @@ body,
   transition: box-shadow 0.5s;
   will-change: transform;
   border: 15px solid white;
+  margin-top: 50px;
+  margin-left: 60px;
+  margin-bottom: 50px;
+
 }
 .card:hover {
   box-shadow: 0px 30px 100px -10px rgba(0, 0, 0, 0.4);
@@ -117,5 +132,277 @@ body,
   border-radius: 15px ;
 }
 .datePicker{
-  border: 2 px solid gray !important
+  border: 2 px solid rgb(128, 128, 128) !important
+}
+.customNav{
+  border-bottom: white solid 1px;
+}
+/** Dropdown  part */
+.customDropdown {
+  background-image: linear-gradient(to right, #152F4F 0%, #10253f  51%, #152F4F  100%);
+  border: none;
+}
+.customDropdown{
+  width: 140px;
+  text-align: center;
+  transition: 0.5s;
+  background-size: 200% auto;
+  color: #fff;
+  display: block;
+  text-decoration: none;
+  
+}
+.customDropdown:hover {
+  background-position: right center; /* change the direction of the change here */
+  text-decoration: none;
+  color: white;
+}
+
+/** DropdownItem  part */
+
+.customDropdownItem {
+  border: none;
+  background-image: linear-gradient(to right, #152F4F 0%, #10253f  51%, #152F4F  100%);
+
+}
+.customDropdownItem{
+  width: 100%;
+  text-align: center;
+  transition: 1s;
+  background-size: 200% auto;
+  color: #fff;
+  display: block;
+  text-decoration: none;
+
+}
+.customDropdownItem:hover {
+  background-position: right center; /* change the direction of the change here */
+  background-image: linear-gradient(to right, #152F4F 0%, #10253f  51%, #152F4F  100%);
+  text-decoration: none;
+  color: white;
+}
+
+.customDropdownMenu{
+  background-image: linear-gradient(to right, #152F4F 0%, #10253f  51%, #152F4F  100%);
+  padding: 0%;  
+  border: solid #908d91 1.8px;
+}
+
+/** clubs sportifs */
+.customTabs{
+  background-image: linear-gradient(to right, #152F4F 0%, #021b3a  51%, #152F4F  100%);
+  color: white;
+  border: none;
+
+}
+
+.customButton {
+
+  background-image: linear-gradient(to right, rgb(21, 47, 79) 0%, rgb(16, 37, 63)  51%, rgb(21, 47, 79)  100%);
+  border: none;
+}
+
+.customButton {
+   width : 160px;
+   text-align: center;
+   transition: 0.5s;
+   background-size: 200% auto;
+   color: #fff;
+   width: auto;
+
+   display: block;
+ }
+
+ .customButton:hover {
+   background-position: right center; /* change the direction of the change here */
+   text-decoration: none;
+   color: white;
+
+ }
+
+
+/** profile part*/
+
+.profilesvg{
+  height: 70vh;
+  background-image: url("../../public/static/img/svg/people.svg");
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position:center bottom;
+
+}
+.bluredInformations{
+  backdrop-filter: blur(15px);
+}
+.locationsvg{
+  
+  height: 70vh;
+  background-image: url("../../public/static/img/svg/booking.svg");
+  background-repeat: no-repeat;
+  background-size:contain;
+  background-position:center bottom;
+}
+.transparentTable{
+  background: linear-gradient(225deg, rgba(43, 134, 197,0.5) 0%,rgba(120, 75, 160,0.5) 50%,rgba(145, 37, 60,0.5) 100% );
+}
+.fullsize{
+  
+  width: 100%;
+  height: 100%;
+}
+/* home  */
+.locationHomeSvg{
+  
+  height: 40vh;
+  background-image: url("../../public/static/img/svg/calendar.svg");
+  background-repeat: no-repeat;
+  background-size:contain;
+  background-position: center  ;
+  
+}
+.locationHomeQ{
+  margin:auto ;
+  text-align: center;
+  padding-top: 70px;
+}
+
+.bluredTitle{
+  backdrop-filter: blur(10px) ;
+  background: #e75864;
+  border-radius: 0.25rem;
+  color: whitesmoke;
+  padding:4px
+}
+
+.customReservationButton {
+  background-image: linear-gradient(to right, #908d91 0%, #5f5f5f  51%, #908d91  100%);
+  border: none;
+
+}
+.customReservationButton {
+  margin: auto;
+  width : 140px;
+  text-align: center;
+  transition: 0.5s;
+  background-size: 200% auto;
+  color: #fff;
+  display: block;
+ }
+
+ .customReservationButton:hover{
+  background-position: right center; /* change the direction of the change here */
+  text-decoration: none;
+  color: white;
+
+}
+
+/** modal button */
+
+.customModalButton {
+  background-image: linear-gradient(to right, #908d91 0%, #5f5f5f  51%, #908d91  100%);
+  border: none;
+}
+.customModalButton {
+   width : 180px;
+   text-align: center;
+   transition: 0.5s;
+   background-size: 200% auto;
+   color: #fff;
+
+
+   display: block;
+ }
+
+ .customModalButton:hover {
+   background-position: right center; /* change the direction of the change here */
+   text-decoration: none;
+   color: white;
+  border: none;
+
+ }
+/** Footer **/
+.footer{
+  background-image: linear-gradient(to right, #152F4F 0%, #021b3a  51%, #152F4F  100%);
+  color:white; 
+}
+.footer .links ul {
+  list-style-type: none;
+}
+.footer .links li a{
+      color: white;
+      transition: color .2s;
+}
+.footer .links li a:hover{
+        text-decoration:none;
+        color:#4180CB;
+        }
+.about-company i{
+  font-size: 25px;
+}
+.about-company a{
+      color:white;
+      transition: color .2s;
+}
+.about-company a:hover{
+  color:#4180CB
+}
+.location i{
+  font-size: 18px;
+}
+.location  .copyright p{
+  border-top:1px solid rgba(255,255,255,.1);
+} 
+
+/** News part */
+
+.newsvg{
+  height: 70vh;
+  background-image: url("../../public/static/img/svg/newspaper.svg");
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position:center bottom;
+   
+}
+.bluredNews{
+  backdrop-filter: blur(15px);
+}
+.customTypo{
+  max-height: 180px;
+  overflow-Y: auto
+}
+/** Editor wysiwyg **/
+
+.rich-editor {
+  padding: 3rem;
+  
+ }
+ .rich-editor .rdw-editor-main {
+  background-color: #fff;
+ }
+.rich-editor .DraftEditor-editorContainer {
+  padding: 1rem;
+  
+  max-height: 300px;
+  overflow-Y: auto
+ }
+.draft-editor-wrapper {
+  border: 1px solid #ccc;
+}
+.html-view {
+  background-color: #fff;
+  color: #000;
+  margin: auto;
+  width: 70%;
+  margin-bottom: 2rem;
+ }
+.editorTitle{
+  color: #fff;
+}
+.customEditor{
+  max-height: 180px;
+  overflow-Y: auto
+}
+.previewButton {
+  margin: auto;
+  ;
 }

@@ -10,11 +10,11 @@ const SportIndividuels = (props) => {
       <>
         <HeadGenerator title={"Sports Individuels"} />
         <Container className="themed-container">
-          <Row className="mx-5 justify-content-center">
-            <Col className =" mt-3 " sm={{offset : 2}} >
+          <Row className="mx-auto justify-content-center">
+            <Col className =" mt-3 " sm={{offset : 1}} >
               <CardGenerator tabs = {"athlétisme.jpg"} title = {"Athlétisme"} link ={"Athletisme"}/>
             </Col>
-            <Col className =" mt-3">
+            <Col className =" mt-3" >
               <CardGenerator tabs = {"boxe.jpg"} title = {"Boxe anglaise"} link ={"BoxeAnglaise"}/>
             </Col>
           </Row>
@@ -30,7 +30,7 @@ const SportIndividuels = (props) => {
             <Col className =" mt-3" sm={{offset : 2}} >
               <CardGenerator tabs = {"athlétisme.jpg"} title = {"Athlétisme"} link ={"Athletisme"}/>
             </Col>
-            <Col className =" mt-3">
+            <Col className =" mt-3" >
               <CardGenerator tabs = {"boxe.jpg"} title = {"Boxe anglaise"} link ={"BoxeAnglaise"}/>
             </Col>
           </Row>
@@ -46,7 +46,7 @@ const SportIndividuels = (props) => {
             <Col className =" mt-3" sm={{offset : 2}} >
               <CardGenerator tabs = {"athlétisme.jpg"} title = {"Athlétisme"} link ={"Athletisme"}/>
             </Col>
-            <Col className =" mt-3">
+            <Col className =" mt-3" >
               <CardGenerator tabs = {"boxe.jpg"} title = {"Boxe anglaise"} link ={"BoxeAnglaise"}/>
             </Col>
           </Row>
@@ -59,10 +59,10 @@ const SportIndividuels = (props) => {
         <HeadGenerator title={"Sports Individuels"}/>
         <Container className="themed-container">
           <Row className="mx-auto">
-            <Col className =" mt-3" >
+            <Col className =" mt-3" sm={{offset : 1}}>
               <CardGenerator tabs = {"athlétisme.jpg"} title = {"Athlétisme"} link ={"Athletisme"}/>
             </Col>
-            <Col className =" mt-3">
+            <Col className =" mt-3" >
               <CardGenerator tabs = {"boxe.jpg"} title = {"Boxe anglaise"} link ={"BoxeAnglaise"}/>
             </Col>
           </Row>

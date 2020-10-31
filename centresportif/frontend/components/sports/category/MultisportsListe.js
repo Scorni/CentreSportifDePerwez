@@ -12,7 +12,7 @@ const Multisports = (props) => {
         <HeadGenerator title={"Multisports"} />
         <Container className="themed-container">
           <Row className="mx-5">
-            <Col className =" mt-3 " sm={{offset : 4}} >
+            <Col className =" mt-3 " sm={{offset : 3}} >
               <CardGenerator tabs = {"multisports.jpg"} title = {"Multisports"} link ={"Multisports"}/>
             </Col>
           </Row>

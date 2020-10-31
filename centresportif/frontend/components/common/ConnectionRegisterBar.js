@@ -18,7 +18,7 @@ import gql from 'graphql-tag';
 import Signup from '../common/Signup';
 import Signin from '../common/SignIn';
 import User from '../common/User';
-import Link from "@material-ui/core/Link";
+import Link from "next/link";
 import Signout from './Signout';
 import RequestReset from './RequestReset';
 
@@ -36,7 +36,7 @@ const MyModalSignUp = (props) => {
   
     return (
       <div>
-        <Button onClick={toggle}>{buttonLabel}</Button>
+        <Button onClick={toggle} className = "customButton">{buttonLabel}</Button>
         <Modal isOpen={modal} toggle={toggle} className={className}>
           <ModalHeader toggle={toggle}>{props.title}</ModalHeader>
           <ModalBody>
@@ -58,7 +58,7 @@ const MyModalSignIn = (props) => {
   
     return (
       <div>
-        <Button onClick={toggle}>{buttonLabel}</Button>
+        <Button onClick={toggle} className = "customButton">{buttonLabel}</Button>
         <Modal isOpen={modal} toggle={toggle} className={className}>
           <ModalHeader toggle={toggle}>{props.title}</ModalHeader>
           <ModalBody>
@@ -83,7 +83,7 @@ const MyModalRequestReset = (props) => {
   
     return (
       <div>
-        <Button onClick={toggle}>{buttonLabel}</Button>
+        <Button onClick={toggle} className = "customModalButton">{buttonLabel}</Button>
         <Modal isOpen={modal} toggle={toggle} className={className}>
           <ModalHeader toggle={toggle}>{props.title}</ModalHeader>
           <ModalBody>
@@ -101,11 +101,11 @@ const MyConnectionRegistrerBar = (props) => {
 
   return (
   <div>
-      <Navbar color="light" light expand="md">
-          <NavbarBrand>Connexion</NavbarBrand>
+      <Navbar light expand="md" className="customNav">
+          <NavbarBrand style={{color: "white"}} >Connexion</NavbarBrand>
           <NavbarToggler onClick={toggle} className ="ml-auto"></NavbarToggler>
           <Collapse isOpen={isOpen} navbar>
-              <Nav navbar className = 'ml-auto'>
+              <Nav navbar className = 'ml-auto ' >
                 <User>
                     {({data}) => {
                       const me = data ? data.me : null
@@ -113,18 +113,15 @@ const MyConnectionRegistrerBar = (props) => {
                           return(
                             <>
                               <NavItem className='mr-1 mt-1'>
-                              <Link href='/account/profile' style={{color: "white"}}>
-                                  <Button>
+                              <Link href='/account/profile' >
+                                  <Button className = "customButton">
                                           Mon Profil     
                                   </Button>  
                               </Link>
                               </NavItem>
                               <NavItem className='mr-1 mt-1' >
-                              <Link href='/'>
                                   <Signout />
-                              </Link>
                               </NavItem>
-                              
                             </>
                           )
                         }

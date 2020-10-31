@@ -59,7 +59,7 @@ render(){
                     />
                 </label>
                 <br/><br/>
-                <Button type="submit" color="secondary">Se connecter</Button>
+                <Button type="submit" className = "customButton">Se connecter</Button>
                 </fieldset>
             </form>)}
         </Mutation>

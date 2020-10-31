@@ -1,5 +1,5 @@
 import React from "react";
-import Handball from '../../../components/sports/SportsCollectifs/Handball'
+import Handball from '../../../components/sports/Sportscollectifs/Handball'
 
 const Sports = props => (
     <div>    

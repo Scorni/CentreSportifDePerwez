@@ -11,11 +11,11 @@ const Infrastructure = (props) => {
       <div>
         <HeadGenerator title={"Infrastructure"} />
         <Container className="themed-container">
-          <Row className="mx-5">
-            <Col className =" mt-3 " sm={{offset : 2}} >
+          <Row className="mx-auto">
+            <Col className =" mt-3 " sm={{offset : 1}} >
               <CardGenerator tabs = {"Infrastructure/interne.jpg"} title = {"Interne"} link ={"Interne"}/>
             </Col>
-            <Col className =" mt-3">
+            <Col className =" mt-3" sm={{offset : 1}}>
               <CardGenerator tabs = {"Infrastructure/externe.jpg"} title = {"Externe"} link ={"Externe"}/>
             </Col>
           </Row>
@@ -28,10 +28,10 @@ const Infrastructure = (props) => {
         <HeadGenerator title={"Infrastructure"}/>
         <Container className="themed-container">
           <Row className="mx-auto">
-            <Col className =" mt-3" sm={{offset : 2}} >
+            <Col className =" mt-3" sm={{offset : 1}} >
               <CardGenerator tabs = {"Infrastructure/interne.jpg"} title = {"Interne"} link ={"Interne"}/>
             </Col>
-            <Col className =" mt-3">
+            <Col className =" mt-3" sm={{offset : 1}}>
               <CardGenerator tabs = {"Infrastructure/externe.jpg"} title = {"Externe"} link ={"Externe"}/>
             </Col>
           </Row>
@@ -44,10 +44,10 @@ const Infrastructure = (props) => {
         <HeadGenerator title={"Infrastructure"}/>
         <Container className="themed-container">
           <Row className="mx-auto">
-            <Col className =" mt-3" sm={{offset : 2}} >
+            <Col className =" mt-3" sm={{offset : 1}} >
               <CardGenerator tabs = {"Infrastructure/interne.jpg"} title = {"Interne"} link ={"Interne"}/>
             </Col>
-            <Col className =" mt-3">
+            <Col className =" mt-3" sm={{offset : 1}}>
               <CardGenerator tabs = {"Infrastructure/externe.jpg"} title = {"Externe"} link ={"Externe"}/>
             </Col>
           </Row>
@@ -60,10 +60,10 @@ const Infrastructure = (props) => {
         <HeadGenerator title={"Infrastructure"}/>
         <Container className="themed-container">
           <Row className="mx-auto">
-            <Col className =" mt-3" >
+            <Col className =" mt-3" sm={{offset : 1}}>
               <CardGenerator tabs = {"Infrastructure/interne.jpg"} title = {"Interne"} link ={"Interne"}/>
             </Col>
-            <Col className =" mt-3">
+            <Col className =" mt-3" sm={{offset : 1}}>
               <CardGenerator tabs = {"Infrastructure/externe.jpg"} title = {"Externe"} link ={"Externe"}/>
             </Col>
           </Row>

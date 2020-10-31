@@ -104,7 +104,7 @@ render(){
                     />
                 </label>
                 <br/><br/>
-                <Button type="submit" color="secondary">S'enregistrer</Button>
+                <Button type="submit" className = "customButton">S'enregistrer</Button>
                 </fieldset>
             </form>)}
         </Mutation>

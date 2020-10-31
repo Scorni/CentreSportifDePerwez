@@ -11,8 +11,8 @@ const Gymnastique = (props) => {
       <div>
         <HeadGenerator title={"Gymnastique"} />
         <Container className="themed-container">
-          <Row className="mx-5">
-            <Col className =" mt-3 " sm={{offset : 2}} >
+          <Row className="mx-auto">
+            <Col className =" mt-3 " sm={{offset : 1}} >
               <CardGenerator tabs = {"musculation.jpg"} title = {"Musculation"}  link ={"Musculation"}/>
             </Col>
             <Col className =" mt-3">
@@ -28,7 +28,7 @@ const Gymnastique = (props) => {
         <HeadGenerator title={"Gymnastique"} />
         <Container className="themed-container">
           <Row className="mx-auto">
-            <Col className =" mt-3" sm={{offset : 2}} >
+            <Col className =" mt-3" sm={{offset : 1}} >
               <CardGenerator tabs = {"musculation.jpg"} title = {"Musculation"} link ={"Musculation"}/>
             </Col>
             <Col className =" mt-3">
@@ -44,7 +44,7 @@ const Gymnastique = (props) => {
         <HeadGenerator title={"Gymnastique"} />
         <Container className="themed-container">
           <Row className="mx-auto">
-            <Col className =" mt-3" sm={{offset : 2}} >
+            <Col className =" mt-3" sm={{offset : 1}} >
               <CardGenerator tabs = {"musculation.jpg"} title = {"Musculation"} link ={"Musculation"}/>
             </Col>
             <Col className =" mt-3">

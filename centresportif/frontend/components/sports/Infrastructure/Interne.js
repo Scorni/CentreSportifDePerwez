@@ -25,7 +25,7 @@ export default function interne() {
   return (
     <div>
     <HeadGenerator title={"Infrastructure interne"} />
-    <Container className="themed-container">
+    <Container className="themed-container ContainerCard">
       <Row className="mx-auto">
         <Col className =" mt-3" >
           <Card className={classes.root}>

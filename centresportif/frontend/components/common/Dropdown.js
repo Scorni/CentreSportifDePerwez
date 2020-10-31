@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Dropdown,DropdownToggle, DropdownMenu, DropdownItem  } from 'reactstrap';
+import { Dropdown,DropdownToggle, DropdownMenu, DropdownItem,Button  } from 'reactstrap';
 import Link from "next/link";
 
 const DropDownItemsTabs = [
@@ -49,11 +49,14 @@ function objectSort(tabs,cat){
         }
       }
       newList[value] = 
-        <DropdownItem key={tabs[index][cat][value]}>
+        
           <Link href={'/'+linkWithoutSpaceHidden}>
-            <a>{tabs[index][cat][value]}</a>
-          </Link>
-        </DropdownItem>
+            <DropdownItem key={tabs[index][cat][value]} className = "customDropdownItem" >
+              <a>{tabs[index][cat][value]}</a>
+              </DropdownItem>
+            
+          </Link>        
+        
     }
   }
   return(newList)
@@ -65,11 +68,12 @@ const MyDropdown = (props) => {
         {...props}
         toggle={() => updateIsOpen(!isOpen)}
         isOpen={isOpen}
+        
         >
-        <DropdownToggle style={{width:"140px"}}>
+        <DropdownToggle className="customDropdown"  >
           {props.name}
         </DropdownToggle>
-        <DropdownMenu>            
+        <DropdownMenu className="customDropdownMenu" >            
           {objectSort(DropDownItemsTabs,props.list)} 
         </DropdownMenu>   
     </Dropdown>
