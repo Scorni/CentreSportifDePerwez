@@ -1,3 +1,228 @@
-const mutations = {};
+const jwt = require("jsonwebtoken");
+const bcrypt = require('bcryptjs');
+const { randomBytes } = require('crypto');
+const { promisify } =require('util');
+const { singleFieldOnlyMessage } = require("graphql/validation/rules/SingleFieldSubscriptions");
+const { transport , MakeANiceEmail, makeANiceEmail } = require("../mail");
+const { hasPermission } = require("../utils");
+const Mutations = {
+    
+    async createRoom(parent, args, ctx, info) {
 
-module.exports = mutations;
+        const room = await ctx.db.mutation.createRoom({
+            data: { 
+                name : args.name,
+                price : args.price,
+                sport : args.sport,
+                uniqueNameSport : args.name + "_" + args.sport
+            }
+        },info);
+           
+        return await room;
+    },
+    async createLocation(parent, args, ctx, info) {
+
+        if(!ctx.request.userId){
+            throw new Error('Pour effectuer une réservation,vous devez être connecté!')
+        }
+        const [user] = await ctx.db.query.users({
+            where : {
+                resetToken: args.resetToken,
+                resetTokenExpiry_gte: Date.now() - 3600000
+            }
+        });
+        const location = await ctx.db.mutation.createLocation({
+            data: { 
+                sport : args.sport,
+                is_paid : args.is_paid,
+                hour: args.hour,
+                day: args.day,
+                userId:{
+                    connect: {
+                        id: ctx.request.userId
+                    }
+                },
+                roomName:{
+                    connect: {
+                        id: args.roomName
+                    }
+                },
+                uniqueLocationsRoomHourDay:  args.roomName + "_" + args.day + "_" + args.hour
+
+            }
+        },info);
+           
+        return await location;
+        /** Location mutation in playground
+         * 
+         * mutation {
+             createLocation(
+                sport: "cheval"
+                is_paid: false
+                id_user : "cke442zlh8o0v0a358yxw9dxx"
+                id_room : "cke2zg916q6mg0a32j7jwhgav"
+            ) {
+                sport
+                is_paid
+                id_user{name}
+                id_room{name}
+            }
+            
+            }
+        */
+    },
+    async signup(parent, args, ctx, info) {
+        // lowercase email
+        args.email = args.email.toLowerCase();
+        // hash password  
+        const password = await bcrypt.hash(args.password, 10);
+        // create user in DB
+        const user = await ctx.db.mutation.createUser(
+            {
+             data: {
+                ...args,
+                password,
+                permissions: { set: ["USER"]},
+            },
+            },
+            info
+            );
+        // create jwt token           
+        const token = jwt.sign({ userId: user.id }, process.env.APP_SECRET);
+        // set jwt as a cookie 
+        ctx.response.cookie("token", token, {
+            httpOnly: true,
+            maxAge: 1000 * 60 * 60 * 24 * 365
+          });
+          
+        return user;
+    },
+    async signin(parent,{email,password},ctx,info){
+        //check user with that email
+        const user = await ctx.db.query.user({where: {email}})
+        if(!user){
+            throw new Error('Aucun utilisateur trouvé pour cette adresse mail' + email);
+        }
+        //check if password is correct
+        const valid = await bcrypt.compare(password, user.password)
+        if(!valid){
+            throw new Error('Mot de passe incorrect!')
+        }
+        //generate the jwt token
+        const token = jwt.sign({ userId : user.id}, process.env.APP_SECRET)
+        //set the cookie with the token
+        ctx.response.cookie("token",token, {
+            httpOnly: true,
+            maxAge: 1000 *60 *60 *24 *365 
+         });
+        //return the user
+        return user;
+    },
+    signout(parent,args,ctx,info){
+        ctx.response.clearCookie('token');
+        return{message: "Au revoir !"};
+    },
+    async requestReset(parent,args,ctx,info){
+        // check if real user
+        const user = await ctx.db.query.user({where: {email: args.email}})
+        if(!user){
+            throw new Error("Pas d'utilisateur correspondant à cette email : " + args.email)
+        }
+        // set reset token
+        const randomBytesPromiseified =promisify(randomBytes);
+        const resetToken = (await randomBytesPromiseified(20)).toString('hex');
+        const resetTokenExpiry = Date.now() + 3600000;
+        const res = await ctx.db.mutation.updateUser({
+            where:{email: args.email},
+            data:{resetToken,resetTokenExpiry}
+        })
+        // email the reset token
+        const mailRes = await transport.sendMail({
+            from: 'maxscorni@hotmail.com',
+            to : args.email,
+            subject: 'Your Password Reset Token',
+            html: makeANiceEmail(`Voici le lien pour changer votre mot de pase ! \n\n <a href='${process.env.FRONTEND_URL}/requestReset?resetToken=${resetToken}'>Cliquez ici !</a>`)
+        }
+
+        )
+
+        return{message: 'Merci !'}
+        
+        
+    },
+    async resetPassword (parent,args,ctx,info){
+        //check if password equals
+        if(args.password !== args.confirmPassword){
+            throw new Error('Les mots de passe ne correspondent pas :( ')
+        }
+        //check if token is legit
+        //check if its expired
+        const [user] = await ctx.db.query.users({
+            where : {
+                resetToken: args.resetToken,
+                resetTokenExpiry_gte: Date.now() - 3600000
+            }
+        });
+        if(!user){
+            throw new Error("Le token est invalide ou est expiré")
+        }
+        //hash new password
+        const password = await bcrypt.hash(args.password,10);
+        //save the new password and remove resettoken field
+        const updatedUser = await ctx.db.mutation.updateUser({
+            where : {email : user.email},
+            data : {
+                password,
+                resetToken: null,
+                resetTokenExpiry: null,
+            }
+        })
+        //generate jwt
+        const token = jwt.sign({userId: updatedUser.id},"test123")
+        //set jwt cookie
+        ctx.response.cookie('token',token,{
+           httpOnly: true,
+           maxAge: 1000 *60 *60 *24 *365 
+        })
+        //return new user
+        return updatedUser;
+    },
+    async updatePermissions(parent,args,ctx,info){
+        if(!ctx.request.userId){
+            throw new Error('Pour effectuer une réservation,vous devez être connecté!')
+        }
+        const currentUser = await ctx.db.query.user({
+            where: {
+                id : ctx.request.userId,
+            }
+        },
+        info
+        );
+        hasPermission(currentUser, ['SADMIN'])
+        return ctx.db.mutation.updateUser({
+            data: {
+                permissions: {
+                    set: args.permissions
+                }
+            },
+            where: {
+                id: args.userId
+            },
+        },
+        info
+        )
+    },
+    async deleteMyLocation(parent,args,ctx,info){
+        if(!ctx.request.userId){
+            throw new Error('Pour annuler une réservation,vous devez être connecté!')
+        }
+        const where = {id : args.locationId};
+
+        const item = await ctx.db.query.location({where},`{id}`);
+
+        return ctx.db.mutation.deleteLocation({where},info);
+    }
+};
+
+
+module.exports = Mutations;

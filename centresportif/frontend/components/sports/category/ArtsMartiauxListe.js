@@ -1,5 +1,5 @@
 import React from 'react';
-import {HeadGenerator,CardGenerator} from './Generator';
+import {HeadGenerator,CardGenerator} from './generator';
 import { Container, Row, Col } from 'reactstrap';
 import  useWindowDimensions  from '../../common/WindowsProperties'
 
@@ -12,24 +12,24 @@ const ArtsMartiaux = (props) => {
       <div>
         <HeadGenerator title={"Arts Martiaux"} />
         <Container className="themed-container">
-          <Row className="mx-5">
-            <Col className =" mt-3 " sm={{offset : 2}} >
+          <Row className="mx-auto">
+            <Col className =" mt-3 " sm={{offset : 1}} >
               <CardGenerator tabs = {"judo.jpg"} title = {"Judo"} link ={"Judo"}/>
             </Col>
-            <Col className =" mt-3">
+            <Col className =" mt-3" >
               <CardGenerator tabs = {"jujutsu.jpg"} title = {"Ju-jutsu"} link ={"Jujutsu"}/>
             </Col>
           </Row>
-          <Row className="mx-5">
-            <Col className =" mt-3 " sm={{offset : 2}} >
+          <Row className="mx-auto">
+            <Col className =" mt-3 " sm={{offset : 1}} >
               <CardGenerator tabs = {"taekwendo.jpg"} title = {"Taekwendo"} link ={"Taekwendo"}/>
             </Col>
-            <Col className =" mt-3">
+            <Col className =" mt-3" >
               <CardGenerator tabs = {"kravmaga.jpg"} title = {"Krav-maga"} link ={"Kravmaga"}/>
             </Col>
           </Row>
-          <Row className="mx-5">
-            <Col className =" mt-3 " sm={{offset : 4}} >
+          <Row className="mx-auto">
+            <Col className =" mt-3 " sm={{offset : 1}} >
               <CardGenerator tabs = {"aikido.jpg"} title = {"Aïkido"} link ={"Aikido"}/>
             </Col>
           </Row>
@@ -45,7 +45,7 @@ const ArtsMartiaux = (props) => {
             <Col className =" mt-3" sm={{offset : 2}} >
               <CardGenerator tabs = {"judo.jpg"} title = {"Judo"} link ={"Judo"}/>
             </Col>
-            <Col className =" mt-3">
+            <Col className =" mt-3" >
               <CardGenerator tabs = {"jujutsu.jpg"} title = {"Ju-jutsu"} link ={"Jujutsu"}/>
             </Col>
           </Row>
@@ -53,12 +53,12 @@ const ArtsMartiaux = (props) => {
             <Col className =" mt-3" sm={{offset : 2}} >
               <CardGenerator tabs = {"taekwendo.jpg"} title = {"Taekwendo"} link ={"Taekwendo"}/>
             </Col>
-            <Col className =" mt-3">
+            <Col className =" mt-3" >
               <CardGenerator tabs = {"kravmaga.jpg"} title = {"Krav-maga"} link ={"Kravmaga"}/>
             </Col>
           </Row>
-          <Row className="mx-5">
-            <Col className =" mt-3" sm={{offset : 4}} >
+          <Row className="mx-auto">
+            <Col className =" mt-3" sm={{offset : 2}} >
               <CardGenerator tabs = {"aikido.jpg"} title = {"Aïkido"} link ={"Aikido"}/>
             </Col>
           </Row>
@@ -74,7 +74,7 @@ const ArtsMartiaux = (props) => {
             <Col className =" mt-3" sm={{offset : 2}} >
               <CardGenerator tabs = {"judo.jpg"} title = {"Judo"} link ={"Judo"}/>
             </Col>
-            <Col className =" mt-3">
+            <Col className =" mt-3" >
               <CardGenerator tabs = {"jujutsu.jpg"} title = {"Ju-jutsu"} link ={"Jujutsu"}/>
             </Col>
           </Row>
@@ -82,12 +82,12 @@ const ArtsMartiaux = (props) => {
             <Col className =" mt-3" sm={{offset : 2}} >
               <CardGenerator tabs = {"taekwendo.jpg"} title = {"Taekwendo"} link ={"Taekwendo"}/>
             </Col>
-            <Col className =" mt-3">
+            <Col className =" mt-3" >
               <CardGenerator tabs = {"kravmaga.jpg"} title = {"Krav-maga"} link ={"Kravmaga"}/>
             </Col>
           </Row>
           <Row className="mx-auto">
-            <Col className =" mt-3" sm={{offset : 4}}>
+            <Col className =" mt-3" sm={{offset : 2}}>
               <CardGenerator tabs = {"aikido.jpg"} title = {"Aïkido"} link ={"Aikido"}/>
             </Col>
           </Row>
@@ -100,23 +100,23 @@ const ArtsMartiaux = (props) => {
         <HeadGenerator title={"Arts Martiaux"}/>
         <Container className="themed-container">
           <Row className="mx-auto">
-            <Col className =" mt-3" >
+            <Col className =" mt-3" sm={{offset : 1}} >
               <CardGenerator tabs = {"judo.jpg"} title = {"Judo"} link ={"Judo"}/>
             </Col>
-            <Col className =" mt-3">
+            <Col className =" mt-3" >
               <CardGenerator tabs = {"jujutsu.jpg"} title = {"Ju-jutsu"} link ={"Jujutsu"}/>
             </Col>
           </Row>
           <Row className="mx-auto">
-            <Col className =" mt-3" >
+            <Col className =" mt-3" sm={{offset : 1}} >
               <CardGenerator tabs = {"taekwendo.jpg"} title = {"Taekwendo"} link ={"Taekwendo"}/>
             </Col>
-            <Col className =" mt-3">
+            <Col className =" mt-3" >
               <CardGenerator tabs = {"kravmaga.jpg"} title = {"Krav-maga"} link ={"Kravmaga"}/>
             </Col>
           </Row>
           <Row className="mx-auto">
-            <Col className =" mt-3" sm={{offset : 4}}>
+            <Col className =" mt-3" sm={{offset : 1}}>
               <CardGenerator tabs = {"aikido.jpg"} title = {"Aïkido"} link ={"Aikido"}/>
             </Col>
           </Row>

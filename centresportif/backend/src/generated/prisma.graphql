@@ -1,3 +1,11 @@
+type AggregateLocation {
+  count: Int!
+}
+
+type AggregateRoom {
+  count: Int!
+}
+
 type AggregateUser {
   count: Int!
 }
@@ -6,9 +14,213 @@ type BatchPayload {
   count: Long!
 }
 
+scalar DateTime
+
+type Location {
+  id: ID!
+  sport: String!
+  hour: String!
+  day: String!
+  roomName: Room!
+  userId: User!
+  is_paid: Boolean!
+  uniqueLocationsRoomHourDay: String!
+  createdAt: DateTime!
+}
+
+type LocationConnection {
+  pageInfo: PageInfo!
+  edges: [LocationEdge]!
+  aggregate: AggregateLocation!
+}
+
+input LocationCreateInput {
+  id: ID
+  sport: String!
+  hour: String!
+  day: String!
+  roomName: RoomCreateOneInput!
+  userId: UserCreateOneInput!
+  is_paid: Boolean
+  uniqueLocationsRoomHourDay: String!
+}
+
+type LocationEdge {
+  node: Location!
+  cursor: String!
+}
+
+enum LocationOrderByInput {
+  id_ASC
+  id_DESC
+  sport_ASC
+  sport_DESC
+  hour_ASC
+  hour_DESC
+  day_ASC
+  day_DESC
+  is_paid_ASC
+  is_paid_DESC
+  uniqueLocationsRoomHourDay_ASC
+  uniqueLocationsRoomHourDay_DESC
+  createdAt_ASC
+  createdAt_DESC
+}
+
+type LocationPreviousValues {
+  id: ID!
+  sport: String!
+  hour: String!
+  day: String!
+  is_paid: Boolean!
+  uniqueLocationsRoomHourDay: String!
+  createdAt: DateTime!
+}
+
+type LocationSubscriptionPayload {
+  mutation: MutationType!
+  node: Location
+  updatedFields: [String!]
+  previousValues: LocationPreviousValues
+}
+
+input LocationSubscriptionWhereInput {
+  mutation_in: [MutationType!]
+  updatedFields_contains: String
+  updatedFields_contains_every: [String!]
+  updatedFields_contains_some: [String!]
+  node: LocationWhereInput
+  AND: [LocationSubscriptionWhereInput!]
+  OR: [LocationSubscriptionWhereInput!]
+  NOT: [LocationSubscriptionWhereInput!]
+}
+
+input LocationUpdateInput {
+  sport: String
+  hour: String
+  day: String
+  roomName: RoomUpdateOneRequiredInput
+  userId: UserUpdateOneRequiredInput
+  is_paid: Boolean
+  uniqueLocationsRoomHourDay: String
+}
+
+input LocationUpdateManyMutationInput {
+  sport: String
+  hour: String
+  day: String
+  is_paid: Boolean
+  uniqueLocationsRoomHourDay: String
+}
+
+input LocationWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  sport: String
+  sport_not: String
+  sport_in: [String!]
+  sport_not_in: [String!]
+  sport_lt: String
+  sport_lte: String
+  sport_gt: String
+  sport_gte: String
+  sport_contains: String
+  sport_not_contains: String
+  sport_starts_with: String
+  sport_not_starts_with: String
+  sport_ends_with: String
+  sport_not_ends_with: String
+  hour: String
+  hour_not: String
+  hour_in: [String!]
+  hour_not_in: [String!]
+  hour_lt: String
+  hour_lte: String
+  hour_gt: String
+  hour_gte: String
+  hour_contains: String
+  hour_not_contains: String
+  hour_starts_with: String
+  hour_not_starts_with: String
+  hour_ends_with: String
+  hour_not_ends_with: String
+  day: String
+  day_not: String
+  day_in: [String!]
+  day_not_in: [String!]
+  day_lt: String
+  day_lte: String
+  day_gt: String
+  day_gte: String
+  day_contains: String
+  day_not_contains: String
+  day_starts_with: String
+  day_not_starts_with: String
+  day_ends_with: String
+  day_not_ends_with: String
+  roomName: RoomWhereInput
+  userId: UserWhereInput
+  is_paid: Boolean
+  is_paid_not: Boolean
+  uniqueLocationsRoomHourDay: String
+  uniqueLocationsRoomHourDay_not: String
+  uniqueLocationsRoomHourDay_in: [String!]
+  uniqueLocationsRoomHourDay_not_in: [String!]
+  uniqueLocationsRoomHourDay_lt: String
+  uniqueLocationsRoomHourDay_lte: String
+  uniqueLocationsRoomHourDay_gt: String
+  uniqueLocationsRoomHourDay_gte: String
+  uniqueLocationsRoomHourDay_contains: String
+  uniqueLocationsRoomHourDay_not_contains: String
+  uniqueLocationsRoomHourDay_starts_with: String
+  uniqueLocationsRoomHourDay_not_starts_with: String
+  uniqueLocationsRoomHourDay_ends_with: String
+  uniqueLocationsRoomHourDay_not_ends_with: String
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  AND: [LocationWhereInput!]
+  OR: [LocationWhereInput!]
+  NOT: [LocationWhereInput!]
+}
+
+input LocationWhereUniqueInput {
+  id: ID
+  uniqueLocationsRoomHourDay: String
+}
+
 scalar Long
 
 type Mutation {
+  createLocation(data: LocationCreateInput!): Location!
+  updateLocation(data: LocationUpdateInput!, where: LocationWhereUniqueInput!): Location
+  updateManyLocations(data: LocationUpdateManyMutationInput!, where: LocationWhereInput): BatchPayload!
+  upsertLocation(where: LocationWhereUniqueInput!, create: LocationCreateInput!, update: LocationUpdateInput!): Location!
+  deleteLocation(where: LocationWhereUniqueInput!): Location
+  deleteManyLocations(where: LocationWhereInput): BatchPayload!
+  createRoom(data: RoomCreateInput!): Room!
+  updateRoom(data: RoomUpdateInput!, where: RoomWhereUniqueInput!): Room
+  updateManyRooms(data: RoomUpdateManyMutationInput!, where: RoomWhereInput): BatchPayload!
+  upsertRoom(where: RoomWhereUniqueInput!, create: RoomCreateInput!, update: RoomUpdateInput!): Room!
+  deleteRoom(where: RoomWhereUniqueInput!): Room
+  deleteManyRooms(where: RoomWhereInput): BatchPayload!
   createUser(data: UserCreateInput!): User!
   updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
   updateManyUsers(data: UserUpdateManyMutationInput!, where: UserWhereInput): BatchPayload!
@@ -34,22 +246,223 @@ type PageInfo {
   endCursor: String
 }
 
+enum Permission {
+  SADMIN
+  ADMIN
+  USER
+}
+
 type Query {
+  location(where: LocationWhereUniqueInput!): Location
+  locations(where: LocationWhereInput, orderBy: LocationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Location]!
+  locationsConnection(where: LocationWhereInput, orderBy: LocationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): LocationConnection!
+  room(where: RoomWhereUniqueInput!): Room
+  rooms(where: RoomWhereInput, orderBy: RoomOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Room]!
+  roomsConnection(where: RoomWhereInput, orderBy: RoomOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): RoomConnection!
   user(where: UserWhereUniqueInput!): User
   users(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User]!
   usersConnection(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UserConnection!
   node(id: ID!): Node
 }
 
+type Room {
+  id: ID!
+  name: String!
+  price: Float!
+  sport: String!
+  uniqueNameSport: String!
+}
+
+type RoomConnection {
+  pageInfo: PageInfo!
+  edges: [RoomEdge]!
+  aggregate: AggregateRoom!
+}
+
+input RoomCreateInput {
+  id: ID
+  name: String!
+  price: Float!
+  sport: String!
+  uniqueNameSport: String!
+}
+
+input RoomCreateOneInput {
+  create: RoomCreateInput
+  connect: RoomWhereUniqueInput
+}
+
+type RoomEdge {
+  node: Room!
+  cursor: String!
+}
+
+enum RoomOrderByInput {
+  id_ASC
+  id_DESC
+  name_ASC
+  name_DESC
+  price_ASC
+  price_DESC
+  sport_ASC
+  sport_DESC
+  uniqueNameSport_ASC
+  uniqueNameSport_DESC
+}
+
+type RoomPreviousValues {
+  id: ID!
+  name: String!
+  price: Float!
+  sport: String!
+  uniqueNameSport: String!
+}
+
+type RoomSubscriptionPayload {
+  mutation: MutationType!
+  node: Room
+  updatedFields: [String!]
+  previousValues: RoomPreviousValues
+}
+
+input RoomSubscriptionWhereInput {
+  mutation_in: [MutationType!]
+  updatedFields_contains: String
+  updatedFields_contains_every: [String!]
+  updatedFields_contains_some: [String!]
+  node: RoomWhereInput
+  AND: [RoomSubscriptionWhereInput!]
+  OR: [RoomSubscriptionWhereInput!]
+  NOT: [RoomSubscriptionWhereInput!]
+}
+
+input RoomUpdateDataInput {
+  name: String
+  price: Float
+  sport: String
+  uniqueNameSport: String
+}
+
+input RoomUpdateInput {
+  name: String
+  price: Float
+  sport: String
+  uniqueNameSport: String
+}
+
+input RoomUpdateManyMutationInput {
+  name: String
+  price: Float
+  sport: String
+  uniqueNameSport: String
+}
+
+input RoomUpdateOneRequiredInput {
+  create: RoomCreateInput
+  update: RoomUpdateDataInput
+  upsert: RoomUpsertNestedInput
+  connect: RoomWhereUniqueInput
+}
+
+input RoomUpsertNestedInput {
+  update: RoomUpdateDataInput!
+  create: RoomCreateInput!
+}
+
+input RoomWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  name: String
+  name_not: String
+  name_in: [String!]
+  name_not_in: [String!]
+  name_lt: String
+  name_lte: String
+  name_gt: String
+  name_gte: String
+  name_contains: String
+  name_not_contains: String
+  name_starts_with: String
+  name_not_starts_with: String
+  name_ends_with: String
+  name_not_ends_with: String
+  price: Float
+  price_not: Float
+  price_in: [Float!]
+  price_not_in: [Float!]
+  price_lt: Float
+  price_lte: Float
+  price_gt: Float
+  price_gte: Float
+  sport: String
+  sport_not: String
+  sport_in: [String!]
+  sport_not_in: [String!]
+  sport_lt: String
+  sport_lte: String
+  sport_gt: String
+  sport_gte: String
+  sport_contains: String
+  sport_not_contains: String
+  sport_starts_with: String
+  sport_not_starts_with: String
+  sport_ends_with: String
+  sport_not_ends_with: String
+  uniqueNameSport: String
+  uniqueNameSport_not: String
+  uniqueNameSport_in: [String!]
+  uniqueNameSport_not_in: [String!]
+  uniqueNameSport_lt: String
+  uniqueNameSport_lte: String
+  uniqueNameSport_gt: String
+  uniqueNameSport_gte: String
+  uniqueNameSport_contains: String
+  uniqueNameSport_not_contains: String
+  uniqueNameSport_starts_with: String
+  uniqueNameSport_not_starts_with: String
+  uniqueNameSport_ends_with: String
+  uniqueNameSport_not_ends_with: String
+  AND: [RoomWhereInput!]
+  OR: [RoomWhereInput!]
+  NOT: [RoomWhereInput!]
+}
+
+input RoomWhereUniqueInput {
+  id: ID
+  uniqueNameSport: String
+}
+
 type Subscription {
+  location(where: LocationSubscriptionWhereInput): LocationSubscriptionPayload
+  room(where: RoomSubscriptionWhereInput): RoomSubscriptionPayload
   user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
 }
 
 type User {
   id: ID!
   name: String!
-  surname: String
-  email: String
+  surname: String!
+  password: String!
+  email: String!
+  adress: String!
+  city: String!
+  has_bill: Boolean!
+  createdAt: DateTime!
+  resetToken: String
+  resetTokenExpiry: Float
+  permissions: [Permission!]!
 }
 
 type UserConnection {
@@ -61,8 +474,24 @@ type UserConnection {
 input UserCreateInput {
   id: ID
   name: String!
-  surname: String
-  email: String
+  surname: String!
+  password: String!
+  email: String!
+  adress: String!
+  city: String!
+  has_bill: Boolean
+  resetToken: String
+  resetTokenExpiry: Float
+  permissions: UserCreatepermissionsInput
+}
+
+input UserCreateOneInput {
+  create: UserCreateInput
+  connect: UserWhereUniqueInput
+}
+
+input UserCreatepermissionsInput {
+  set: [Permission!]
 }
 
 type UserEdge {
@@ -77,15 +506,37 @@ enum UserOrderByInput {
   name_DESC
   surname_ASC
   surname_DESC
+  password_ASC
+  password_DESC
   email_ASC
   email_DESC
+  adress_ASC
+  adress_DESC
+  city_ASC
+  city_DESC
+  has_bill_ASC
+  has_bill_DESC
+  createdAt_ASC
+  createdAt_DESC
+  resetToken_ASC
+  resetToken_DESC
+  resetTokenExpiry_ASC
+  resetTokenExpiry_DESC
 }
 
 type UserPreviousValues {
   id: ID!
   name: String!
-  surname: String
-  email: String
+  surname: String!
+  password: String!
+  email: String!
+  adress: String!
+  city: String!
+  has_bill: Boolean!
+  createdAt: DateTime!
+  resetToken: String
+  resetTokenExpiry: Float
+  permissions: [Permission!]!
 }
 
 type UserSubscriptionPayload {
@@ -106,16 +557,59 @@ input UserSubscriptionWhereInput {
   NOT: [UserSubscriptionWhereInput!]
 }
 
+input UserUpdateDataInput {
+  name: String
+  surname: String
+  password: String
+  email: String
+  adress: String
+  city: String
+  has_bill: Boolean
+  resetToken: String
+  resetTokenExpiry: Float
+  permissions: UserUpdatepermissionsInput
+}
+
 input UserUpdateInput {
   name: String
   surname: String
+  password: String
   email: String
+  adress: String
+  city: String
+  has_bill: Boolean
+  resetToken: String
+  resetTokenExpiry: Float
+  permissions: UserUpdatepermissionsInput
 }
 
 input UserUpdateManyMutationInput {
   name: String
   surname: String
+  password: String
   email: String
+  adress: String
+  city: String
+  has_bill: Boolean
+  resetToken: String
+  resetTokenExpiry: Float
+  permissions: UserUpdatepermissionsInput
+}
+
+input UserUpdateOneRequiredInput {
+  create: UserCreateInput
+  update: UserUpdateDataInput
+  upsert: UserUpsertNestedInput
+  connect: UserWhereUniqueInput
+}
+
+input UserUpdatepermissionsInput {
+  set: [Permission!]
+}
+
+input UserUpsertNestedInput {
+  update: UserUpdateDataInput!
+  create: UserCreateInput!
 }
 
 input UserWhereInput {
@@ -161,6 +655,20 @@ input UserWhereInput {
   surname_not_starts_with: String
   surname_ends_with: String
   surname_not_ends_with: String
+  password: String
+  password_not: String
+  password_in: [String!]
+  password_not_in: [String!]
+  password_lt: String
+  password_lte: String
+  password_gt: String
+  password_gte: String
+  password_contains: String
+  password_not_contains: String
+  password_starts_with: String
+  password_not_starts_with: String
+  password_ends_with: String
+  password_not_ends_with: String
   email: String
   email_not: String
   email_in: [String!]
@@ -175,6 +683,66 @@ input UserWhereInput {
   email_not_starts_with: String
   email_ends_with: String
   email_not_ends_with: String
+  adress: String
+  adress_not: String
+  adress_in: [String!]
+  adress_not_in: [String!]
+  adress_lt: String
+  adress_lte: String
+  adress_gt: String
+  adress_gte: String
+  adress_contains: String
+  adress_not_contains: String
+  adress_starts_with: String
+  adress_not_starts_with: String
+  adress_ends_with: String
+  adress_not_ends_with: String
+  city: String
+  city_not: String
+  city_in: [String!]
+  city_not_in: [String!]
+  city_lt: String
+  city_lte: String
+  city_gt: String
+  city_gte: String
+  city_contains: String
+  city_not_contains: String
+  city_starts_with: String
+  city_not_starts_with: String
+  city_ends_with: String
+  city_not_ends_with: String
+  has_bill: Boolean
+  has_bill_not: Boolean
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  resetToken: String
+  resetToken_not: String
+  resetToken_in: [String!]
+  resetToken_not_in: [String!]
+  resetToken_lt: String
+  resetToken_lte: String
+  resetToken_gt: String
+  resetToken_gte: String
+  resetToken_contains: String
+  resetToken_not_contains: String
+  resetToken_starts_with: String
+  resetToken_not_starts_with: String
+  resetToken_ends_with: String
+  resetToken_not_ends_with: String
+  resetTokenExpiry: Float
+  resetTokenExpiry_not: Float
+  resetTokenExpiry_in: [Float!]
+  resetTokenExpiry_not_in: [Float!]
+  resetTokenExpiry_lt: Float
+  resetTokenExpiry_lte: Float
+  resetTokenExpiry_gt: Float
+  resetTokenExpiry_gte: Float
   AND: [UserWhereInput!]
   OR: [UserWhereInput!]
   NOT: [UserWhereInput!]
@@ -182,4 +750,5 @@ input UserWhereInput {
 
 input UserWhereUniqueInput {
   id: ID
+  email: String
 }

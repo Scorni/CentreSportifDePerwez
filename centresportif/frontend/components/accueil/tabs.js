@@ -6,10 +6,19 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Link from "next/link";
 import {Button} from "reactstrap";
+import {  createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
+import purple from '@material-ui/core/colors/purple';
+import green from '@material-ui/core/colors/green';
 
+import {  
+  Navbar,
+  NavbarBrand,
+  Nav,
+  } from 'reactstrap';
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
+  
   return (
     <div
       role="tabpanel"
@@ -41,37 +50,39 @@ function a11yProps(index) {
 const sportsTabs =[
   {
     "Sports individuels":[
-      "Fitness",
-      "Athlétisme"
+      "Athletisme",
+      "Boxe Anglaise"
     ],
     "Sports collectifs":[
       "Football",
-      "Mini-Foot",
       "Handball",
-      "Hockey",
-      "Volley-ball"
+      "Volleyball"
     ],
     "Arts martiaux":[
       "Judo",
-      "Taï-Jutsu",
-      "Ju-Jutsu"
+      "Taekwendo",
+      "Jujutsu",
+      "Kravmaga",
+      "Aikido"
     ],
-    "Sports de raquette":[
+    "Sports de raquettes":[
       "Badminton",
       "Tennis",
       "Tennis de table"
     ],
     "Gymnastique":[
-      "Gymnastique"
+      "Musculation",
+      "Relaxation"
     ],
     "Danse":[
-      "Danse moderne",
-      "Hip hop",
-      "Step",
-      "Biodanza"
+      "Danse"
     ],
     "Multisports":[
       "Multisports"
+    ],
+    "Infrastructure":[
+      "Interne",
+      "Externe"
     ]
   }
 ]
@@ -81,11 +92,11 @@ function objectSort(tabs,cat){
   var linkWithoutSpace;
   for (let index in tabs) {
     for(let value in tabs[index][cat]){
-      linkWithoutSpace = (cat).replace(/\s+/g, '-')+"/"+ (tabs[index][cat][value]).replace(/\s+/g, '-');
+      linkWithoutSpace = (cat).replace(/\s+/g, '')+"/"+ (tabs[index][cat][value]).replace(/\s+/g, '');
       newList[value] = 
         <li key={tabs[index][cat][value]} style={{display:"inline-block",listStyle:"none",margin:"10px"}}>
-          <Link  href={'/'+linkWithoutSpace}>
-              <Button>{tabs[index][cat][value]}</Button>
+          <Link  href={'/sports/'+linkWithoutSpace}>
+              <Button className="customButton">{tabs[index][cat][value]}</Button>
           </Link>
         </li>
     }
@@ -97,7 +108,6 @@ const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
     width: '100%',
-    backgroundColor: theme.palette.background.paper,
   },
 }));
 
@@ -108,15 +118,33 @@ export default function ScrollableTabsButtonAuto() {
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
-
+  const theme = createMuiTheme({
+    palette: {
+      primary: {
+        main: purple[50],
+      },
+      secondary: {
+        main: green[50],
+      },
+       }
+     });
   return (
+    <>
+    <div>
+      <Nav className="customNav" >
+          <Navbar light expand="md"  >
+              <NavbarBrand  style={{color: "white"}} >Clubs sportifs</NavbarBrand>
+          </Navbar>
+      </Nav>
+    </div>
     <div className={classes.root} style={{padding:"10px"}}>
         <AppBar position="static" color="default">
+        <ThemeProvider theme={theme}>
             <Tabs
             value={value}
             onChange={handleChange}
             indicatorColor="primary"
-            textColor="primary"
+            className="customTabs"
             variant="scrollable"
             scrollButtons="auto"
             aria-label="scrollable auto tabs example"
@@ -128,7 +156,10 @@ export default function ScrollableTabsButtonAuto() {
             <Tab label="Gymnastique" {...a11yProps(4)} />
             <Tab label="Danse" {...a11yProps(5)} />
             <Tab label="Multisports" {...a11yProps(6)} />
+            <Tab label="Infrastructure" {...a11yProps(7)} />
+
             </Tabs>
+            </ThemeProvider>
         </AppBar>
         <TabPanel value={value} index={0} >
           {objectSort(sportsTabs,"Sports individuels")}
@@ -140,7 +171,7 @@ export default function ScrollableTabsButtonAuto() {
           {objectSort(sportsTabs,"Arts martiaux")}
         </TabPanel>
         <TabPanel value={value} index={3}>
-          {objectSort(sportsTabs,"Sports de raquette")}
+          {objectSort(sportsTabs,"Sports de raquettes")}
         </TabPanel>
         <TabPanel value={value} index={4}>
           {objectSort(sportsTabs,"Gymnastique")}
@@ -151,6 +182,10 @@ export default function ScrollableTabsButtonAuto() {
         <TabPanel value={value} index={6}>
           {objectSort(sportsTabs,"Multisports")}
         </TabPanel>
+        <TabPanel value={value} index={7}>
+          {objectSort(sportsTabs,"Infrastructure")}
+        </TabPanel>
       </div>
+      </>
   );
 }

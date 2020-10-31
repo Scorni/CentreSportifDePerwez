@@ -19,17 +19,15 @@ const MyNavbar = (props) => {
 
     return (
     <div>
-        <Navbar color="light" light expand="md">
-            <NavbarBrand>Navigation</NavbarBrand>
+        <Navbar  light expand="md" className="customNav">
+            <NavbarBrand style={{color: "white"}}>Navigation</NavbarBrand>
             <NavbarToggler onClick={toggle} />
             <Collapse isOpen={isOpen} navbar>
                 <Nav navbar className = 'mx-auto'>
                     <NavItem className='mr-2 mt-1'>
-                    <Link href='/'>
-                        <Button>
-                            <a style={{color: "white"}}>
-                                <FaHome />                                    
-                            </a>
+                    <Link href='/' style={{color: "white"}}>
+                        <Button  className = "customButton">
+                                <FaHome />                         
                         </Button>  
                     </Link>
                     </NavItem>
@@ -44,9 +42,9 @@ const MyNavbar = (props) => {
                     </NavItem>  
                     
                     <NavItem className='mr-2 mt-1 mb-1'>
-                        <Link href='/creation'>
-                            <Button style={{width:"140px"}}>
-                                <a style={{color: "white"}}>Réservation</a>
+                        <Link href='/createLocation'>
+                            <Button className = "customButton">
+                                Réservation
                             </Button>
                         </Link>
                     </NavItem>  

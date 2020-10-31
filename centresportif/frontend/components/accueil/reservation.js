@@ -1,23 +1,52 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Container, Row, Col,Button } from 'reactstrap';
 import Link from "next/link";
+import {  Collapse,
+    Navbar,
+    NavbarToggler,
+    NavbarBrand,
+    Nav,
+    NavItem,
+    NavLink,
+    NavbarText,
+    Modal, 
+    ModalHeader, 
+    ModalBody, 
+    ModalFooter,
+    UncontrolledDropdown,
+    DropdownToggle,
+    DropdownMenu,
+    DropdownItem,
+    } from 'reactstrap';
 
 const MyReservation = (props) => {
+    const [isOpen, setIsOpen] = useState(false);
+
+    const toggle = () => setIsOpen(!isOpen);
     return (
-    <div >
-        <Container style={{padding:"10px"}} >
-            <Row style={{padding:"15px",boxShadow :"0px 2px 4px -1px rgba(0,0,0,0.2), 0px 4px 5px 0px rgba(0,0,0,0.14), 0px 1px 10px 0px rgba(0,0,0,0.12)"}}>
-                <Col sm={{ size: 'auto', offset: 3 }}>
-                    <h5>Souhaitez-vous effectuer une réservation?
-                    <Link  href={'/Reservation'}>
-                        <Button style={{marginLeft:"30px"}}>Cliquez ici !</Button>
-                    </Link>
-                    </h5>
-                </Col>
-            </Row>
-        </Container>
-    </div>
- 
+        <>
+            <div>
+                <Nav className="customNav" >
+                    <Navbar light expand="md"  >
+                        <NavbarBrand  style={{color: "white"}} >Reservation</NavbarBrand>
+                    </Navbar>
+                </Nav>
+            </div>
+            <div className="locationHomeSvg">
+                <Container className="themed-container " fluid={true}   >
+                    <div className="locationHomeQ">
+                        <h5 style={{padding:"auto"}}>
+                            <span className = "bluredTitle">
+                                Effectuer une réservation?
+                            </span>
+                        </h5>
+                        <Link  href={'/createLocation'}>
+                            <Button style={{marginTop:"10px"}} className="customReservationButton">Cliquez ici !</Button>
+                        </Link>
+                    </div>
+                </Container>
+            </div>
+        </>
     );
   }
   

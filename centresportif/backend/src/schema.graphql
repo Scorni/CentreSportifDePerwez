@@ -1,7 +1,87 @@
+#import * from './generated/prisma.graphql'
+
+##query or mutation
 type Mutation {
-    testMutation: String
+    createRoom(
+        name: String!
+        price: Float!
+        sport: String!
+    ): Room!,
+    createLocation(
+        sport: String!
+        hour: String!
+        day: String!
+        roomName: String!
+        is_paid: Boolean!
+    ): Location!,
+    
+    signup(
+        email: String!
+        password: String!
+        name: String!
+        surname: String!
+        adress: String!
+        city: String!
+        has_bill : Boolean!
+    ): User!, 
+    signin(
+        email: String!,
+        password: String!,
+    ): User!
+    signout: SuccessMessage,
+    requestReset(
+        email: String!)
+    : SuccessMessage
+    resetPassword(
+        resetToken : String!,
+        password: String!, 
+        confirmPassword: String
+    !): User!,
+    updatePermissions(permissions: [Permission],userId: ID!): User,
+    deleteMyLocation(locationId: String!): Location,
+}
+type Query {
+    rooms: [Room!]!,
+    locations: [Location]!,
+    users: [User]!,
+    roomsFilter(name: String!,sport : String!): [Room!]!,
+    userFilter(id: String!): [User!]!,
+    locationFilter: [Location!]!,
+    me:User,
+    
 }
 
-type Query {
-    testQuery: String
+## not query or mutation
+
+### Room
+type Room {
+    id: ID!
+    name: String! 
+    price: Float!
+    sport : String!
+    uniqueNameSport : String!
+}
+### Location
+type Location {
+    id: ID!
+    sport: String!
+    hour: String!
+    day: String!
+    is_paid: Boolean
+    roomName: Room!
+    userId: User!
+    uniqueLocationsRoomHourDay: String!
+}
+### User
+type User {
+    id: ID!
+    name: String!
+    surname: String!
+    email: String!
+    adress: String!
+    city: String!
+    permissions : [Permission!]!
+}
+type SuccessMessage{
+    message : String
 }

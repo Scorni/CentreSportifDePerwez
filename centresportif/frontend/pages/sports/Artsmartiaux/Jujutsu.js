@@ -1,5 +1,5 @@
 import React from "react";
-import Jujutsu from "../../../components/sports/ArtsMartiaux/Jujutsu"
+import Jujutsu from "../../../components/sports/Artsmartiaux/Jujutsu"
 
 const Sports = props => (
     <div>    

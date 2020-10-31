@@ -1,5 +1,5 @@
 import React from "react";
-import Tennis from "../../../components/sports/SportsDeRaquettes/Tennis"
+import Tennis from '../../../components/sports/Sportsderaquettes/Tennis';
 
 const Sports = props => (
     <div>    

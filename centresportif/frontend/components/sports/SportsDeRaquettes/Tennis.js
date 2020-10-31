@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
@@ -7,7 +7,7 @@ import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
 import  useWindowDimensions  from '../../common/WindowsProperties';
 import { Container, Row, Col } from 'reactstrap';
-import {HeadGenerator} from '../../sports/category/Generator';
+import {HeadGenerator} from '../category/generator';
 import { AiOutlinePhone,AiOutlineMail,AiOutlineFacebook } from 'react-icons/ai';
 import { GiEarthAfricaEurope } from 'react-icons/gi';
 
@@ -26,7 +26,7 @@ const classes = useStyles();
 return (
 <div>
   <HeadGenerator title={"Tennis"} />
-  <Container className="themed-container">
+  <Container className="themed-container ContainerCard">
     <Row className="mx-auto">
       <Col className =" mt-3" >
         <Card className={classes.root}>
