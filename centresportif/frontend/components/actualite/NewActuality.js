@@ -4,11 +4,25 @@ import { EditorState, convertToRaw } from 'draft-js';
 import draftToHtml from 'draftjs-to-html';
 import {HeadGenerator} from '../sports/category/generator';
 import { Container, Row, Col } from 'reactstrap';
+import DateFnsUtils from '@date-io/date-fns'; 
+import TextField from '@material-ui/core/TextField';
 
+import {
+  MuiPickersUtilsProvider,
+  KeyboardDatePicker,
+} from '@material-ui/pickers'
 const Editor = dynamic(
   () => import('react-draft-wysiwyg').then(mod => mod.Editor),
   { ssr: false }
 )
+const embedVideoCallBack = (link) =>{
+        if (link.indexOf("youtube") >= 0){
+            link = link.replace("watch?v=","embed/");
+            link = link.replace("/watch/", "/embed/");
+            link = link.replace("youtu.be/","youtube.com/embed/");
+        }
+        return link
+    }
 const getHtml = editorState => draftToHtml(convertToRaw(editorState.getCurrentContent()));
 class MyEditor extends Component {
 
@@ -22,28 +36,71 @@ class MyEditor extends Component {
  onEditorStateChange = editorState => {
     this.setState({ editorState });
  };
+ handleChange = e => {
+   const { name, type, value} = e.target;
+   const val = type === 'number' ? parseFloat(value) : value;
+   this.setState({ [name]: val})
+
+ }
   render() {
     const { editorState } = this.state;
     return (
       <div>
         <HeadGenerator title="Créer une nouvelle actualité"/>
-        
-              <Editor 
-                editorState={editorState}
-                wrapperClassName="rich-editor demo-wrapper"
-                editorClassName="demo-editor"
-                onEditorStateChange={this.onEditorStateChange}
-                 
-                className = "customEditor"/>
-              <h4 className = "editorTitle">version HTML</h4>
-              <div className="html-view">
-                {getHtml(editorState)}
-                  
-                <PreviewModal output={getHtml(editorState)} />
-              </div>
-              <button className="btn btn-success previewButton" data-toggle="modal" data-target="#previewModal">
-                  Version pré-rendue
-              </button>
+        <form >
+          <div className ="fieldsetActuality">
+          <fieldset >
+            
+              
+              <MuiPickersUtilsProvider utils={DateFnsUtils}>        
+                  <KeyboardDatePicker
+                      id="date"
+                      name = "date"
+                      label="Date"
+                      format="dd/MM/yyyy"
+                      value={this.state.date}
+                      onChange={this.handleChange}
+                      KeyboardButtonProps={{
+                      'aria-label': 'change date',
+                      }}   
+                      className="labelActuality"                 
+                  />      
+              </MuiPickersUtilsProvider>
+              <br/>
+              <TextField
+                  id="title"
+                  label="Titre"
+                  name ="title"
+                  value={this.state.title}
+                  onChange={this.handleChange}
+                  className="labelActuality"
+                  >
+              </TextField>
+          </fieldset>
+          </div>
+          
+          <Editor 
+            editorState={editorState}
+            wrapperClassName="rich-editor demo-wrapper"
+            editorClassName="demo-editor"
+            onEditorStateChange={this.onEditorStateChange}
+            toolbar={{
+              embedded:{
+                  embedCallback: embedVideoCallBack
+              }
+            }} 
+            className = "customEditor"/>
+          <h4 className = "editorTitle">version HTML</h4>
+          <div className="html-view">
+
+            {getHtml(editorState)}
+              
+            <PreviewModal output={getHtml(editorState)} />
+          </div>
+          <button className="btn btn-success previewButton" data-toggle="modal" data-target="#previewModal">
+              Version pré-rendue
+          </button>
+        </form>
       </div>
     );
   } 
@@ -62,8 +119,8 @@ const PreviewModal = ({ output }) => (
         </div>
         <div class="modal-body" dangerouslySetInnerHTML={{ __html: output }} />
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">
-            Done
+          <button type="submit" class="btn btn-secondary" data-dismiss="modal">
+            Valider l'actualité
           </button>
         </div>
       </div>
