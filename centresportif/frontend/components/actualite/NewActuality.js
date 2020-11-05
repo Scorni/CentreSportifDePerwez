@@ -24,42 +24,90 @@ const embedVideoCallBack = (link) =>{
         return link
     }
 const getHtml = editorState => draftToHtml(convertToRaw(editorState.getCurrentContent()));
+
+function defaultFormatedDate() {
+  rightFormat(new Date())
+ }
+
+function rightFormat(el) {
+  let formatedDate
+  if((el.getMonth()+1) < 10){
+    formatedDate  = el.getDate() + "/0" + (el.getMonth()+1) + "/"+ el.getFullYear()
+  }else{
+    formatedDate  = el.getDate() + "/" + (el.getMonth()+1) + "/"+ el.getFullYear()
+  }
+  return formatedDate
+}
 class MyEditor extends Component {
 
   
-   constructor(props) {
-   super(props);
-   this.state = {
-     editorState: EditorState.createEmpty()
-     };
-   }
- onEditorStateChange = editorState => {
-    this.setState({ editorState });
- };
- handleChange = e => {
-   const { name, type, value} = e.target;
-   const val = type === 'number' ? parseFloat(value) : value;
-   this.setState({ [name]: val})
+  constructor(props) {
+  super(props);
+  this.state = {
+    editorState: EditorState.createEmpty(),
+    date: new Date(),
+    };
+  this.handleClick = this.handleClick.bind(this);
 
- }
+  }
+  
+  /** update the state for the editor */
+  onEditorStateChange = editorState => {
+    this.setState({ editorState });
+  };
+
+  /** update all the labels that has been change*/
+  handleChange = e => {
+    const { name, type, value} = e.target;
+    const val = type === 'number' ? parseFloat(value) : value;
+    this.setState({ [name]: val})
+
+  }
+  /** update the date picked in the calendar label and update to a formated one */
+  handleDateChange = e => {
+    this.setState({["formatedDate"]: rightFormat(e)})
+    this.setState({ ["date"]:e})
+  }
+
+  /** if the basic date isn't choose, put a the default value which is the day when the news has been written */
+  handleClick() {
+    if(!this.state.formatedDate){
+      this.setState( {
+        ["formatedDate"] : rightFormat(new Date)
+      })
+    }
+  }
+
+  /** generic function to put the date in a custom */
+  rightFormat(el) {
+    if((el.getMonth()+1) < 10){
+      el  = el.getDate() + "/0" + (el.getMonth()+1) + "/"+ el.getFullYear()
+    }else{
+      el  = el.getDate() + "/" + (el.getMonth()+1) + "/"+ el.getFullYear()
+    }
+    return el
+  }
+
   render() {
     const { editorState } = this.state;
     return (
       <div>
         <HeadGenerator title="Créer une nouvelle actualité"/>
-        <form >
+        <form onSubmit={(e)=> {
+          e.preventDefault(); 
+          console.log(this.state)
+        }}>
           <div className ="fieldsetActuality">
           <fieldset >
-            
-              
-              <MuiPickersUtilsProvider utils={DateFnsUtils}>        
+            <MuiPickersUtilsProvider utils={DateFnsUtils}>        
                   <KeyboardDatePicker
                       id="date"
                       name = "date"
                       label="Date"
+                      type = "text"
                       format="dd/MM/yyyy"
                       value={this.state.date}
-                      onChange={this.handleChange}
+                      onChange={this.handleDateChange}
                       KeyboardButtonProps={{
                       'aria-label': 'change date',
                       }}   
@@ -97,7 +145,7 @@ class MyEditor extends Component {
               
             <PreviewModal output={getHtml(editorState)} />
           </div>
-          <button className="btn btn-success previewButton" data-toggle="modal" data-target="#previewModal">
+          <button className="btn btn-success previewButton" data-toggle="modal" data-target="#previewModal" onClick={this.handleClick}>
               Version pré-rendue
           </button>
         </form>
@@ -119,7 +167,7 @@ const PreviewModal = ({ output }) => (
         </div>
         <div class="modal-body" dangerouslySetInnerHTML={{ __html: output }} />
         <div class="modal-footer">
-          <button type="submit" class="btn btn-secondary" data-dismiss="modal">
+          <button type="submit"  class="btn btn-secondary" data-dismiss="modal">
             Valider l'actualité
           </button>
         </div>

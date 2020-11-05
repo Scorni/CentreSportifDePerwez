@@ -373,12 +373,12 @@ body,
 /** Editor wysiwyg **/
 
 .fieldsetActuality{
-  display: flex;
-  
+  display: flex;  
   height: auto;
   padding-left: 2rem;
 }
 .labelActuality{
+  display: flex;
   border: dotted 1px black;
   padding: 2rem;
   
@@ -388,16 +388,15 @@ body,
   
 }
 .rich-editor .rdw-editor-main {
-background-color: #fff;
+  background-color: #fff;
 }
 .rich-editor .DraftEditor-editorContainer {
-padding: 1rem;
-
-max-height: 300px;
-overflow-Y: auto
+  padding: 1rem;
+  max-height: 300px;
+  overflow-Y: auto
 }
 .draft-editor-wrapper {
-border: 1px solid #ccc;
+  border: 1px solid #ccc;
 }
 .html-view {
   background-color: #fff;
