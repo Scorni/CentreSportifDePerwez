@@ -8,6 +8,8 @@ import AccordionDetails from '@material-ui/core/AccordionDetails';
 import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import {HeadGenerator} from '../sports/category/generator';
+import { Query } from 'react-apollo';
+import {ACTUALITY_QUERY} from '../actualite/Query';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -25,6 +27,34 @@ const Actuality = (props) => {
   return (
       <>
         <HeadGenerator title="Actualités"/>
+        <Query query={ACTUALITY_QUERY}>
+            {({data,error,loading})=>{
+                if(loading) return <p>Chargement...</p>
+                if(error)   return <p>Erreur : {error.message}</p>
+                
+                return <Container className="themed-container newsvg" fluid={true}>
+                    {data.actualities.map(actuality =>
+                        
+                        <Row className="mx-auto justify-content-center ">
+                            <Col>
+                                <Accordion style={{  background: "linear-gradient(225deg, rgba(43, 134, 197,0.5) 0%,rgba(120, 75, 160,0.5) 50%,rgba(145, 37, 60,0.5) 100% )" }}>
+                                    <AccordionSummary
+                                    expandIcon={<ExpandMoreIcon />}
+                                    aria-controls="panel1a-content"
+                                    id="panel1a-header"
+                                    >
+                                    <Typography className={classes.heading}> {actuality.date} |<b> {actuality.title}</b></Typography>
+                                    </AccordionSummary>
+                                    <AccordionDetails >
+                                        <Typography className="customTypo" dangerouslySetInnerHTML={{__html : actuality.content}} />
+                                    </AccordionDetails>
+                                </Accordion>
+                            </Col>
+                        </Row>
+                        )}
+                        </Container>
+            }}
+        </Query>
         <Container className="themed-container newsvg" fluid={true}>
                                         
             <Row className="mx-auto justify-content-center ">

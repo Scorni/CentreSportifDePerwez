@@ -223,9 +223,7 @@ const Mutations = {
         return ctx.db.mutation.deleteLocation({where},info);
     },
     async createActuality(parents,args,ctx,info){
-        if(!ctx.request.userId){
-            throw new Error('Pour écrire une actualité,vous devez être connecté!')
-        }
+        
         const actuality = await ctx.db.mutation.createActuality({
             data: { 
                 title : args.title,
