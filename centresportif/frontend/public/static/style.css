@@ -372,19 +372,29 @@ body,
 }
 /** Editor wysiwyg **/
 
-.rich-editor {
-  padding: 3rem;
+.fieldsetActuality{
+  display: flex;  
+  height: auto;
+  padding-left: 2rem;
+}
+.labelActuality{
+  display: flex;
+  border: dotted 1px black;
+  padding: 2rem;
   
- }
- .rich-editor .rdw-editor-main {
+}
+.rich-editor {
+  padding: 2rem;
+  
+}
+.rich-editor .rdw-editor-main {
   background-color: #fff;
- }
+}
 .rich-editor .DraftEditor-editorContainer {
   padding: 1rem;
-  
-  max-height: 300px;
+  max-height: 700px;
   overflow-Y: auto
- }
+}
 .draft-editor-wrapper {
   border: 1px solid #ccc;
 }
@@ -392,17 +402,42 @@ body,
   background-color: #fff;
   color: #000;
   margin: auto;
-  width: 70%;
+  width: 80%;
+  padding-left: 2rem;
+  max-height: 200px;
+  overflow-Y: auto;
+
   margin-bottom: 2rem;
+  
  }
 .editorTitle{
-  color: #fff;
+  color: #212529;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: auto;
 }
 .customEditor{
   max-height: 180px;
   overflow-Y: auto
 }
 .previewButton {
+  background-image: linear-gradient(to right, rgb(21, 47, 79) 0%, rgb(16, 37, 63)  51%, rgb(21, 47, 79)  100%);
+  border: none;
+  width : 160px;
   margin: auto;
-  ;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: auto;
+  transition: 0.5s;
+  background-size: 200% auto;
+  margin-bottom: 2rem;
+}
+.previewButton:hover {
+  background-position: right center; /* change the direction of the change here */
+  text-decoration: none;
+  color: white;
+
 }

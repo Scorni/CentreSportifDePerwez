@@ -3,6 +3,7 @@ const {hasPermission} = require('../utils');
 const Query = {
     rooms:forwardTo('db'),
     locations:forwardTo('db'),
+    actualities:forwardTo('db'),
     async roomsFilter(parent, args, context, info) {
       return await ctx.db.query.rooms({
           where:{
@@ -46,7 +47,7 @@ const Query = {
       hasPermission(ctx.request.user, ['ADMIN']);
 
       return ctx.db.query.users({},info);
-    }
+    },
 };
 
 module.exports = Query;
