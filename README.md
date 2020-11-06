@@ -56,3 +56,9 @@ variables.env
 ## Command to enter
 
 npm run deploy
+
+### add a new computer 
+
+do the git commands
+del the cookies if exist
+write the env file
