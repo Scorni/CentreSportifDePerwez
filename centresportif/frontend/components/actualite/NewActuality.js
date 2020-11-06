@@ -3,7 +3,7 @@ import dynamic from 'next/dynamic';
 import { EditorState, convertToRaw } from 'draft-js';
 import draftToHtml from 'draftjs-to-html';
 import {HeadGenerator} from '../sports/category/generator';
-import { Container, Row, Col } from 'reactstrap';
+import { Button }  from 'reactstrap';
 import DateFnsUtils from '@date-io/date-fns'; 
 import TextField from '@material-ui/core/TextField';
 
@@ -46,16 +46,17 @@ class MyEditor extends Component {
   this.state = {
     editorState: EditorState.createEmpty(),
     date: new Date(),
+    
     };
   this.handleClick = this.handleClick.bind(this);
-
   }
   
-  /** update the state for the editor */
+  /** update the state for the editor & html content for the submitting */
   onEditorStateChange = editorState => {
     this.setState({ editorState });
+    this.setState( { ["htmlContent"] : getHtml(editorState) })
+    
   };
-
   /** update all the labels that has been change*/
   handleChange = e => {
     const { name, type, value} = e.target;
@@ -75,6 +76,14 @@ class MyEditor extends Component {
       this.setState( {
         ["formatedDate"] : rightFormat(new Date)
       })
+    }
+    if(!this.state.title){
+      this.setState( {
+        ["title"] : "Actualité du "+ rightFormat(new Date)
+      })
+    }
+    if(!this.state.title ){
+      document.getElementById('sendDataButton').disabled = true
     }
   }
 
@@ -145,7 +154,7 @@ class MyEditor extends Component {
               
             <PreviewModal output={getHtml(editorState)} />
           </div>
-          <button className="btn btn-success previewButton" data-toggle="modal" data-target="#previewModal" onClick={this.handleClick}>
+          <button className="previewButton" data-toggle="modal" data-target="#previewModal" onClick={this.handleClick}>
               Version pré-rendue
           </button>
         </form>
@@ -167,9 +176,9 @@ const PreviewModal = ({ output }) => (
         </div>
         <div class="modal-body" dangerouslySetInnerHTML={{ __html: output }} />
         <div class="modal-footer">
-          <button type="submit"  class="btn btn-secondary" data-dismiss="modal">
+          <Button type="submit"  className="customButton" id="sendDataButton" data-dismiss="modal">
             Valider l'actualité
-          </button>
+          </Button>
         </div>
       </div>
     </div>

@@ -392,7 +392,7 @@ body,
 }
 .rich-editor .DraftEditor-editorContainer {
   padding: 1rem;
-  max-height: 300px;
+  max-height: 700px;
   overflow-Y: auto
 }
 .draft-editor-wrapper {
@@ -404,6 +404,8 @@ body,
   margin: auto;
   width: 80%;
   padding-left: 2rem;
+  max-height: 200px;
+  overflow-Y: auto;
 
   margin-bottom: 2rem;
   
@@ -420,11 +422,22 @@ body,
   overflow-Y: auto
 }
 .previewButton {
+  background-image: linear-gradient(to right, rgb(21, 47, 79) 0%, rgb(16, 37, 63)  51%, rgb(21, 47, 79)  100%);
+  border: none;
+  width : 160px;
   margin: auto;
-  color: #212529;
+  color: #fff;
   display: flex;
   justify-content: center;
   align-items: center;
   height: auto;
-  ;
+  transition: 0.5s;
+  background-size: 200% auto;
+  margin-bottom: 2rem;
+}
+.previewButton:hover {
+  background-position: right center; /* change the direction of the change here */
+  text-decoration: none;
+  color: white;
+
 }

@@ -1,12 +1,19 @@
 #import * from './generated/prisma.graphql'
 
 ##query or mutation
+
 type Mutation {
     createRoom(
         name: String!
         price: Float!
         sport: String!
     ): Room!,
+    createActuality(
+        title: String!
+        date: String!
+        content : String!
+    ): Actuality!,
+
     createLocation(
         sport: String!
         hour: String!
@@ -48,12 +55,14 @@ type Query {
     userFilter(id: String!): [User!]!,
     locationFilter: [Location!]!,
     me:User,
+    actualities: [Actuality!]!
     
 }
 
 ## not query or mutation
 
 ### Room
+
 type Room {
     id: ID!
     name: String! 
@@ -61,7 +70,9 @@ type Room {
     sport : String!
     uniqueNameSport : String!
 }
+
 ### Location
+
 type Location {
     id: ID!
     sport: String!
@@ -72,7 +83,9 @@ type Location {
     userId: User!
     uniqueLocationsRoomHourDay: String!
 }
+
 ### User
+
 type User {
     id: ID!
     name: String!
@@ -84,4 +97,13 @@ type User {
 }
 type SuccessMessage{
     message : String
+}
+
+### Actuality
+
+type Actuality {
+    id: ID!
+    title: String!
+    date: String!
+    content: String!
 }
