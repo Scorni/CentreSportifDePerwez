@@ -82,9 +82,6 @@ class MyEditor extends Component {
         ["title"] : "Actualité du "+ rightFormat(new Date)
       })
     }
-    if(!this.state.title ){
-      document.getElementById('sendDataButton').disabled = true
-    }
   }
 
   /** generic function to put the date in a custom */
