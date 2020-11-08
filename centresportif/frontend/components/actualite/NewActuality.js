@@ -6,15 +6,16 @@ import {HeadGenerator} from '../sports/category/generator';
 import { Button }  from 'reactstrap';
 import DateFnsUtils from '@date-io/date-fns'; 
 import TextField from '@material-ui/core/TextField';
+import { Mutation } from 'react-apollo';
+import {CREATE_ACTUALITY_MUTATION} from '../actualite/Mutation'
+import {  MuiPickersUtilsProvider, KeyboardDatePicker,} from '@material-ui/pickers'
+import Error from '../ErrorMessage'
 
-import {
-  MuiPickersUtilsProvider,
-  KeyboardDatePicker,
-} from '@material-ui/pickers'
 const Editor = dynamic(
   () => import('react-draft-wysiwyg').then(mod => mod.Editor),
   { ssr: false }
 )
+
 const embedVideoCallBack = (link) =>{
         if (link.indexOf("youtube") >= 0){
             link = link.replace("watch?v=","embed/");
@@ -27,7 +28,7 @@ const getHtml = editorState => draftToHtml(convertToRaw(editorState.getCurrentCo
 
 function defaultFormatedDate() {
   rightFormat(new Date())
- }
+}
 
 function rightFormat(el) {
   let formatedDate
@@ -38,6 +39,7 @@ function rightFormat(el) {
   }
   return formatedDate
 }
+
 class MyEditor extends Component {
 
   
@@ -54,7 +56,7 @@ class MyEditor extends Component {
   /** update the state for the editor & html content for the submitting */
   onEditorStateChange = editorState => {
     this.setState({ editorState });
-    this.setState( { ["htmlContent"] : getHtml(editorState) })
+    this.setState( { ["content"] : getHtml(editorState) })
     
   };
   /** update all the labels that has been change*/
@@ -79,7 +81,12 @@ class MyEditor extends Component {
     }
     if(!this.state.title){
       this.setState( {
-        ["title"] : "Actualité du "+ rightFormat(new Date)
+        ["title"] : "Actualité du "+ rightFormat(new Date),
+      })
+    }
+    if(!this.state.content){
+      this.setState( {
+        ["content"] : "<p>Contenu de l'actualité du " + rightFormat(new Date) + "</p>"
       })
     }
   }
@@ -99,12 +106,20 @@ class MyEditor extends Component {
     return (
       <div>
         <HeadGenerator title="Créer une nouvelle actualité"/>
-        <form onSubmit={(e)=> {
+        <Mutation mutation = {CREATE_ACTUALITY_MUTATION} 
+          variables={this.state}>
+            {(createActuality, { loading, error}) =>(
+              
+            
+        <form onSubmit={async e=> {
           e.preventDefault(); 
-          console.log(this.state)
+          console.log(this.state);
+          const res = await createActuality();
+          console.log(res);
         }}>
+          <Error error={error} />
           <div className ="fieldsetActuality">
-          <fieldset >
+          <fieldset disabled={loading}>
             <MuiPickersUtilsProvider utils={DateFnsUtils}>        
                   <KeyboardDatePicker
                       id="date"
@@ -143,7 +158,8 @@ class MyEditor extends Component {
                   embedCallback: embedVideoCallBack
               }
             }} 
-            className = "customEditor"/>
+            className = "customEditor"
+            disabled = {loading}/>
           <h4 className = "editorTitle">version HTML</h4>
           <div className="html-view">
 
@@ -155,6 +171,8 @@ class MyEditor extends Component {
               Version pré-rendue
           </button>
         </form>
+        )}
+        </Mutation>
       </div>
     );
   } 

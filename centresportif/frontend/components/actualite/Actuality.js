@@ -46,7 +46,7 @@ const Actuality = (props) => {
                                     <Typography className={classes.heading}> {actuality.date} |<b> {actuality.title}</b></Typography>
                                     </AccordionSummary>
                                     <AccordionDetails >
-                                        <Typography className="customTypo" dangerouslySetInnerHTML={{__html : actuality.content}} />
+                                        <div className="customTypo" dangerouslySetInnerHTML={{__html :actuality.content}} />
                                     </AccordionDetails>
                                 </Accordion>
                             </Col>
