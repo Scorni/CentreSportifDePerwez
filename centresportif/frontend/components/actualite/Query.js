@@ -10,6 +10,7 @@ export const ACTUALITY_QUERY = gql`
             title
             date
             content
+            id
         }
     }
 `;

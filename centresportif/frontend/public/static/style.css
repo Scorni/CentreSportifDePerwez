@@ -427,7 +427,7 @@ body,
   width : 160px;
   margin: auto;
   color: #fff;
-  display: flex;
+  display: block;
   justify-content: center;
   align-items: center;
   height: auto;

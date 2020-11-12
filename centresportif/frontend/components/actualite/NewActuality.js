@@ -48,7 +48,7 @@ class MyEditor extends Component {
   this.state = {
     editorState: EditorState.createEmpty(),
     date: new Date(),
-    
+    title :  "Actualité du "+ rightFormat(new Date)
     };
   this.handleClick = this.handleClick.bind(this);
   }
@@ -77,11 +77,6 @@ class MyEditor extends Component {
     if(!this.state.formatedDate){
       this.setState( {
         ["formatedDate"] : rightFormat(new Date)
-      })
-    }
-    if(!this.state.title){
-      this.setState( {
-        ["title"] : "Actualité du "+ rightFormat(new Date),
       })
     }
     if(!this.state.content){
@@ -165,11 +160,10 @@ class MyEditor extends Component {
 
             {getHtml(editorState)}
               
-            <PreviewModal output={getHtml(editorState)} />
           </div>
-          <button className="previewButton" type="submit" onClick={this.handleClick}>
-              Version pré-rendue
-          </button>
+          <Button className="previewButton" type="submit" onClick={this.handleClick}>
+              Valider l'actualité
+          </Button>
         </form>
         )}
         </Mutation>
@@ -177,26 +171,4 @@ class MyEditor extends Component {
     );
   } 
 }
-const PreviewModal = ({ output }) => (
-  <div class="modal fade" id="previewModal" tabindex="-1"      role="dialog" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel"> 
-            Pré-rendu de votre actualité
-          </h5>
-          <button type="button" class="close" data-dismiss="modal"   aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body" dangerouslySetInnerHTML={{ __html: output }} />
-        <div class="modal-footer">
-          <Button type="submit"  className="customButton" id="sendDataButton" data-dismiss="modal">
-            Valider l'actualité
-          </Button>
-        </div>
-      </div>
-    </div>
-  </div>
-);
 export default MyEditor;
