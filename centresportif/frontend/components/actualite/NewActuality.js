@@ -167,7 +167,7 @@ class MyEditor extends Component {
               
             <PreviewModal output={getHtml(editorState)} />
           </div>
-          <button className="previewButton" data-toggle="modal" data-target="#previewModal" onClick={this.handleClick}>
+          <button className="previewButton" type="submit" onClick={this.handleClick}>
               Version pré-rendue
           </button>
         </form>
