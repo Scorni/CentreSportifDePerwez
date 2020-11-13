@@ -367,8 +367,12 @@ body,
   backdrop-filter: blur(15px);
 }
 .customTypo{
-  max-height: 180px;
-  overflow-Y: auto
+  width: 100%;
+  
+  margin: 0 auto;
+}
+iframe{
+  display:block;
 }
 /** Editor wysiwyg **/
 

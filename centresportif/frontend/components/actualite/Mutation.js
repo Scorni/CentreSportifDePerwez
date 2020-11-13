@@ -6,13 +6,13 @@ export const CREATE_ACTUALITY_MUTATION = gql`
 
     mutation CREATE_ACTUALITY_MUTATION(
         $title: String!
-        $date: String!
+        $formatedDate: String!
         $content : String!
     )
         {
         createActuality(
             title: $title
-            date: $date
+            date: $formatedDate
             content : $content
         ){
             id
