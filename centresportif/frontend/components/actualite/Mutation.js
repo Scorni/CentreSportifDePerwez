@@ -19,3 +19,17 @@ export const CREATE_ACTUALITY_MUTATION = gql`
         }
     }
 `;
+
+export const DELETE_ACTUALITY = gql`
+
+        mutation DELETE_ACTUALITY(
+            $actualityId: String!
+        ){
+            deleteActuality(
+                actualityId: $actualityId
+            ){
+                id
+            }
+        }       
+        
+`;

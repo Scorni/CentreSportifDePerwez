@@ -2,9 +2,10 @@ import React from 'react';
 import Actuality from '../../components/actualite/Actuality'
 
 const actuality = props => {
+    
     return (
         <div>
-            <Actuality />
+            <Actuality page={parseFloat(props.query.page) || 1} />
         </div>
     );
 };

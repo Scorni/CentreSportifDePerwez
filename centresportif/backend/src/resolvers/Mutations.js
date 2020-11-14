@@ -222,6 +222,16 @@ const Mutations = {
 
         return ctx.db.mutation.deleteLocation({where},info);
     },
+    async deleteActuality(parent,args,ctx,info){
+        if(!ctx.request.userId){
+            throw new Error('Pour annuler une réservation,vous devez être connecté!')
+        }
+        const where = {id : args.actualityId};
+
+        const item = await ctx.db.query.actuality({where},`{id}`);
+
+        return ctx.db.mutation.deleteActuality({where},info);
+    },
     async createActuality(parents,args,ctx,info){
         
         const actuality = await ctx.db.mutation.createActuality({

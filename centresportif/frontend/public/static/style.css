@@ -250,6 +250,27 @@ body,
   width: 100%;
   height: 100%;
 }
+.customProfileButton {
+  background-image: linear-gradient(to right, rgb(21, 47, 79) 0%, rgb(16, 37, 63)  51%, rgb(21, 47, 79)  100%);
+  border: none;
+
+}
+.customProfileButton {
+  margin: auto;
+  width : 180px;
+  text-align: center;
+  transition: 0.5s;
+  background-size: 200% auto;
+  color: #fff;
+  display: block;
+ }
+
+ .customProfileButton:hover{
+  background-position: right center; /* change the direction of the change here */
+  text-decoration: none;
+  color: white;
+
+}
 /* home  */
 .locationHomeSvg{
   
@@ -275,7 +296,7 @@ body,
 }
 
 .customReservationButton {
-  background-image: linear-gradient(to right, #908d91 0%, #5f5f5f  51%, #908d91  100%);
+  background-image: linear-gradient(to right, rgb(21, 47, 79) 0%, rgb(16, 37, 63)  51%, rgb(21, 47, 79)  100%);
   border: none;
 
 }
@@ -299,7 +320,7 @@ body,
 /** modal button */
 
 .customModalButton {
-  background-image: linear-gradient(to right, #908d91 0%, #5f5f5f  51%, #908d91  100%);
+  background-image: linear-gradient(to right, rgb(21, 47, 79) 0%, rgb(16, 37, 63)  51%, rgb(21, 47, 79)  100%);
   border: none;
 }
 .customModalButton {
@@ -377,6 +398,36 @@ iframe{
 }
 .customAccordion{
   margin: 2em
+}
+.customActualityButton {
+  background-image: linear-gradient(to right, rgb(21, 47, 79) 0%, rgb(16, 37, 63)  51%, rgb(21, 47, 79)  100%);
+  border: none;
+
+}
+.customActualityButton {
+  margin: auto;
+  width : 180px;
+  text-align: center;
+  transition: 0.5s;
+  background-size: 200% auto;
+  color: #fff;
+  display: block;
+ }
+
+ .customActualityButton:hover{
+  background-position: right center; /* change the direction of the change here */
+  text-decoration: none;
+  color: white;
+
+}
+.customNewsDivInside{
+  margin : 1em;
+  border-top : white solid 1px; 
+  display:flex;
+}
+.customNewsDivOutside{
+  margin : 1em;
+  display:flex;
 }
 /** Editor wysiwyg **/
 .writenewsvg{
