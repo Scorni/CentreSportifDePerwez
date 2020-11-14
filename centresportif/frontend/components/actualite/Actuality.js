@@ -10,6 +10,7 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import {HeadGenerator} from '../sports/category/generator';
 import { Query } from 'react-apollo';
 import {ACTUALITY_QUERY} from '../actualite/Query';
+import User from '../common/User';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -32,11 +33,9 @@ const Actuality = (props) => {
                 if(loading) return <p>Chargement...</p>
                 if(error)   return <p>Erreur : {error.message}</p>
                 
-                return <Container className="themed-container newsvg" fluid={true}>
+                return <div className="customAccordion">
                     {data.actualities.map(actuality =>
                         
-                        <Row className="mx-auto justify-content-center" key= {actuality.id}>
-                            <Col>
                                 <Accordion style={{  background: "linear-gradient(225deg, rgba(43, 134, 197,0.5) 0%,rgba(120, 75, 160,0.5) 50%,rgba(145, 37, 60,0.5) 100% )" }}>
                                     <AccordionSummary
                                     expandIcon={<ExpandMoreIcon />}
@@ -47,14 +46,61 @@ const Actuality = (props) => {
                                     </AccordionSummary>
                                     <AccordionDetails >
                                         <div className="customTypo"  dangerouslySetInnerHTML={{__html :actuality.content}} />
+                                        <User>
+                                      {({data}) => {
+                                        const me = data ? data.me : null
+                                        if(me){
+                                          if(me.permissions[1] === "ADMIN" && me.permissions[2] === "SADMIN"){ 
+                                              return(
+                                                  <>
+                                                      <Container className="themed-container profilesvg" fluid={true}>
+                                                          
+                                                          <Row className="mx-auto justify-content-center">
+                                                              <div className="styledDiv bluredInformations" >
+                                                                  <h2>Informations personnelles</h2>
+                                                                  <p><strong>Prenom :</strong> {me.surname}</p>
+                                                                  <p><strong>Nom :</strong> {me.name}</p>
+                                                                  <p><strong>Adresse mail :</strong> {me.email}</p>
+                                                                  <p><strong>Adresse :</strong> {me.adress}</p>
+                                                                  <p><strong>Ville :</strong> {me.city}</p>
+                                                                  <p><strong>Identifiant :</strong> {me.id}</p>
+                                                              </div>
+                                                          </Row>
+                                                          <Row className="mx-auto justify-content-center">
+                                                              <Link href='/list/locations' >
+                                                                  <Button className="m-2 mt-1">Liste des réservations</Button>
+                                                              </Link>
+                                                              <Link href='/list/users'>
+                                                                  <Button className="m-2 mt-1 ">Liste des utilisateurs</Button>
+                                                              </Link>
+                                                              <Link href='/permissions'>
+                                                                  <Button className="m-2 mt-1 ">Gérer les permissions</Button>
+                                                              </Link>
+                                                          </Row>
+                                                      </Container>
+                                                  </>
+                                              )
+                                              }else if(me.permissions[1] === "ADMIN"){
+                                                  return(
+                                                      <div>
+                                                          <Button>Supprimer</Button>
+                                                          <Button>Modifier</Button>
+                                                      </div>
+                                                  )
+                                              }
+                                          else if(me.permissions[0] === "USER"){
+                                            return true;
+                                          }}else{
+                                            return true;
+                                          }}}
+                                      </User>
                                     </AccordionDetails>
                                 </Accordion>
-                            </Col>
-                        </Row>
                         )}
-                        </Container>
+                        </div>
             }}
         </Query>
+        
         
        
     </>

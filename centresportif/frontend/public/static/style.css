@@ -373,9 +373,20 @@ body,
 }
 iframe{
   display:block;
+  margin: auto;
+}
+.customAccordion{
+  margin: 2em
 }
 /** Editor wysiwyg **/
-
+.writenewsvg{
+  height: 70vh;
+  background-image: url("../../public/static/img/svg/typewriter.svg");
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position:center bottom;
+   
+}
 .fieldsetActuality{
   display: flex;  
   height: auto;
