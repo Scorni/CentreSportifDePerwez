@@ -429,19 +429,75 @@ iframe{
   margin : 1em;
   display:flex;
 }
+.customPaginationDiv{
+  display:flex;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+}
+.customActualityButtonPage {
+  background-image: linear-gradient(to right, rgb(21, 47, 79) 0%, rgb(16, 37, 63)  51%, rgb(21, 47, 79)  100%);
+  border: none;
+  display: inline-block;
+}
+.customActualityButtonPage {
+  width : 180px;
+  transition: 0.5s;
+  background-size: 200% auto;
+  color: #fff;
+  display: block;
+ }
+
+.customActualityButtonPage:hover{
+  background-position: right center; /* change the direction of the change here */
+  text-decoration: none;
+  color: white;
+}
+.customButtonPagination {
+  background-color: transparent;
+  border: none;
+  display: inline-block;
+}
+.customButtonPagination {
+  width : 180px;
+  transition: 0.5s;
+  background-color: transparent;
+  background-size: 200% auto;
+  color: #fff;
+  display: block;
+  margin: 1em;
+ }
+
+.customButtonPagination:hover{
+  background-position: right center; /* change the direction of the change here */
+  background-color: transparent;
+  cursor: context-menu;
+  text-decoration: none;
+  color: white;
+}
+.customButtonPagination:disabled{
+  background-color: transparent;
+}
+.customDivActuality{
+  background-image: url("../../public/static/img/svg/reading.svg");
+  
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position:center bottom;
+}
 /** Editor wysiwyg **/
 .writenewsvg{
-  height: 70vh;
+  height: auto;
   background-image: url("../../public/static/img/svg/typewriter.svg");
   background-repeat: no-repeat;
   background-size: contain;
   background-position:center bottom;
-   
 }
 .fieldsetActuality{
   display: flex;  
   height: auto;
   padding-left: 2rem;
+  
 }
 .labelActuality{
   display: flex;
@@ -472,9 +528,7 @@ iframe{
   padding-left: 2rem;
   max-height: 200px;
   overflow-Y: auto;
-
   margin-bottom: 2rem;
-  
  }
 .editorTitle{
   color: #212529;

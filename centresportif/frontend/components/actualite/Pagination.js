@@ -26,34 +26,33 @@ const Pagination = props => {
                     const pages = Math.ceil(count / perPage);
                     const page = props.page;
                 return(
-                        <>
-                        <Head>
-                            <title>
-                                Actualité Page {page} sur {pages}
-                            </title>
-                        
-                        </Head>
-                        <Link 
-                            prefetch 
-                            href={{
-                                pathname: 'actuality',
-                                query: { page: page - 1}
-                            }}
-                        >
-                            <Button disabled={page <= 1}><a className="precedent" role="button" >Précédent</a></Button>
-                        </Link>
-                        <p>Page {page} sur {pages}</p>
-                        <p>Nombre d'actualités : {count}</p>
-                        <Link 
-                            prefetch 
-                            href={{
-                                pathname: 'actuality',
-                                query: { page: page + 1}
-                            }}
-                        >
-                            <Button disabled={page >= pages}><a className="suivant" role="button" >Suivant</a></Button>
-                        </Link>
-                    </>
+                        <div className="customPaginationDiv">
+                            <Head>
+                                <title>
+                                    Actualité Page {page} sur {pages}
+                                </title>
+                            
+                            </Head>
+                            <Link 
+                                prefetch 
+                                href={{
+                                    pathname: 'actuality',
+                                    query: { page: page - 1}
+                                }}
+                            >
+                                <Button disabled={page <= 1} className="customActualityButtonPage"><a className="precedent" role="button" >Précédent</a></Button>
+                            </Link>
+                            <Button className="customButtonPagination" disabled>Page {page} sur {pages}</Button>
+                            <Link 
+                                prefetch 
+                                href={{
+                                    pathname: 'actuality',
+                                    query: { page: page + 1}
+                                }}
+                            >
+                                <Button disabled={page >= pages} className="customActualityButtonPage"><a className="suivant" role="button" >Suivant</a></Button>
+                            </Link>
+                        </div>
             )}}
         </Query>
             

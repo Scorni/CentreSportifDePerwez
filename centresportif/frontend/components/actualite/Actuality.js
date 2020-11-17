@@ -30,11 +30,10 @@ const useStyles = makeStyles((theme) => ({
 class Actuality extends Component {
     render(){
             return (
-            <>
+            <div className="customDivActuality">
                 <HeadGenerator title="Actualités"/>
                 <Pagination page={this.props.page}/>
                 <Query query={ACTUALITY_QUERY} 
-                //fetchPolicy="newtwork-only"
                 variables={{
                     skip:this.props.page * perPage - perPage,
                 }}>
@@ -88,13 +87,25 @@ class Actuality extends Component {
                                 if(me){if(me.permissions[1] === "ADMIN" && me.permissions[2] === "SADMIN"){ 
                                     return(                                    
                                         <div className = "customNewsDivOutside">
-                                            <Button className="customActualityButton" style={{ marginTop : "1em"}}>Créer une actualité</Button>
+                                            <Link 
+                                                href={{
+                                                    pathname: 'newActuality',
+                                                }}
+                                            >
+                                                <Button className="customActualityButton" style={{ marginTop : "1em"}}><a  role="button" >Créer une actualité</a></Button>
+                                            </Link>                                            
                                         </div>
                                         )
                                     }else if(me.permissions[1] === "ADMIN"){
                                         return(
                                         <div className = "customNewsDivOutside">
-                                            <Button className="customActualityButton" style={{ marginTop : "1em"}}>Créer une actualité</Button>
+                                            <Link 
+                                                href={{
+                                                    pathname: 'newActuality',
+                                                }}
+                                            >
+                                                <Button className="customActualityButton" style={{ marginTop : "1em"}}><a  role="button" >Créer une actualité</a></Button>
+                                            </Link> 
                                         </div>
                                         )
                                     }
@@ -109,7 +120,7 @@ class Actuality extends Component {
                     }}
                 </Query>
                 <Pagination page={this.props.page}/>
-            </>
+            </div>
         );
     }
   }

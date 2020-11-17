@@ -122,7 +122,7 @@ class MyEditor extends Component {
                                       const res = await createActuality();
                                       console.log(res);
                                     }}>
-                                      <Error error={error} />
+                                      
                                       <div className ="fieldsetActuality">
                                       <fieldset disabled={loading}>
                                         <MuiPickersUtilsProvider utils={DateFnsUtils}>        
