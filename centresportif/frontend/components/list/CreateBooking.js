@@ -10,7 +10,8 @@ import {
     Modal, 
     ModalHeader, 
     ModalBody, 
-    ModalFooter } from 'reactstrap';
+    ModalFooter, 
+    Button} from 'reactstrap';
 
 /** TO DO IN DB
  *  Is_confirmed 
@@ -70,7 +71,7 @@ const customStyles = {
         transform             : 'translate(-50%, -50%)'
     }
 };
-
+const title ="";
 let allViews = Object.keys(Views).map(k => Views[k])
 
 
@@ -78,26 +79,46 @@ class CreateNewBooking extends Component {
     constructor(...args) {
         super(...args)
         
-        this.state = { events,modal:false }
+        this.state = { events }
         
     }
+    
+    closeModal = () => {
+        this.setState({modalIsOpen : false})
+    }
+    handleChange(e){
+        this.setState({title: e.target.value});
 
-    toggle = () =>{
-        this.setState( {modal : !this.state.modal});
     }
-  
-    afterOpenModal= e => {
-      // references are now sync'd and can be accessed.
-      console.log('yes');
+    reg = () => {
+        this.props.onRegister(this.state.title);
     }
-  
-    closeModal= e =>{
-        this.setState( {setIsOpen : false})
+    renderModal = () => {
+        if (!this.state.modalIsOpen) return;
+        return(
+          <Modal
+            isOpen={this.state.modalIsOpen}
+            >
+      
+            <button onClick={this.closeModal}>close</button>
+            <div>Add event</div>
+            <form onSubmit={this.onFormSubmit}>
+              <input value={this.state.name} onChange={this.handleChange}/>
+      
+              <Button onClick={this.reg} value="Submit" />
+            </form>
+          </Modal>
+        );
     }
     
     handleSelect = ({ start, end }) => {
-        const title = window.prompt('Effectuer une réservation')
-          
+        this.setState({
+            title :"",
+            modalIsOpen: true
+            
+          });
+        const title = this.state.title
+        
         if (title)
         this.setState({
             events: [
@@ -112,9 +133,6 @@ class CreateNewBooking extends Component {
         })
         console.log(this.state.events)
     }
-    openModal() {
-
-    }
     render() {
         return (
             <div >
@@ -127,8 +145,8 @@ class CreateNewBooking extends Component {
                 events={this.state.events}
                 startAccessor="start"
                 endAccessor="end"  
-                onSelectEvent={event => alert(event.title)}
-                onSelectSlot={this.toggle()}
+                onSelectEvent={event => alert(event.title)}/** print title event */
+                onSelectSlot={this.handleSelect}
                 min={new Date(0, 10, 0, 8, 0, 0)}
                 max={new Date(0, 10, 0, 23, 0, 0)} 
                 eventPropGetter={
@@ -151,12 +169,8 @@ class CreateNewBooking extends Component {
                     }
                   }
                 />
-                <Modal isOpen={this.modal} toggle={this.toggle} >
-                    <ModalHeader toggle={this.toggle}>ouais</ModalHeader>
-                    <ModalBody>
-                        <br>aie</br>
-                    </ModalBody>
-                </Modal>
+                      {this.renderModal()}
+
             </div>
             
         );
