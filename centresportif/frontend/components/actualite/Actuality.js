@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { Container, Row, Col,Button } from 'reactstrap';
 import Link from "next/link";
 import { makeStyles } from '@material-ui/core/styles';
@@ -8,8 +8,13 @@ import AccordionDetails from '@material-ui/core/AccordionDetails';
 import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import {HeadGenerator} from '../sports/category/generator';
-import { Query } from 'react-apollo';
+import { Query, Mutation } from 'react-apollo';
 import {ACTUALITY_QUERY} from '../actualite/Query';
+import {DELETE_ACTUALITY} from '../actualite/Mutation';
+import {DeleteActuality} from '../actualite/DeleteActuality';
+import Pagination from '../actualite/Pagination';
+import User from '../common/User';
+import { perPage } from '../../config';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -21,140 +26,103 @@ const useStyles = makeStyles((theme) => ({
     },
   }));
 
-const Actuality = (props) => {
-    const classes = useStyles();
 
-  return (
-      <>
-        <HeadGenerator title="Actualités"/>
-        <Query query={ACTUALITY_QUERY}>
-            {({data,error,loading})=>{
-                if(loading) return <p>Chargement...</p>
-                if(error)   return <p>Erreur : {error.message}</p>
-                
-                return <Container className="themed-container newsvg" fluid={true}>
-                    {data.actualities.map(actuality =>
+class Actuality extends Component {
+    render(){
+            return (
+            <div className="customDivActuality">
+                <HeadGenerator title="Actualités"/>
+                <Pagination page={this.props.page}/>
+                <Query query={ACTUALITY_QUERY} 
+                variables={{
+                    skip:this.props.page * perPage - perPage,
+                }}>
+                    {({data,error,loading})=>{
+                        if(loading) return <p>Chargement...</p>
+                        if(error)   return <p>Erreur : {error.message}</p>
                         
-                        <Row className="mx-auto justify-content-center ">
-                            <Col>
-                                <Accordion style={{  background: "linear-gradient(225deg, rgba(43, 134, 197,0.5) 0%,rgba(120, 75, 160,0.5) 50%,rgba(145, 37, 60,0.5) 100% )" }}>
-                                    <AccordionSummary
-                                    expandIcon={<ExpandMoreIcon />}
-                                    aria-controls="panel1a-content"
-                                    id="panel1a-header"
-                                    >
-                                    <Typography className={classes.heading}> {actuality.date} |<b> {actuality.title}</b></Typography>
-                                    </AccordionSummary>
-                                    <AccordionDetails >
-                                        <Typography className="customTypo" dangerouslySetInnerHTML={{__html : actuality.content}} />
-                                    </AccordionDetails>
-                                </Accordion>
-                            </Col>
-                        </Row>
-                        )}
-                        </Container>
-            }}
-        </Query>
-        <Container className="themed-container newsvg" fluid={true}>
-                                        
-            <Row className="mx-auto justify-content-center ">
-                <Col>
-                    <Accordion style={{  background: "linear-gradient(225deg, rgba(43, 134, 197,0.5) 0%,rgba(120, 75, 160,0.5) 50%,rgba(145, 37, 60,0.5) 100% )" }}>
-                        <AccordionSummary
-                        expandIcon={<ExpandMoreIcon />}
-                        aria-controls="panel1a-content"
-                        id="panel1a-header"
-                        >
-                        <Typography className={classes.heading}> 28/10/20 |<b> CO-VID19 : Mesures mises en place</b></Typography>
-                        </AccordionSummary>
-                        <AccordionDetails >
-                            <Typography className="customTypo" >
-                                Suite aux mesures sanitaires imposées par le gouvernement, diverses mersures sont également mises en place au sein de nos infrastructures : <br></br>
-                                <li style={{listStyleType:"none"}}>- Espace de 1.5m entre chaque personne</li>
-                                <li style={{listStyleType:"none"}}>- Les sports de contact sont interdits</li>
-                                <li style={{listStyleType:"none"}}>- Port du masque non-obligatoire en extérieure</li>
+                        return <div className="customAccordion">
+                            {data.actualities.map(actuality =>
                                 
-
-                            </Typography>
-                        </AccordionDetails>
-                    </Accordion>
-                </Col>
-            </Row>
-            <Row className="mx-auto justify-content-center">
-                <Col>
-                    <Accordion style={{  background: "linear-gradient(225deg, rgba(43, 134, 197,0.5) 0%,rgba(120, 75, 160,0.5) 50%,rgba(145, 37, 60,0.5) 100% )" }}>
-                        <AccordionSummary
-                        expandIcon={<ExpandMoreIcon />}
-                        aria-controls="panel2a-content"
-                        id="panel2a-header"
-                        >
-                        <Typography className={classes.heading}>01/09/20 | <b>C'est la rentrée !</b></Typography>
-                        </AccordionSummary>
-                        <AccordionDetails>
-                        <Typography className="customTypo">
-                            A l'occasion de la rentrée,voici un récapitulatif des heures d'ouverture du centre :<br></br>
-                            Lundi : de 9h à 15h et de 17h à 20h<br></br>
-                            Mardi : de 8h à 19h30<br></br>
-                            Mercredi : de 8h à 14h<br></br>
-                            Jeudi : de 8h à 19h30<br></br>
-                            vendredi : de 8h à 14h et de 17h à 20h Samedi : de 8h à 12h
-
-                        </Typography>
-                        </AccordionDetails>
-                    </Accordion>
-                </Col>
-            </Row> 
-            <Row className="mx-auto justify-content-center">
-                <Col>
-                <Accordion style={{  background: "linear-gradient(225deg, rgba(43, 134, 197,0.5) 0%,rgba(120, 75, 160,0.5) 50%,rgba(145, 37, 60,0.5) 100% )" }}>
-                    <AccordionSummary
-                    expandIcon={<ExpandMoreIcon />}
-                    aria-controls="panel2a-content"
-                    id="panel2a-header"
-                    >
-                    <Typography className={classes.heading}>21/06/20 | <b>Journées sportives</b></Typography>
-                    </AccordionSummary>
-                    <AccordionDetails>
-                    <Typography className="customTypo">
-                        Du 21 juin au 26 se dérouleront les Journées sportives au sein de nos infrastructures, permettant aux enfants de découvrir de nouvelles activités sportives.<br/>
-                        Ces journées sportives regroupent les écoles de la commune de Perwez<br/>
-                        Je souhaite avoir des informations en tant que :
-                        <li style={{listStyleType:"none"}}>- Parent d'élève(s) | Elèves : <br/>
-                            <li style={{listStyleType:"none"}}>Veuillez contacter l'école concernée par l'élève</li>
-                            <li style={{listStyleType:"none"}}>Vous pouvez nous contacter en vous rendant ici :<b><Link href="/">Mettre lien vers la page de contact</Link></b> </li>
-                        </li>
-                        <li style={{listStyleType:"none"}}>- Clubs :</li>
-
-
-
-                    </Typography>
-                    </AccordionDetails>
-                </Accordion>
-                </Col>
-            </Row>
-            <Row className="mx-auto justify-content-center">
-                <Col>
-                <Accordion style={{  background: "linear-gradient(225deg, rgba(43, 134, 197,0.5) 0%,rgba(120, 75, 160,0.5) 50%,rgba(145, 37, 60,0.5) 100% )" }}>
-                    <AccordionSummary
-                    expandIcon={<ExpandMoreIcon />}
-                    aria-controls="panel2a-content"
-                    id="panel2a-header"
-                    >
-                    <Typography className={classes.heading}>15/06/20 |<b> L'été revient !</b></Typography>
-                    </AccordionSummary>
-                    <AccordionDetails>
-                    <Typography className="customTypo">
-                        Profitez des merveilleux moments de l'été au sein de notre centre !
-
-                    </Typography>
-                    </AccordionDetails>
-                </Accordion>
-                </Col>  
-            </Row>
-        </Container>
-       
-    </>
-  );
+                                        <Accordion style={{  background: "linear-gradient(225deg, rgba(43, 134, 197,0.5) 0%,rgba(120, 75, 160,0.5) 50%,rgba(145, 37, 60,0.5) 100% )" }}>
+                                            <AccordionSummary
+                                            expandIcon={<ExpandMoreIcon />}
+                                            aria-controls="panel1a-content"
+                                            id="panel1a-header"
+                                            >
+                                            <Typography > {actuality.date} |<b> {actuality.title}</b></Typography>
+                                            </AccordionSummary>
+                                            <AccordionDetails >
+                                                <div className="customTypo"  dangerouslySetInnerHTML={{__html :actuality.content}} />
+                                            
+                                            </AccordionDetails>
+                                            <User>
+                                            {({data}) => {
+                                                const me = data ? data.me : null
+                                                if(me){
+                                                if(me.permissions[1] === "ADMIN" && me.permissions[2] === "SADMIN"){ 
+                                                    return(                                        
+                                                        <div className = "customNewsDivInside">
+                                                            <DeleteActuality actualityId= {actuality.id}></DeleteActuality>
+                                                        </div>
+                                                    )
+                                                    }else if(me.permissions[1] === "ADMIN"){
+                                                        return(
+                                                            <div className = "customNewsDivInside">
+                                                                <DeleteActuality actualityId= {actuality.id}></DeleteActuality>
+                                                            </div>
+                                                        )
+                                                    }
+                                                else if(me.permissions[0] === "USER"){
+                                                    return true;
+                                                }}else{
+                                                    return true;
+                                                }}}
+                                            </User>
+                                        </Accordion>
+                                )}
+                                <User>
+                                {({data}) => {
+                                const me = data ? data.me : null
+                                if(me){if(me.permissions[1] === "ADMIN" && me.permissions[2] === "SADMIN"){ 
+                                    return(                                    
+                                        <div className = "customNewsDivOutside">
+                                            <Link 
+                                                href={{
+                                                    pathname: 'newActuality',
+                                                }}
+                                            >
+                                                <Button className="customActualityButton" style={{ marginTop : "1em"}}><a  role="button" >Créer une actualité</a></Button>
+                                            </Link>                                            
+                                        </div>
+                                        )
+                                    }else if(me.permissions[1] === "ADMIN"){
+                                        return(
+                                        <div className = "customNewsDivOutside">
+                                            <Link 
+                                                href={{
+                                                    pathname: 'newActuality',
+                                                }}
+                                            >
+                                                <Button className="customActualityButton" style={{ marginTop : "1em"}}><a  role="button" >Créer une actualité</a></Button>
+                                            </Link> 
+                                        </div>
+                                        )
+                                    }
+                                    else if(me.permissions[0] === "USER"){
+                                        return true;
+                                    }}
+                                    else{
+                                        return true;
+                                    }}}
+                                </User>
+                                </div>
+                    }}
+                </Query>
+                <Pagination page={this.props.page}/>
+            </div>
+        );
+    }
   }
   
   export default Actuality;

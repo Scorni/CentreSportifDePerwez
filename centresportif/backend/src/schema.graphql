@@ -46,6 +46,7 @@ type Mutation {
     !): User!,
     updatePermissions(permissions: [Permission],userId: ID!): User,
     deleteMyLocation(locationId: String!): Location,
+    deleteActuality(actualityId: String!): Actuality,
 }
 type Query {
     rooms: [Room!]!,
@@ -55,8 +56,8 @@ type Query {
     userFilter(id: String!): [User!]!,
     locationFilter: [Location!]!,
     me:User,
-    actualities: [Actuality!]!
-    
+    actualities(where: ActualityWhereInput,orderBy: ActualityOrderByInput, skip: Int, first: Int): [Actuality!]!
+    actualitiesConnection(where: ActualityWhereInput): ActualityConnection!
 }
 
 ## not query or mutation

@@ -1,6 +1,6 @@
 const cookieParser = require("cookie-parser");
 const jwt = require("jsonwebtoken");
-
+const bodyParser = require("body-parser")
 require('dotenv').config({ path: 'variables.env' });
 
 const createServer = require("./createServer");
@@ -10,6 +10,9 @@ const server = createServer();
 
 
 server.express.use(cookieParser());
+
+server.express.use(bodyParser.urlencoded({limit: '50mb', extended: true,parameterLimit:50000}))
+server.express.use(bodyParser.json({limit: '50mb'}));
 
 //decode the JWT to get the user Id
 

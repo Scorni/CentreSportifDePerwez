@@ -4,6 +4,8 @@ const Query = {
     rooms:forwardTo('db'),
     locations:forwardTo('db'),
     actualities:forwardTo('db'),
+    actualitiesConnection:forwardTo('db'),
+
     async roomsFilter(parent, args, context, info) {
       return await ctx.db.query.rooms({
           where:{

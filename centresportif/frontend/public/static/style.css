@@ -250,6 +250,27 @@ body,
   width: 100%;
   height: 100%;
 }
+.customProfileButton {
+  background-image: linear-gradient(to right, rgb(21, 47, 79) 0%, rgb(16, 37, 63)  51%, rgb(21, 47, 79)  100%);
+  border: none;
+
+}
+.customProfileButton {
+  margin: auto;
+  width : 180px;
+  text-align: center;
+  transition: 0.5s;
+  background-size: 200% auto;
+  color: #fff;
+  display: block;
+ }
+
+ .customProfileButton:hover{
+  background-position: right center; /* change the direction of the change here */
+  text-decoration: none;
+  color: white;
+
+}
 /* home  */
 .locationHomeSvg{
   
@@ -275,7 +296,7 @@ body,
 }
 
 .customReservationButton {
-  background-image: linear-gradient(to right, #908d91 0%, #5f5f5f  51%, #908d91  100%);
+  background-image: linear-gradient(to right, rgb(21, 47, 79) 0%, rgb(16, 37, 63)  51%, rgb(21, 47, 79)  100%);
   border: none;
 
 }
@@ -299,7 +320,7 @@ body,
 /** modal button */
 
 .customModalButton {
-  background-image: linear-gradient(to right, #908d91 0%, #5f5f5f  51%, #908d91  100%);
+  background-image: linear-gradient(to right, rgb(21, 47, 79) 0%, rgb(16, 37, 63)  51%, rgb(21, 47, 79)  100%);
   border: none;
 }
 .customModalButton {
@@ -367,15 +388,116 @@ body,
   backdrop-filter: blur(15px);
 }
 .customTypo{
-  max-height: 180px;
-  overflow-Y: auto
+  width: 100%;
+  
+  margin: 0 auto;
+}
+iframe{
+  display:block;
+  margin: auto;
+}
+.customAccordion{
+  margin: 2em
+}
+.customActualityButton {
+  background-image: linear-gradient(to right, rgb(21, 47, 79) 0%, rgb(16, 37, 63)  51%, rgb(21, 47, 79)  100%);
+  border: none;
+
+}
+.customActualityButton {
+  margin: auto;
+  width : 180px;
+  text-align: center;
+  transition: 0.5s;
+  background-size: 200% auto;
+  color: #fff;
+  display: block;
+ }
+
+ .customActualityButton:hover{
+  background-position: right center; /* change the direction of the change here */
+  text-decoration: none;
+  color: white;
+
+}
+.customNewsDivInside{
+  margin : 1em;
+  border-top : white solid 1px; 
+  display:flex;
+}
+.customNewsDivOutside{
+  margin : 1em;
+  display:flex;
+}
+.customPaginationDiv{
+  display:flex;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+}
+.customActualityButtonPage {
+  background-image: linear-gradient(to right, rgb(21, 47, 79) 0%, rgb(16, 37, 63)  51%, rgb(21, 47, 79)  100%);
+  border: none;
+  display: inline-block;
+}
+.customActualityButtonPage {
+  width : 180px;
+  transition: 0.5s;
+  background-size: 200% auto;
+  color: #fff;
+  display: block;
+ }
+
+.customActualityButtonPage:hover{
+  background-position: right center; /* change the direction of the change here */
+  text-decoration: none;
+  color: white;
+}
+.customButtonPagination {
+  background-color: transparent;
+  border: none;
+  display: inline-block;
+}
+.customButtonPagination {
+  width : 180px;
+  transition: 0.5s;
+  background-color: transparent;
+  background-size: 200% auto;
+  color: #fff;
+  display: block;
+  margin: 1em;
+ }
+
+.customButtonPagination:hover{
+  background-position: right center; /* change the direction of the change here */
+  background-color: transparent;
+  cursor: context-menu;
+  text-decoration: none;
+  color: white;
+}
+.customButtonPagination:disabled{
+  background-color: transparent;
+}
+.customDivActuality{
+  background-image: url("../../public/static/img/svg/reading.svg");
+  
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position:center bottom;
 }
 /** Editor wysiwyg **/
-
+.writenewsvg{
+  height: auto;
+  background-image: url("../../public/static/img/svg/typewriter.svg");
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position:center bottom;
+}
 .fieldsetActuality{
   display: flex;  
   height: auto;
   padding-left: 2rem;
+  
 }
 .labelActuality{
   display: flex;
@@ -406,9 +528,7 @@ body,
   padding-left: 2rem;
   max-height: 200px;
   overflow-Y: auto;
-
   margin-bottom: 2rem;
-  
  }
 .editorTitle{
   color: #212529;
@@ -427,7 +547,7 @@ body,
   width : 160px;
   margin: auto;
   color: #fff;
-  display: flex;
+  display: block;
   justify-content: center;
   align-items: center;
   height: auto;
@@ -440,4 +560,19 @@ body,
   text-decoration: none;
   color: white;
 
+}
+/** Booking part **/
+
+.CalendarInputLink{
+  color: white;
+  transition: color .2s;
+  text-decoration: none;
+
+}
+.CalendarInputLink:hover{
+  text-decoration:none;
+  color:#4180CB;
+}
+.CalendarInput{
+  width: 250px;
 }

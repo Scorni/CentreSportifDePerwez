@@ -6,15 +6,19 @@ import {HeadGenerator} from '../sports/category/generator';
 import { Button }  from 'reactstrap';
 import DateFnsUtils from '@date-io/date-fns'; 
 import TextField from '@material-ui/core/TextField';
+import { Mutation } from 'react-apollo';
+import {CREATE_ACTUALITY_MUTATION} from '../actualite/Mutation'
+import {  MuiPickersUtilsProvider, KeyboardDatePicker,} from '@material-ui/pickers'
+import Error from '../ErrorMessage'
+import User from '../common/User';
+import { Container, Row, } from 'reactstrap';
 
-import {
-  MuiPickersUtilsProvider,
-  KeyboardDatePicker,
-} from '@material-ui/pickers'
+
 const Editor = dynamic(
   () => import('react-draft-wysiwyg').then(mod => mod.Editor),
   { ssr: false }
 )
+
 const embedVideoCallBack = (link) =>{
         if (link.indexOf("youtube") >= 0){
             link = link.replace("watch?v=","embed/");
@@ -27,7 +31,7 @@ const getHtml = editorState => draftToHtml(convertToRaw(editorState.getCurrentCo
 
 function defaultFormatedDate() {
   rightFormat(new Date())
- }
+}
 
 function rightFormat(el) {
   let formatedDate
@@ -38,6 +42,7 @@ function rightFormat(el) {
   }
   return formatedDate
 }
+
 class MyEditor extends Component {
 
   
@@ -46,7 +51,7 @@ class MyEditor extends Component {
   this.state = {
     editorState: EditorState.createEmpty(),
     date: new Date(),
-    
+    title :  "Actualité du "+ rightFormat(new Date)
     };
   this.handleClick = this.handleClick.bind(this);
   }
@@ -54,7 +59,7 @@ class MyEditor extends Component {
   /** update the state for the editor & html content for the submitting */
   onEditorStateChange = editorState => {
     this.setState({ editorState });
-    this.setState( { ["htmlContent"] : getHtml(editorState) })
+    this.setState( { ["content"] : getHtml(editorState) })
     
   };
   /** update all the labels that has been change*/
@@ -77,9 +82,9 @@ class MyEditor extends Component {
         ["formatedDate"] : rightFormat(new Date)
       })
     }
-    if(!this.state.title){
+    if(!this.state.content){
       this.setState( {
-        ["title"] : "Actualité du "+ rightFormat(new Date)
+        ["content"] : "<p>Contenu de l'actualité du " + rightFormat(new Date) + "</p>"
       })
     }
   }
@@ -97,88 +102,190 @@ class MyEditor extends Component {
   render() {
     const { editorState } = this.state;
     return (
-      <div>
+      <div className="writenewsvg">
         <HeadGenerator title="Créer une nouvelle actualité"/>
-        <form onSubmit={(e)=> {
-          e.preventDefault(); 
-          console.log(this.state)
-        }}>
-          <div className ="fieldsetActuality">
-          <fieldset >
-            <MuiPickersUtilsProvider utils={DateFnsUtils}>        
-                  <KeyboardDatePicker
-                      id="date"
-                      name = "date"
-                      label="Date"
-                      type = "text"
-                      format="dd/MM/yyyy"
-                      value={this.state.date}
-                      onChange={this.handleDateChange}
-                      KeyboardButtonProps={{
-                      'aria-label': 'change date',
-                      }}   
-                      className="labelActuality"                 
-                  />      
-              </MuiPickersUtilsProvider>
-              <br/>
-              <TextField
-                  id="title"
-                  label="Titre"
-                  name ="title"
-                  value={this.state.title}
-                  onChange={this.handleChange}
-                  className="labelActuality"
-                  >
-              </TextField>
-          </fieldset>
-          </div>
-          
-          <Editor 
-            editorState={editorState}
-            wrapperClassName="rich-editor demo-wrapper"
-            editorClassName="demo-editor"
-            onEditorStateChange={this.onEditorStateChange}
-            toolbar={{
-              embedded:{
-                  embedCallback: embedVideoCallBack
-              }
-            }} 
-            className = "customEditor"/>
-          <h4 className = "editorTitle">version HTML</h4>
-          <div className="html-view">
+        <User>
+                    {({data}) => {
+                      const me = data ? data.me : null
+                      if(me){
+                        if(me.permissions[1] === "ADMIN" && me.permissions[2] === "SADMIN"){ 
+                            return(
+                                <>
+                                    <Mutation mutation = {CREATE_ACTUALITY_MUTATION} 
+                                      variables={this.state}>
+                                        {(createActuality, { loading, error}) =>(
+                                          
+                                        
+                                    <form onSubmit={async e=> {
+                                      e.preventDefault(); 
+                                      console.log(this.state);
+                                      const res = await createActuality();
+                                      console.log(res);
+                                    }}>
+                                      
+                                      <div className ="fieldsetActuality">
+                                      <fieldset disabled={loading}>
+                                        <MuiPickersUtilsProvider utils={DateFnsUtils}>        
+                                              <KeyboardDatePicker
+                                                  id="date"
+                                                  name = "date"
+                                                  label="Date"
+                                                  type = "text"
+                                                  format="dd/MM/yyyy"
+                                                  value={this.state.date}
+                                                  onChange={this.handleDateChange}
+                                                  KeyboardButtonProps={{
+                                                  'aria-label': 'change date',
+                                                  }}   
+                                                  className="labelActuality"                 
+                                              />      
+                                          </MuiPickersUtilsProvider>
+                                          <br/>
+                                          <TextField
+                                              id="title"
+                                              label="Titre"
+                                              name ="title"
+                                              value={this.state.title}
+                                              onChange={this.handleChange}
+                                              className="labelActuality"
+                                              >
+                                          </TextField>
+                                      </fieldset>
+                                      </div>
+                                      
+                                      <Editor 
+                                        editorState={editorState}
+                                        wrapperClassName="rich-editor demo-wrapper"
+                                        editorClassName="demo-editor"
+                                        onEditorStateChange={this.onEditorStateChange}
+                                        toolbar={{
+                                          embedded:{
+                                              embedCallback: embedVideoCallBack
+                                          },
+                                          
+                                        }} 
+                                        className = "customEditor"
+                                        disabled = {loading}/>
+                                      <h4 className = "editorTitle">version HTML</h4>
+                                      <div className="html-view">
 
-            {getHtml(editorState)}
-              
-            <PreviewModal output={getHtml(editorState)} />
-          </div>
-          <button className="previewButton" data-toggle="modal" data-target="#previewModal" onClick={this.handleClick}>
-              Version pré-rendue
-          </button>
-        </form>
+                                        {getHtml(editorState)}
+                                          
+                                      </div>
+                                      <Button className="previewButton" type="submit" onClick={this.handleClick}>
+                                          Valider l'actualité
+                                      </Button>
+                                    </form>
+                                    )}
+                                    </Mutation>
+                                </>
+                            )
+                            }else if(me.permissions[1] === "ADMIN"){
+                                return(
+                                    <>
+                                        <Mutation mutation = {CREATE_ACTUALITY_MUTATION} 
+                                          variables={this.state}>
+                                            {(createActuality, { loading, error}) =>(
+                                              
+                                            
+                                        <form onSubmit={async e=> {
+                                          e.preventDefault(); 
+                                          console.log(this.state);
+                                          const res = await createActuality();
+                                          console.log(res);
+                                        }}>
+                                          <Error error={error} />
+                                          <div className ="fieldsetActuality">
+                                          <fieldset disabled={loading}>
+                                            <MuiPickersUtilsProvider utils={DateFnsUtils}>        
+                                                  <KeyboardDatePicker
+                                                      id="date"
+                                                      name = "date"
+                                                      label="Date"
+                                                      type = "text"
+                                                      format="dd/MM/yyyy"
+                                                      value={this.state.date}
+                                                      onChange={this.handleDateChange}
+                                                      KeyboardButtonProps={{
+                                                      'aria-label': 'change date',
+                                                      }}   
+                                                      className="labelActuality"                 
+                                                  />      
+                                              </MuiPickersUtilsProvider>
+                                              <br/>
+                                              <TextField
+                                                  id="title"
+                                                  label="Titre"
+                                                  name ="title"
+                                                  value={this.state.title}
+                                                  onChange={this.handleChange}
+                                                  className="labelActuality"
+                                                  >
+                                              </TextField>
+                                          </fieldset>
+                                          </div>
+                                          
+                                          <Editor 
+                                            editorState={editorState}
+                                            wrapperClassName="rich-editor demo-wrapper"
+                                            editorClassName="demo-editor"
+                                            onEditorStateChange={this.onEditorStateChange}
+                                            toolbar={{
+                                              embedded:{
+                                                  embedCallback: embedVideoCallBack
+                                              },
+                                              
+                                            }} 
+                                            className = "customEditor"
+                                            disabled = {loading}/>
+                                          <h4 className = "editorTitle">version HTML</h4>
+                                          <div className="html-view">
+
+                                            {getHtml(editorState)}
+                                              
+                                          </div>
+                                          <Button className="previewButton" type="submit" onClick={this.handleClick}>
+                                              Valider l'actualité
+                                          </Button>
+                                        </form>
+                                        )}
+                                        </Mutation>
+                                    </>
+                                )
+                            }
+                        else if(me.permissions[0] === "USER"){
+                            return(
+                              <Container className="themed-container " fluid={true} >
+                                    <Row className="mx-auto justify-content-center">
+                                        <div className= "styledDiv bluredInformations">
+                                            <p>
+                                                <strong>
+                                                    <h3>Vous devez être administrateur pour accéder à cette page</h3>
+                                                </strong>
+                                            </p>
+                                        </div>
+                                    </Row>
+                                </Container>
+                            )
+                        }}else{
+                            return(
+                                <Container className="themed-container " fluid={true} >
+                                    <Row className="mx-auto justify-content-center">
+                                        <div className= "styledDiv bluredInformations">
+                                            <p>
+                                                <strong>
+                                                    <h3>Vous devez être connecté pour accéder à cette page</h3>
+                                                </strong>
+                                            </p>
+                                        </div>
+                                    </Row>
+                                </Container>
+                            )
+                        }}}
+                    </User>
+        
       </div>
     );
   } 
 }
-const PreviewModal = ({ output }) => (
-  <div class="modal fade" id="previewModal" tabindex="-1"      role="dialog" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel"> 
-            Pré-rendu de votre actualité
-          </h5>
-          <button type="button" class="close" data-dismiss="modal"   aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body" dangerouslySetInnerHTML={{ __html: output }} />
-        <div class="modal-footer">
-          <Button type="submit"  className="customButton" id="sendDataButton" data-dismiss="modal">
-            Valider l'actualité
-          </Button>
-        </div>
-      </div>
-    </div>
-  </div>
-);
 export default MyEditor;
