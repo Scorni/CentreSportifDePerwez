@@ -3,6 +3,8 @@ import Page from '../components/Page';
 import '../public/static/style.css';
 import '../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
+import "react-big-calendar/lib/addons/dragAndDrop/styles.css";
+
 import Loading from '../components/common/ProgressBar';
 import { ApolloProvider } from 'react-apollo';
 import withData from '../withData';

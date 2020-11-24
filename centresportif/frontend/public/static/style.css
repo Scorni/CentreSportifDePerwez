@@ -561,3 +561,18 @@ iframe{
   color: white;
 
 }
+/** Booking part **/
+
+.CalendarInputLink{
+  color: white;
+  transition: color .2s;
+  text-decoration: none;
+
+}
+.CalendarInputLink:hover{
+  text-decoration:none;
+  color:#4180CB;
+}
+.CalendarInput{
+  width: 250px;
+}
