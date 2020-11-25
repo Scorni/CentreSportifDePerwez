@@ -349,14 +349,14 @@ body,
 .footer .links ul {
   list-style-type: none;
 }
-.footer .links li a{
+.footer a{
       color: white;
       transition: color .2s;
 }
-.footer .links li a:hover{
+.footer a:hover{
         text-decoration:none;
         color:#4180CB;
-        }
+}
 .about-company i{
   font-size: 25px;
 }
@@ -563,16 +563,28 @@ iframe{
 }
 /** Booking part **/
 
-.CalendarInputLink{
+.BookingForm a{
   color: white;
   transition: color .2s;
   text-decoration: none;
 
 }
-.CalendarInputLink:hover{
+.BookingForm a:hover{
   text-decoration:none;
-  color:#4180CB;
+  color:black;
 }
 .CalendarInput{
   width: 250px;
 }
+
+.footer .links ul {
+  list-style-type: none;
+}
+.footer a{
+      color: white;
+      transition: color .2s;
+}
+.footer a:hover{
+        text-decoration:none;
+        color:#4180CB;
+        }

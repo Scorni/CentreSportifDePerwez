@@ -12,6 +12,7 @@ import {
     Button, Label,Input,Container,Col,Row} from 'reactstrap';
 import Link from "next/link";
 import {TextField,Select,MenuItem,InputLabel,FormControl   } from '@material-ui/core';
+import { getDay } from 'date-fns';
 
 /** TO DO IN DB
  *  Is_confirmed 
@@ -193,14 +194,26 @@ class CreateNewBooking extends Component {
     }
 
     newEvent(event) {
+      console.log("New event")
+      let type = "default"
+      console.log("réservation de: " + event.start + "jusqu'au " + event.end + "]]")
+      if((event.end.getDate() - event.start.getDate()) === 0 && (event.start.getTime() - event.end.getTime()) === 0 || (event.end.getDate() - event.start.getDate()) === 1){
+        console.log("réservation d'un jour entier : " + event.start + "jusqu'au " + event.end)
+        type = "allDay"
+      }else if((event.end.getDate() - event.start.getDate()) > 1){
+        console.log("réservation sur plusieurs jours : " + event.start + "jusqu'au " + event.end)
+
+        type = "multipleDays"
+      }
       let idList = this.state.events.map(a => a.id)
       let newId = Math.max(...idList) + 1
       let hour = {
         id: newId,
-        title: 'New Event',
+        title: <div className="BookingForm"><Link href="#CalendarInput">Cliquez ici pour choisir les options</Link></div>,
         allDay: event.slots.length == 1,
         start: event.start,
         end: event.end,
+        type: type,
       }
       this.setState({
         events: this.state.events.concat([hour]),
@@ -262,16 +275,42 @@ class CreateNewBooking extends Component {
                 {this.state.newEvent === true 
                 ? <Container>
                   <Col>
-                    <Row>
+                    <Row >
                       <TextField label="Titre" id="CalendarInput" className="CalendarInput" onBlur={e => this.updateValue(e.target.value,"title")} placeholder="Titre" style={{margin:"0.5em"}}></TextField>
                       <FormControl style={{margin:"0.5em"}}>
                         <InputLabel htmlFor="CalendarSelect">Type</InputLabel>
-                        <Select labelId="CalendarSelect" className="CalendarInput"  id="CalendarSelect" onBlur={e => this.updateValue(e.target.value,"type")} placeholder="Type" defaultValue ={''}>
-                          <MenuItem  value="default">Plage d'heures</MenuItem>
-                          <MenuItem  value="allDay">Toute la journée</MenuItem>
-                          <MenuItem  value="multipleDays">Plusieurs jours d'affilée</MenuItem>
-                          <MenuItem  value="holidays">Vacances</MenuItem>
-                        </Select>
+                          {this.state.events[this.state.events.length - 1].type === "allDay" 
+                          ? 
+                          <Select labelId="CalendarSelect" className="CalendarInput"  id="CalendarSelect" onBlur={e => this.updateValue(e.target.value,"type")} placeholder="Type" defaultValue ={''}>
+                            <MenuItem  value="allDay">Toute la journée</MenuItem>
+                          </Select>
+                          : null
+                          }
+                          {this.state.events[this.state.events.length - 1].type === "multipleDays" 
+                          ?                         
+                          <Select labelId="CalendarSelect" className="CalendarInput"  id="CalendarSelect" onBlur={e => this.updateValue(e.target.value,"type")} placeholder="Type" defaultValue ={''}>
+                            <MenuItem  value="multipleDays">Plusieurs jours d'affilée</MenuItem>
+                            <MenuItem  value="holidays">Vacances</MenuItem>
+                          </Select>
+                          : null
+                          }
+                          {this.state.events[this.state.events.length - 1].type === "holidays" 
+                          ?                         
+                          <Select labelId="CalendarSelect" className="CalendarInput"  id="CalendarSelect" onBlur={e => this.updateValue(e.target.value,"type")} placeholder="Type" defaultValue ={''}>
+                            <MenuItem  value="multipleDays">Plusieurs jours d'affilée</MenuItem>
+                            <MenuItem  value="holidays">Vacances</MenuItem>
+                          </Select>
+                          
+                          : null
+                          }
+                          {this.state.events[this.state.events.length - 1].type === "default" 
+                          ?                         
+                          <Select labelId="CalendarSelect" className="CalendarInput"  id="CalendarSelect" onBlur={e => this.updateValue(e.target.value,"type")} placeholder="Type" defaultValue ={''}>
+                            <MenuItem  value="default">Plage d'heures</MenuItem>
+                          </Select>
+                          : null
+                          }
+                        
                       </FormControl>
                       
                       <TextField label="Date de début" id="CalendarInput" className="CalendarInput" onBlur={e => this.updateValue(e.target.value,"start")} defaultValue= {this.state.events[this.state.events.length - 1].start || ''} placeholder="Heure de début" style={{margin:"0.5em"}}></TextField>

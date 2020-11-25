@@ -18,7 +18,7 @@ const Header = () => (
               <h2>Centre Sportif de Perwez</h2>
               <p className="pr-5 text-white-50">Le centre sportif offre des infrastructures de haute qualité autant pour les sports collectifs qu'individuels. On peut y retrouver plus de 25 clubs, proposant un bel éventail de disciplines. </p>            
               <p className="pr-5 text-white-50">Vous souhaitez en savoir plus ?</p>
-              <Link href='/'>Cliquez ici !</Link>
+              <Link href='/' style={{color: "white"}}>Cliquez ici !</Link>
               <p><a href="#"><i className="fa fa-facebook-square mr-1"></i></a><a href="#"><i className="fa fa-linkedin-square"></i></a></p>
             </div>
             <div className="col-lg-3 col-xs-12 links">
