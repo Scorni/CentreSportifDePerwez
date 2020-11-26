@@ -567,11 +567,15 @@ iframe{
   color: white;
   transition: color .2s;
   text-decoration: none;
+  user-select: none;
+    -webkit-user-drag: none;
 
 }
 .BookingForm a:hover{
   text-decoration:none;
   color:black;
+  user-select: none;
+    -webkit-user-drag: none;
 }
 .CalendarInput{
   width: 250px;

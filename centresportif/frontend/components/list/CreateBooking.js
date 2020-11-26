@@ -79,7 +79,7 @@ const customStyles = {
 const title ="";
 let allViews = Object.keys(Views).map(k => Views[k])
 
-
+/**Système de comptage de nouvel evenement */
 class CreateNewBooking extends Component {
     constructor(...args) {
         super(...args)
@@ -116,13 +116,26 @@ class CreateNewBooking extends Component {
     updateValue = (e,inputType) => {
       console.log("updated value : " + e)
       if (this.state.newEvent === true){
-        if(inputType === "title"){
+        if(inputType === "title"){          
+
           this.state.events[this.state.events.length - 1].title = e
+          if(e === ""){
+
+            this.state.events[this.state.events.length - 1].title = "Veuillez choisir un titre de réservation"
+          }
 
         }else if(inputType === "type"){
+
           this.state.events[this.state.events.length - 1].type = e
 
+          if(typeof this.state.events[this.state.events.length - 1].title !== 'string'){
+
+            this.state.events[this.state.events.length - 1].title = "Veuillez choisir un titre de réservation"
+
+          }
+
         }else if(inputType === "start"){
+
           this.state.events[this.state.events.length - 1].start = e
 
         }
@@ -140,7 +153,7 @@ class CreateNewBooking extends Component {
 
     onDropFromOutside = ({ start, end, allDay }) => {
       const { draggedEvent } = this.state
-
+      
       const event = {
         id: draggedEvent.id,
         title: draggedEvent.title,
@@ -148,7 +161,7 @@ class CreateNewBooking extends Component {
         end,
         allDay: allDay,
       }
-
+      
       this.setState({ draggedEvent: null })
       this.moveEvent({ event, start, end })
     }
@@ -179,37 +192,43 @@ class CreateNewBooking extends Component {
 
     resizeEvent = ({ event, start, end }) => {
       const { events } = this.state
+      let type = "default"
+
+      if((end.getDate() - start.getDate()) === 0 && (start.getTime() - end.getTime()) === 0 || (end.getDate() - start.getDate()) === 1){
+        type = "allDay"
+      }else if((end.getDate() - start.getDate()) > 1 || (start.getDate() - end.getDate()) > 1){
+        if(event.type === "holidays"){
+          type= "holidays"
+        }else{
+          type = "multipleDays"
+        }
+      }
 
       const nextEvents = events.map(existingEvent => {
         return existingEvent.id == event.id
-          ? { ...existingEvent, start, end }
+          ? { ...existingEvent, start, end,type }
           : existingEvent
       })
-
+      
       this.setState({
         events: nextEvents,
       })
 
-      //alert(`${event.title} was resized to ${start}-${end}`)
+      alert(`${event.title} a été ajusté du ${start} au ${end}`)
     }
 
     newEvent(event) {
-      console.log("New event")
       let type = "default"
-      console.log("réservation de: " + event.start + "jusqu'au " + event.end + "]]")
       if((event.end.getDate() - event.start.getDate()) === 0 && (event.start.getTime() - event.end.getTime()) === 0 || (event.end.getDate() - event.start.getDate()) === 1){
-        console.log("réservation d'un jour entier : " + event.start + "jusqu'au " + event.end)
         type = "allDay"
-      }else if((event.end.getDate() - event.start.getDate()) > 1){
-        console.log("réservation sur plusieurs jours : " + event.start + "jusqu'au " + event.end)
-
+      }else if(event.end.getDate() - event.start.getDate() > 1 || (event.start.getDate() - event.end.getDate()) > 1){
         type = "multipleDays"
       }
       let idList = this.state.events.map(a => a.id)
       let newId = Math.max(...idList) + 1
       let hour = {
         id: newId,
-        title: <div className="BookingForm"><Link href="#CalendarInput">Cliquez ici pour choisir les options</Link></div>,
+        title: <div className="BookingForm"><Link href="#CalendarInput">Veuillir définir les options ci-dessous</Link></div>,
         allDay: event.slots.length == 1,
         start: event.start,
         end: event.end,
@@ -243,7 +262,7 @@ class CreateNewBooking extends Component {
                 handleDragStart={this.handleDragStart}
                 startAccessor="start"
                 endAccessor="end"  
-                onSelectEvent={event => alert(event.title)}/** print title event */
+                onSelectEvent={ event => Object.prototype.toString.call(event.title) === "[object String]" ? alert(event.title) : null }/** print title event */
                 /*onSelectSlot={this.handleSelect}*/
                 min={new Date(0, 10, 0, 8, 0, 0)}
                 max={new Date(0, 10, 0, 23, 0, 0)} 
@@ -316,6 +335,7 @@ class CreateNewBooking extends Component {
                       <TextField label="Date de début" id="CalendarInput" className="CalendarInput" onBlur={e => this.updateValue(e.target.value,"start")} defaultValue= {this.state.events[this.state.events.length - 1].start || ''} placeholder="Heure de début" style={{margin:"0.5em"}}></TextField>
 
                       <TextField label="Date de fin" id="CalendarInput" className="CalendarInput" onBlur={e => this.updateValue(e.target.value,"end")} defaultValue= {this.state.events[this.state.events.length - 1].end || ''} placeholder="Heure de fin" style={{margin:"0.5em"}}></TextField>
+                      <Button onClick= {e => this.deleteEvent(e.target.value,"end")}>X</Button>
                     </Row>
                   </Col>
                 </Container>
