@@ -79,7 +79,6 @@ const customStyles = {
 const title ="";
 let allViews = Object.keys(Views).map(k => Views[k])
 
-/**Système de comptage de nouvel evenement */
 class CreateNewBooking extends Component {
     constructor(...args) {
         super(...args)
@@ -186,6 +185,7 @@ class CreateNewBooking extends Component {
     this.setState({
       events: nextEvents,
     })
+    alert(`Votre réservation a été ajusté du ${start.getDate()}/${start.getMonth() + 1}/${start.getFullYear()} au ${end.getDate() - 1 }/${end.getMonth() + 1}/${end.getFullYear()} compris`)
 
     // alert(`${event.title} was dropped onto ${updatedEvent.start}`)
   }
@@ -214,7 +214,7 @@ class CreateNewBooking extends Component {
         events: nextEvents,
       })
 
-      alert(`${event.title} a été ajusté du ${start} au ${end}`)
+      alert(`Votre réservation a été ajusté du ${start.getDate()}/${start.getMonth() + 1}/${start.getFullYear()} au ${end.getDate() - 1 }/${end.getMonth() + 1}/${end.getFullYear()} compris`)
     }
 
     newEvent(event) {
@@ -228,7 +228,7 @@ class CreateNewBooking extends Component {
       let newId = Math.max(...idList) + 1
       let hour = {
         id: newId,
-        title: <div className="BookingForm"><Link href="#CalendarInput">Veuillir définir les options ci-dessous</Link></div>,
+        title: <div className="BookingForm"><Link href="#CalendarInput">Cliquez ici pour les options!</Link></div>,
         allDay: event.slots.length == 1,
         start: event.start,
         end: event.end,
@@ -238,6 +238,19 @@ class CreateNewBooking extends Component {
         events: this.state.events.concat([hour]),
         newEvent : true,
       })
+    }
+    /** trouver comment filtrer tout ce bourdel !  */
+    deleteEvent(e){
+      console.log(this.state.events)
+      e = parseInt(e.slice(15));
+      console.log(typeof e)
+      //let test = this.setState(events.filter((e)=>(e.id !== event)))
+      
+      this.setState(prevState => ({
+        events: prevState.events.filter(event => event.id !== e)
+      }));
+      //console.log(test)
+      console.log(this.state.events)
     }
     render() {
         return (
@@ -295,7 +308,7 @@ class CreateNewBooking extends Component {
                 ? <Container>
                   <Col>
                     <Row >
-                      <TextField label="Titre" id="CalendarInput" className="CalendarInput" onBlur={e => this.updateValue(e.target.value,"title")} placeholder="Titre" style={{margin:"0.5em"}}></TextField>
+                      <TextField label="Titre" id={"CalendarInputId"+this.state.events[this.state.events.length - 1].id} className="CalendarInput" onBlur={e => this.updateValue(e.target.value,"title")} placeholder="Titre" style={{margin:"0.5em"}}></TextField>
                       <FormControl style={{margin:"0.5em"}}>
                         <InputLabel htmlFor="CalendarSelect">Type</InputLabel>
                           {this.state.events[this.state.events.length - 1].type === "allDay" 
@@ -335,7 +348,7 @@ class CreateNewBooking extends Component {
                       <TextField label="Date de début" id="CalendarInput" className="CalendarInput" onBlur={e => this.updateValue(e.target.value,"start")} defaultValue= {this.state.events[this.state.events.length - 1].start || ''} placeholder="Heure de début" style={{margin:"0.5em"}}></TextField>
 
                       <TextField label="Date de fin" id="CalendarInput" className="CalendarInput" onBlur={e => this.updateValue(e.target.value,"end")} defaultValue= {this.state.events[this.state.events.length - 1].end || ''} placeholder="Heure de fin" style={{margin:"0.5em"}}></TextField>
-                      <Button onClick= {e => this.deleteEvent(e.target.value,"end")}>X</Button>
+                      <Button onClick= {e => this.deleteEvent(document.getElementById("CalendarInputId"+this.state.events[this.state.events.length - 1].id).id) }>X</Button>
                     </Row>
                   </Col>
                 </Container>
