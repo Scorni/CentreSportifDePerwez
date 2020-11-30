@@ -57,14 +57,14 @@ const events =
         title: 'DTS STARTS',
         start: new Date(2020, 2, 13, 0, 0, 0),
         end: new Date(2020, 2, 20, 0, 0, 0),
-        type: "default"
+        type: "timeSlot"
       },{
         id: 7,
         title: 'Lunch',
         start: new Date(2020, 2, 12, 12, 30, 0, 0),
         end: new Date(2020, 2, 12, 13, 30, 0, 0),
         desc: 'Power lunch',
-        type: "default"
+        type: "timeSlot"
       }]
 const customStyles = {
     content : {
@@ -169,16 +169,26 @@ class CreateNewBooking extends Component {
       const { events } = this.state
 
       let allDay = event.allDay
+      let type = event.type
 
       if (!event.allDay && droppedOnAllDaySlot) {
         allDay = true
+        type = "allDay"
+
       } else if (event.allDay && !droppedOnAllDaySlot) {
         allDay = false
-      }
+        type = "timeSlot"
 
+      } else {
+        /** TODO : ici la modif */
+        allDay = false
+
+        end.setDate(start.getDate())
+        type = "timeSlot"
+      }
     const nextEvents = events.map(existingEvent => {
       return existingEvent.id == event.id
-        ? { ...existingEvent, start, end }
+        ? { ...existingEvent, start, end, allDay,type }
         : existingEvent
     })
 
@@ -193,15 +203,19 @@ class CreateNewBooking extends Component {
   
     resizeEvent = ({ event, start, end }) => {
       const { events } = this.state
-      let type = "default"
-
+      let type = "timeSlot"
+    
       if((end.getDate() - start.getDate()) === 0 && (start.getTime() - end.getTime()) === 0 || (end.getDate() - start.getDate()) === 1){
         type = "allDay"
       }else if((end.getDate() - start.getDate()) > 1 || (start.getDate() - end.getDate()) > 1){
         if(event.type === "holidays"){
           type= "holidays"
+          end.setHours(0,0,0,0);
+          start.setHours(0,0,0,0);
         }else{
           type = "multipleDays"
+          end.setHours(0,0,0,0);
+          start.setHours(0,0,0,0);
         }
       }
 
@@ -218,8 +232,12 @@ class CreateNewBooking extends Component {
       alert(`Votre réservation a été ajusté du ${start.getDate()}/${start.getMonth() + 1}/${start.getFullYear()} au ${end.getDate() - 1 }/${end.getMonth() + 1}/${end.getFullYear()} compris`)
     }
 
+    /* TODO :
+        prendre en compte le dernier jour du calendrier par rapport au premier du suivant pour avoir la bonne valeur de réservation et donc le style aussi 
+        resoudre problème d'une réservation de plusieurs changé en horaire sur une journée => chech moveEvent : changé 
+    */
     newEvent(event) {
-      let type = "default"
+      let type = "timeSlot"
       if((event.end.getDate() - event.start.getDate()) === 0 && (event.start.getTime() - event.end.getTime()) === 0 || (event.end.getDate() - event.start.getDate()) === 1){
         type = "allDay"
       }else if(event.end.getDate() - event.start.getDate() > 1 || (event.start.getDate() - event.end.getDate()) > 1){
@@ -239,7 +257,6 @@ class CreateNewBooking extends Component {
         events: this.state.events.concat([hour]),
         newEvent : this.state.newEvent + 1,
       })
-      console.log(this.state.newEvent)
 
     }
     /** trouver comment filtrer tout ce bourdel !  */
@@ -269,7 +286,7 @@ class CreateNewBooking extends Component {
           else if(this.state.events[this.state.events.length - 1].type === "holidays" ){
             customOptions.push(<Container><Col><Row ><TextField label="Titre" id={"CalendarInputId"+this.state.events[this.state.events.length - 1].id } className="CalendarInput"  placeholder="Titre" style={{margin:"0.5em"}} onBlur={e => this.updateValue(e.target.value,"title")}></TextField><FormControl style={{margin:"0.5em"}}><InputLabel htmlFor="CalendarSelect">Type</InputLabel><Select labelId="CalendarSelect" className="CalendarInput"  id="CalendarSelect" onBlur={e =>this.updateValue(e.target.value,"type")} placeholder="Type" defaultValue ={""}><MenuItem  value="multipleDays">Plusieurs jours d'affilée</MenuItem><MenuItem  value="holidays">Vacances</MenuItem></Select></FormControl><TextField label="Date de début" id="CalendarInput" className="CalendarInput" onBlur={e => this.updateValue(e.target.value,"start")} defaultValue= {this.state.events[this.state.events.length - 1].start || ""} placeholder="Heure de début" style={{margin:"0.5em"}}></TextField><TextField label="Date de fin" id="CalendarInput" className="CalendarInput" onBlur={e =>this.updateValue(e.target.value,"end")} defaultValue= {this.state.events[this.state.events.length - 1].end || ""} placeholder="Heure de fin" style={{margin:"0.5em"}}></TextField><Button onClick= {e => this.deleteEvent(document.getElementById("CalendarInputId"+this.state.events[this.state.events.length - 1].id).id) }>X</Button></Row></Col></Container>);          
           }
-          else if(this.state.events[this.state.events.length - 1].type === "default"){
+          else if(this.state.events[this.state.events.length - 1].type === "timeSlot"){
             customOptions.push(
             <Container>
               <Col>
@@ -320,7 +337,7 @@ class CreateNewBooking extends Component {
                         border: "none"
                       };
                       
-                      if (event.type == "default"){
+                      if (event.type == "timeSlot"){
                         newStyle.backgroundColor = "lightgreen"
                       }else if (event.type == "allday"){
                         newStyle.backgroundColor = "green"
