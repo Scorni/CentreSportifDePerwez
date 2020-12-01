@@ -116,9 +116,15 @@ class CreateNewBooking extends Component {
       console.log("updated value : " + e)
       if (this.state.newEvent > 0){
         if(inputType === "title"){          
-          /** voir si ca peut le faire avec DnDCal selectevent pour que ce soit dynamique */
+          /** voir si ca peut le faire avec DnDCal selectevent pour que ce soit dynamique : jsuis idiot j'utilise pas du tout le setState,je suis un malotru */
           this.state.events[this.state.events.length - 1].title = e
-          document.getElementsByTagName('DragAndDropCalendar').onSelectEvent
+          /*this.setState(prevState => {
+            let events = { ...prevState.events };;  // creating copy of state variable jasper
+            events.title = e;                     // update the name property, assign a new value                 
+            return { events };                                 // return new object jasper object
+          })*/
+          //this.setState({events : [this.state.events.length - 1][{title : e}]})
+          //  this.forceUpdate(); ultimate solution
           if(e === ""){
 
             this.state.events[this.state.events.length - 1].title = "Veuillez choisir un titre de réservation"
