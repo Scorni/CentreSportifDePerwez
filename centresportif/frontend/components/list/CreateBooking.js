@@ -112,41 +112,45 @@ class CreateNewBooking extends Component {
         })
         console.log(this.state.events[this.state.events.length - 1].title)
     }
-    updateValue = (e,inputType) => {
+    updateValue = (e,inputType,id) => {
       console.log("updated value : " + e)
+      console.log(id)
       if (this.state.newEvent > 0){
         if(inputType === "title"){          
-          /** voir si ca peut le faire avec DnDCal selectevent pour que ce soit dynamique : jsuis idiot j'utilise pas du tout le setState,je suis un malotru */
-          this.state.events[this.state.events.length - 1].title = e
-          /*this.setState(prevState => {
-            let events = { ...prevState.events };;  // creating copy of state variable jasper
-            events.title = e;                     // update the name property, assign a new value                 
-            return { events };                                 // return new object jasper object
-          })*/
+          
+          this.setState(prev => ({
+            events: prev.events.map(events => events.id === id ? { ...events, title: e } : events)
+          }))
           //this.setState({events : [this.state.events.length - 1][{title : e}]})
           //  this.forceUpdate(); ultimate solution
           if(e === ""){
-
-            this.state.events[this.state.events.length - 1].title = "Veuillez choisir un titre de réservation"
+            this.setState(prev => ({
+              events: prev.events.map(events => events.id === id ? { ...events, title: "Veuillez choisir un titre de réservation" } : events)
+            }))
           }
 
         }else if(inputType === "type"){
 
-          this.state.events[this.state.events.length - 1].type = e
-
+          this.setState(prev => ({
+            events: prev.events.map(events => events.id === id ? { ...events, type: e } : events)
+          }))
           if(typeof this.state.events[this.state.events.length - 1].title !== 'string'){
 
-            this.state.events[this.state.events.length - 1].title = "Veuillez choisir un titre de réservation"
-
+            this.setState(prev => ({
+              events: prev.events.map(events => events.id === id ? { ...events, title: "Veuillez choisir un titre de réservation" } : events)
+            }))
           }
 
         }else if(inputType === "start"){
 
-          this.state.events[this.state.events.length - 1].start = e
+          this.setState(prev => ({
+            events: prev.events.map(events => events.id === id ? { ...events, start: e } : events)
+          }))
 
         }else if(inputType === "hebdomadaire"){
-          this.state.events[this.state.events.length - 1].hedbomadaire = e
-          console.log("oui")
+          this.setState(prev => ({
+            events: prev.events.map(events => events.id === id ? { ...events, hedbomadaire: e } : events)
+          }))
         }
 
       }
@@ -291,34 +295,35 @@ class CreateNewBooking extends Component {
     
     render() {
         let customOptions = []
+        let test = []
         for (let index = 0; index < this.state.newEvent; index++) {
-          if(this.state.events[this.state.events.length - 1].type === "allDay"){ 
-            customOptions.push(<Container><Col><Row ><TextField label="Titre" id={"CalendarInputId"+this.state.events[this.state.events.length - 1].id } className="CalendarInput"  placeholder="Titre" style={{margin:"0.5em"}} onBlur={e => this.updateValue(e.target.value,"title")}></TextField><FormControl style={{margin:"0.5em"}}><InputLabel htmlFor="CalendarSelect">Type</InputLabel><Select labelId="CalendarSelect" className="CalendarInput"  id="CalendarSelect" onBlur={e => this.updateValue(e.target.value,"type")} placeholder="Type" defaultValue ={""}><MenuItem  value="allDay">Toute la journée</MenuItem></Select></FormControl><TextField label="Date de début" id="CalendarInput" className="CalendarInput" onBlur={e => this.updateValue(e.target.value,"start")} defaultValue= {this.state.events[this.state.events.length - 1].start || ""} placeholder="Heure de début" style={{margin:"0.5em"}}></TextField><TextField label="Date de fin" id="CalendarInput" className="CalendarInput" onBlur={e =>this.updateValue(e.target.value,"end")} defaultValue= {this.state.events[this.state.events.length - 1].end || ""} placeholder="Heure de fin" style={{margin:"0.5em"}}></TextField><Button onClick= {e => this.deleteEvent(document.getElementById("CalendarInputId"+this.state.events[this.state.events.length - 1].id).id) }>X</Button></Row></Col></Container>);          
+          if(this.state.events[this.state.events.length - (index + 1)].type === "allDay"){ 
+            customOptions.push(<Container><Col><Row ><TextField label="Titre" id={"CalendarInputId"+this.state.events[this.state.events.length - (index + 1)].id } className="CalendarInput"  placeholder="Titre" style={{margin:"0.5em"}} onBlur={e => this.updateValue(e.target.value,"title",this.state.events[this.state.events.length - (index + 1)].id)}></TextField><FormControl style={{margin:"0.5em"}}><InputLabel htmlFor="CalendarSelect">Type</InputLabel><Select labelId="CalendarSelect" className="CalendarInput"  id="CalendarSelect" onChange={e => this.updateValue(e.target.value,"type",this.state.events[this.state.events.length - (index + 1)].id)} placeholder="Type" defaultValue ={""}><MenuItem  value="allDay">Toute la journée</MenuItem></Select></FormControl><TextField label="Date de début" id="CalendarInput" className="CalendarInput" onBlur={e => this.updateValue(e.target.value,"start",this.state.events[this.state.events.length - (index + 1)].id)} defaultValue= {this.state.events[this.state.events.length - (index + 1)].start || ""} placeholder="Heure de début" style={{margin:"0.5em"}}></TextField><TextField label="Date de fin" id="CalendarInput" className="CalendarInput" onBlur={e =>this.updateValue(e.target.value,"end",this.state.events[this.state.events.length - (index + 1)].id)} defaultValue= {this.state.events[this.state.events.length - (index + 1)].end || ""} placeholder="Heure de fin" style={{margin:"0.5em"}}></TextField><Button onClick= {e => this.deleteEvent(document.getElementById("CalendarInputId"+this.state.events[this.state.events.length - (index + 1)].id).id) }>X</Button></Row></Col></Container>);          
           }
           else if(this.state.events[this.state.events.length - 1].type === "multipleDays"){
-            customOptions.push(<Container><Col><Row ><TextField label="Titre" id={"CalendarInputId"+this.state.events[this.state.events.length - 1].id } className="CalendarInput"  placeholder="Titre" style={{margin:"0.5em"}} onBlur={e => this.updateValue(e.target.value,"title")}></TextField><FormControl style={{margin:"0.5em"}}><InputLabel htmlFor="CalendarSelect">Type</InputLabel><Select labelId="CalendarSelect" className="CalendarInput"  id="CalendarSelect" onBlur={e =>this.updateValue(e.target.value,"type")} placeholder="Type" defaultValue ={""}><MenuItem  value="multipleDays">Plusieurs jours d'affilée</MenuItem><MenuItem  value="holidays">Vacances</MenuItem></Select></FormControl><TextField label="Date de début" id="CalendarInput" className="CalendarInput" onBlur={e => this.updateValue(e.target.value,"start")} defaultValue= {this.state.events[this.state.events.length - 1].start || ""} placeholder="Heure de début" style={{margin:"0.5em"}}></TextField><TextField label="Date de fin" id="CalendarInput" className="CalendarInput" onBlur={e =>this.updateValue(e.target.value,"end")} defaultValue= {this.state.events[this.state.events.length - 1].end || ""} placeholder="Heure de fin" style={{margin:"0.5em"}}></TextField><Button onClick= {e => this.deleteEvent(document.getElementById("CalendarInputId"+this.state.events[this.state.events.length - 1].id).id) }>X</Button></Row></Col></Container>);          
+            customOptions.push(<Container><Col><Row ><TextField label="Titre" id={"CalendarInputId"+this.state.events[this.state.events.length - 1].id } className="CalendarInput"  placeholder="Titre" style={{margin:"0.5em"}} onBlur={e => this.updateValue(e.target.value,"title",this.state.events[this.state.events.length - (index + 1)].id)}></TextField><FormControl style={{margin:"0.5em"}}><InputLabel htmlFor="CalendarSelect">Type</InputLabel><Select labelId="CalendarSelect" className="CalendarInput"  id="CalendarSelect" onChange={e =>this.updateValue(e.target.value,"type",this.state.events[this.state.events.length - (index + 1)].id)} placeholder="Type" defaultValue ={""}><MenuItem  value="multipleDays">Plusieurs jours d'affilée</MenuItem><MenuItem  value="holidays">Vacances</MenuItem></Select></FormControl><TextField label="Date de début" id="CalendarInput" className="CalendarInput" onBlur={e => this.updateValue(e.target.value,"start",this.state.events[this.state.events.length - (index + 1)].id)} defaultValue= {this.state.events[this.state.events.length - 1].start || ""} placeholder="Heure de début" style={{margin:"0.5em"}}></TextField><TextField label="Date de fin" id="CalendarInput" className="CalendarInput" onBlur={e =>this.updateValue(e.target.value,"end",this.state.events[this.state.events.length - (index + 1)].id)} defaultValue= {this.state.events[this.state.events.length - 1].end || ""} placeholder="Heure de fin" style={{margin:"0.5em"}}></TextField><Button onClick= {e => this.deleteEvent(document.getElementById("CalendarInputId"+this.state.events[this.state.events.length - 1].id).id) }>X</Button></Row></Col></Container>);          
           }
           else if(this.state.events[this.state.events.length - 1].type === "holidays" ){
-            customOptions.push(<Container><Col><Row ><TextField label="Titre" id={"CalendarInputId"+this.state.events[this.state.events.length - 1].id } className="CalendarInput"  placeholder="Titre" style={{margin:"0.5em"}} onBlur={e => this.updateValue(e.target.value,"title")}></TextField><FormControl style={{margin:"0.5em"}}><InputLabel htmlFor="CalendarSelect">Type</InputLabel><Select labelId="CalendarSelect" className="CalendarInput"  id="CalendarSelect" onBlur={e =>this.updateValue(e.target.value,"type")} placeholder="Type" defaultValue ={""}><MenuItem  value="multipleDays">Plusieurs jours d'affilée</MenuItem><MenuItem  value="holidays">Vacances</MenuItem></Select></FormControl><TextField label="Date de début" id="CalendarInput" className="CalendarInput" onBlur={e => this.updateValue(e.target.value,"start")} defaultValue= {this.state.events[this.state.events.length - 1].start || ""} placeholder="Heure de début" style={{margin:"0.5em"}}></TextField><TextField label="Date de fin" id="CalendarInput" className="CalendarInput" onBlur={e =>this.updateValue(e.target.value,"end")} defaultValue= {this.state.events[this.state.events.length - 1].end || ""} placeholder="Heure de fin" style={{margin:"0.5em"}}></TextField><Button onClick= {e => this.deleteEvent(document.getElementById("CalendarInputId"+this.state.events[this.state.events.length - 1].id).id) }>X</Button></Row></Col></Container>);          
+            customOptions.push(<Container><Col><Row ><TextField label="Titre" id={"CalendarInputId"+this.state.events[this.state.events.length - 1].id } className="CalendarInput"  placeholder="Titre" style={{margin:"0.5em"}} onBlur={e => this.updateValue(e.target.value,"title",this.state.events[this.state.events.length - (index + 1)].id)}></TextField><FormControl style={{margin:"0.5em"}}><InputLabel htmlFor="CalendarSelect">Type</InputLabel><Select labelId="CalendarSelect" className="CalendarInput"  id="CalendarSelect" onChange={e =>this.updateValue(e.target.value,"type",this.state.events[this.state.events.length - (index + 1)].id)} placeholder="Type" defaultValue ={""}><MenuItem  value="multipleDays">Plusieurs jours d'affilée</MenuItem><MenuItem  value="holidays">Vacances</MenuItem></Select></FormControl><TextField label="Date de début" id="CalendarInput" className="CalendarInput" onBlur={e => this.updateValue(e.target.value,"start",this.state.events[this.state.events.length - (index + 1)].id)} defaultValue= {this.state.events[this.state.events.length - 1].start || ""} placeholder="Heure de début" style={{margin:"0.5em"}}></TextField><TextField label="Date de fin" id="CalendarInput" className="CalendarInput" onBlur={e =>this.updateValue(e.target.value,"end",this.state.events[this.state.events.length - (index + 1)].id)} defaultValue= {this.state.events[this.state.events.length - 1].end || ""} placeholder="Heure de fin" style={{margin:"0.5em"}}></TextField><Button onClick= {e => this.deleteEvent(document.getElementById("CalendarInputId"+this.state.events[this.state.events.length - 1].id).id) }>X</Button></Row></Col></Container>);          
           }
           else if(this.state.events[this.state.events.length - 1].type === "timeSlot"){
             customOptions.push(
             <Container>
               <Col>
                 <Row >
-                  <TextField label="Titre" id={"CalendarInputId"+this.state.events[this.state.events.length - 1].id } className="CalendarInput"  placeholder="Titre" style={{margin:"0.5em"}} onBlur={e => this.updateValue(e.target.value,"title")}></TextField>
+                  <TextField label="Titre" id={"CalendarInputId"+this.state.events[this.state.events.length - 1].id } className="CalendarInput"  placeholder="Titre" style={{margin:"0.5em"}} onBlur={e => this.updateValue(e.target.value,"title",this.state.events[this.state.events.length - (index + 1)].id)}></TextField>
                   <FormControl style={{margin:"0.5em"}}>
                     <InputLabel htmlFor="CalendarSelect">Type</InputLabel>
-                    <Select labelId="CalendarSelect" className="CalendarInput"  id="CalendarSelect" onBlur={e =>this.updateValue(e.target.value,"type")} placeholder="Type" defaultValue ={""}>
+                    <Select labelId="CalendarSelect" className="CalendarInput"  id="CalendarSelect" onBlur={e =>this.updateValue(e.target.value,"type",this.state.events[this.state.events.length - (index + 1)].id)} placeholder="Type" defaultValue ={""}>
                       <MenuItem  value="default">Plage d'heures</MenuItem>
                     </Select>
                   </FormControl>
-                  <TextField label="Date de début" id="CalendarInput" className="CalendarInput" onBlur={e => this.updateValue(e.target.value,"start")} defaultValue= {this.state.events[this.state.events.length - 1].start || ""} placeholder="Heure de début" style={{margin:"0.5em"}}></TextField>
-                  <TextField label="Date de fin" id="CalendarInput" className="CalendarInput" onBlur={e =>this.updateValue(e.target.value,"end")} defaultValue= {this.state.events[this.state.events.length - 1].end || ""} placeholder="Heure de fin" style={{margin:"0.5em"}}></TextField>
+                  <TextField label="Date de début" id="CalendarInput" className="CalendarInput" onBlur={e => this.updateValue(e.target.value,"start",this.state.events[this.state.events.length - (index + 1)].id)} defaultValue= {this.state.events[this.state.events.length - 1].start || ""} placeholder="Heure de début" style={{margin:"0.5em"}}></TextField>
+                  <TextField label="Date de fin" id="CalendarInput" className="CalendarInput" onBlur={e =>this.updateValue(e.target.value,"end",this.state.events[this.state.events.length - (index + 1)].id)} defaultValue= {this.state.events[this.state.events.length - 1].end || ""} placeholder="Heure de fin" style={{margin:"0.5em"}}></TextField>
                   <Button onClick= {e => this.deleteEvent(document.getElementById("CalendarInputId"+this.state.events[this.state.events.length - 1].id).id) }>X</Button>
                   <FormControl style={{margin:"0.5em"}}>
                     <InputLabel htmlFor="CalendarSelect">Réservation hebdomadaire ?</InputLabel>
-                    <Select labelId="CalendarSelect" className="CalendarInput"  id="CalendarSelect" onBlur={e =>this.updateValue(e.target.value,"hebdomadaire")} placeholder="hebdomadaire" defaultValue ={""}>
+                    <Select labelId="CalendarSelect" className="CalendarInput"  id="CalendarSelect" onChange={e =>this.updateValue(e.target.value,"hebdomadaire",this.state.events[this.state.events.length - (index + 1)].id)} placeholder="hebdomadaire" defaultValue ={""}>
                       <MenuItem  value="Yes">Oui</MenuItem>
                       <MenuItem  value="No">Non</MenuItem>
                     </Select>
@@ -381,7 +386,7 @@ class CreateNewBooking extends Component {
                   }
                 />
                 
-                {customOptions}
+                {customOptions}{test}
 
             </>
             
