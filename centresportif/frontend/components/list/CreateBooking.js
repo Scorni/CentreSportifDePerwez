@@ -152,6 +152,7 @@ class CreateNewBooking extends Component {
           this.setState(prev => ({
             events: prev.events.map(events => events.id === id ? { ...events, hedbomadaire: e } : events)
           }))
+          console.log(this.state.events[this.state.events.length - 1].hebdomadaire)
         }
 
       }
@@ -195,9 +196,14 @@ class CreateNewBooking extends Component {
 
       } else if (event.allDay && !droppedOnAllDaySlot) {
         allDay = false
-        type = "timeSlot"
-
+        if(start.getHours() !== 0){
+          type = "timeSlot"
+        }
+        if(event.type === "holidays" || event.type === "multipleDays"){
+          alert("veuillez d'abord redimensionner au jours voulu")
+        }
       }
+      
     const nextEvents = events.map(existingEvent => {
       return existingEvent.id == event.id
         ? { ...existingEvent, start, end, allDay,type }
@@ -280,14 +286,43 @@ class CreateNewBooking extends Component {
       })
 
     }
-    deleteEvent(e){
+    deleteEvent(e,index,tab){
       if(this.state.newEvent <= 0){        
         return console.log("plus rien à supprimer")
       }else{
-        e = parseInt(e.slice(15));
         
+        //console.log("event courant : " +this.state.events[this.state.events.length - (index + 1)].title)
+        //console.log("event suivant : " +this.state.events[this.state.events.length - (index)].title)
+        console.log("first one in array :"+document.getElementById("CalendarInputId"+this.state.events[this.state.events.length - (index + 1)].id).value)
+        //console.log("second one in array :"+document.getElementById("CalendarInputId"+this.state.events[this.state.events.length - (index + 2)].id).value)
+        console.log(e.id)
+        for(let i in tab){
+          if(tab[i].props.children.props.children[1].props.children.props.children[0].props.id === e.id){
+            console.log('yes')
+            console.log(tab)
+            console.log(tab[i].props.children.props.children[1].props.children.props)// = this.state.events[this.state.events.length - (1)].title
+            tab.splice(i,1)
+            document.getElementById(e.id).value = this.state.events[this.state.events.length - (index + 1)].title
+            console.log(this.state.events[this.state.events.length - (i +1 )].id)
+
+            console.log(tab)
+          }
+        }
+        /**console.log(tab[0].props.children.props.children[1].props.children.props.children[0].props.id)
+        if(this.state.events[this.state.events.length - (index)]){
+          console.log("event suivant : " +this.state.events[this.state.events.length - (index)].title)
+          if(Object.prototype.toString.call(this.state.events[this.state.events.length - (index)].title) === "[object String]"){
+            //console.log("hey")
+            e.value = this.state.events[this.state.events.length - (index)].title
+            document.getElementById("CalendarInputId"+this.state.events[this.state.events.length - (index)].id).value = this.state.events[this.state.events.length - (index + 1)].title
+            
+          }else{
+            e.value = "bug peut-etre"
+          }
+        }*/
+        let id = parseInt(e.id.slice(15));
         this.setState(prevState => ({
-          events: prevState.events.filter(event => event.id !== e),
+          events: prevState.events.filter(event => event.id !== id),
           newEvent: this.state.newEvent - 1
         }));
       }
@@ -299,42 +334,106 @@ class CreateNewBooking extends Component {
         let test = []
         for (let index = 0; index < this.state.newEvent; index++) {
           if(this.state.events[this.state.events.length - (index + 1)].type === "allDay"){ 
-            customOptions.push(<Container style={{marginBottom:"2em"}}><Col ><fieldset class="border p-2 border-dark rounded"><legend class="w-auto">Réservation n°{index + 1}</legend><Row ><TextField label="Titre" id={"CalendarInputId"+this.state.events[this.state.events.length - (index + 1)].id } className="CalendarInput"  placeholder="Titre" style={{margin:"0.5em"}} onBlur={e => this.updateValue(e.target.value,"title",this.state.events[this.state.events.length - (index + 1)].id)}></TextField><FormControl style={{margin:"0.5em"}}><InputLabel htmlFor="CalendarSelect">Type</InputLabel><Select labelId="CalendarSelect" className="CalendarInput"  id="CalendarSelect" onChange={e => this.updateValue(e.target.value,"type",this.state.events[this.state.events.length - (index + 1)].id)} placeholder="Type" defaultValue ={""}><MenuItem  value="allDay">Toute la journée</MenuItem></Select></FormControl><TextField label="Date de début" id="CalendarInput" className="CalendarInput" onBlur={e => this.updateValue(e.target.value,"start",this.state.events[this.state.events.length - (index + 1)].id)} defaultValue= {this.state.events[this.state.events.length - (index + 1)].start || ""} placeholder="Heure de début" style={{margin:"0.5em"}}></TextField><TextField label="Date de fin" id="CalendarInput" className="CalendarInput" onBlur={e =>this.updateValue(e.target.value,"end",this.state.events[this.state.events.length - (index + 1)].id)} defaultValue= {this.state.events[this.state.events.length - (index + 1)].end || ""} placeholder="Heure de fin" style={{margin:"0.5em"}}></TextField><Button onClick= {e => this.deleteEvent(document.getElementById("CalendarInputId"+this.state.events[this.state.events.length - (index + 1)].id).id) }>X</Button></Row></fieldset></Col></Container>);          
+            customOptions.unshift(
+            <Container style={{marginBottom:"2em"}}>
+              <fieldset style={{padding:'4em'}} class="border p-2 border-dark rounded">
+                <legend class="w-auto">Réservation n°{this.state.newEvent - index}</legend>
+                <Col >
+                    <Row >
+                      
+                      <TextField label="Titre" id={"CalendarInputId"+this.state.events[this.state.events.length - (index + 1)].id } className="CalendarInput"  placeholder="Titre" style={{margin:"0.5em"}} onBlur={e => this.updateValue(e.target.value,"title",this.state.events[this.state.events.length - (index + 1)].id)} InputLabelProps={{ shrink: true }}></TextField>
+                      <FormControl style={{margin:"0.5em"}}>
+                        <InputLabel htmlFor="CalendarSelect">Type</InputLabel>
+                        <Select labelId="CalendarSelect" className="CalendarInput"  id="CalendarSelect" onChange={e => this.updateValue(e.target.value,"type",this.state.events[this.state.events.length - (index + 1)].id)} placeholder="Type" defaultValue ={"allDay"}>
+                          <MenuItem  value="allDay">Toute la journée</MenuItem>
+                        </Select>
+                      </FormControl>
+                      <TextField label="Date de début" id="CalendarInput" className="CalendarInput" onBlur={e => this.updateValue(e.target.value,"start",this.state.events[this.state.events.length - (index + 1)].id)} defaultValue= {this.state.events[this.state.events.length - (index + 1)].start || ""} placeholder="Heure de début" style={{margin:"0.5em"}}></TextField>
+                      <TextField label="Date de fin" id="CalendarInput" className="CalendarInput" onBlur={e =>this.updateValue(e.target.value,"end",this.state.events[this.state.events.length - (index + 1)].id)} defaultValue= {this.state.events[this.state.events.length - (index + 1)].end || ""} placeholder="Heure de fin" style={{margin:"0.5em"}}></TextField>
+                      <Button onClick= {e => this.deleteEvent(document.getElementById("CalendarInputId"+this.state.events[this.state.events.length - (index + 1)].id),index,customOptions) }>X</Button>
+                    </Row>
+                </Col>
+              </fieldset>
+            </Container>);          
           }
           else if(this.state.events[this.state.events.length - (index + 1)].type === "multipleDays"){
-            customOptions.push(<Container style={{marginBottom:"2em"}}><Col><fieldset class="border p-2 border-dark rounded"><legend class="w-auto">Réservation n°{index + 1}</legend><Row ><TextField label="Titre" id={"CalendarInputId"+this.state.events[this.state.events.length - 1].id } className="CalendarInput"  placeholder="Titre" style={{margin:"0.5em"}} onBlur={e => this.updateValue(e.target.value,"title",this.state.events[this.state.events.length - (index + 1)].id)}></TextField><FormControl style={{margin:"0.5em"}}><InputLabel htmlFor="CalendarSelect">Type</InputLabel><Select labelId="CalendarSelect" className="CalendarInput"  id="CalendarSelect" onChange={e =>this.updateValue(e.target.value,"type",this.state.events[this.state.events.length - (index + 1)].id)} placeholder="Type" defaultValue ={""}><MenuItem  value="multipleDays">Plusieurs jours d'affilée</MenuItem><MenuItem  value="holidays">Vacances</MenuItem></Select></FormControl><TextField label="Date de début" id="CalendarInput" className="CalendarInput" onBlur={e => this.updateValue(e.target.value,"start",this.state.events[this.state.events.length - (index + 1)].id)} defaultValue= {this.state.events[this.state.events.length - 1].start || ""} placeholder="Heure de début" style={{margin:"0.5em"}}></TextField><TextField label="Date de fin" id="CalendarInput" className="CalendarInput" onBlur={e =>this.updateValue(e.target.value,"end",this.state.events[this.state.events.length - (index + 1)].id)} defaultValue= {this.state.events[this.state.events.length - 1].end || ""} placeholder="Heure de fin" style={{margin:"0.5em"}}></TextField><Button onClick= {e => this.deleteEvent(document.getElementById("CalendarInputId"+this.state.events[this.state.events.length - 1].id).id) }>X</Button></Row></fieldset></Col></Container>);          
+            customOptions.unshift(
+            <Container style={{marginBottom:"2em"}}>
+              <fieldset style={{padding:'4em'}} class="border p-2 border-dark rounded">
+                <legend class="w-auto">Réservation n°{this.state.newEvent - index}</legend>
+                <Col>
+                  <Row >
+                    <TextField label="Titre" id={"CalendarInputId"+this.state.events[this.state.events.length -  (index + 1)].id } className="CalendarInput"  placeholder="Titre" style={{margin:"0.5em"}} onBlur={e => this.updateValue(e.target.value,"title",this.state.events[this.state.events.length - (index + 1)].id)} InputLabelProps={{ shrink: true }}></TextField>
+                    <FormControl style={{margin:"0.5em"}}>
+                      <InputLabel htmlFor="CalendarSelect">Type</InputLabel>
+                      <Select labelId="CalendarSelect" className="CalendarInput"  id="CalendarSelect" onChange={e =>this.updateValue(e.target.value,"type",this.state.events[this.state.events.length - (index + 1)].id)} placeholder="Type" defaultValue ={""}>
+                        <MenuItem  value="multipleDays">Plusieurs jours d'affilée</MenuItem>
+                        <MenuItem  value="holidays">Vacances</MenuItem>
+                        </Select>
+                        </FormControl>
+                        <TextField label="Date de début" id="CalendarInput" className="CalendarInput" onBlur={e => this.updateValue(e.target.value,"start",this.state.events[this.state.events.length - (index + 1)].id)} defaultValue= {this.state.events[this.state.events.length - 1].start || ""} placeholder="Heure de début" style={{margin:"0.5em"}}></TextField>
+                        <TextField label="Date de fin" id="CalendarInput" className="CalendarInput" onBlur={e =>this.updateValue(e.target.value,"end",this.state.events[this.state.events.length - (index + 1)].id)} defaultValue= {this.state.events[this.state.events.length - 1].end || ""} placeholder="Heure de fin" style={{margin:"0.5em"}}></TextField>
+                        <Button onClick= {e => this.deleteEvent(document.getElementById("CalendarInputId"+this.state.events[this.state.events.length - (index + 1)].id),index) }>X</Button>
+                  </Row>
+                  
+                </Col>
+              </fieldset>
+            </Container>);          
           }
           else if(this.state.events[this.state.events.length - (index + 1)].type === "holidays" ){
-            customOptions.push(<Container style={{marginBottom:"2em"}}><Col><fieldset class="border p-2 border-dark rounded"><legend class="w-auto">Réservation n°{index + 1}</legend><Row ><TextField label="Titre" id={"CalendarInputId"+this.state.events[this.state.events.length - 1].id } className="CalendarInput"  placeholder="Titre" style={{margin:"0.5em"}} onBlur={e => this.updateValue(e.target.value,"title",this.state.events[this.state.events.length - (index + 1)].id)}></TextField><FormControl style={{margin:"0.5em"}}><InputLabel htmlFor="CalendarSelect">Type</InputLabel><Select labelId="CalendarSelect" className="CalendarInput"  id="CalendarSelect" onChange={e =>this.updateValue(e.target.value,"type",this.state.events[this.state.events.length - (index + 1)].id)} placeholder="Type" defaultValue ={""}><MenuItem  value="multipleDays">Plusieurs jours d'affilée</MenuItem><MenuItem  value="holidays">Vacances</MenuItem></Select></FormControl><TextField label="Date de début" id="CalendarInput" className="CalendarInput" onBlur={e => this.updateValue(e.target.value,"start",this.state.events[this.state.events.length - (index + 1)].id)} defaultValue= {this.state.events[this.state.events.length - 1].start || ""} placeholder="Heure de début" style={{margin:"0.5em"}}></TextField><TextField label="Date de fin" id="CalendarInput" className="CalendarInput" onBlur={e =>this.updateValue(e.target.value,"end",this.state.events[this.state.events.length - (index + 1)].id)} defaultValue= {this.state.events[this.state.events.length - 1].end || ""} placeholder="Heure de fin" style={{margin:"0.5em"}}></TextField><Button onClick= {e => this.deleteEvent(document.getElementById("CalendarInputId"+this.state.events[this.state.events.length - 1].id).id) }>X</Button></Row></fieldset></Col></Container>);          
+            customOptions.unshift(
+            <Container style={{marginBottom:"2em"}}>
+              <fieldset style={{padding:'4em'}} class="border p-2 border-dark rounded">
+                <legend class="w-auto">Réservation n°{this.state.newEvent - index}</legend>
+                <Col>
+                  <Row>
+                    <TextField label="Titre" id={"CalendarInputId"+this.state.events[this.state.events.length - (index + 1)].id } className="CalendarInput"  placeholder="Titre" style={{margin:"0.5em"}} onBlur={e => this.updateValue(e.target.value,"title",this.state.events[this.state.events.length - (index + 1)].id)} InputLabelProps={{ shrink: true }}></TextField>
+                    <FormControl style={{margin:"0.5em"}}>
+                      <InputLabel htmlFor="CalendarSelect">Type</InputLabel>
+                      <Select labelId="CalendarSelect" className="CalendarInput"  id="CalendarSelect" onChange={e =>this.updateValue(e.target.value,"type",this.state.events[this.state.events.length - (index + 1)].id)} placeholder="Type" defaultValue ={""}>
+                        <MenuItem  value="multipleDays">Plusieurs jours d'affilée</MenuItem>
+                        <MenuItem  value="holidays">Vacances</MenuItem>
+                      </Select>
+                    </FormControl>
+                    <TextField label="Date de début" id="CalendarInput" className="CalendarInput" onBlur={e => this.updateValue(e.target.value,"start",this.state.events[this.state.events.length - (index + 1)].id)} defaultValue= {this.state.events[this.state.events.length - 1].start || ""} placeholder="Heure de début" style={{margin:"0.5em"}}></TextField>
+                    <TextField label="Date de fin" id="CalendarInput" className="CalendarInput" onBlur={e =>this.updateValue(e.target.value,"end",this.state.events[this.state.events.length - (index + 1)].id)} defaultValue= {this.state.events[this.state.events.length - 1].end || ""} placeholder="Heure de fin" style={{margin:"0.5em"}}></TextField>
+                    <Button onClick= {e => this.deleteEvent(document.getElementById("CalendarInputId"+this.state.events[this.state.events.length - (index + 1)].id),index) }>X</Button>
+                  </Row>
+                </Col>
+              </fieldset>
+            </Container>);          
           }
           else if(this.state.events[this.state.events.length - (index + 1)].type === "timeSlot"){
-            customOptions.push(
+            customOptions.unshift(
             <Container style={{marginBottom:"2em"}}>
-              <Col>
-              <fieldset class="border p-2 border-dark rounded"><legend class="w-auto">Réservation n°{index + 1}</legend>
-                <Row > 
-                  <TextField label="Titre" id={"CalendarInputId"+this.state.events[this.state.events.length - 1].id } className="CalendarInput"  placeholder="Titre" style={{margin:"0.5em"}} onBlur={e => this.updateValue(e.target.value,"title",this.state.events[this.state.events.length - (index + 1)].id)}></TextField>
-                  <FormControl style={{margin:"0.5em"}}>
-                    <InputLabel htmlFor="CalendarSelect">Type</InputLabel>
-                    <Select labelId="CalendarSelect" className="CalendarInput"  id="CalendarSelect" onBlur={e =>this.updateValue(e.target.value,"type",this.state.events[this.state.events.length - (index + 1)].id)} placeholder="Type" defaultValue ={""}>
-                      <MenuItem  value="default">Plage d'heures</MenuItem>
-                    </Select>
-                  </FormControl>
-                  <TextField label="Date de début" id="CalendarInput" className="CalendarInput" onBlur={e => this.updateValue(e.target.value,"start",this.state.events[this.state.events.length - (index + 1)].id)} defaultValue= {this.state.events[this.state.events.length - 1].start || ""} placeholder="Heure de début" style={{margin:"0.5em"}}></TextField>
-                  <TextField label="Date de fin" id="CalendarInput" className="CalendarInput" onBlur={e =>this.updateValue(e.target.value,"end",this.state.events[this.state.events.length - (index + 1)].id)} defaultValue= {this.state.events[this.state.events.length - 1].end || ""} placeholder="Heure de fin" style={{margin:"0.5em"}}></TextField>
-                  <FormControl style={{margin:"0.5em"}}>
-                    <InputLabel htmlFor="CalendarSelect">Réservation hebdomadaire ?</InputLabel>
-                    <Select labelId="CalendarSelect" className="CalendarInput"  id="CalendarSelect" onChange={e =>this.updateValue(e.target.value,"hebdomadaire",this.state.events[this.state.events.length - (index + 1)].id)} placeholder="hebdomadaire" defaultValue ={""}>
-                      <MenuItem  value="Yes">Oui</MenuItem>
-                      <MenuItem  value="No">Non</MenuItem>
-                    </Select>
-                  </FormControl>
-                  {this.state.events[this.state.events.length - (index + 1)].hebdomadaire === "Yes" ? <p>c'est un Yes</p>: <p>c'est un No</p>}
-                  <Button onClick= {e => this.deleteEvent(document.getElementById("CalendarInputId"+this.state.events[this.state.events.length - (index + 1)].id).id) }>X</Button>
-
-                </Row>
-                </fieldset>
-              </Col>
+              <fieldset style={{padding:'4em'}} class="border p-2 border-dark rounded">
+                <legend class="w-auto">Réservation n°{this.state.newEvent - index}</legend>
+                <Col>
+                  <Row > 
+                    <TextField label="Titre" id={"CalendarInputId"+this.state.events[this.state.events.length - (index + 1)].id } className="CalendarInput"  placeholder="Titre" style={{margin:"0.5em"}} onBlur={e => this.updateValue(e.target.value,"title",this.state.events[this.state.events.length - (index + 1)].id)} InputLabelProps={{ shrink: true }}></TextField>
+                    <FormControl style={{margin:"0.5em"}}>
+                      <InputLabel htmlFor="CalendarSelect">Type</InputLabel>
+                      <Select labelId="CalendarSelect" className="CalendarInput"  id="CalendarSelect" onBlur={e =>this.updateValue(e.target.value,"type",this.state.events[this.state.events.length - (index + 1)].id)} placeholder="Type" defaultValue ={"timeSlot"}>
+                        <MenuItem  value="timeSlot" default="timeSlot">Plage d'heures</MenuItem>
+                      </Select>
+                    </FormControl>
+                  
+                    <TextField label="Date de début" id="CalendarInput" className="CalendarInput" onBlur={e => this.updateValue(e.target.value,"start",this.state.events[this.state.events.length - (index + 1)].id)} defaultValue= {this.state.events[this.state.events.length - 1].start || ""} placeholder="Heure de début" style={{margin:"0.5em"}}></TextField>
+                    <TextField label="Date de fin" id="CalendarInput" className="CalendarInput" onBlur={e =>this.updateValue(e.target.value,"end",this.state.events[this.state.events.length - (index + 1)].id)} defaultValue= {this.state.events[this.state.events.length - 1].end || ""} placeholder="Heure de fin" style={{margin:"0.5em"}}></TextField>
+                  </Row>
+                  <Row>
+                    <FormControl style={{margin:"0.5em"}}>
+                      <InputLabel htmlFor="CalendarSelect">Réservation hebdomadaire ?</InputLabel>
+                      <Select labelId="CalendarSelect" className="CalendarInput"  id="CalendarSelect" onChange={e =>this.updateValue(e.target.value,"hebdomadaire",this.state.events[this.state.events.length - (index + 1)].id)} placeholder="hebdomadaire" defaultValue ={"No"}>
+                        <MenuItem  value="Yes">Oui</MenuItem>
+                        <MenuItem  value="No">Non</MenuItem>
+                      </Select>
+                    </FormControl>
+                    {this.state.events[this.state.events.length - (index + 1)].hebdomadaire === "Yes" ? <p>c'est un Yes</p>: <p>c'est un No</p>}
+                    <Button onClick= {e => this.deleteEvent(document.getElementById("CalendarInputId"+this.state.events[this.state.events.length - (index + 1)].id),index) }>X</Button>
+                  </Row>
+                </Col>
+              </fieldset>
             </Container>);          
           }
         }
