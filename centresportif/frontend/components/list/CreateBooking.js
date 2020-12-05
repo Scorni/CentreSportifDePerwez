@@ -295,17 +295,35 @@ class CreateNewBooking extends Component {
         //console.log("event suivant : " +this.state.events[this.state.events.length - (index)].title)
         console.log("first one in array :"+document.getElementById("CalendarInputId"+this.state.events[this.state.events.length - (index + 1)].id).value)
         //console.log("second one in array :"+document.getElementById("CalendarInputId"+this.state.events[this.state.events.length - (index + 2)].id).value)
-        console.log(e.id)
-        for(let i in tab){
+        for(let i = 0; i < tab.length; i++){
+          
           if(tab[i].props.children.props.children[1].props.children.props.children[0].props.id === e.id){
-            console.log('yes')
-            console.log(tab)
+            
             console.log(tab[i].props.children.props.children[1].props.children.props)// = this.state.events[this.state.events.length - (1)].title
-            tab.splice(i,1)
-            document.getElementById(e.id).value = this.state.events[this.state.events.length - (index + 1)].title
-            console.log(this.state.events[this.state.events.length - (i +1 )].id)
+            //tab.splice(i,1)
+            console.log(this.state.events[this.state.events.length - (i +1 )].title)
+            console.log(i)
+            if(i === 0){
+              document.getElementById(e.id).value = this.state.events[this.state.events.length - (this.state.newEvent + i - 1)].title
 
-            console.log(tab)
+            }else{
+              document.getElementById(e.id).value = this.state.events[this.state.events.length - (this.state.newEvent + i -  (i + 2))].title
+              console.log("hey listen")
+
+              if(document.getElementById("CalendarInputId"+this.state.events[this.state.events.length - (index)].id).id){
+                document.getElementById("CalendarInputId"+this.state.events[this.state.events.length - (index)].id).value = this.state.events[this.state.events.length - (this.state.newEvent + i -  (i + 3))].title
+
+                console.log(document.getElementById("CalendarInputId"+this.state.events[this.state.events.length - (index)].id).value)
+              }
+            }
+
+            let id = parseInt(e.id.slice(15));
+            this.setState(prevState => ({
+              events: prevState.events.filter(event => event.id !== id),
+              newEvent: this.state.newEvent - 1
+            }));
+            console.log(i)
+            
           }
         }
         /**console.log(tab[0].props.children.props.children[1].props.children.props.children[0].props.id)
@@ -320,11 +338,10 @@ class CreateNewBooking extends Component {
             e.value = "bug peut-etre"
           }
         }*/
-        let id = parseInt(e.id.slice(15));
-        this.setState(prevState => ({
-          events: prevState.events.filter(event => event.id !== id),
-          newEvent: this.state.newEvent - 1
-        }));
+        
+
+        console.log(this.state.events)
+
       }
       
     }
@@ -341,7 +358,7 @@ class CreateNewBooking extends Component {
                 <Col >
                     <Row >
                       
-                      <TextField label="Titre" id={"CalendarInputId"+this.state.events[this.state.events.length - (index + 1)].id } className="CalendarInput"  placeholder="Titre" style={{margin:"0.5em"}} onBlur={e => this.updateValue(e.target.value,"title",this.state.events[this.state.events.length - (index + 1)].id)} InputLabelProps={{ shrink: true }}></TextField>
+                      <TextField label="Titre" id={"CalendarInputId"+this.state.events[this.state.events.length - (index + 1)].id } className="CalendarInput"  placeholder="Titre" style={{margin:"0.5em"}} onBlur={e => this.updateValue(e.target.value,"title",this.state.events[this.state.events.length - (index + 1)].id)} InputLabelProps={{ shrink: true }} ></TextField>
                       <FormControl style={{margin:"0.5em"}}>
                         <InputLabel htmlFor="CalendarSelect">Type</InputLabel>
                         <Select labelId="CalendarSelect" className="CalendarInput"  id="CalendarSelect" onChange={e => this.updateValue(e.target.value,"type",this.state.events[this.state.events.length - (index + 1)].id)} placeholder="Type" defaultValue ={"allDay"}>
