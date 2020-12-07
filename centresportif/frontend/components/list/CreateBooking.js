@@ -287,34 +287,66 @@ class CreateNewBooking extends Component {
 
     }
     deleteEvent(e,index,tab){
+
       if(this.state.newEvent <= 0){        
         return console.log("plus rien à supprimer")
       }else{
         
         //console.log("event courant : " +this.state.events[this.state.events.length - (index + 1)].title)
         //console.log("event suivant : " +this.state.events[this.state.events.length - (index)].title)
-        console.log("first one in array :"+document.getElementById("CalendarInputId"+this.state.events[this.state.events.length - (index + 1)].id).value)
+        //console.log("first one in array :"+document.getElementById("CalendarInputId"+this.state.events[this.state.events.length - (index + 1)].id).value)
         //console.log("second one in array :"+document.getElementById("CalendarInputId"+this.state.events[this.state.events.length - (index + 2)].id).value)
         for(let i = 0; i < tab.length; i++){
           
           if(tab[i].props.children.props.children[1].props.children.props.children[0].props.id === e.id){
             
-            console.log(tab[i].props.children.props.children[1].props.children.props)// = this.state.events[this.state.events.length - (1)].title
+            //console.log(tab[i].props.children.props.children[1].props.children.props)// = this.state.events[this.state.events.length - (1)].title
             //tab.splice(i,1)
-            console.log(this.state.events[this.state.events.length - (i +1 )].title)
-            console.log(i)
+            //console.log(this.state.events[this.state.events.length - (i +1 )].title)
+            //console.log(i)
             if(i === 0){
-              document.getElementById(e.id).value = this.state.events[this.state.events.length - (this.state.newEvent + i - 1)].title
+              console.log(e.value)
+              if(this.state.events[this.state.events.length - (this.state.newEvent + i - 1)]){
+                e.value = this.state.events[this.state.events.length - (this.state.newEvent + i - 1)].title
 
+              }
             }else{
-              document.getElementById(e.id).value = this.state.events[this.state.events.length - (this.state.newEvent + i -  (i + 2))].title
+              //e.value = this.state.events[this.state.events.length - (this.state.newEvent + i -  (i + 2))].title
               console.log("hey listen")
+              
+              for(let j =  tab.length - index ; j <= tab.length ; j ++){
+                console.log("longueur du tableau : " +tab.length)
+                console.log("valeur de j : " + j)
+                //console.log(this.state.events[this.state.events.length - (j)])
+                console.log(this.state.events[this.state.events.length - (j - 1)])
+                console.log(document.getElementById("CalendarInputId"+this.state.events[this.state.events.length - (j - 1)].id).value)
+                document.getElementById("CalendarInputId"+this.state.events[this.state.events.length - (j - 1 )].id).value = document.getElementById("CalendarInputId"+this.state.events[this.state.events.length - (j - 2)].id).value
 
-              if(document.getElementById("CalendarInputId"+this.state.events[this.state.events.length - (index)].id).id){
-                document.getElementById("CalendarInputId"+this.state.events[this.state.events.length - (index)].id).value = this.state.events[this.state.events.length - (this.state.newEvent + i -  (i + 3))].title
+                if(document.getElementById("CalendarInputId"+this.state.events[this.state.events.length - (j - 2)])){
+                  console.log(document.getElementById("CalendarInputId"+this.state.events[this.state.events.length - (j - 2)].id).value)
+
+                }
+                
+
+                //document.getElementById("CalendarInputId"+this.state.events[this.state.events.length - (j)].id).value = document.getElementById("CalendarInputId"+this.state.events[this.state.events.length - (j +1)].id).value
+                //console.log(document.getElementById("CalendarInputId"+this.state.events[this.state.events.length - (j + 1)].id).value)
+                //document.getElementById("CalendarInputId"+this.state.events[this.state.events.length - (j + 1)].id).value = document.getElementById("CalendarInputId"+this.state.events[this.state.events.length - (j + 2)].id).value
+                //console.log("les valeurs suivants la réservation annulées sont : " + document.getElementById("CalendarInputId"+this.state.events[this.state.events.length - (j - 1)].id).value)
+              }
+
+              /*if(document.getElementById("CalendarInputId"+this.state.events[this.state.events.length - (index)].id).id){
+                console.log(index)
+                console.log(this.state.events[this.state.events.length - index])
+                console.log(document.getElementById("CalendarInputId"+this.state.events[this.state.events.length - (index - 1)].id).value)
+
+                //document.getElementById("CalendarInputId"+this.state.events[this.state.events.length - (index)].id).value = this.state.events[this.state.events.length - (this.state.newEvent + i -  (i + 3))].title
+                document.getElementById("CalendarInputId"+this.state.events[this.state.events.length - (index)].id).value = document.getElementById("CalendarInputId"+this.state.events[this.state.events.length - (index - 1)].id).value
+
+
+                console.log("je passe ici")
 
                 console.log(document.getElementById("CalendarInputId"+this.state.events[this.state.events.length - (index)].id).value)
-              }
+              }*/
             }
 
             let id = parseInt(e.id.slice(15));
@@ -322,7 +354,6 @@ class CreateNewBooking extends Component {
               events: prevState.events.filter(event => event.id !== id),
               newEvent: this.state.newEvent - 1
             }));
-            console.log(i)
             
           }
         }
