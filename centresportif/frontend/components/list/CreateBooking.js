@@ -300,7 +300,12 @@ class CreateNewBooking extends Component {
                     document.getElementById("CalendarInputId"+this.state.events[this.state.events.length - (index - j + 1)].id).value = this.state.events[this.state.events.length -  (index - j)].title
                     document.getElementById("CalendarInputStart"+this.state.events[this.state.events.length - (index - j + 1)].id).value = this.state.events[this.state.events.length -  (index - j)].start
                     document.getElementById("CalendarInputEnd"+this.state.events[this.state.events.length - (index - j + 1)].id).value = this.state.events[this.state.events.length -  (index - j)].end
-                    //let test = document.getElementById("CalendarSelectType"+this.state.events[this.state.events.length - (index - j + 1)].id).parentElement.childNodes[1]
+                    let test = document.getElementById("CalendarSelectType"+this.state.events[this.state.events.length - (index - j + 1)].id).parentElement.childNodes[1].getAttribute("value")
+                    console.log( test)
+                    console.log(this.state.events[this.state.events.length -  (index - j)].type)
+                    let updatedValue = this.state.events[this.state.events.length -  (index - j)].type
+                    console.log(updatedValue)
+                    document.getElementById("CalendarSelectType"+this.state.events[this.state.events.length - (index - j + 1)].id).parentElement.childNodes[1].setAttribute('selected','holidays')
                     //console.log( test)
                   }
                 }
