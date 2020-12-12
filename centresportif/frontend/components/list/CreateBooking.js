@@ -319,11 +319,16 @@ class CreateNewBooking extends Component {
                     
                     console.log(this.currentBookList.current.children[this.state.newEvent - 1 - j])
                     console.log(this.currentBookList.current.children[this.state.newEvent - 2 - j])
+                    console.log(this.currentBookList.current.children[this.state.newEvent- (index - j +1)].querySelector('#CalendarSelectType'+this.state.events[this.state.events.length - (index - j +1)].id))
+                    console.log(this.currentBookList.current.children[this.state.newEvent- (index - j)].querySelector('#CalendarSelectType'+this.state.events[this.state.events.length - (index - j)].id))
 
                     //console.log(this.currentBookList.current.children[this.state.newEvent - 1 - j].querySelector('#CalendarSelectType'+this.state.events[this.state.events.length - (index - j)].id).innerText)
                     //console.log(this.currentBookList.current.children[this.state.newEvent - 2 - j].querySelector('#CalendarSelectType'+this.state.events[this.state.events.length - (index - j + 1)].id).innerText)
                     if(this.currentBookList.current.children[this.state.newEvent - 1 - j].querySelector('#CalendarSelectType'+this.state.events[this.state.events.length - (index - j)].id)){
-                      this.currentBookList.current.children[this.state.newEvent - 2 - j].querySelector('#CalendarSelectType'+this.state.events[this.state.events.length - (index - j + 1)].id).innerText = this.currentBookList.current.children[this.state.newEvent - 1 - j].querySelector('#CalendarSelectType'+this.state.events[this.state.events.length - (index - j)].id).innerText
+                      //this.currentBookList.current.children[this.state.newEvent - 2 - j].querySelector('#CalendarSelectType'+this.state.events[this.state.events.length - (index - j + 1)].id).innerText = this.currentBookList.current.children[this.state.newEvent - 1 - j].querySelector('#CalendarSelectType'+this.state.events[this.state.events.length - (index - j)].id).innerText
+                      //this.currentBookList.current.children[this.state.newEvent - 2 - j].querySelector('.MuiSelect-nativeInput').defaultValue = this.currentBookList.current.children[this.state.newEvent - 2 - j].querySelector('.MuiSelect-nativeInput').defaultValue
+                      this.currentBookList.current.children[this.state.newEvent- (index - j +1)].querySelector('#CalendarSelectType'+this.state.events[this.state.events.length - (index - j + 1)].id).innerText = this.currentBookList.current.children[this.state.newEvent - (index - j )].querySelector('#CalendarSelectType'+this.state.events[this.state.events.length - (index - j)].id).innerText
+                      this.currentBookList.current.children[this.state.newEvent- (index - j)].querySelector('.MuiSelect-nativeInput').defaultValue = this.currentBookList.current.children[this.state.newEvent - (index - j)].querySelector('.MuiSelect-nativeInput').defaultValue
 
                     }
                     /** TODO: A GARDER MDR */
