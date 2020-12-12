@@ -83,6 +83,7 @@ class CreateNewBooking extends Component {
     constructor(...args) {
         super(...args)
         this.selectType = React.createRef();
+        this.currentBookList = React.createRef();
 
         this.state = { 
           events,
@@ -311,30 +312,54 @@ class CreateNewBooking extends Component {
                     //console.log(this.selectType.current.children[1])
                     //console.log(this.selectType.current.children[0])
                     //console.log(this.selectType.current.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.children[2].querySelector('.MuiSelect-nativeInput'))
-                    if(this.selectType.current){
+                    console.log(index)
+                    console.log(this.state.newEvent)
 
-                      if(this.selectType.current.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.children[j+2].querySelector('#'+id)){
+                    console.log(this.currentBookList.current.children[j].querySelector('#CalendarSelectType'+this.state.events[this.state.events.length - (index - j + 1)].id))
+                    
+                    console.log(this.currentBookList.current.children[this.state.newEvent - 1 - j])
+                    console.log(this.currentBookList.current.children[this.state.newEvent - 2 - j])
+
+                    //console.log(this.currentBookList.current.children[this.state.newEvent - 1 - j].querySelector('#CalendarSelectType'+this.state.events[this.state.events.length - (index - j)].id).innerText)
+                    //console.log(this.currentBookList.current.children[this.state.newEvent - 2 - j].querySelector('#CalendarSelectType'+this.state.events[this.state.events.length - (index - j + 1)].id).innerText)
+                    if(this.currentBookList.current.children[this.state.newEvent - 1 - j].querySelector('#CalendarSelectType'+this.state.events[this.state.events.length - (index - j)].id)){
+                      this.currentBookList.current.children[this.state.newEvent - 2 - j].querySelector('#CalendarSelectType'+this.state.events[this.state.events.length - (index - j + 1)].id).innerText = this.currentBookList.current.children[this.state.newEvent - 1 - j].querySelector('#CalendarSelectType'+this.state.events[this.state.events.length - (index - j)].id).innerText
+
+                    }
+                    /** TODO: A GARDER MDR */
+                    if(this.selectType.current){
+                      console.log(this.selectType.current.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.children)
+                      console.log(this.selectType.current)
+
+                      console.log(this.selectType.current.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.children[j +1]
+                        )
+                      console.log(j)
+                      console.log(this.selectType.current.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.children[j +1].querySelector('#CalendarSelectType'+this.state.events[this.state.events.length - (index - j + 1)].id))
+
+                      /*if(this.selectType.current.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.children[j +1].querySelector('#'+id)){
                         console.log('allo')
-                        console.log(this.selectType.current.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.children[j+2].querySelector('#'+id).getAttribute('id'))
+                        console.log(this.selectType.current.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.children[j +1])
                         console.log(id)
-                        if(this.selectType.current.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.children[j+2].querySelector('#'+id).getAttribute('id')=== id){
+                        if(this.selectType.current.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.children[j +1].querySelector('#'+id).getAttribute('id')=== id){
                           // TODO: take value of X + 1 to put in X 
-                          console.log(this.selectType.current.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.children[j+2].querySelector('#'+id))
-    
+                          console.log(this.selectType.current.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.children[j +2].querySelector('#CalendarSelectType'+this.state.events[this.state.events.length - (index - j)].id).innerText)
+
+                          console.log(this.selectType.current.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.children[j +1].querySelector('#'+id))
+                          console.log(this.selectType.current.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.children[j +1].querySelector('#CalendarSelectType'+this.state.events[this.state.events.length - (index - j + 1)].id).innerText)
+
                           console.log(this.selectType.current.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.children)
-                          this.selectType.current.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.children[j+2].querySelector('.MuiSelect-nativeInput').defaultValue = this.state.events[this.state.events.length -  (index - j)].type
-                          this.selectType.current.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.children[j+2].querySelector('#CalendarSelectType'+this.state.events[this.state.events.length - (index - j + 1)].id).innerText = "Vacances"
-                          console.log(this.selectType.current.parentNodes)
+                          this.selectType.current.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.children[j +1].querySelector('.MuiSelect-nativeInput').defaultValue = this.state.events[this.state.events.length -  (index - j)].type
+                          this.selectType.current.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.children[j +1].querySelector('#CalendarSelectType'+this.state.events[this.state.events.length - (index - j + 1)].id).innerText = "Vacances"
                           //this.selectType.current.children[1].defaultValue = 'holidays'
                           //this.selectType.current.children[0].innerText ="Vacances"
                           //this.selectType.current.children[1].setAttribute('defaultValue', "lol")
                           this.selectType.current.focus();
       
-                          console.log(this.selectType.current.children[0])
-                          console.log(this.selectType.current.children[1])
+                          //console.log(this.selectType.current.children[0])
+                          //console.log(this.selectType.current.children[1])
 
-                          console.log(this.selectType.current.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.children[j+2].querySelector('.MuiSelect-nativeInput').defaultValue)
-                          console.log(this.selectType.current.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.children[j+2].querySelector('#CalendarSelectType'+this.state.events[this.state.events.length - (index - j + 1)].id).innerText)
+                          console.log(this.selectType.current.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.children[j +1].querySelector('.MuiSelect-nativeInput').defaultValue)
+                          console.log(this.selectType.current.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.children[j +1].querySelector('#CalendarSelectType'+this.state.events[this.state.events.length - (index - j + 1)].id).innerText)
       
       
                           //let updatedValue = this.state.events[this.state.events.length -  (index - j)].type
@@ -344,7 +369,7 @@ class CreateNewBooking extends Component {
       
                           //console.log( test)
                         }
-                      }
+                      }*/
                     }
                     
                   }
@@ -366,7 +391,7 @@ class CreateNewBooking extends Component {
         for (let index = 0; index < this.state.newEvent; index++) {
           if(this.state.events[this.state.events.length - (index + 1)].type === "allDay"){ 
             customOptions.unshift(
-            <Container id={"container" + index} style={{marginBottom:"2em"}}>
+            <Container  id={"container" + index} style={{marginBottom:"2em"}}>
               <fieldset style={{padding:'4em'}} class="border p-2 border-dark rounded">
                 <legend class="w-auto">Réservation n°{this.state.newEvent - index}</legend>
                 <Col >
@@ -519,8 +544,10 @@ class CreateNewBooking extends Component {
                     }
                   }
                 />
-                
+                <div id="currentBookList" ref={this.currentBookList}>
                 {customOptions}{test}
+
+                </div>
 
             </>
             
