@@ -302,184 +302,49 @@ class CreateNewBooking extends Component {
             this.forceUpdate()
             for(let i = 0; i < tab.length; i++){
               if(tab[i].props.children.props.children[1].props.children.props.children[0].props.id === e.id){
-                  for(let j =  0 ; j <= tab.length ; j ++){
-                    if(document.getElementById("CalendarInputId"+this.state.events[this.state.events.length - (j + 1)].id)){
-                      //if(this.state.events[this.state.events.length - (index + 1)].id < this.state.events[this.state.events.length - (j + 1)].id ){
-                        //console.log(this.state.events[this.state.events.length - (j + 1)].id)
-                        //console.log(this.state.events[this.state.events.length - (this.state.newEvent  - index)].id)
-                        //console.log(this.currentBookList.current.children[j].querySelector('#CalendarInputId'+this.state.events[this.state.events.length - (j + 1)].id).value)
-                        /** TODO: partir d'ici */
-                        this.currentBookList.current.children[j].querySelector('#CalendarInputId'+this.state.events[this.state.events.length - (j + 1)].id).value = this.state.events[this.state.events.length - (j + 1)].title
-                        this.currentBookList.current.children[j].querySelector("#CalendarInputStart"+this.state.events[this.state.events.length - (j + 1)].id).value = this.state.events[this.state.events.length - (j + 1)].start
-                        this.currentBookList.current.children[j].querySelector("#CalendarInputEnd"+this.state.events[this.state.events.length - (j + 1)].id).value = this.state.events[this.state.events.length - (j + 1)].end
-                        
-                        this.currentBookList.current.children[j].querySelector('.MuiSelect-nativeInput').defaultValue = this.state.events[this.state.events.length - (j + 1)].type
-                        //this.currentBookList.current.children[j].querySelector("#CalendarSelectType"+this.state.events[this.state.events.length - (j + 1)].id).innerText = this.currentBookList.current.children[j + 1].querySelector('.MuiSelect-nativeInput').defaultValue
-                        
-                        //console.log(this.currentBookList.current.children[j].querySelector("#CalendarSelectType"+this.state.events[this.state.events.length - (j + 1)].id).innerText = this.currentBookList.current.children[j + 1].querySelector("#CalendarSelectType"+this.state.events[this.state.events.length - (j + 2)].id).innerText)
+                for(let j =  0 ; j <= tab.length ; j ++){
+                  if(document.getElementById("CalendarInputId"+this.state.events[this.state.events.length - (j + 1)].id)){
+                    let TextPrinted 
 
-                        if(this.currentBookList.current.children[j+1]){
-                          console.log(this.currentBookList.current.children[j+1].querySelector("#CalendarSelectType"+this.state.events[this.state.events.length - (j + 2)].id).innerText)
-                          this.currentBookList.current.children[j].querySelector("#CalendarSelectType"+this.state.events[this.state.events.length - (j + 1)].id).innerText = this.currentBookList.current.children[j + 1].querySelector("#CalendarSelectType"+this.state.events[this.state.events.length - (j + 2)].id).innerText
+                    if(this.state.events[this.state.events.length - (j + 1)].title){                    
+                      this.currentBookList.current.children[j].querySelector('#CalendarInputId'+this.state.events[this.state.events.length - (j + 1)].id).value = this.state.events[this.state.events.length - (j + 1)].title
+                    }else{                      
+                      this.currentBookList.current.children[j].querySelector('#CalendarInputId'+this.state.events[this.state.events.length - (j + 1)].id).value = ""
+                    }
 
-                          //this.currentBookList.current.children[j-1].querySelector("#CalendarSelectType"+this.state.events[this.state.events.length - (j)].id).innerText = this.currentBookList.current.children[j].querySelector("#CalendarSelectType"+this.state.events[this.state.events.length - (j + 1)].id).innerText
-                        }
-                        //console.log(this.currentBookList.current.children[j].querySelector('.MuiSelect-nativeInput').defaultValue)
+                    if(this.state.events[this.state.events.length - (j + 1)].start){                      
+                      this.currentBookList.current.children[j].querySelector("#CalendarInputStart"+this.state.events[this.state.events.length - (j + 1)].id).value = this.state.events[this.state.events.length - (j + 1)].start
+                    }else{                     
+                      this.currentBookList.current.children[j].querySelector("#CalendarInputStart"+this.state.events[this.state.events.length - (j + 1)].id).value = ""                   
+                    }
 
-                        //console.log(this.currentBookList.current.children[j])
-                        //console.log(this.currentBookList.current.children[j].querySelector('.MuiSelect-nativeInput').defaultValue)
-                        //console.log(this.currentBookList.current.children[j].querySelector('#CalendarSelectType'+this.state.events[this.state.events.length - (j + 1)].id).innerText )
-                        //this.currentBookList.current.children[this.state.newEvent - 2 - j].querySelector('.MuiSelect-nativeInput').defaultValue = this.currentBookList.current.children[this.state.newEvent - 2 - j].querySelector('.MuiSelect-nativeInput').defaultValue
+                    if(this.state.events[this.state.events.length - (j + 1)].end){                      
+                      this.currentBookList.current.children[j].querySelector("#CalendarInputEnd"+this.state.events[this.state.events.length - (j + 1)].id).value = this.state.events[this.state.events.length - (j + 1)].end
+                    }else{
+                      this.currentBookList.current.children[j].querySelector("#CalendarInputEnd"+this.state.events[this.state.events.length - (j + 1)].id).value = ""
+                    }
 
-                        //this.currentBookList.current.children[j].querySelector("CalendarInputStart"+this.state.events[this.state.events.length - (j + 1)].id).value = this.state.events[this.state.events.length - (j + 1)].start
-                        //this.currentBookList.current.children[j].querySelector("CalendarInputEnd"+this.state.events[this.state.events.length - (j + 1)].id).value = this.state.events[this.state.events.length - (j + 1)].end
-
-                        //document.getElementById("CalendarInputId"+this.state.events[this.state.events.length - (j + 1)].id).value = "tchoin" + j
-                        //document.getElementById("CalendarInputStart"+this.state.events[this.state.events.length - (j + 1)].id).value = this.state.events[this.state.events.length -  (j + 1)].start
-                        //document.getElementById("CalendarInputEnd"+this.state.events[this.state.events.length - (j + 1)].id).value = this.state.events[this.state.events.length -  (j + 1)].end
-                     
-                      /*if(this.state.events[this.state.events.length - (j + 1)].id < this.state.events[this.state.events.length - (this.state.newEvent  - index)].id ){
-                        this.currentBookList.current.children[j].querySelector('#CalendarInputId'+this.state.events[this.state.events.length - (j + 1)].id).value = this.state.events[this.state.events.length - (j + 1)].title
-    
-                        console.log(j)
-                        console.log(index)
-    
-                        //console.log(this.state.events[this.state.events.length - (index + 1)].id)
-                        //console.log(this.state.events[this.state.events.length - (j + 1)].id)
-                        //console.log(this.state.events[this.state.events.length - (this.state.newEvent  - index)].id)
-    
-                        console.log(this.state.events[this.state.events.length -  (j + 1)].start)
-                        //console.log(this.state.events[this.state.events.length -  (j)].start)
-                        /*if(this.state.events[this.state.events.length - (this.state.newEvent  - index)].id <= document.getElementById("CalendarInputStart"+ this.state.events[this.state.events.length -  (j)].id).id.slice(18)){
-                          console.log("pas ouf")
-                        }else if(this.state.events[this.state.events.length - (this.state.newEvent  - index)].id > document.getElementById("CalendarInputStart"+ this.state.events[this.state.events.length -  (j)].id).id.slice(18)){
-                          console.log("validé")
-                        }*/
-                        //console.log(this.state.events[this.state.events.length -  (this.state.newEvent  - index)].start)
-                        //console.log(this.state.events[this.state.events.length -  (this.state.newEvent  - index +1)].start)
-    
-                        //console.log(this.state.events[this.state.events.length -  (this.state.newEvent  -  j)].start)
-                        //console.log(this.state.events[this.state.events.length -  (this.state.newEvent  -  j + 1)].start)
-    
-                        console.log(document.getElementById("CalendarInputStart"+ this.state.events[this.state.events.length -  (j + 1)].id))
-                        //console.log(document.getElementById("CalendarInputStart"+ this.state.events[this.state.events.length -  (j)].id))
-                        
-                        console.log(document.getElementById("CalendarInputStart"+ this.state.events[this.state.events.length -  (j + 1)].id).id)
-                        //console.log(document.getElementById("CalendarInputStart"+ this.state.events[this.state.events.length -  (j)].id).id)
-                        //console.log(document.getElementById("CalendarInputStart"+ this.state.events[this.state.events.length -  (j)].id).id.slice(18))
-                        //console.log(document.getElementById("CalendarInputStart"+this.state.events[this.state.events.length - (this.state.newEvent - index )].id))
-                        //console.log(document.getElementById("CalendarInputStart"+this.state.events[this.state.events.length - (this.state.newEvent - index + 1 )].id))
-    
-                        //console.log(document.getElementById("CalendarInputStart"+this.state.events[this.state.events.length - (this.state.newEvent - index )].id))
-                        //console.log(document.getElementById("CalendarInputStart"+this.state.events[this.state.events.length - (this.state.newEvent - index + 1 )].id))
-                        //console.log(document.getElementById("CalendarInputStart"+this.state.events[this.state.events.length - (index - j + 1)].id).value)
-                        /*if(this.state.events[this.state.events.length - (this.state.newEvent  - index)].id > document.getElementById("CalendarInputStart"+ this.state.events[this.state.events.length -  (j)].id).id.slice(18)){
-    
-                          document.getElementById("CalendarInputId"+this.state.events[this.state.events.length - (j + 1)].id).value = "tchoin" + j
-                          document.getElementById("CalendarInputStart"+this.state.events[this.state.events.length - (j + 1)].id).value = this.state.events[this.state.events.length -  (j + 1)].start
-                          document.getElementById("CalendarInputEnd"+this.state.events[this.state.events.length - (j + 1)].id).value = this.state.events[this.state.events.length -  (j + 1)].end
-                        }*/
-                        //let test = document.getElementById("CalendarSelectType"+this.state.events[this.state.events.length - (index - j + 1)].id).parentElement.childNodes[1].getAttribute("value")
-                        //console.log( test)
-                        //console.log(this.state.events[this.state.events.length -  (index - j + 1)].id)
-                        //let id = 'CalendarSelectType'+this.state.events[this.state.events.length - (index - j +1)].id
-                        //console.log(id)
-                        //console.log(this.selectType.current.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.children[2])
-                        //console.log(this.selectType.current.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.children[2].querySelector(id).getAttribute('id'))
-                        //console.log(this.selectType.current.children[1])
-                        //console.log(this.selectType.current.children[0])
-                        //console.log(this.selectType.current.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.children[2].querySelector('.MuiSelect-nativeInput'))
-                        /*console.log(index)
-                        console.log(this.state.newEvent)
-    
-                        console.log(this.currentBookList.current.children[j].querySelector('#CalendarSelectType'+this.state.events[this.state.events.length - (index - j + 1)].id))
-                        
-                        console.log(this.currentBookList.current.children[this.state.newEvent - 1 - j])
-                        console.log(this.currentBookList.current.children[this.state.newEvent - 2 - j])
-                        console.log(this.currentBookList.current.children[this.state.newEvent- (index - j +1)].querySelector('#CalendarSelectType'+this.state.events[this.state.events.length - (index - j +1)].id))
-                        console.log(this.currentBookList.current.children[this.state.newEvent- (index - j)].querySelector('#CalendarSelectType'+this.state.events[this.state.events.length - (index - j)].id))
-    
-                        //console.log(this.currentBookList.current.children[this.state.newEvent - 1 - j].querySelector('#CalendarSelectType'+this.state.events[this.state.events.length - (index - j)].id).innerText)
-                        //console.log(this.currentBookList.current.children[this.state.newEvent - 2 - j].querySelector('#CalendarSelectType'+this.state.events[this.state.events.length - (index - j + 1)].id).innerText)
-                        */
-                       //console.log(this.title.current.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement)
-    
-                       //console.log(this.currentBookList.current.children[j].querySelector('#CalendarInputId'+this.state.events[this.state.events.length - (j + 1)].id).value)
-                       /**if(this.currentBookList.current.children[this.state.newEvent- (index - j)].querySelector('#CalendarSelectType'+this.state.events[this.state.events.length - (index - j)].id)){
-                          //console.log("jsuis la")
-                          //this.currentBookList.current.children[this.state.newEvent - 2 - j].querySelector('#CalendarSelectType'+this.state.events[this.state.events.length - (index - j + 1)].id).innerText = this.currentBookList.current.children[this.state.newEvent - 1 - j].querySelector('#CalendarSelectType'+this.state.events[this.state.events.length - (index - j)].id).innerText
-                          //this.currentBookList.current.children[this.state.newEvent - 2 - j].querySelector('.MuiSelect-nativeInput').defaultValue = this.currentBookList.current.children[this.state.newEvent - 2 - j].querySelector('.MuiSelect-nativeInput').defaultValue
-                          //this.currentBookList.current.children[this.state.newEvent- (index - j +1)].querySelector('#CalendarSelectType'+this.state.events[this.state.events.length - (index - j + 1)].id).innerText = this.currentBookList.current.children[this.state.newEvent - (index - j )].querySelector('#CalendarSelectType'+this.state.events[this.state.events.length - (index - j)].id).innerText
-                          //this.currentBookList.current.children[this.state.newEvent- (index - j)].querySelector('.MuiSelect-nativeInput').defaultValue = this.currentBookList.current.children[this.state.newEvent - (index - j)].querySelector('.MuiSelect-nativeInput').defaultValue
-    
-                        }**/
-                        /** TODO: A GARDER MDR */
-                        /*if(this.selectType.current){
-                          console.log(this.selectType.current.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.children)
-                          console.log(this.selectType.current)
-    
-                          console.log(this.selectType.current.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.children[j +1]
-                            )
-                          console.log(j)
-                          console.log(this.selectType.current.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.children[j +1].querySelector('#CalendarSelectType'+this.state.events[this.state.events.length - (index - j + 1)].id))
-    
-                          if(this.selectType.current.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.children[j +1].querySelector('#'+id)){
-                            console.log('allo')
-                            console.log(this.selectType.current.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.children[j +1])
-                            console.log(id)
-                            if(this.selectType.current.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.children[j +1].querySelector('#'+id).getAttribute('id')=== id){
-                              // TODO: take value of X + 1 to put in X 
-                              console.log(this.selectType.current.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.children[j +2].querySelector('#CalendarSelectType'+this.state.events[this.state.events.length - (index - j)].id).innerText)
-    
-                              console.log(this.selectType.current.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.children[j +1].querySelector('#'+id))
-                              console.log(this.selectType.current.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.children[j +1].querySelector('#CalendarSelectType'+this.state.events[this.state.events.length - (index - j + 1)].id).innerText)
-    
-                              console.log(this.selectType.current.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.children)
-                              this.selectType.current.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.children[j +1].querySelector('.MuiSelect-nativeInput').defaultValue = this.state.events[this.state.events.length -  (index - j)].type
-                              this.selectType.current.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.children[j +1].querySelector('#CalendarSelectType'+this.state.events[this.state.events.length - (index - j + 1)].id).innerText = "Vacances"
-                              //this.selectType.current.children[1].defaultValue = 'holidays'
-                              //this.selectType.current.children[0].innerText ="Vacances"
-                              //this.selectType.current.children[1].setAttribute('defaultValue', "lol")
-                              this.selectType.current.focus();
-          
-                              //console.log(this.selectType.current.children[0])
-                              //console.log(this.selectType.current.children[1])
-    
-                              console.log(this.selectType.current.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.children[j +1].querySelector('.MuiSelect-nativeInput').defaultValue)
-                              console.log(this.selectType.current.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.children[j +1].querySelector('#CalendarSelectType'+this.state.events[this.state.events.length - (index - j + 1)].id).innerText)
-          
-          
-                              //let updatedValue = this.state.events[this.state.events.length -  (index - j)].type
-                              //console.log(updatedValue)
-                              //document.getElementById("CalendarSelectType"+this.state.events[this.state.events.length - (index - j + 1)].id).parentElement.childNodes[1].defaultValue = 'holidays'
-                              //document.getElementById("CalendarSelectType"+this.state.events[this.state.events.length - (index - j + 1)].id).parentElement.childNodes[1].innerText = 'Vacances'
-          
-                              //console.log( test)
-                            }
-                          }
-                        }*/
-                        
-                      /*}else{
-                        //console.log(this.currentBookList.current.children[j - 1].querySelector('#CalendarInputId'+this.state.events[this.state.events.length - (j + 2)].id))
-                        console.log(this.currentBookList.current.children[j])
-                        console.log(this.currentBookList.current.children)
-                        //this.currentBookList.current.children[j + 1].querySelector('#CalendarInputId'+this.state.events[this.state.events.length - (j + 2)].id).value = "bouge pas"
-                        console.log(this.state.events[this.state.events.length - (j + 1)].title)
-                        this.currentBookList.current.children[j].querySelector('#CalendarInputId'+this.state.events[this.state.events.length - (j + 1)].id).value = this.state.events[this.state.events.length - (j + 1)].title
-
-                        //this.currentBookList.current.children[j + 1].querySelector('#CalendarInputId'+this.state.events[this.state.events.length - (j + 2)].id).value = "bouge un peu"
-                        console.log("pue du cul")
-                      }*/
+                    if(this.state.events[this.state.events.length - (j + 1)].type){
+                      this.currentBookList.current.children[j].querySelector('.MuiSelect-nativeInput').defaultValue = this.state.events[this.state.events.length - (j + 1)].type                      
+                      if(this.state.events[this.state.events.length - (j + 1)].type === "holidays"){                        
+                        TextPrinted = "Vacances"
+                      }else if(this.state.events[this.state.events.length - (j + 1)].type === "multipleDays"){                        
+                        TextPrinted = "Plusieurs jours d'affilée"
+                      }else if(  this.state.events[this.state.events.length - (j + 1)].type === "allDay"){                       
+                        TextPrinted = "Toute la journée"
+                      }else if( this.state.events[this.state.events.length - (j + 1)].type === "timeSlot"){                        
+                        TextPrinted = "Plage d'heures"
+                      }                      
+                      this.currentBookList.current.children[j].querySelector("#CalendarSelectType"+this.state.events[this.state.events.length - (j + 1)].id).innerText = TextPrinted
+                    }else{                  
+                      this.currentBookList.current.children[j].querySelector('.MuiSelect-nativeInput').defaultValue = ""
                     }
                   }
+                }
               }
-              console.log(e.id.slice(15))
-             
-              console.log(this.state.events)
             }
-          });
-          console.log(tab)
-        
+          }
+        );
       }
     }
     
@@ -487,17 +352,13 @@ class CreateNewBooking extends Component {
         let customOptions = []
         let test = []
         for (let index = 0; index < this.state.newEvent; index++) {
-          
-        
-
           if(this.state.events[this.state.events.length - (this.state.newEvent - index )].type === "allDay"){ 
             customOptions.unshift(
             <Container key= {"container" + index} id={"container" + index} style={{marginBottom:"2em"}}>
               <fieldset style={{padding:'4em'}} class="border p-2 border-dark rounded">
                 <legend className="w-auto">Réservation n°{this.state.newEvent - index}</legend>
-                <Col >
-                    <Row >
-                      
+                <Col>
+                    <Row>                      
                       <TextField ref={this.title} label="Titre" id={"CalendarInputId"+this.state.events[this.state.events.length - (this.state.newEvent - index )].id } className="CalendarInput"  placeholder="Titre" style={{margin:"0.5em"}} onBlur={e => this.updateValue(e.target.value,"title",this.state.events[this.state.events.length - (this.state.newEvent - index )].id)} InputLabelProps={{ shrink: true }} ></TextField>
                       <FormControl style={{margin:"0.5em"}}>
                         <InputLabel htmlFor={"CalendarSelectType"+this.state.events[this.state.events.length - (this.state.newEvent - index )].id}  shrink>Type</InputLabel>
@@ -514,13 +375,12 @@ class CreateNewBooking extends Component {
             </Container>);          
           }
           else if(this.state.events[this.state.events.length - (this.state.newEvent - index )].type === "multipleDays"){
-
             customOptions.unshift(
             <Container key= {"container" + index} id={"container" + index} style={{marginBottom:"2em"}}>
               <fieldset style={{padding:'4em'}} class="border p-2 border-dark rounded">
                 <legend className="w-auto">Réservation n°{this.state.newEvent - index}</legend>
                 <Col>
-                  <Row >
+                  <Row>
                     <TextField ref={this.title} label="Titre" id={"CalendarInputId"+this.state.events[this.state.events.length -  (this.state.newEvent - index )].id } className="CalendarInput"  placeholder="Titre" style={{margin:"0.5em"}} onBlur={e => this.updateValue(e.target.value,"title",this.state.events[this.state.events.length - (this.state.newEvent - index )].id)} InputLabelProps={{ shrink: true }}></TextField>
                     <FormControl style={{margin:"0.5em"}}>
                       <InputLabel htmlFor={"CalendarSelectType"+this.state.events[this.state.events.length - (this.state.newEvent - index )].id} shrink>Type</InputLabel>
@@ -532,8 +392,7 @@ class CreateNewBooking extends Component {
                         <TextField label="Date de début" id={"CalendarInputStart"+this.state.events[this.state.events.length - (this.state.newEvent - index )].id} className="CalendarInput" onBlur={e => this.updateValue(e.target.value,"start",this.state.events[this.state.events.length - (this.state.newEvent - index )].id)} defaultValue= {this.state.events[this.state.events.length - (this.state.newEvent - index )].start || ""} placeholder="Heure de début" style={{margin:"0.5em"}}></TextField>
                         <TextField label="Date de fin" id={"CalendarInputEnd"+this.state.events[this.state.events.length - (this.state.newEvent - index )].id} className="CalendarInput" onBlur={e =>this.updateValue(e.target.value,"end",this.state.events[this.state.events.length - (this.state.newEvent - index )].id)} defaultValue= {this.state.events[this.state.events.length - (this.state.newEvent - index )].end || ""} placeholder="Heure de fin" style={{margin:"0.5em"}}></TextField>
                         <Button onClick= {e => this.deleteEvent(document.getElementById("CalendarInputId"+this.state.events[this.state.events.length - (this.state.newEvent - index )].id),index,customOptions) }>X</Button>
-                  </Row>
-                  
+                  </Row>                  
                 </Col>
               </fieldset>
             </Container>);
@@ -568,15 +427,14 @@ class CreateNewBooking extends Component {
               <fieldset style={{padding:'4em'}} class="border p-2 border-dark rounded">
                 <legend className="w-auto">Réservation n°{this.state.newEvent - index}</legend>
                 <Col>
-                  <Row > 
+                  <Row> 
                     <TextField ref={this.title} label="Titre" id={"CalendarInputId"+this.state.events[this.state.events.length - (this.state.newEvent - index )].id } className="CalendarInput"  placeholder="Titre" style={{margin:"0.5em"}} onBlur={e => this.updateValue(e.target.value,"title",this.state.events[this.state.events.length - (this.state.newEvent - index )].id)} InputLabelProps={{ shrink: true }}></TextField>
                     <FormControl style={{margin:"0.5em"}}>
                       <InputLabel htmlFor={"CalendarSelectType"+this.state.events[this.state.events.length - (this.state.newEvent - index )].id}  shrink>Type</InputLabel>
                       <Select ref={this.selectType} labelId={"CalendarSelectType"+this.state.events[this.state.events.length - (this.state.newEvent - index )].id} className="CalendarInput"  id={"CalendarSelectType"+this.state.events[this.state.events.length - (this.state.newEvent - index )].id} onBlur={e =>this.updateValue(e.target.value,"type",this.state.events[this.state.events.length - (this.state.newEvent - index )].id)} placeholder="Type" defaultValue ={"timeSlot"}>
                         <MenuItem  value="timeSlot" default="timeSlot">Plage d'heures</MenuItem>
                       </Select>
-                    </FormControl>
-                  
+                    </FormControl>              
                     <TextField label="Date de début" id={"CalendarInputStart"+this.state.events[this.state.events.length - (this.state.newEvent - index )].id} className="CalendarInput" onBlur={e => this.updateValue(e.target.value,"start",this.state.events[this.state.events.length - (this.state.newEvent - index )].id)} defaultValue= {this.state.events[this.state.events.length - (this.state.newEvent - index )].start || ""} placeholder="Heure de début" style={{margin:"0.5em"}}></TextField>
                     <TextField label="Date de fin" id={"CalendarInputEnd"+this.state.events[this.state.events.length - (this.state.newEvent - index )].id} className="CalendarInput" onBlur={e =>this.updateValue(e.target.value,"end",this.state.events[this.state.events.length - (this.state.newEvent - index )].id)} defaultValue= {this.state.events[this.state.events.length - (this.state.newEvent - index )].end || ""} placeholder="Heure de fin" style={{margin:"0.5em"}}></TextField>
                   </Row>
