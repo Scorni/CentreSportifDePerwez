@@ -85,7 +85,7 @@ class CreateNewBooking extends Component {
         this.selectType = React.createRef();
         this.currentBookList = React.createRef();
         this.title = React.createRef();
-
+        this.hebdomadaireDuration = React.createRef();
         this.state = { 
           events,
           newEvent:0,
@@ -99,33 +99,26 @@ class CreateNewBooking extends Component {
             newEvent : this.newEvent + 1,
           });
         //const title = window.prompt('Effectuer une réservation')        
-          console.log(this.newEvent)
         if (title =="")
         this.setState({
-            events: [
-                ...this.state.events,
-                {
-                start,
-                end,
-                title : <Link href="#CalendarInput" className="CalendarInputLink" style={{color: "white"}}>Cliquez ici pour choisir les options</Link>,
-                type : "default"
-                },
-            ],
-            
+          events: [
+              ...this.state.events,
+              {
+              start,
+              end,
+              title : <Link href="#currentBookList" className="CalendarInputLink" style={{color: "white"}}>Cliquez ici pour choisir les options</Link>,
+              type : "default"
+              },
+          ],
         })
-        console.log(this.state.events[this.state.events.length - 1].title)
     }
     updateValue = (e,inputType,id) => {
-      console.log("updated value : " + e)
-      console.log(id)
       if (this.state.newEvent > 0){
         if(inputType === "title"){          
           
           this.setState(prev => ({
             events: prev.events.map(events => events.id === id ? { ...events, title: e } : events)
           }))
-          //this.setState({events : [this.state.events.length - 1][{title : e}]})
-          //  this.forceUpdate(); ultimate solution
           if(e === ""){
             this.setState(prev => ({
               events: prev.events.map(events => events.id === id ? { ...events, title: "Veuillez choisir un titre de réservation" } : events)
@@ -133,12 +126,11 @@ class CreateNewBooking extends Component {
           }
 
         }else if(inputType === "type"){
-
           this.setState(prev => ({
             events: prev.events.map(events => events.id === id ? { ...events, type: e } : events)
           }))
+        
           if(typeof this.state.events[this.state.events.length - 1].title !== 'string'){
-
             this.setState(prev => ({
               events: prev.events.map(events => events.id === id ? { ...events, title: "Veuillez choisir un titre de réservation" } : events)
             }))
@@ -151,13 +143,38 @@ class CreateNewBooking extends Component {
           }))
 
         }else if(inputType === "hebdomadaire"){
-          console.log(e)
           this.setState(prev => ({
-            events: prev.events.map(events => events.id === id ? { ...events, hedbomadaire: e } : events)
+            events: prev.events.map(events => events.id === id ? { ...events, hebdomadaire: e } : events)
           }))
-          console.log(this.state.events[this.state.events.length - 1].hebdomadaire)
-        }
+        }else if(inputType === "hebdomadaireDuration"){
+          this.setState(prev => ({
+            events: prev.events.map(events => events.id === id ? { ...events, hebdomadaireDuration: e } : events)
+          }))
+          //let  test = test.setTime( this.state.events[this.state.events.length - 1].start + days * 86400000 );
+          //console.log(test)
+          for(let i =0; i < (e*4);i++){
+            var resultStart = new Date(this.state.events[this.state.events.length - 1].start);
+            resultStart.setDate(resultStart.getDate() + 7 * i);
+            var resultEnd = new Date(this.state.events[this.state.events.length - 1].end);
+            resultEnd.setDate(resultEnd.getDate() + 7 * i);
+//            this.state.events[this.state.events.length - 1].title
+          let hebdomadaireNewEvent = {
+            id: this.state.events.length - (1 + i),
+            title: 'Myhedbo' + this.state.events.length -(1+i),
+            allDay: false,
+            start:  resultStart,
+            end:  resultEnd,
+            type : "timeSlot",
+            slots : 1
+          }
+          this.newEvent(hebdomadaireNewEvent)
+          
 
+          console.log(this.state.events)
+          }
+          
+        }
+        
       }
     }
     
@@ -277,7 +294,7 @@ class CreateNewBooking extends Component {
       let newId = Math.max(...idList) + 1
       let hour = {
         id: newId,
-        title: <div className="BookingForm"><Link href="#CalendarInput">Cliquez ici pour les options!</Link></div>,
+        title: <div className="BookingForm"><Link href="#currentBookList">Cliquez ici pour les options!</Link></div>,
         allDay: event.slots.length == 1,
         start: event.start,
         end: event.end,
@@ -301,12 +318,11 @@ class CreateNewBooking extends Component {
           }),() => {
             this.forceUpdate()
             for(let i = 0; i < tab.length; i++){
-              if(tab[i].props.children.props.children[1].props.children.props.children[0].props.id === e.id){
+              if(tab[i].props.children.props.children[1].props.children[0].props.children[0].props.id === e.id){
                 for(let j =  0 ; j <= tab.length ; j ++){
                   if(document.getElementById("CalendarInputId"+this.state.events[this.state.events.length - (j + 1)].id)){
                     let TextPrinted 
-
-                    if(this.state.events[this.state.events.length - (j + 1)].title){                    
+                    if(typeof(this.state.events[this.state.events.length - (j + 1)].title) !== "object"){                    
                       this.currentBookList.current.children[j].querySelector('#CalendarInputId'+this.state.events[this.state.events.length - (j + 1)].id).value = this.state.events[this.state.events.length - (j + 1)].title
                     }else{                      
                       this.currentBookList.current.children[j].querySelector('#CalendarInputId'+this.state.events[this.state.events.length - (j + 1)].id).value = ""
@@ -355,7 +371,7 @@ class CreateNewBooking extends Component {
           if(this.state.events[this.state.events.length - (this.state.newEvent - index )].type === "allDay"){ 
             customOptions.unshift(
             <Container key= {"container" + index} id={"container" + index} style={{marginBottom:"2em"}}>
-              <fieldset style={{padding:'4em'}} class="border p-2 border-dark rounded">
+              <fieldset style={{padding:'4em'}} className="border p-2 border-dark rounded">
                 <legend className="w-auto">Réservation n°{this.state.newEvent - index}</legend>
                 <Col>
                     <Row>                      
@@ -368,8 +384,10 @@ class CreateNewBooking extends Component {
                       </FormControl>
                       <TextField label="Date de début" id={"CalendarInputStart"+this.state.events[this.state.events.length - (this.state.newEvent - index )].id} className="CalendarInput" onBlur={e => this.updateValue(e.target.value,"start",this.state.events[this.state.events.length - (this.state.newEvent - index )].id)} defaultValue= {this.state.events[this.state.events.length - (this.state.newEvent - index )].start || ""} placeholder="Heure de début" style={{margin:"0.5em"}}></TextField>
                       <TextField label="Date de fin" id={"CalendarInputEnd"+this.state.events[this.state.events.length - (this.state.newEvent - index )].id} className="CalendarInput" onBlur={e =>this.updateValue(e.target.value,"end",this.state.events[this.state.events.length - (this.state.newEvent - index )].id)} defaultValue= {this.state.events[this.state.events.length - (this.state.newEvent - index )].end || ""} placeholder="Heure de fin" style={{margin:"0.5em"}}></TextField>
-                      <Button onClick= {e => this.deleteEvent(document.getElementById("CalendarInputId"+this.state.events[this.state.events.length - (this.state.newEvent - index )].id),index,customOptions) }>X</Button>
                     </Row>
+                    <Row>
+                      <Button onClick= {e => this.deleteEvent(document.getElementById("CalendarInputId"+this.state.events[this.state.events.length - (this.state.newEvent - index )].id),index,customOptions) }>X</Button>
+                    </Row> 
                 </Col>
               </fieldset>
             </Container>);          
@@ -377,7 +395,7 @@ class CreateNewBooking extends Component {
           else if(this.state.events[this.state.events.length - (this.state.newEvent - index )].type === "multipleDays"){
             customOptions.unshift(
             <Container key= {"container" + index} id={"container" + index} style={{marginBottom:"2em"}}>
-              <fieldset style={{padding:'4em'}} class="border p-2 border-dark rounded">
+              <fieldset style={{padding:'4em'}} className="border p-2 border-dark rounded">
                 <legend className="w-auto">Réservation n°{this.state.newEvent - index}</legend>
                 <Col>
                   <Row>
@@ -387,21 +405,22 @@ class CreateNewBooking extends Component {
                       <Select ref={this.selectType} labelId={"CalendarSelectType"+this.state.events[this.state.events.length - (this.state.newEvent - index )].id} className="CalendarInput"  id={"CalendarSelectType"+this.state.events[this.state.events.length - (this.state.newEvent - index )].id} onChange={e =>this.updateValue(e.target.value,"type",this.state.events[this.state.events.length - (this.state.newEvent - index )].id)} placeholder="Type" defaultValue ={""}>
                         <MenuItem  value="multipleDays">Plusieurs jours d'affilée</MenuItem>
                         <MenuItem  value="holidays">Vacances</MenuItem>
-                        </Select>
-                        </FormControl>
-                        <TextField label="Date de début" id={"CalendarInputStart"+this.state.events[this.state.events.length - (this.state.newEvent - index )].id} className="CalendarInput" onBlur={e => this.updateValue(e.target.value,"start",this.state.events[this.state.events.length - (this.state.newEvent - index )].id)} defaultValue= {this.state.events[this.state.events.length - (this.state.newEvent - index )].start || ""} placeholder="Heure de début" style={{margin:"0.5em"}}></TextField>
-                        <TextField label="Date de fin" id={"CalendarInputEnd"+this.state.events[this.state.events.length - (this.state.newEvent - index )].id} className="CalendarInput" onBlur={e =>this.updateValue(e.target.value,"end",this.state.events[this.state.events.length - (this.state.newEvent - index )].id)} defaultValue= {this.state.events[this.state.events.length - (this.state.newEvent - index )].end || ""} placeholder="Heure de fin" style={{margin:"0.5em"}}></TextField>
-                        <Button onClick= {e => this.deleteEvent(document.getElementById("CalendarInputId"+this.state.events[this.state.events.length - (this.state.newEvent - index )].id),index,customOptions) }>X</Button>
-                  </Row>                  
+                      </Select>
+                    </FormControl>
+                    <TextField label="Date de début" id={"CalendarInputStart"+this.state.events[this.state.events.length - (this.state.newEvent - index )].id} className="CalendarInput" onBlur={e => this.updateValue(e.target.value,"start",this.state.events[this.state.events.length - (this.state.newEvent - index )].id)} defaultValue= {this.state.events[this.state.events.length - (this.state.newEvent - index )].start || ""} placeholder="Heure de début" style={{margin:"0.5em"}}></TextField>
+                    <TextField label="Date de fin" id={"CalendarInputEnd"+this.state.events[this.state.events.length - (this.state.newEvent - index )].id} className="CalendarInput" onBlur={e =>this.updateValue(e.target.value,"end",this.state.events[this.state.events.length - (this.state.newEvent - index )].id)} defaultValue= {this.state.events[this.state.events.length - (this.state.newEvent - index )].end || ""} placeholder="Heure de fin" style={{margin:"0.5em"}}></TextField>
+                  </Row>  
+                  <Row>
+                    <Button onClick= {e => this.deleteEvent(document.getElementById("CalendarInputId"+this.state.events[this.state.events.length - (this.state.newEvent - index )].id),index,customOptions) }>X</Button>
+                  </Row>                
                 </Col>
               </fieldset>
             </Container>);
-            console.log(customOptions)          
           }
           else if(this.state.events[this.state.events.length - (this.state.newEvent - index )].type === "holidays" ){
             customOptions.unshift(
             <Container key= {"container" + index} id={"container" + index} style={{marginBottom:"2em"}}>
-              <fieldset style={{padding:'4em'}} class="border p-2 border-dark rounded">
+              <fieldset style={{padding:'4em'}} className="border p-2 border-dark rounded">
                 <legend className="w-auto">Réservation n°{this.state.newEvent - index}</legend>
                 <Col>
                   <Row>
@@ -415,6 +434,8 @@ class CreateNewBooking extends Component {
                     </FormControl>
                     <TextField label="Date de début" id={"CalendarInputStart"+this.state.events[this.state.events.length - (this.state.newEvent - index )].id} className="CalendarInput" onBlur={e => this.updateValue(e.target.value,"start",this.state.events[this.state.events.length - (this.state.newEvent - index )].id)} defaultValue= {this.state.events[this.state.events.length - (this.state.newEvent - index )].start || ""} placeholder="Heure de début" style={{margin:"0.5em"}}></TextField>
                     <TextField label="Date de fin" id={"CalendarInputEnd"+this.state.events[this.state.events.length - (this.state.newEvent - index )].id} className="CalendarInput" onBlur={e =>this.updateValue(e.target.value,"end",this.state.events[this.state.events.length - (this.state.newEvent - index )].id)} defaultValue= {this.state.events[this.state.events.length - (this.state.newEvent - index )].end || ""} placeholder="Heure de fin" style={{margin:"0.5em"}}></TextField>
+                  </Row>
+                  <Row>
                     <Button onClick= {e => this.deleteEvent(document.getElementById("CalendarInputId"+this.state.events[this.state.events.length - (this.state.newEvent - index )].id),index,customOptions) }>X</Button>
                   </Row>
                 </Col>
@@ -424,7 +445,7 @@ class CreateNewBooking extends Component {
           else if(this.state.events[this.state.events.length - (this.state.newEvent - index )].type === "timeSlot"){
             customOptions.unshift(
             <Container key= {"container" + index} id={"container" + index} style={{marginBottom:"2em"}}>
-              <fieldset style={{padding:'4em'}} class="border p-2 border-dark rounded">
+              <fieldset style={{padding:'4em'}} className="border p-2 border-dark rounded">
                 <legend className="w-auto">Réservation n°{this.state.newEvent - index}</legend>
                 <Col>
                   <Row> 
@@ -437,6 +458,7 @@ class CreateNewBooking extends Component {
                     </FormControl>              
                     <TextField label="Date de début" id={"CalendarInputStart"+this.state.events[this.state.events.length - (this.state.newEvent - index )].id} className="CalendarInput" onBlur={e => this.updateValue(e.target.value,"start",this.state.events[this.state.events.length - (this.state.newEvent - index )].id)} defaultValue= {this.state.events[this.state.events.length - (this.state.newEvent - index )].start || ""} placeholder="Heure de début" style={{margin:"0.5em"}}></TextField>
                     <TextField label="Date de fin" id={"CalendarInputEnd"+this.state.events[this.state.events.length - (this.state.newEvent - index )].id} className="CalendarInput" onBlur={e =>this.updateValue(e.target.value,"end",this.state.events[this.state.events.length - (this.state.newEvent - index )].id)} defaultValue= {this.state.events[this.state.events.length - (this.state.newEvent - index )].end || ""} placeholder="Heure de fin" style={{margin:"0.5em"}}></TextField>
+
                   </Row>
                   <Row>
                     <FormControl style={{margin:"0.5em"}}>
@@ -446,9 +468,22 @@ class CreateNewBooking extends Component {
                         <MenuItem  value="No">Non</MenuItem>
                       </Select>
                     </FormControl>
-                    {this.state.events[this.state.events.length - (this.state.newEvent - index )].hebdomadaire === "Yes" ? <p>c'est un Yes</p>: <p>c'est un No</p>}
+                    {this.state.events[this.state.events.length - (this.state.newEvent - index )].hebdomadaire === "Yes" 
+                    ? <FormControl style={{margin:"0.5em"}}>
+                        <InputLabel htmlFor="CalendarSelectRange">Sur combien de temps ?</InputLabel>
+                        <Select ref={this.hebdomadaireDuration} labelId="CalendarSelectRange" className="CalendarInput"  id="CalendarSelectRange" onChange={e =>this.updateValue(e.target.value,"hebdomadaireDuration",this.state.events[this.state.events.length - (this.state.newEvent - index )].id)} placeholder="1 mois" defaultValue ={"1 mois"}>
+                          <MenuItem  value="1">1 mois</MenuItem>
+                          <MenuItem  value="2">2 mois</MenuItem>
+                          <MenuItem  value="3">3 mois</MenuItem>
+                          <MenuItem  value="4">4 mois</MenuItem>
+                        </Select>
+                      </FormControl>
+                    : <p>c'est un No</p>}
+
                     <Button onClick= {e => this.deleteEvent(document.getElementById("CalendarInputId"+this.state.events[this.state.events.length - (this.state.newEvent - index )].id),index,customOptions) }>X</Button>
+
                   </Row>
+
                 </Col>
               </fieldset>
             </Container>);          
@@ -461,7 +496,6 @@ class CreateNewBooking extends Component {
                 messages={messages}
                 style={{minHeight : "60vh", margin : "3em"}}
                 localizer={localizer}
-                views={allViews}
                 events={this.state.events}
                 onEventDrop={this.moveEvent}
                 resizableAccessor={() => true}
