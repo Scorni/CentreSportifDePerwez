@@ -143,58 +143,65 @@ class CreateNewBooking extends Component {
           }))
 
         }else if(inputType === "hebdomadaire"){
+          console.log(this.state.events)
           this.setState(prev => ({
             events: prev.events.map(events => events.id === id ? { ...events, hebdomadaire: e } : events)
           }))
         }else if(inputType === "hebdomadaireDuration"){
+          
           this.setState(prev => ({
-            events: prev.events.map(events => events.id === id ? { ...events, hebdomadaireDuration: e } : events)
+            events: prev.events.map(events => events.id === id ? { ...events, hebdomadaireDuration: e} : events),
+            
           }))
-          //let  test = test.setTime( this.state.events[this.state.events.length - 1].start + days * 86400000 );
-          //console.log(test)
-          let tableHour = [];
-          for(let i =1; i < (e*4);i++){
-            var resultStart = new Date(this.state.events[this.state.events.length - 1].start);
-            resultStart.setDate(resultStart.getDate() + 7 * i);
-            var resultEnd = new Date(this.state.events[this.state.events.length - 1].end);
-            resultEnd.setDate(resultEnd.getDate() + 7 * i);
-//            this.state.events[this.state.events.length - 1].title
-          let hebdomadaireNewEvent = {
-            id: this.state.events.length - 1 + i,
-            title: 'Myhedbo' + this.state.events.length -(1+i),
-            allDay: false,
-            start:  resultStart,
-            end:  resultEnd,
-            type : "timeSlotHebdo",
-            slots : 1
-          }
-          console.log(hebdomadaireNewEvent)
-          //this.newEvent(hebdomadaireNewEvent)
-          
-
-          console.log(this.state.events)
-          let idList = this.state.events.map(a => a.id)
-          let newId = Math.max(...idList) + i
-          console.log(newId)
-          
-          let hour = {
-            id: newId,
-            title: <div className="BookingForm"><Link href="#currentBookList">Cliquez ici pour les options!</Link></div>,
-            allDay: false,
-            start: resultStart,
-            end: resultEnd,
-            type: "timeSlotHebdo",
-          }
-          tableHour.push(hour)
-          console.log(tableHour)
-          
-          }
-          this.setState({
+        }else if(inputType === "hebdomadaireDurationSet"){
+          //TODO: Boucle infini attention
+           //{ ...events, hebdomadaireDuration: "allo"}
+           console.log(this.state.events)
+           console.log(e)
+           
+           //let  test = test.setTime( this.state.events[this.state.events.length - 1].start + days * 86400000 );
+           //console.log(test)
+           let tableHour = [];
+           for(let i =1; i < (e*4);i++){
+             var resultStart = new Date(this.state.events[this.state.events.length - 1].start);
+             resultStart.setDate(resultStart.getDate() + 7 * i);
+             var resultEnd = new Date(this.state.events[this.state.events.length - 1].end);
+             resultEnd.setDate(resultEnd.getDate() + 7 * i);
+ //            this.state.events[this.state.events.length - 1].title
+           let hebdomadaireNewEvent = {
+             id: this.state.events.length - 1 + i,
+             title: 'Myhedbo' + this.state.events.length -(1+i),
+             allDay: false,
+             start:  resultStart,
+             end:  resultEnd,
+             type : "timeSlotHebdo",
+             slots : 1
+           }
+           console.log(hebdomadaireNewEvent)
+           //this.newEvent(hebdomadaireNewEvent)
+           
+ 
+           console.log(this.state.events)
+           let idList = this.state.events.map(a => a.id)
+           let newId = Math.max(...idList) + i
+           console.log(newId)
+           
+           let hour = {
+             id: newId,
+             title: <div className="BookingForm"><Link href="#currentBookList">Cliquez ici pour les options!</Link></div>,
+             allDay: false,
+             start: resultStart,
+             end: resultEnd,
+             type: "timeSlotHebdo",
+           }
+           tableHour.push(hour)
+           console.log(tableHour)
+           
+           }
+          /*this.setState({
             events: [ ...this.state.events, ...tableHour ],
             newEvent : this.state.newEvent + tableHour.length,
-          })
-
-          console.log(this.state.events)
+          })*/
         }
         
       }
@@ -327,7 +334,7 @@ class CreateNewBooking extends Component {
         events: this.state.events.concat([hour]),
         newEvent : this.state.newEvent + 1,
       })
-
+      console.log(this.state.events)
     }
     deleteEvent(e,index,tab){
 
@@ -495,7 +502,7 @@ class CreateNewBooking extends Component {
                     {this.state.events[this.state.events.length - (this.state.newEvent - index )].hebdomadaire === "Yes" 
                     ? <FormControl style={{margin:"0.5em"}}>
                         <InputLabel htmlFor="CalendarSelectRange">Sur combien de temps ?</InputLabel>
-                        <Select ref={this.hebdomadaireDuration} labelId="CalendarSelectRange" className="CalendarInput"  id="CalendarSelectRange" onChange={e =>this.updateValue(e.target.value,"hebdomadaireDuration",this.state.events[this.state.events.length - (this.state.newEvent - index )].id)} placeholder="1 mois" defaultValue ={"1 mois"}>
+                        <Select ref={this.hebdomadaireDuration} labelId="CalendarSelectRange" className="CalendarInput"  id="CalendarSelectRange" onChange={e =>this.updateValue(e.target.value,"hebdomadaireDuration",this.state.events[this.state.events.length - (this.state.newEvent - index )].id)} placeholder="1 mois" defaultValue ={""}>
                           <MenuItem  value="1">1 mois</MenuItem>
                           <MenuItem  value="2">2 mois</MenuItem>
                           <MenuItem  value="3">3 mois</MenuItem>
@@ -503,7 +510,7 @@ class CreateNewBooking extends Component {
                         </Select>
                       </FormControl>
                     : <p>c'est un No</p>}
-                    {this.state.events[this.state.events.length - (this.state.newEvent - index )].hebdomadaireDuration ? <p>{this.state.events[this.state.events.length - (this.state.newEvent - index )].hebdomadaireDuration}</p> : <p>{this.state.events[this.state.events.length - (this.state.newEvent - index )].hebdomadaireDuration}</p>}
+                    {this.state.events[this.state.events.length - (this.state.newEvent - index )].hebdomadaireDuration ? this.updateValue(this.state.events[this.state.events.length - (this.state.newEvent - index )].hebdomadaireDuration,"hebdomadaireDurationSet",this.state.events[this.state.events.length - (this.state.newEvent - index )].id) : <p>non</p>}
 
                     <Button onClick= {e => this.deleteEvent(document.getElementById("CalendarInputId"+this.state.events[this.state.events.length - (this.state.newEvent - index )].id),index,customOptions) }>X</Button>
 
@@ -528,7 +535,6 @@ class CreateNewBooking extends Component {
                     </FormControl>              
                     <TextField label="Date de début" id={"CalendarInputStart"+this.state.events[this.state.events.length - (this.state.newEvent - index )].id} className="CalendarInput" value= {this.state.events[this.state.events.length - (this.state.newEvent - index )].start || ""} placeholder="Heure de début" style={{margin:"0.5em"}} ></TextField>
                     <TextField label="Date de fin" id={"CalendarInputEnd"+this.state.events[this.state.events.length - (this.state.newEvent - index )].id} className="CalendarInput" value= {this.state.events[this.state.events.length - (this.state.newEvent - index )].end || ""} placeholder="Heure de fin" style={{margin:"0.5em"}} ></TextField>
-
                   </Row>
                   <Row>
                     
