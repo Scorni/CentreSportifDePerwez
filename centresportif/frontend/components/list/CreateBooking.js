@@ -219,7 +219,6 @@ class CreateNewBooking extends Component {
 
     onDropFromOutside = ({ start, end, allDay }) => {
       const { draggedEvent } = this.state
-      
       const event = {
         id: draggedEvent.id,
         title: draggedEvent.title,
@@ -238,7 +237,7 @@ class CreateNewBooking extends Component {
       let allDay = event.allDay
       let type = event.type
       console.log(start)
-
+      console.log(event)
       if (!event.allDay && droppedOnAllDaySlot) {
         
         allDay = true
@@ -250,73 +249,96 @@ class CreateNewBooking extends Component {
         if(start.getHours() !== 0){
           type = "timeSlot"
         }
-        if(event.type === "holidays" || event.type === "multipleDays"){
-          alert("veuillez d'abord redimensionner au jours voulu")
-        }
+        
       }
-      
-    const nextEvents = events.map(existingEvent => {
-      return existingEvent.id == event.id
-        ? { ...existingEvent, start, end, allDay,type }
-        : existingEvent
-    })
+    
+      this.currentBookList.current.querySelector("#CalendarInputStart"+event.id).value = moment(start).format('DD/MM/YYYY')
+      this.currentBookList.current.querySelector("#CalendarInputEnd"+event.id).value = moment(end).format('DD/MM/YYYY')
 
-    this.setState({
-      events: nextEvents,
-    })
-    //alert(`Votre réservation a été ajusté du ${start.getDate()}/${start.getMonth() + 1}/${start.getFullYear()} au ${end.getDate() - 1 }/${end.getMonth() + 1}/${end.getFullYear()} compris`)
-
-    // alert(`${event.title} was dropped onto ${updatedEvent.start}`)
+      this.setState(prev => ({
+        events: prev.events.map(events => events.id === event.id ? { ...events, start: new Date(moment(start,'DD/MM/YYYY').format('MM/DD/YYYY')),end: new Date(moment(end,'DD/MM/YYYY').format('MM/DD/YYYY')),allDay : allDay,type :type } : events)
+      }))
   }
-  // TODO: Resize prenant en compte un évènement sur une plage d'heures resize en journée complete/plusieurs journées  */
+  // TODO: Resize avec les jours fériés/non dispos  */
   
     resizeEvent = ({ event, start, end }) => {
       const { events } = this.state
       let type = "timeSlot"
-    
-      if((end.getDate() - start.getDate()) === 0 && (start.getTime() - end.getTime()) === 0 || (end.getDate() - start.getDate()) === 1){
-        type = "allDay"
-      }else if((end.getDate() - start.getDate()) > 1 || (start.getDate() - end.getDate()) > 1){
-        if(this.daysInMonth(start.getMonth()+1,start.getFullYear()) === start.getDate() && end.getDate() === 1){
-          type = "allDay"
+      for(let i =0;i < this.state.events.length;i++){
+        if(this.state.events[i].type === "close"){
+          if(moment(start).isBetween(moment(this.state.events[i].start),moment(this.state.events[i].end),'days', '[)') || moment(end).isBetween(moment(this.state.events[i].start),moment(this.state.events[i].end),'days', '[)')){
+            alert("vous ne pouvez pas réserver ce jour-ci,le centre est fermé,veuillez choisir une autre date")
+            return false
+
+          }else if(moment(this.state.events[i].start).isSame(moment(start)) || moment(this.state.events[i].start).isSame(moment(end))){
+            alert("vous ne pouvez pas réserver ce jour-ci,le centre est fermé,veuillez choisir une autre date")
+            return false
+          }else if(moment(this.state.events[i].start).isBetween(moment(start),moment(end),'days', '[)')){
+            console.log('allo')
+            alert("vous ne pouvez pas réserver ce jour-ci,le centre est fermé,veuillez choisir une autre date")
+            return false
+          }
         }
-        else if(event.type === "holidays"){
-          type= "holidays"
-          end.setHours(0,0,0,0);
-          start.setHours(0,0,0,0);
+      }
+      if((end.getDate() - start.getDate()) === 0 && (start.getTime() - end.getTime()) === 0 || (end.getDate() - start.getDate()) === 1){
+        if(event.type !== "close"){
+          type = "allDay"
         }else{
-          type = "multipleDays"
-          end.setHours(0,0,0,0);
-          start.setHours(0,0,0,0);
+          type = "close"
+        }
+      }else if((end.getDate() - start.getDate()) > 1 || (start.getDate() - end.getDate()) > 1){
+        if(event.type !== "close"){
+          if(this.daysInMonth(start.getMonth()+1,start.getFullYear()) === start.getDate() && end.getDate() === 1){
+            type = "allDay"
+          }
+          else if(event.type === "holidays"){
+            type= "holidays"
+            end.setHours(0,0,0,0);
+            start.setHours(0,0,0,0);
+          }else{
+            type = "multipleDays"
+            end.setHours(0,0,0,0);
+            start.setHours(0,0,0,0);
+          }
+        }else{
+          type = "close"
         }
       }
 
-      const nextEvents = events.map(existingEvent => {
-        return existingEvent.id == event.id
-          ? { ...existingEvent, start, end,type }
-          : existingEvent
-      })
-      
-      this.setState({
-        events: nextEvents,
-      })
+      this.currentBookList.current.querySelector("#CalendarInputStart"+event.id).value = moment(start).format('DD/MM/YYYY')
+      this.currentBookList.current.querySelector("#CalendarInputEnd"+event.id).value = moment(end).format('DD/MM/YYYY')
 
-      //alert(`Votre réservation a été ajusté du ${start.getDate()}/${start.getMonth() + 1}/${start.getFullYear()} au ${end.getDate() - 1 }/${end.getMonth() + 1}/${end.getFullYear()} compris`)
-    }
+      this.setState(prev => ({
+        events: prev.events.map(events => events.id === event.id ? { ...events, start: new Date(moment(start,'DD/MM/YYYY').format('MM/DD/YYYY')),end: new Date(moment(end,'DD/MM/YYYY').format('MM/DD/YYYY')),type :type } : events)
+      }))
+      }
 
     daysInMonth (month, year) { 
       return new Date(year, month, 0).getDate(); 
     }
 
     cleanDateOnScreen(myDate){
-    console.log(myDate)
     return moment(myDate).format('DD/MM/YYYY');
     }
 
     newEvent(event) {
       let type = "timeSlot"
-      console.log(event)
-      this.cleanDateOnScreen(event.start)
+      for(let i =0;i < this.state.events.length;i++){
+        if(this.state.events[i].type === "close"){
+          if(moment(event.start).isBetween(moment(this.state.events[i].start),moment(this.state.events[i].end),'days', '[)') || moment(event.end).isBetween(moment(this.state.events[i].start),moment(this.state.events[i].end),'days', '[)')){
+            alert("vous ne pouvez pas réserver ce jour-ci,le centre est fermé,veuillez choisir une autre date")
+            return false
+
+          }else if(moment(this.state.events[i].start).isSame(moment(event.start)) || moment(this.state.events[i].start).isSame(moment(event.end))){
+            alert("vous ne pouvez pas réserver ce jour-ci,le centre est fermé,veuillez choisir une autre date")
+            return false
+          }else if(moment(this.state.events[i].start).isBetween(moment(event.start),moment(event.end),'days', '[]')){
+            alert("vous ne pouvez pas réserver ce jour-ci,le centre est fermé,veuillez choisir une autre date")
+            return false
+          }
+        }
+      }
+      if(event.start.getDate())
       if((event.end.getDate() - event.start.getDate()) === 0 && (event.start.getTime() - event.end.getTime()) === 0 || (event.end.getDate() - event.start.getDate()) === 1){
         type = "allDay"
       }else if(event.end.getDate() - event.start.getDate() > 1 || (event.start.getDate() - event.end.getDate()) > 1){
@@ -355,7 +377,6 @@ class CreateNewBooking extends Component {
             newEvent: this.state.newEvent - 1
           }),() => {
             this.forceUpdate()
-            /**TODO: résoudre soucis avec réservation check le bouton et le moment ou on click le reste fonctionne nickel,les réservations d'après ne sont pas reconnues,comme non identifiables,du aux changements de valeurs du select*/
 
             for(let i = 0; i < tab.length; i++){
               if(tab[i].props.children.props.children[1].props.children[0].props.children[0].props.id === e.id){
@@ -369,13 +390,13 @@ class CreateNewBooking extends Component {
                     }
 
                     if(this.state.events[this.state.events.length - (j + 1)].start){                      
-                      this.currentBookList.current.children[j].querySelector("#CalendarInputStart"+this.state.events[this.state.events.length - (j + 1)].id).value = this.state.events[this.state.events.length - (j + 1)].start
+                      this.currentBookList.current.children[j].querySelector("#CalendarInputStart"+this.state.events[this.state.events.length - (j + 1)].id).value = moment(this.state.events[this.state.events.length - (j + 1)].start).format('DD/MM/YYYY')
                     }else{                     
                       this.currentBookList.current.children[j].querySelector("#CalendarInputStart"+this.state.events[this.state.events.length - (j + 1)].id).value = ""                   
                     }
 
                     if(this.state.events[this.state.events.length - (j + 1)].end){                      
-                      this.currentBookList.current.children[j].querySelector("#CalendarInputEnd"+this.state.events[this.state.events.length - (j + 1)].id).value = this.state.events[this.state.events.length - (j + 1)].end
+                      this.currentBookList.current.children[j].querySelector("#CalendarInputEnd"+this.state.events[this.state.events.length - (j + 1)].id).value = moment(this.state.events[this.state.events.length - (j + 1)].end).format('DD/MM/YYYY')
                     }else{
                       this.currentBookList.current.children[j].querySelector("#CalendarInputEnd"+this.state.events[this.state.events.length - (j + 1)].id).value = ""
                     }
@@ -437,7 +458,8 @@ class CreateNewBooking extends Component {
                           <MenuItem  value="timeSlot" disabled>Plage d'heures</MenuItem>
                           <MenuItem  value="allDay">Toute la journée</MenuItem>
                           <MenuItem  value="multipleDays" disabled>Plusieurs jours d'affilée</MenuItem>
-                        <MenuItem  value="holidays" disabled>Vacances</MenuItem>
+                          <MenuItem  value="holidays" disabled>Vacances</MenuItem>
+                          <MenuItem  value="close" >Fermé</MenuItem>
                         </Select>
                       </FormControl>
                       <TextField label="Date de début" id={"CalendarInputStart"+this.state.events[this.state.events.length - (this.state.newEvent - index )].id} className="CalendarInput" onBlur={e => this.updateValue(e.target.value,"start",this.state.events[this.state.events.length - (this.state.newEvent - index )].id)} defaultValue= {this.cleanDateOnScreen(this.state.events[this.state.events.length - (this.state.newEvent - index )].start) || ""} placeholder="Heure de début" style={{margin:"0.5em"}}></TextField>
@@ -466,6 +488,8 @@ class CreateNewBooking extends Component {
                         <MenuItem  value="allDay" disabled>Toute la journée</MenuItem>
                         <MenuItem  value="multipleDays">Plusieurs jours d'affilée</MenuItem>
                         <MenuItem  value="holidays">Vacances</MenuItem>
+                        <MenuItem  value="close">Fermé</MenuItem>
+
                       </Select>
                     </FormControl>
                     <TextField label="Date de début" id={"CalendarInputStart"+this.state.events[this.state.events.length - (this.state.newEvent - index )].id} className="CalendarInput" onBlur={e => this.updateValue(e.target.value,"start",this.state.events[this.state.events.length - (this.state.newEvent - index )].id)} defaultValue= {this.cleanDateOnScreen(this.state.events[this.state.events.length - (this.state.newEvent - index )].start) || ""} placeholder="Heure de début" style={{margin:"0.5em"}}></TextField>
@@ -494,6 +518,8 @@ class CreateNewBooking extends Component {
                         <MenuItem  value="allDay" disabled>Toute la journée</MenuItem>
                         <MenuItem  value="multipleDays">Plusieurs jours d'affilée</MenuItem>
                         <MenuItem  value="holidays">Vacances</MenuItem>
+                        <MenuItem  value="close" disabled>Fermé</MenuItem>
+
                       </Select>
                     </FormControl>
                     <TextField label="Date de début" id={"CalendarInputStart"+this.state.events[this.state.events.length - (this.state.newEvent - index )].id} className="CalendarInput" onBlur={e => this.updateValue(e.target.value,"start",this.state.events[this.state.events.length - (this.state.newEvent - index )].id)} defaultValue= {this.cleanDateOnScreen(this.state.events[this.state.events.length - (this.state.newEvent - index )].start) || ""} placeholder="Heure de début" style={{margin:"0.5em"}}></TextField>
@@ -521,6 +547,8 @@ class CreateNewBooking extends Component {
                         <MenuItem  value="allDay" disabled>Toute la journée</MenuItem>
                         <MenuItem  value="multipleDays" disabled>Plusieurs jours d'affilée</MenuItem>
                         <MenuItem  value="holidays" disabled>Vacances</MenuItem>
+                        <MenuItem  value="close" disabled>Fermé</MenuItem>
+
                       </Select>
                     </FormControl>              
                     <TextField label="Date de début" id={"CalendarInputStart"+this.state.events[this.state.events.length - (this.state.newEvent - index )].id} className="CalendarInput" onBlur={e => this.updateValue(e.target.value,"start",this.state.events[this.state.events.length - (this.state.newEvent - index )].id)} defaultValue= {this.cleanDateOnScreen(this.state.events[this.state.events.length - (this.state.newEvent - index )].start) || ""} placeholder="Heure de début" style={{margin:"0.5em"}}></TextField>
@@ -569,6 +597,8 @@ class CreateNewBooking extends Component {
                         <MenuItem  value="allDay" disabled>Toute la journée</MenuItem>
                         <MenuItem  value="multipleDays" disabled>Plusieurs jours d'affilée</MenuItem>
                         <MenuItem  value="holidays" disabled>Vacances</MenuItem>
+                        <MenuItem  value="close" disabled>Fermé</MenuItem>
+
                       </Select>
                     </FormControl>              
                     <TextField label="Date de début" id={"CalendarInputStart"+this.state.events[this.state.events.length - (this.state.newEvent - index )].id} className="CalendarInput" defaultValue= {this.cleanDateOnScreen(this.state.events[this.state.events.length - (this.state.newEvent - index )].start) || ""} placeholder="Heure de début" style={{margin:"0.5em"}} ></TextField>
@@ -583,6 +613,35 @@ class CreateNewBooking extends Component {
                 </Col>
               </fieldset>
             </Container>);          
+          }else if(this.state.events[this.state.events.length - (this.state.newEvent - index )].type === "close"){
+            customOptions.unshift(
+            <Container key= {"container" + index} id={"container" + index} style={{marginBottom:"2em"}}>
+              <fieldset style={{padding:'4em'}} className="border p-2 border-dark rounded">
+                <legend className="w-auto">Réservation n°{this.state.newEvent - index}</legend>
+                <Col>
+                  <Row>
+                    <TextField ref={this.title} label="Titre" id={"CalendarInputId"+this.state.events[this.state.events.length -  (this.state.newEvent - index )].id } className="CalendarInput"  placeholder="Titre" style={{margin:"0.5em"}} onBlur={e => this.updateValue(e.target.value,"title",this.state.events[this.state.events.length - (this.state.newEvent - index )].id)} InputLabelProps={{ shrink: true }}></TextField>
+                    <FormControl style={{margin:"0.5em"}}>
+                      <InputLabel htmlFor={"CalendarSelectType"+this.state.events[this.state.events.length - (this.state.newEvent - index )].id} shrink>Type</InputLabel>
+                      <Select ref={this.selectType} labelId={"CalendarSelectType"+this.state.events[this.state.events.length - (this.state.newEvent - index )].id} className="CalendarInput"  id={"CalendarSelectType"+this.state.events[this.state.events.length - (this.state.newEvent - index )].id} onChange={e =>this.updateValue(e.target.value,"type",this.state.events[this.state.events.length - (this.state.newEvent - index )].id)} placeholder="Type" defaultValue ={""}>
+                     
+                        <MenuItem  value="timeSlot" disabled>Plage d'heures</MenuItem>
+                        <MenuItem  value="allDay" disabled>Toute la journée</MenuItem>
+                        <MenuItem  value="multipleDays" disabled>Plusieurs jours d'affilée</MenuItem>
+                        <MenuItem  value="holidays" disabled>Vacances</MenuItem>
+                        <MenuItem  value="close">Fermé</MenuItem>
+
+                      </Select>
+                    </FormControl>
+                    <TextField label="Date de début" id={"CalendarInputStart"+this.state.events[this.state.events.length - (this.state.newEvent - index )].id} className="CalendarInput" onBlur={e => this.updateValue(e.target.value,"start",this.state.events[this.state.events.length - (this.state.newEvent - index )].id)} defaultValue= {this.cleanDateOnScreen(this.state.events[this.state.events.length - (this.state.newEvent - index )].start) || ""} placeholder="Heure de début" style={{margin:"0.5em"}}></TextField>
+                    <TextField label="Date de fin" id={"CalendarInputEnd"+this.state.events[this.state.events.length - (this.state.newEvent - index )].id} className="CalendarInput" onBlur={e =>this.updateValue(e.target.value,"end",this.state.events[this.state.events.length - (this.state.newEvent - index )].id)} defaultValue= {this.cleanDateOnScreen(this.state.events[this.state.events.length - (this.state.newEvent - index )].end) || ""} placeholder="Heure de fin" style={{margin:"0.5em"}}></TextField>
+                  </Row>  
+                  <Row>
+                    <Button onClick= {e => this.deleteEvent(document.getElementById("CalendarInputId"+this.state.events[this.state.events.length - (this.state.newEvent - index )].id),index,customOptions) }>X</Button>
+                  </Row>                
+                </Col>
+              </fieldset>
+            </Container>);
           }
         }
         return (
@@ -628,6 +687,8 @@ class CreateNewBooking extends Component {
                         newStyle.backgroundColor = "blue"
                       }else if (event.type == "timeSlotHebdo"){
                         newStyle.backgroundColor = "greenyellow"
+                      }else if (event.type == "close"){
+                        newStyle.backgroundColor = "grey"
                       }
                       
                       return {
