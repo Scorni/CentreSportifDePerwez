@@ -349,14 +349,14 @@ body,
 .footer .links ul {
   list-style-type: none;
 }
-.footer .links li a{
+.footer a{
       color: white;
       transition: color .2s;
 }
-.footer .links li a:hover{
+.footer a:hover{
         text-decoration:none;
         color:#4180CB;
-        }
+}
 .about-company i{
   font-size: 25px;
 }
@@ -563,16 +563,58 @@ iframe{
 }
 /** Booking part **/
 
-.CalendarInputLink{
+.BookingForm a{
   color: white;
   transition: color .2s;
   text-decoration: none;
+  user-select: none;
+    -webkit-user-drag: none;
 
 }
-.CalendarInputLink:hover{
+.BookingForm a:hover{
   text-decoration:none;
-  color:#4180CB;
+  color:black;
+  user-select: none;
+    -webkit-user-drag: none;
 }
 .CalendarInput{
   width: 250px;
+}
+
+.footer .links ul {
+  list-style-type: none;
+}
+.footer a{
+      color: white;
+      transition: color .2s;
+}
+.footer a:hover{
+        text-decoration:none;
+        color:#4180CB;
+        }
+.labelBorder{
+  position:absolute;
+  top:-10px;
+  left:20px;
+  background-color:none;
+}
+.colBorder{
+  
+  padding:10px;
+  border:2px solid;
+  margin:10px;
+}
+.rbc-toolbar {
+  flex-direction: row;
+  align-items: center;
+}
+.rbc-toolbar-label {
+  font-weight: 400;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+.rbc-btn-group{
+  align-items: center;
+  flex-direction: row;
+
 }

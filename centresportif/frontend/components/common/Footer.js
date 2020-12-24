@@ -6,7 +6,8 @@ import {
     } from 'reactstrap';
 import { AiFillPhone,AiOutlineFacebook } from 'react-icons/ai';
 import { BsPhone } from 'react-icons/bs';
-import { FaFax,FaHome,FaEnvelope } from 'react-icons/Fa';
+import { FaFax,FaStreetView,FaEnvelope } from 'react-icons/fa';
+
 import Link from "next/link";
 
 const Header = () => (
@@ -18,7 +19,7 @@ const Header = () => (
               <h2>Centre Sportif de Perwez</h2>
               <p className="pr-5 text-white-50">Le centre sportif offre des infrastructures de haute qualité autant pour les sports collectifs qu'individuels. On peut y retrouver plus de 25 clubs, proposant un bel éventail de disciplines. </p>            
               <p className="pr-5 text-white-50">Vous souhaitez en savoir plus ?</p>
-              <Link href='/'>Cliquez ici !</Link>
+              <Link href='/' style={{color: "white"}}>Cliquez ici !</Link>
               <p><a href="#"><i className="fa fa-facebook-square mr-1"></i></a><a href="#"><i className="fa fa-linkedin-square"></i></a></p>
             </div>
             <div className="col-lg-3 col-xs-12 links">
@@ -34,7 +35,7 @@ const Header = () => (
             </div>
             <div className="col-lg-4 col-xs-12 location">
               <h4 className="mt-lg-0 mt-sm-4">Adresse</h4>
-              <p><FaHome className="icon"/> Rue des Marronniers, 17, 1360 Perwez</p>
+              <p><FaStreetView className="icon"/> Rue des Marronniers, 17, 1360 Perwez</p>
               <p className="mb-0"><AiFillPhone className="icon"/> +32 (0)81 65 60 23</p>
               <p className="mb-0"><BsPhone className="icon"/> +32 (0)473 84 46 13</p>
               <p className="mb-0"><FaFax className="icon"/> +32 (0)81 65 60 23</p>

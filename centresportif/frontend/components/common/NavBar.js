@@ -42,7 +42,7 @@ const MyNavbar = (props) => {
                     </NavItem>  
                     
                     <NavItem className='mr-2 mt-1 mb-1'>
-                        <Link href='/createLocation'>
+                        <Link href='/createBooking'>
                             <Button className = "customButton">
                                 Réservation
                             </Button>
