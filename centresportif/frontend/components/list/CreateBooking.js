@@ -5,7 +5,7 @@ import gql from "graphql-tag";
 import {Calendar,momentLocalizer,Views } from 'react-big-calendar';
 import withDragAndDrop from 'react-big-calendar/lib/addons/dragAndDrop'
 
-import moment from 'moment';
+import moment, { defaultFormat } from 'moment';
 import 'moment/locale/fr';
 import { func } from 'prop-types';
 import {    
@@ -126,6 +126,9 @@ class CreateNewBooking extends Component {
           }
 
         }else if(inputType === "type"){
+                //this.currentBookList.current.querySelector('.MuiSelect-nativeInput').value = this.state.events[this.state.events.length - (j + 1)].type  
+                //this.currentBookList.current.children[j].querySelector('.MuiSelect-nativeInput').value = this.state.events[this.state.events.length - (j + 1)].type  
+                // TODO: Remise à la valeur avant dans le select a l'aide de ce que j'ai mis au-dessus en commentaire
           for(let i =0;i < this.state.events.length;i++){
             for(let j =0;j < this.state.events.length;j++){
               if(this.state.events[i].id === id && this.state.events[i].id !== this.state.events[j].id)
@@ -157,15 +160,20 @@ class CreateNewBooking extends Component {
         }else if(inputType === "start"){
           for(let i =0;i < this.state.events.length;i++){
             for(let j =0;j < this.state.events.length;j++){
-              if(this.state.events[i].id === id && this.state.events[i].id !== this.state.events[j].id)
-              {
-                if(e === this.cleanDateOnScreen(this.state.events[j].start)){
-                  console.log("belllaa")
-                  console.log(this.state.events[i].type + " : " +this.state.events[j].type)
-                  if(this.state.events[i].type === 'close' || this.state.events[j].type === 'close'){
-                    alert("vous ne pouvez pas ajouter un/des jour(s) de fermeture sur le(s) date(s) choisie(s) si une réservation existe au préalable")
-                    
-                    this.currentBookList.current.querySelector("#CalendarInputStart"+id).value = moment(this.state.events[i].start).format('DD/MM/YYYY')
+              if(this.state.events[i].id === id && this.state.events[i].id !== this.state.events[j].id){
+                let defaultFormat = new Date(moment(e,'DD/MM/YYYY').format('MM/DD/YYYY'))
+                if(this.state.events[i].type === 'close' || this.state.events[j].type === 'close'){
+                  if(moment(defaultFormat).isBetween(moment(this.state.events[j].start),moment(this.state.events[j].end),'days', '[]') || moment(defaultFormat - 1).isBetween(moment(this.state.events[j].start),moment(this.state.events[j].end),'days', '[]')){
+                      alert("vous ne pouvez pas ajouter un/des jour(s) de fermeture sur le(s) date(s) choisie(s) si une réservation existe au préalable")
+                      this.currentBookList.current.querySelector("#CalendarInputStart"+id).value = moment(this.state.events[i].end).format('DD/MM/YYYY')  
+                      return false                    
+                  }else if(moment(this.state.events[j].start).isSame(moment(defaultFormat - 1))){
+                    alert("vous ne pouvez pas réserver ce jour-ci,le centre est fermé,veuillez choisir une autre date ")
+                    this.currentBookList.current.querySelector("#CalendarInputStart"+id).value = moment(this.state.events[i].start).format('DD/MM/YYYY')  
+                    return false
+                  }else if(moment(this.state.events[j].start).isBetween(moment(this.state.events[j].start),moment(defaultFormat),'days', '[)')){
+                    alert("vous ne pouvez pas réserver ce jour-ci,le centre est fermé,veuillez choisir une autre date ")
+                    this.currentBookList.current.querySelector("#CalendarInputStart"+id).value = moment(this.state.events[i].start).format('DD/MM/YYYY')  
                     return false
                   }
                 }
@@ -180,34 +188,23 @@ class CreateNewBooking extends Component {
           for(let i =0;i < this.state.events.length;i++){
             for(let j =0;j < this.state.events.length;j++){
               if(this.state.events[i].id === id && this.state.events[i].id !== this.state.events[j].id){
-                console.log(e)
-                console.log(new Date(moment(e).format('MM/DD/YYYY')))
-                /** TODO: update end and start permet de cheat les dates de fermetures */
-                /*if(moment(start).isBetween(moment(this.state.events[i].start),moment(this.state.events[i].end),'days', '[)') || moment(end - 1).isBetween(moment(this.state.events[i].start),moment(this.state.events[i].end),'days', '[)')){
-                  alert("vous ne pouvez pas réserver ce jour-ci,le centre est fermé,veuillez choisir une autre date ")
-                  return false
-    
-                }else if(moment(this.state.events[i].start).isSame(moment(start)) || moment(this.state.events[i].start).isSame(moment(end - 1))){
-                  alert("vous ne pouvez pas réserver ce jour-ci,le centre est fermé,veuillez choisir une autre date ")
-                  return false
-                }else if(moment(this.state.events[i].start).isBetween(moment(start),moment(end),'days', '[)')){
-                  console.log('allo')
-                  alert("vous ne pouvez pas réserver ce jour-ci,le centre est fermé,veuillez choisir une autre date ")
-                  return false
-                }*/
-                if(e === this.cleanDateOnScreen(this.state.events[j].start)){
-                  if(moment(e).isBetween(moment(this.state.events[j].start),moment(this.state.events[j].end),'days', '[)') || moment(e - 1).isBetween(moment(this.state.events[j].start),moment(this.state.events[j].end),'days', '[)')){
-                    console.log("belllaa")
-                    console.log(this.state.events[i].type + " : " +this.state.events[j].type)
-                    if(this.state.events[i].type === 'close' || this.state.events[j].type === 'close'){
+                let defaultFormat =new Date(moment(e,'DD/MM/YYYY').format('MM/DD/YYYY'))
+                
+                if(this.state.events[i].type === 'close' || this.state.events[j].type === 'close'){
+                  if(moment(defaultFormat).isBetween(moment(this.state.events[j].start),moment(this.state.events[j].end),'days', '[]') || moment(defaultFormat - 1).isBetween(moment(this.state.events[j].start),moment(this.state.events[j].end),'days', '[]')){
                       alert("vous ne pouvez pas ajouter un/des jour(s) de fermeture sur le(s) date(s) choisie(s) si une réservation existe au préalable")
-                      this.currentBookList.current.querySelector("#CalendarInputEnd"+id).value = moment(this.state.events[i].end).format('DD/MM/YYYY')
-  
-                      return false
-                    }
+                      this.currentBookList.current.querySelector("#CalendarInputEnd"+id).value = moment(this.state.events[i].end).format('DD/MM/YYYY')  
+                      return false                    
+                  }else if(moment(this.state.events[j].start).isSame(moment(defaultFormat - 1))){
+                    alert("vous ne pouvez pas réserver ce jour-ci,le centre est fermé,veuillez choisir une autre date ")
+                    this.currentBookList.current.querySelector("#CalendarInputEnd"+id).value = moment(this.state.events[i].end).format('DD/MM/YYYY')  
+                    return false
+                  }else if(moment(this.state.events[j].start).isBetween(moment(this.state.events[j].start),moment(defaultFormat),'days', '[)')){
+                    alert("vous ne pouvez pas réserver ce jour-ci,le centre est fermé,veuillez choisir une autre date ")
+                    this.currentBookList.current.querySelector("#CalendarInputEnd"+id).value = moment(this.state.events[i].end).format('DD/MM/YYYY')  
+                    return false
                   }
                 }
-                
               }            
             }
           }
@@ -296,32 +293,35 @@ class CreateNewBooking extends Component {
       
       /** Check if current date is open or not */
       for(let i =0;i < this.state.events.length;i++){
-        if(this.state.events[i].type === "close"){
-          
+        if(this.state.events[i].id !== event.id){
+
+          if(this.state.events[i].type === "close"){
+            
+              if(moment(start).isBetween(moment(this.state.events[i].start),moment(this.state.events[i].end),'days', '[)') || moment(end - 1).isBetween(moment(this.state.events[i].start),moment(this.state.events[i].end),'days', '[)')){
+                alert("vous ne pouvez pas réserver ce jour-ci,le centre est fermé,veuillez choisir une autre date ")
+                return false
+
+              }else if(moment(this.state.events[i].start).isSame(moment(start)) || moment(this.state.events[i].start).isSame(moment(end - 1))){
+                alert("vous ne pouvez pas réserver ce jour-ci,le centre est fermé,veuillez choisir une autre date ")
+                return false
+              }else if(moment(this.state.events[i].start).isBetween(moment(start),moment(end),'days', '[)')){
+                console.log('allo')
+                alert("vous ne pouvez pas réserver ce jour-ci,le centre est fermé,veuillez choisir une autre date ")
+                return false
+              }
+          }else if (event.type === 'close'){
             if(moment(start).isBetween(moment(this.state.events[i].start),moment(this.state.events[i].end),'days', '[)') || moment(end - 1).isBetween(moment(this.state.events[i].start),moment(this.state.events[i].end),'days', '[)')){
-              alert("vous ne pouvez pas réserver ce jour-ci,le centre est fermé,veuillez choisir une autre date ")
+              alert("Une réservation existe pour ce(s) jour(s),veuillez l'annuler avant d'organiser des jours de fermeture ")
               return false
 
             }else if(moment(this.state.events[i].start).isSame(moment(start)) || moment(this.state.events[i].start).isSame(moment(end - 1))){
-              alert("vous ne pouvez pas réserver ce jour-ci,le centre est fermé,veuillez choisir une autre date ")
+              alert("Une réservation existe pour ce(s) jour(s),veuillez l'annuler avant d'organiser des jours de fermeture")
               return false
             }else if(moment(this.state.events[i].start).isBetween(moment(start),moment(end),'days', '[)')){
               console.log('allo')
-              alert("vous ne pouvez pas réserver ce jour-ci,le centre est fermé,veuillez choisir une autre date ")
+              alert("Une réservation existe pour ce(s) jour(s),veuillez l'annuler avant d'organiser des jours de fermeture")
               return false
             }
-        }else if (event.type === 'close'){
-          if(moment(start).isBetween(moment(this.state.events[i].start),moment(this.state.events[i].end),'days', '[)') || moment(end - 1).isBetween(moment(this.state.events[i].start),moment(this.state.events[i].end),'days', '[)')){
-            alert("Une réservation existe pour ce(s) jour(s),veuillez l'annuler avant d'organiser des jours de fermeture ")
-            return false
-
-          }else if(moment(this.state.events[i].start).isSame(moment(start)) || moment(this.state.events[i].start).isSame(moment(end - 1))){
-            alert("Une réservation existe pour ce(s) jour(s),veuillez l'annuler avant d'organiser des jours de fermeture")
-            return false
-          }else if(moment(this.state.events[i].start).isBetween(moment(start),moment(end),'days', '[)')){
-            console.log('allo')
-            alert("Une réservation existe pour ce(s) jour(s),veuillez l'annuler avant d'organiser des jours de fermeture")
-            return false
           }
         }
       }
@@ -354,7 +354,8 @@ class CreateNewBooking extends Component {
       
       /** Check if current date is open or not */
       for(let i =0;i < this.state.events.length;i++){
-        if(this.state.events[i].type === "close" && event.type !== "close"){
+        if(this.state.events[i].id !== event.id){
+          if(this.state.events[i].type === "close" && event.type !== "close"){
           
             if(moment(start).isBetween(moment(this.state.events[i].start),moment(this.state.events[i].end),'days', '[)') || moment(end - 1).isBetween(moment(this.state.events[i].start),moment(this.state.events[i].end),'days', '[)')){
               alert("vous ne pouvez pas réserver ce jour-ci,le centre est fermé,veuillez choisir une autre date ")
@@ -385,6 +386,8 @@ class CreateNewBooking extends Component {
             return false
           }
         }
+        }
+        
       }
       if((end.getDate() - start.getDate()) === 0 && (start.getTime() - end.getTime()) === 0 || (end.getDate() - start.getDate()) === 1){
         if(event.type !== "close"){
