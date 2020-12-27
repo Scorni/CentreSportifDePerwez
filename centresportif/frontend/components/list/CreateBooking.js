@@ -11,7 +11,7 @@ import { func } from 'prop-types';
 import {    
     Button, Label,Input,Container,Col,Row} from 'reactstrap';
 import Link from "next/link";
-import {TextField,Select,MenuItem,InputLabel,FormControl   } from '@material-ui/core';
+import {TextField,Select,MenuItem,InputLabel,FormControl,Tooltip    } from '@material-ui/core';
 import { getDay } from 'date-fns';
 
 /** TO DO IN DB
@@ -89,10 +89,16 @@ class CreateNewBooking extends Component {
         this.state = { 
           events,
           newEvent:0,
-          displayDragItemInCell: true, }
-
+          displayDragItemInCell: true,
+          tooltip: [
+            {
+              open : false,
+              
+            }
+          ] }
         this.moveEvent = this.moveEvent.bind(this)
         this.newEvent = this.newEvent.bind(this)
+
     }    
     handleSelect = ({ start, end }) => {
         this.setState({
@@ -128,29 +134,67 @@ class CreateNewBooking extends Component {
         }else if(inputType === "type"){
                 //this.currentBookList.current.querySelector('.MuiSelect-nativeInput').value = this.state.events[this.state.events.length - (j + 1)].type  
                 //this.currentBookList.current.children[j].querySelector('.MuiSelect-nativeInput').value = this.state.events[this.state.events.length - (j + 1)].type  
+                //this.currentBookList.current.children[j].querySelector("#CalendarSelectType"+this.state.events[this.state.events.length - (j + 1)].id).innerText
+                //console.log(this.currentBookList.current.children[j].querySelector("#CalendarSelectType"+this.state.events[this.state.events.length - (j + 1)].id))
+
                 // TODO: Remise à la valeur avant dans le select a l'aide de ce que j'ai mis au-dessus en commentaire
+          let TextPrinted;
           for(let i =0;i < this.state.events.length;i++){
             for(let j =0;j < this.state.events.length;j++){
               if(this.state.events[i].id === id && this.state.events[i].id !== this.state.events[j].id)
               {
                 if(e === "close"){
+                  console.log(this.state.events[i].type)
+                  console.log(this.currentBookList.current.querySelector("#CalendarSelectType"+id))
+                  if(this.state.events[i].type === "holidays"){                        
+                    TextPrinted = "Vacances"
+                  }else if(this.state.events[i].type === "multipleDays"){                        
+                    TextPrinted = "Plusieurs jours d'affilée"
+                  }else if(  this.state.events[i].type === "allDay"){                       
+                    TextPrinted = "Toute la journée"
+                  }else if( this.state.events[i].type === "timeSlot"){                        
+                    TextPrinted = "Plage d'heures"
+                  }else if( this.state.events[i].type === "timeSlotHebdo"){
+                    TextPrinted = "Plage d'heures"
+                  }
                   if(moment(this.state.events[j].start).isBetween(moment(this.state.events[i].start),moment(this.state.events[i].end),'days', '[)') || moment(this.state.events[j].end).isBetween(moment(this.state.events[i].start),moment(this.state.events[i].end),'days', '[)')){
                     alert("vous ne pouvez pas ajouter un/des jour(s) de fermeture sur le(s) date(s) choisie(s) si une réservation existe au préalable")
+                    this.currentBookList.current.querySelector("#CalendarSelectType"+id).parentElement.querySelector('.MuiSelect-nativeInput').value  = this.state.events[j].type
+                    //this.currentBookList.current.querySelector("#CalendarSelectType"+id).innerText = TextPrinted
                     return false
         
                   }else if(moment(this.state.events[i].start).isSame(moment(this.state.events[j].start)) || moment(this.state.events[i].start).isSame(moment(this.state.events[j].end))){
                     alert("vous ne pouvez pas ajouter un/des jour(s) de fermeture sur le(s) date(s) choisie(s) si une réservation existe au préalable")
+                    console.log(this.currentBookList.current.querySelector("#CalendarSelectType"+id).value)
+                    
+                    this.setState(prev => ({
+                      tooltip: prev.tooltip.map(tooltip => tooltip.id === id ? { ...tooltip, open: true } : tooltip)
+                    }))
+                    console.log(this.state.tooltip)
+                    if(this.currentBookList.current.querySelector("#CalendarSelectType"+id).innerText === ""){
+                      console.log('prout')
+                    }
+                    //this.currentBookList.current.querySelector("#CalendarSelectType"+id).textContent = ""
+                    this.currentBookList.current.querySelector("#CalendarSelectType"+id).style.color = "red"
+                    this.currentBookList.current.querySelector("#CalendarSelectType"+id).parentElement.querySelector('.MuiSelect-nativeInput').value  = this.state.events[j].type
+                    console.log(this.currentBookList.current)
+
+                    //this.currentBookList.current.querySelector("#CalendarSelectType"+id).innerText = TextPrinted
                     return false
                   }else if(moment(this.state.events[i].start).isBetween(moment(this.state.events[j].start),moment(this.state.events[j].end),'days', '[]')){
                     alert("vous ne pouvez pas ajouter un/des jour(s) de fermeture sur le(s) date(s) choisie(s) si une réservation existe au préalable")
+                    this.currentBookList.current.querySelector("#CalendarSelectType"+id).parentElement.querySelector('.MuiSelect-nativeInput').value  = this.state.events[j].type
+                    //this.currentBookList.current.querySelector("#CalendarSelectType"+id).innerText = TextPrinted
                     return false
                   }
                 }
               }            
             }
           }
+          this.currentBookList.current.querySelector("#CalendarSelectType"+id).style.color = "black"
           this.setState(prev => ({
-            events: prev.events.map(events => events.id === id ? { ...events, type: e } : events)
+            events: prev.events.map(events => events.id === id ? { ...events, type: e } : events),
+            tooltip: prev.tooltip.map(tooltip => tooltip.id === id ? { ...tooltip, open: false } : tooltip)
           }))
           if(typeof this.state.events[this.state.events.length - 1].title !== 'string'){
             this.setState(prev => ({
@@ -469,9 +513,14 @@ class CreateNewBooking extends Component {
         end: event.end,
         type: type,
       }
+      let tooltips = {
+        id : newId,
+        open : false
+      }
       this.setState({
         events: this.state.events.concat([hour]),
         newEvent : this.state.newEvent + 1,
+        tooltip: this.state.tooltip.concat([tooltips])
       })
     }
     deleteEvent(e,index,tab){
@@ -563,6 +612,8 @@ class CreateNewBooking extends Component {
                       <TextField ref={this.title} label="Titre" id={"CalendarInputId"+this.state.events[this.state.events.length - (this.state.newEvent - index )].id } className="CalendarInput"  placeholder="Titre" style={{margin:"0.5em"}} onBlur={e => this.updateValue(e.target.value,"title",this.state.events[this.state.events.length - (this.state.newEvent - index )].id)} InputLabelProps={{ shrink: true }} ></TextField>
                       <FormControl style={{margin:"0.5em"}}>
                         <InputLabel htmlFor={"CalendarSelectType"+this.state.events[this.state.events.length - (this.state.newEvent - index )].id}  shrink>Type</InputLabel>
+                        <Tooltip title="Veuillez changer le type de réservation" open={this.state.tooltip[this.state.tooltip.length - (this.state.newEvent - index )].open} id={"Tooltip"+this.state.events[this.state.events.length - (this.state.newEvent - index )].id}>
+
                         <Select ref={this.selectType} labelId={"CalendarSelectType"+this.state.events[this.state.events.length - (this.state.newEvent - index )].id} className="CalendarInput"  id={"CalendarSelectType"+this.state.events[this.state.events.length - (this.state.newEvent - index )].id} onChange={e => this.updateValue(e.target.value,"type",this.state.events[this.state.events.length - (this.state.newEvent - index )].id)} placeholder="Type" defaultValue ={""}>
                           <MenuItem  value="timeSlot" disabled>Plage d'heures</MenuItem>
                           <MenuItem  value="allDay">Toute la journée</MenuItem>
@@ -570,6 +621,7 @@ class CreateNewBooking extends Component {
                           <MenuItem  value="holidays" disabled>Vacances</MenuItem>
                           <MenuItem  value="close" >Fermé</MenuItem>
                         </Select>
+                        </Tooltip>
                       </FormControl>
                       <TextField label="Date de début" id={"CalendarInputStart"+this.state.events[this.state.events.length - (this.state.newEvent - index )].id} className="CalendarInput" onBlur={e => this.updateValue(e.target.value,"start",this.state.events[this.state.events.length - (this.state.newEvent - index )].id)} defaultValue= {this.cleanDateOnScreen(this.state.events[this.state.events.length - (this.state.newEvent - index )].start) || ""} placeholder="Heure de début" style={{margin:"0.5em"}}></TextField>
                       <TextField label="Date de fin" id={"CalendarInputEnd"+this.state.events[this.state.events.length - (this.state.newEvent - index )].id} className="CalendarInput" onBlur={e =>this.updateValue(e.target.value,"end",this.state.events[this.state.events.length - (this.state.newEvent - index )].id)} defaultValue= {this.cleanDateOnScreen(this.state.events[this.state.events.length - (this.state.newEvent - index )].end) || ""} placeholder="Heure de fin" style={{margin:"0.5em"}}></TextField>
@@ -591,6 +643,8 @@ class CreateNewBooking extends Component {
                     <TextField ref={this.title} label="Titre" id={"CalendarInputId"+this.state.events[this.state.events.length -  (this.state.newEvent - index )].id } className="CalendarInput"  placeholder="Titre" style={{margin:"0.5em"}} onBlur={e => this.updateValue(e.target.value,"title",this.state.events[this.state.events.length - (this.state.newEvent - index )].id)} InputLabelProps={{ shrink: true }}></TextField>
                     <FormControl style={{margin:"0.5em"}}>
                       <InputLabel htmlFor={"CalendarSelectType"+this.state.events[this.state.events.length - (this.state.newEvent - index )].id} shrink>Type</InputLabel>
+                      <Tooltip title="Veuillez changer le type de réservation" open={this.state.tooltip[this.state.tooltip.length - (this.state.newEvent - index )].open} id={"Tooltip"+this.state.events[this.state.events.length - (this.state.newEvent - index )].id}>
+
                       <Select ref={this.selectType} labelId={"CalendarSelectType"+this.state.events[this.state.events.length - (this.state.newEvent - index )].id} className="CalendarInput"  id={"CalendarSelectType"+this.state.events[this.state.events.length - (this.state.newEvent - index )].id} onChange={e =>this.updateValue(e.target.value,"type",this.state.events[this.state.events.length - (this.state.newEvent - index )].id)} placeholder="Type" defaultValue ={""}>
                      
                         <MenuItem  value="timeSlot" disabled>Plage d'heures</MenuItem>
@@ -598,8 +652,9 @@ class CreateNewBooking extends Component {
                         <MenuItem  value="multipleDays">Plusieurs jours d'affilée</MenuItem>
                         <MenuItem  value="holidays">Vacances</MenuItem>
                         <MenuItem  value="close">Fermé</MenuItem>
-
+                
                       </Select>
+                      </Tooltip>
                     </FormControl>
                     <TextField label="Date de début" id={"CalendarInputStart"+this.state.events[this.state.events.length - (this.state.newEvent - index )].id} className="CalendarInput" onBlur={e => this.updateValue(e.target.value,"start",this.state.events[this.state.events.length - (this.state.newEvent - index )].id)} defaultValue= {this.cleanDateOnScreen(this.state.events[this.state.events.length - (this.state.newEvent - index )].start) || ""} placeholder="Heure de début" style={{margin:"0.5em"}}></TextField>
                     <TextField label="Date de fin" id={"CalendarInputEnd"+this.state.events[this.state.events.length - (this.state.newEvent - index )].id} className="CalendarInput" onBlur={e =>this.updateValue(e.target.value,"end",this.state.events[this.state.events.length - (this.state.newEvent - index )].id)} defaultValue= {this.cleanDateOnScreen(this.state.events[this.state.events.length - (this.state.newEvent - index )].end) || ""} placeholder="Heure de fin" style={{margin:"0.5em"}}></TextField>
@@ -621,6 +676,8 @@ class CreateNewBooking extends Component {
                     <TextField ref={this.title} label="Titre" id={"CalendarInputId"+this.state.events[this.state.events.length - (this.state.newEvent - index )].id } className="CalendarInput"  placeholder="Titre" style={{margin:"0.5em"}} onBlur={e => this.updateValue(e.target.value,"title",this.state.events[this.state.events.length - (this.state.newEvent - index )].id)} InputLabelProps={{ shrink: true }}></TextField>
                     <FormControl style={{margin:"0.5em"}}>
                       <InputLabel htmlFor={"CalendarSelectType"+this.state.events[this.state.events.length - (this.state.newEvent - index )].id}  shrink>Type</InputLabel>
+                      <Tooltip title="Veuillez changer le type de réservation" open={this.state.tooltip[this.state.tooltip.length - (this.state.newEvent - index )].open} id={"Tooltip"+this.state.events[this.state.events.length - (this.state.newEvent - index )].id}>
+
                       <Select ref={this.selectType} labelId={"CalendarSelectType"+this.state.events[this.state.events.length - (this.state.newEvent - index )].id} className="CalendarInput"  id={"CalendarSelectType"+this.state.events[this.state.events.length - (this.state.newEvent - index )].id} onChange={e =>this.updateValue(e.target.value,"type",this.state.events[this.state.events.length - (this.state.newEvent - index )].id)} placeholder="Type" defaultValue ={""} >
                         
                         <MenuItem  value="timeSlot" disabled>Plage d'heures</MenuItem>
@@ -630,6 +687,7 @@ class CreateNewBooking extends Component {
                         <MenuItem  value="close">Fermé</MenuItem>
 
                       </Select>
+                      </Tooltip>
                     </FormControl>
                     <TextField label="Date de début" id={"CalendarInputStart"+this.state.events[this.state.events.length - (this.state.newEvent - index )].id} className="CalendarInput" onBlur={e => this.updateValue(e.target.value,"start",this.state.events[this.state.events.length - (this.state.newEvent - index )].id)} defaultValue= {this.cleanDateOnScreen(this.state.events[this.state.events.length - (this.state.newEvent - index )].start) || ""} placeholder="Heure de début" style={{margin:"0.5em"}}></TextField>
                     <TextField label="Date de fin" id={"CalendarInputEnd"+this.state.events[this.state.events.length - (this.state.newEvent - index )].id} className="CalendarInput" onBlur={e =>this.updateValue(e.target.value,"end",this.state.events[this.state.events.length - (this.state.newEvent - index )].id)} defaultValue= {this.cleanDateOnScreen(this.state.events[this.state.events.length - (this.state.newEvent - index )].end) || ""} placeholder="Heure de fin" style={{margin:"0.5em"}}></TextField>
@@ -651,6 +709,8 @@ class CreateNewBooking extends Component {
                     <TextField ref={this.title} label="Titre" id={"CalendarInputId"+this.state.events[this.state.events.length - (this.state.newEvent - index )].id } className="CalendarInput"  placeholder="Titre" style={{margin:"0.5em"}} onBlur={e => this.updateValue(e.target.value,"title",this.state.events[this.state.events.length - (this.state.newEvent - index )].id)} InputLabelProps={{ shrink: true }}></TextField>
                     <FormControl style={{margin:"0.5em"}}>
                       <InputLabel htmlFor={"CalendarSelectType"+this.state.events[this.state.events.length - (this.state.newEvent - index )].id}  shrink>Type</InputLabel>
+                      <Tooltip title="Veuillez changer le type de réservation" open={this.state.tooltip[this.state.tooltip.length - (this.state.newEvent - index )].open} id={"Tooltip"+this.state.events[this.state.events.length - (this.state.newEvent - index )].id}>
+
                       <Select ref={this.selectType} labelId={"CalendarSelectType"+this.state.events[this.state.events.length - (this.state.newEvent - index )].id} className="CalendarInput"  id={"CalendarSelectType"+this.state.events[this.state.events.length - (this.state.newEvent - index )].id}  placeholder="Type" defaultValue ={""}>
                         <MenuItem  value="timeSlot" >Plage d'heures</MenuItem>
                         <MenuItem  value="allDay" disabled>Toute la journée</MenuItem>
@@ -659,6 +719,7 @@ class CreateNewBooking extends Component {
                         <MenuItem  value="close">Fermé</MenuItem>
 
                       </Select>
+                      </Tooltip>
                     </FormControl>              
                     <TextField label="Date de début" id={"CalendarInputStart"+this.state.events[this.state.events.length - (this.state.newEvent - index )].id} className="CalendarInput" onBlur={e => this.updateValue(e.target.value,"start",this.state.events[this.state.events.length - (this.state.newEvent - index )].id)} defaultValue= {this.cleanDateOnScreen(this.state.events[this.state.events.length - (this.state.newEvent - index )].start) || ""} placeholder="Heure de début" style={{margin:"0.5em"}}></TextField>
                     <TextField label="Date de fin" id={"CalendarInputEnd"+this.state.events[this.state.events.length - (this.state.newEvent - index )].id} className="CalendarInput" onBlur={e =>this.updateValue(e.target.value,"end",this.state.events[this.state.events.length - (this.state.newEvent - index )].id)} defaultValue= {this.cleanDateOnScreen(this.state.events[this.state.events.length - (this.state.newEvent - index )].end) || ""} placeholder="Heure de fin" style={{margin:"0.5em"}}></TextField>
@@ -701,6 +762,8 @@ class CreateNewBooking extends Component {
                     <TextField ref={this.title} label="Titre" id={"CalendarInputId"+this.state.events[this.state.events.length - (this.state.newEvent - index )].id } className="CalendarInput" value= {this.state.events[this.state.events.length - (this.state.newEvent - index )].title || ""} placeholder="Titre" style={{margin:"0.5em"}}  InputLabelProps={{ shrink: true }}></TextField>
                     <FormControl style={{margin:"0.5em"}}>
                       <InputLabel htmlFor={"CalendarSelectType"+this.state.events[this.state.events.length - (this.state.newEvent - index )].id}  shrink>Type</InputLabel>
+                      <Tooltip title="Veuillez changer le type de réservation" open={this.state.tooltip[this.state.tooltip.length - (this.state.newEvent - index )].open} id={"Tooltip"+this.state.events[this.state.events.length - (this.state.newEvent - index )].id}>
+
                       <Select ref={this.selectType} labelId={"CalendarSelectType"+this.state.events[this.state.events.length - (this.state.newEvent - index )].id} className="CalendarInput"  id={"CalendarSelectType"+this.state.events[this.state.events.length - (this.state.newEvent - index )].id} placeholder="Type" defaultValue ={""}>
                         <MenuItem  value="timeSlot" >Plage d'heures</MenuItem>
                         <MenuItem  value="allDay" disabled>Toute la journée</MenuItem>
@@ -709,6 +772,7 @@ class CreateNewBooking extends Component {
                         <MenuItem  value="close" disabled>Fermé</MenuItem>
 
                       </Select>
+                      </Tooltip>
                     </FormControl>              
                     <TextField label="Date de début" id={"CalendarInputStart"+this.state.events[this.state.events.length - (this.state.newEvent - index )].id} className="CalendarInput" defaultValue= {this.cleanDateOnScreen(this.state.events[this.state.events.length - (this.state.newEvent - index )].start) || ""} placeholder="Heure de début" style={{margin:"0.5em"}} ></TextField>
                     <TextField label="Date de fin" id={"CalendarInputEnd"+this.state.events[this.state.events.length - (this.state.newEvent - index )].id} className="CalendarInput" defaultValue= {this.cleanDateOnScreen(this.state.events[this.state.events.length - (this.state.newEvent - index )].end) || ""} placeholder="Heure de fin" style={{margin:"0.5em"}} ></TextField>
@@ -732,6 +796,8 @@ class CreateNewBooking extends Component {
                     <TextField ref={this.title} label="Titre" id={"CalendarInputId"+this.state.events[this.state.events.length -  (this.state.newEvent - index )].id } className="CalendarInput"  placeholder="Titre" style={{margin:"0.5em"}} onBlur={e => this.updateValue(e.target.value,"title",this.state.events[this.state.events.length - (this.state.newEvent - index )].id)} InputLabelProps={{ shrink: true }}></TextField>
                     <FormControl style={{margin:"0.5em"}}>
                       <InputLabel htmlFor={"CalendarSelectType"+this.state.events[this.state.events.length - (this.state.newEvent - index )].id} shrink>Type</InputLabel>
+                      <Tooltip title="Veuillez changer le type de réservation" open={this.state.tooltip[this.state.tooltip.length - (this.state.newEvent - index )].open} id={"Tooltip"+this.state.events[this.state.events.length - (this.state.newEvent - index )].id}>
+
                       <Select ref={this.selectType} labelId={"CalendarSelectType"+this.state.events[this.state.events.length - (this.state.newEvent - index )].id} className="CalendarInput"  id={"CalendarSelectType"+this.state.events[this.state.events.length - (this.state.newEvent - index )].id} onChange={e =>this.updateValue(e.target.value,"type",this.state.events[this.state.events.length - (this.state.newEvent - index )].id)} placeholder="Type" defaultValue ={""}>
                      
                         <MenuItem  value="timeSlot" disabled>Plage d'heures</MenuItem>
@@ -741,6 +807,7 @@ class CreateNewBooking extends Component {
                         <MenuItem  value="close">Fermé</MenuItem>
 
                       </Select>
+                      </Tooltip>
                     </FormControl>
                     <TextField label="Date de début" id={"CalendarInputStart"+this.state.events[this.state.events.length - (this.state.newEvent - index )].id} className="CalendarInput" onBlur={e => this.updateValue(e.target.value,"start",this.state.events[this.state.events.length - (this.state.newEvent - index )].id)} defaultValue= {this.cleanDateOnScreen(this.state.events[this.state.events.length - (this.state.newEvent - index )].start) || ""} placeholder="Heure de début" style={{margin:"0.5em"}}></TextField>
                     <TextField label="Date de fin" id={"CalendarInputEnd"+this.state.events[this.state.events.length - (this.state.newEvent - index )].id} className="CalendarInput" onBlur={e =>this.updateValue(e.target.value,"end",this.state.events[this.state.events.length - (this.state.newEvent - index )].id)} defaultValue= {this.cleanDateOnScreen(this.state.events[this.state.events.length - (this.state.newEvent - index )].end) || ""} placeholder="Heure de fin" style={{margin:"0.5em"}}></TextField>
