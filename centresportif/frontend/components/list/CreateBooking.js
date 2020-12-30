@@ -126,6 +126,7 @@ class CreateNewBooking extends Component {
 
     } 
     updateValue = (e,inputType,id) => {
+      let regExp = /[a-zA-Z-!-\-@[-`{-~]/;
       /** TODO: check de salle avec les réservations sur plage horaire */
       if (this.state.newEvent > 0){
         if(inputType === "title"){          
@@ -260,14 +261,29 @@ class CreateNewBooking extends Component {
             }))
           }
         }else if(inputType === "start"){
+          
           for(let i =0;i < this.state.events.length;i++){
             for(let j =0;j < this.state.events.length;j++){
+              
               if(this.state.events[i].id === id && this.state.events[i].id !== this.state.events[j].id){
-                let defaultFormat = new Date(moment(e,'DD/MM/YYYY HH:mm').format('MM/DD/YYYY'))
+                let defaultFormat = new Date(moment(e,'DD/MM/YYYY HH:mm').format('MM/DD/YYYY HH:mm'))
+                if(regExp.test(e)){
+                  alert("La date rentrée n'est pas au bon format,veuillez entrer une date dans le format par défaut")
+                  this.currentBookList.current.querySelector("#CalendarInputStart"+id).value = moment(this.state.events[i].start).format('DD/MM/YYYY HH:mm')  
+                  return false
+                }else if(this.state.events[i].isHebdoBooking === id || this.state.events[i].hebdomadaire){
+                  alert("vous ne pouvez changer la date et l'heure d'une réservation hebdomadaire")
+                  this.currentBookList.current.querySelector("#CalendarInputStart"+id).value = moment(this.state.events[i].start).format('DD/MM/YYYY HH:mm')  
+                  return false;
+                }else if(!moment(e,'DD/MM/YYYY HH:mm').isValid()){
+                  alert("La date rentrée n'est pas valide,veuillez entrer une date dans le format approprié")
+                  this.currentBookList.current.querySelector("#CalendarInputStart"+id).value = moment(this.state.events[i].start).format('DD/MM/YYYY HH:mm')  
+                  return false;
+                }
                 if(this.state.events[i].type === 'close' || this.state.events[j].type === 'close'){
                   if(moment(defaultFormat).isBetween(moment(this.state.events[j].start),moment(this.state.events[j].end),'days', '[]') || moment(defaultFormat - 1).isBetween(moment(this.state.events[j].start),moment(this.state.events[j].end),'days', '[]')){
                       alert("vous ne pouvez pas ajouter un/des jour(s) de fermeture sur le(s) date(s) choisie(s) si une réservation existe au préalable")
-                      this.currentBookList.current.querySelector("#CalendarInputStart"+id).value = moment(this.state.events[i].end).format('DD/MM/YYYY HH:mm')  
+                      this.currentBookList.current.querySelector("#CalendarInputStart"+id).value = moment(this.state.events[i].start).format('DD/MM/YYYY HH:mm')  
                       return false                    
                   }else if(moment(this.state.events[j].start).isSame(moment(defaultFormat - 1))){
                     alert("vous ne pouvez pas réserver ce jour-ci,le centre est fermé,veuillez choisir une autre date ")
@@ -283,15 +299,27 @@ class CreateNewBooking extends Component {
             }
           }
           this.setState(prev => ({
-            events: prev.events.map(events => events.id === id ? { ...events, start: new Date(moment(e,'DD/MM/YYYY HH:mm').format('MM/DD/YYYY')) } : events)
+            events: prev.events.map(events => events.id === id ? { ...events, start: new Date(moment(e,'DD/MM/YYYY HH:mm').format('MM/DD/YYYY HH:mm')) } : events)
           }))
 
         }else if(inputType === "end"){
           for(let i =0;i < this.state.events.length;i++){
             for(let j =0;j < this.state.events.length;j++){
               if(this.state.events[i].id === id && this.state.events[i].id !== this.state.events[j].id){
-                let defaultFormat =new Date(moment(e,'DD/MM/YYYY HH:mm').format('MM/DD/YYYY'))
-                
+                let defaultFormat =new Date(moment(e,'DD/MM/YYYY HH:mm').format('MM/DD/YYYY HH:mm'))
+                if(regExp.test(e)){
+                  alert("La date rentrée n'est pas au bon format,veuillez entrer une date dans le format par défaut")
+                  this.currentBookList.current.querySelector("#CalendarInputEnd"+id).value = moment(this.state.events[i].end).format('DD/MM/YYYY HH:mm')  
+                  return false
+                }else if(this.state.events[i].isHebdoBooking === id || this.state.events[i].hebdomadaire){
+                  alert("vous ne pouvez changer la date et l'heure d'une réservation hebdomadaire")
+                  this.currentBookList.current.querySelector("#CalendarInputEnd"+id).value = moment(this.state.events[i].end).format('DD/MM/YYYY HH:mm')  
+                  return false;
+                }else if(!moment(e,'DD/MM/YYYY HH:mm').isValid()){
+                  alert("La date rentrée n'est pas valide,veuillez entrer une date dans le format approprié")
+                  this.currentBookList.current.querySelector("#CalendarInputEnd"+id).value = moment(this.state.events[i].end).format('DD/MM/YYYY HH:mm')  
+                  return false;
+                }
                 if(this.state.events[i].type === 'close' || this.state.events[j].type === 'close'){
                   if(moment(defaultFormat).isBetween(moment(this.state.events[j].start),moment(this.state.events[j].end),'days', '[]') || moment(defaultFormat - 1).isBetween(moment(this.state.events[j].start),moment(this.state.events[j].end),'days', '[]')){
                       alert("vous ne pouvez pas ajouter un/des jour(s) de fermeture sur le(s) date(s) choisie(s) si une réservation existe au préalable")
@@ -311,10 +339,16 @@ class CreateNewBooking extends Component {
             }
           }
           this.setState(prev => ({
-            events: prev.events.map(events => events.id === id ? { ...events, end: new Date(moment(e,'DD/MM/YYYY HH:mm').format('MM/DD/YYYY')) } : events)
+            events: prev.events.map(events => events.id === id ? { ...events, end: new Date(moment(e,'DD/MM/YYYY HH:mm').format('MM/DD/YYYY HH:mm')) } : events)
           }))
 
         }else if(inputType === "hebdomadaire"){
+          for(let i =1 ;i < this.state.events.length;i++){
+            if(this.state.events[this.state.events.length - i].isHebdoBooking === id){
+              alert("veuillez d'abord supprimer les réservations liées à celles-ci avant de changer le type de réservation");
+              return false
+            }
+          }
           this.setState(prev => ({
             events: prev.events.map(events => events.id === id ? { ...events, hebdomadaire: e } : events)
           }))
@@ -438,6 +472,17 @@ class CreateNewBooking extends Component {
           }
         }
       }
+      console.log(event)
+      if(event.hebdomadaire === "Yes"){
+        console.log('salut mon pote à la compote de pomme')
+        alert("Vous ne pouvez pas changer l'heure d'une réservation hebdomadaire")
+        return false
+      }
+      if(event.type === 'timeSlotHebdo'){
+        console.log('salut mon pote à la compote')
+        alert("Vous ne pouvez pas changer l'heure d'une réservation hebdomadaire")
+        return false
+      }
       if (!event.allDay && droppedOnAllDaySlot) {
         
         allDay = true
@@ -449,13 +494,11 @@ class CreateNewBooking extends Component {
         if(start.getHours() !== 0){
           type = "timeSlot"
         }
-        
       }
-    
       this.currentBookList.current.querySelector("#CalendarInputStart"+event.id).value = this.cleanDateOnScreen(start)
       this.currentBookList.current.querySelector("#CalendarInputEnd"+event.id).value = this.cleanDateOnScreen(end)
       this.setState(prev => ({
-        events: prev.events.map(events => events.id === event.id ? { ...events, start: new Date(moment(start,'DD/MM/YYYY HH:mm').format('MM/DD/YYYY')),end: new Date(moment(end,'DD/MM/YYYY HH:mm').format('MM/DD/YYYY')),type :type } : events)
+        events: prev.events.map(events => events.id === event.id ? { ...events, start: new Date(moment(start,'DD/MM/YYYY HH:mm').format('MM/DD/YYYY HH:mm')),end: new Date(moment(end,'DD/MM/YYYY HH:mm').format('MM/DD/YYYY HH:mm')),type :type,allDay:allDay } : events)
       }))
   }
   
@@ -520,7 +563,7 @@ class CreateNewBooking extends Component {
       this.currentBookList.current.querySelector("#CalendarInputStart"+event.id).value = this.cleanDateOnScreen(start)
       this.currentBookList.current.querySelector("#CalendarInputEnd"+event.id).value = this.cleanDateOnScreen(end)
       this.setState(prev => ({
-        events: prev.events.map(events => events.id === event.id ? { ...events, start: new Date(moment(start,'DD/MM/YYYY HH:mm').format('MM/DD/YYYY')),end: new Date(moment(end,'DD/MM/YYYY HH:mm').format('MM/DD/YYYY')),type :type } : events)
+        events: prev.events.map(events => events.id === event.id ? { ...events, start: new Date(moment(start,'DD/MM/YYYY HH:mm').format('MM/DD/YYYY HH:mm')),end: new Date(moment(end,'DD/MM/YYYY HH:mm').format('MM/DD/YYYY HH:mm')),type :type } : events)
       }))
       }
 
@@ -589,6 +632,7 @@ class CreateNewBooking extends Component {
         tooltip: this.state.tooltip.concat([tooltips]),
         tooltipRoom: this.state.tooltipRoom.concat([tooltipsRoom])
       })
+      console.log(this.state.events)
     }
     deleteEvent(e,index,tab){
       if(this.state.newEvent <= 0){        
@@ -913,8 +957,8 @@ class CreateNewBooking extends Component {
                     </FormControl>              
                     </Row>
                   <Row>
-                  <TextField label="Date de début" id={"CalendarInputStart"+this.state.events[this.state.events.length - (this.state.newEvent - index )].id} className="CalendarInput" defaultValue= {this.cleanDateOnScreen(this.state.events[this.state.events.length - (this.state.newEvent - index )].start) || ""} placeholder="Heure de début" style={{margin:"0.5em"}} ></TextField>
-                    <TextField label="Date de fin" id={"CalendarInputEnd"+this.state.events[this.state.events.length - (this.state.newEvent - index )].id} className="CalendarInput" defaultValue= {this.cleanDateOnScreen(this.state.events[this.state.events.length - (this.state.newEvent - index )].end) || ""} placeholder="Heure de fin" style={{margin:"0.5em"}} ></TextField>
+                    <TextField label="Date de début" id={"CalendarInputStart"+this.state.events[this.state.events.length - (this.state.newEvent - index )].id} className="CalendarInput" defaultValue= {this.cleanDateOnScreen(this.state.events[this.state.events.length - (this.state.newEvent - index )].start) || ""} placeholder="Heure de début" style={{margin:"0.5em"}} disabled></TextField>
+                    <TextField label="Date de fin" id={"CalendarInputEnd"+this.state.events[this.state.events.length - (this.state.newEvent - index )].id} className="CalendarInput" defaultValue= {this.cleanDateOnScreen(this.state.events[this.state.events.length - (this.state.newEvent - index )].end) || ""} placeholder="Heure de fin" style={{margin:"0.5em"}} disabled></TextField>
                     <Button onClick= {e => this.deleteEvent(document.getElementById("CalendarInputId"+this.state.events[this.state.events.length - (this.state.newEvent - index )].id),index,customOptions) }>X</Button>
                   </Row>
                 </Col>
