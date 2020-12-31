@@ -71,6 +71,37 @@ const Mutations = {
             }
         */
     },
+    async createBooking(parent, args, ctx, info) {
+
+        /*if(!ctx.request.userId){
+            throw new Error('Pour effectuer une réservation,vous devez être connecté!')
+        }
+        const [user] = await ctx.db.query.users({
+            where : {
+                resetToken: args.resetToken,
+                resetTokenExpiry_gte: Date.now() - 3600000
+            }
+        });*/
+        const booking = await ctx.db.mutation.createBooking({
+            data: { 
+                idBooking: args.idBooking,
+                title : args.title,
+                allDay : args.allDay,
+                start: args.start,
+                end: args.end,
+                type: args.type,
+                is_paid: args.is_paid,
+                /**userId:"ckejw83gxgusk0a32w32lhxeh",*/
+                userId:{
+                    connect: {
+                        id: "ckejw83gxgusk0a32w32lhxeh"
+                    }
+                },
+            }
+        },info);
+           
+        return await booking;
+    },
     async signup(parent, args, ctx, info) {
         // lowercase email
         args.email = args.email.toLowerCase();
@@ -221,6 +252,14 @@ const Mutations = {
         const item = await ctx.db.query.location({where},`{id}`);
 
         return ctx.db.mutation.deleteLocation({where},info);
+    },
+    async deleteMyBooking(parent,args,ctx,info){
+        
+        const where = {id : args.bookingId};
+
+        const item = await ctx.db.query.booking({where},`{id}`);
+
+        return ctx.db.mutation.deleteBooking({where},info);
     },
     async deleteActuality(parent,args,ctx,info){
         if(!ctx.request.userId){

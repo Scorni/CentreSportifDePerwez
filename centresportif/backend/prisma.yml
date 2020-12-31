@@ -4,7 +4,7 @@ endpoint: "https://eu1.prisma.sh/maxscorni-dce3a0/centresportifbe/dev"
 datamodel: datamodel.graphql
 
 #find solution about that
-secret : ${env:API_SECRET}
+#secret : ${env:API_SECRET}
 
 generate:
   - generator: graphql-schema

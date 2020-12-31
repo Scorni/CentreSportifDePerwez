@@ -3,6 +3,7 @@ const {hasPermission} = require('../utils');
 const Query = {
     rooms:forwardTo('db'),
     locations:forwardTo('db'),
+    bookings:forwardTo('db'),
     actualities:forwardTo('db'),
     actualitiesConnection:forwardTo('db'),
 

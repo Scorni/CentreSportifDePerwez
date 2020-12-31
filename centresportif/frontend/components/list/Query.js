@@ -32,6 +32,21 @@ export const LOCATIONS_QUERY = gql`
             }
     }
 `;
+export const BOOKINGS_QUERY = gql`
+    
+    query BOOKINGS_QUERY {
+        bookings{
+            idBooking
+            title,
+            allDay,
+            start,
+            end,
+            type,
+            is_paid,
+
+            }
+    }
+`;
 export const ROOMS_QUERY = gql`
     
     query ROOMS_QUERY {

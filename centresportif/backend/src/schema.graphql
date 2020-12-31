@@ -21,7 +21,16 @@ type Mutation {
         roomName: String!
         is_paid: Boolean!
     ): Location!,
-    
+   
+    createBooking(
+        idBooking: Int!
+        title: String!,
+        allDay: Boolean!,
+        start: String!,
+        end: String!,
+        type: String!,
+        is_paid: Boolean!
+    ): Booking!,
     signup(
         email: String!
         password: String!
@@ -46,11 +55,13 @@ type Mutation {
     !): User!,
     updatePermissions(permissions: [Permission],userId: ID!): User,
     deleteMyLocation(locationId: String!): Location,
+    deleteMyBooking(bookingId: String!): Booking,
     deleteActuality(actualityId: String!): Actuality,
 }
 type Query {
     rooms: [Room!]!,
     locations: [Location]!,
+    bookings: [Booking]!,
     users: [User]!,
     roomsFilter(name: String!,sport : String!): [Room!]!,
     userFilter(id: String!): [User!]!,
@@ -83,6 +94,18 @@ type Location {
     roomName: Room!
     userId: User!
     uniqueLocationsRoomHourDay: String!
+}
+type Booking{
+    id: ID!
+    idBooking: Int!
+    title: String!
+    allDay: Boolean!
+    start: String!
+    end: String!
+    type: String!
+    is_paid: Boolean!
+    userId: User!
+
 }
 
 ### User

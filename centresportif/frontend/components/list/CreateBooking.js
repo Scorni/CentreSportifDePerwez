@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
-import { Mutation} from "react-apollo";
+import { Query, Mutation } from 'react-apollo';
 import StyledForm from "../list/Form"
 import gql from "graphql-tag";
 import {Calendar,momentLocalizer,Views } from 'react-big-calendar';
 import withDragAndDrop from 'react-big-calendar/lib/addons/dragAndDrop'
+import {BOOKINGS_QUERY} from '../list/Query';
+import {CREATE_BOOKING_MUTATION} from '../list/Mutation'
+import Error from '../ErrorMessage'
 
 import moment, { defaultFormat } from 'moment';
 import 'moment/locale/fr';
@@ -70,24 +73,30 @@ const types = {
  
 const events = 
     [{
-        id: 0,
+        idBooking: 0,
         title: 'All Day Event very long title',
         room : 'A1',
         allDay: false,
         start: new Date(2020, 3, 0),
         end: new Date(2020, 3, 1),
-        type : "allDay"
+        type : "allDay",
+        
+        is_paid:false,
       },
       {
-        id: 2,
+        idBooking: 2,
         title: 'DTS STARTS',
         room : 'A3',
 
+        allDay:false,
+        is_paid:false,
         start: new Date(2020, 2, 13, 0, 0, 0),
         end: new Date(2020, 2, 20, 0, 0, 0),
         type: "timeSlot"
       },{
-        id: 7,
+        idBooking: 7,
+        allDay:false,
+        is_paid:false,
         title: 'Lunch',
         room : 'B1',
         start: new Date(2020, 2, 12, 12, 30, 0, 0),
@@ -616,7 +625,7 @@ class CreateNewBooking extends Component {
         start: event.start,
         end: event.end,
         type: type,
-        is_payed: false
+        is_paid: false
       }
       let tooltips = {
         id : newId,
@@ -1067,10 +1076,31 @@ class CreateNewBooking extends Component {
                     }
                   }
                 />
-                <div id="currentBookList" ref={this.currentBookList}>
-                {customOptions}{test}
-                </div>
-            </>
+                <Mutation mutation={CREATE_BOOKING_MUTATION} 
+                  variables={this.state.events}>
+                  {(createBooking,{loading,error})=> (
+
+                    
+                    <form onSubmit={async e=> {
+                      e.preventDefault(); 
+                      console.log(this.state);
+                      const res = await createBooking();
+                      console.log(res);
+                    }}>
+                    <Error error={error} />
+                    
+                    {loading ?
+                    console.log('envoie des réservations') :
+                    
+                    <div id="currentBookList" ref={this.currentBookList} >
+                    {customOptions}{test}
+                    <Button type="submit">Réserver</Button>
+                    </div> 
+                    }                    
+                    </form>
+                  )}
+                </Mutation>
+              </>
             
         );
     }

@@ -36,3 +36,31 @@ export const DELETE_MY_LOCATION = gql`
         }       
         
 `;
+export const CREATE_BOOKING_MUTATION= gql`
+    mutation CREATE_BOOKING_MUTATION(
+        $idBooking : Int!
+        $title: String!
+        $allDay: Boolean!
+        $start: String!
+        $end: String!
+        $type: String!
+        $is_paid: Boolean!
+    ){
+        createBooking(
+        idBooking : $idBooking
+        title : $title
+        allDay : $allDay
+        start : $start
+        end : $end
+        type : $type
+        is_paid : $is_paid
+        ){
+            id
+        }
+    }
+`
+
+
+/*export const CREATE_BOOKING_MUTATION= gql`
+    mutation CREATE_BOOKING_MUTATION(
+        $bookings: []*/

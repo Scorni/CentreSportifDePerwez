@@ -25,6 +25,20 @@ type Location {
   uniqueLocationsRoomHourDay: String! @unique
   createdAt: DateTime! @createdAt
 }
+type Booking {
+  id: ID! @id
+  idBooking: Int! @unique
+  title: String!
+  allDay: Boolean!
+  start: String!
+  end: String!
+  type: String!
+  is_paid: Boolean!
+  createdAt: DateTime! @createdAt
+  userId: User! @relation(link : INLINE)
+
+
+}
 
 type Room {
   id: ID! @id
