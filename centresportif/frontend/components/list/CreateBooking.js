@@ -70,41 +70,9 @@ const types = {
     close : "Fermé"
   
 }
- 
-/*const events = 
-    [{
-        idBooking: 0,
-        title: 'All Day Event very long title',
-        room : 'A1',
-        allDay: false,
-        start: new Date(2020, 3, 0),
-        end: new Date(2020, 3, 1),
-        type : "allDay",
-        
-        is_paid:false,
-      },
-      {
-        idBooking: 2,
-        title: 'DTS STARTS',
-        room : 'A3',
 
-        allDay:false,
-        is_paid:false,
-        start: new Date(2020, 2, 13, 0, 0, 0),
-        end: new Date(2020, 2, 20, 0, 0, 0),
-        type: "timeSlot"
-      },{
-        idBooking: 7,
-        allDay:false,
-        is_paid:false,
-        title: 'Lunch',
-        room : 'B1',
-        start: new Date(2020, 2, 12, 12, 30, 0, 0),
-        end: new Date(2020, 2, 12, 13, 30, 0, 0),
-        desc: 'Power lunch',
-        type: "timeSlot"
-      }]
-*/
+ const events = []
+
 
 class CreateNewBooking extends Component {
     constructor(...args) {
@@ -134,9 +102,9 @@ class CreateNewBooking extends Component {
         this.newEvent = this.newEvent.bind(this)
 
     } 
+    
     updateValue = (e,inputType,idBooking) => {
       let regExp = /[a-zA-Z-!-\-@[-`{-~]/;
-      /** TODO: check de salle avec les réservations sur plage horaire */
       if (this.state.newEvent > 0){
         if(inputType === "title"){          
           
@@ -148,7 +116,6 @@ class CreateNewBooking extends Component {
               events: prev.events.map(events => events.idBooking === idBooking ? { ...events, title: "Veuillez choisir un titre de réservation" } : events)
             }))
           }
-          //Room
         }else if(inputType === "room"){
           for(let i =0;i < this.state.events.length;i++){
             for(let j =0;j < this.state.events.length;j++){
@@ -447,7 +414,7 @@ class CreateNewBooking extends Component {
 
       let allDay = event.allDay
       let type = event.type
-      
+      console.log('alooooooooooo')
       for(let i =0;i < this.state.events.length;i++){
         if(this.state.events[i].idBooking !== event.idBooking){
 
@@ -479,6 +446,9 @@ class CreateNewBooking extends Component {
               return false
             }
           }
+        }else if(this.state.events[i].unchanging){
+          alert("Hey bg,tu peux pas changer des réservations déjà effectuées,retourne te ronger les ongles 🏊‍♀️")
+          return false
         }
       }
       console.log(event)
@@ -588,7 +558,10 @@ class CreateNewBooking extends Component {
       let type = "timeSlot"
       for(let i =0;i < this.state.events.length;i++){
         if(this.state.events[i].type === "close"){
+          console.log('allo')
           if(this.state.events[i].room === "All"){
+            console.log('allo')
+
             if(moment(event.start).isBetween(moment(this.state.events[i].start),moment(this.state.events[i].end),'days', '[)') || moment(event.end).isBetween(moment(this.state.events[i].start),moment(this.state.events[i].end),'days', '[)')){
               alert("vous ne pouvez pas réserver ce jour-ci,le centre est fermé,veuillez choisir une autre date")
               return false
@@ -599,9 +572,6 @@ class CreateNewBooking extends Component {
               alert("vous ne pouvez pas réserver ce jour-ci,le centre est fermé,veuillez choisir une autre date")
               return false
             }
-          }else if(!this.state.events[i].room){
-            alert("Veuillez préciser la salle/terrain non disponibles avant d'effectuer une autre réservation")
-            return false
           }
         }
       }
@@ -712,6 +682,7 @@ class CreateNewBooking extends Component {
     }
     
     render() {
+      
         let customOptions = []
         let test = []
         for (let index = 0; index < this.state.newEvent; index++) {
@@ -1030,29 +1001,22 @@ class CreateNewBooking extends Component {
                   {({data,error,loading})=>{
                       if(loading) return <p>Chargement...</p>
                       if(error)   return <p>Erreur : {error.message}</p>
-                      let hour
-                      let events =[]
-
-                      return data.bookings.map(booking =>
+                      data.bookings.map(booking =>
                         events.push(
-                          {
-                            idBooking: booking.bookingId,
+                          {              
+                            idBooking: booking.idBooking,              
                             title: booking.title,
                             allDay: booking.allDay,
                             start: booking.start,
                             end: booking.end,
+                            room: booking.room,
                             type: booking.type,
-                            is_paid: booking.is_paid
+                            is_paid: booking.is_paid,
+                            unchanging: true
                           }
                         ),
-                        
-                      console.log(events),
-                      
-                      this.setState({
-                        events: events,
-                      }),
-                      console.log(this.state.events)
                       )
+                      return true
                   }}
                 </Query>
                 <DragAndDropCalendar
@@ -1124,6 +1088,7 @@ class CreateNewBooking extends Component {
                               start:this.state.events[this.state.events.length - (this.state.newEvent - i)].start,
                               end:this.state.events[this.state.events.length - (this.state.newEvent - i)].end,
                               type:this.state.events[this.state.events.length - (this.state.newEvent - i)].type,
+                              room:this.state.events[this.state.events.length - (this.state.newEvent - i)].room,
                               is_paid:this.state.events[this.state.events.length - (this.state.newEvent - i)].is_paid
                             }
                           });

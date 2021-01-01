@@ -28,6 +28,7 @@ type Mutation {
         allDay: Boolean!,
         start: String!,
         end: String!,
+        room: String!,
         type: String!,
         is_paid: Boolean!
     ): Booking!,
@@ -103,6 +104,7 @@ type Booking{
     start: String!
     end: String!
     type: String!
+    room: String!
     is_paid: Boolean!
     userId: User!
 

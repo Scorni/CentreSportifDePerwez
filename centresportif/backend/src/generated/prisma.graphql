@@ -169,6 +169,7 @@ type Booking {
   start: String!
   end: String!
   type: String!
+  room: String!
   is_paid: Boolean!
   createdAt: DateTime!
   userId: User!
@@ -188,6 +189,7 @@ input BookingCreateInput {
   start: String!
   end: String!
   type: String!
+  room: String!
   is_paid: Boolean!
   userId: UserCreateOneInput!
 }
@@ -212,6 +214,8 @@ enum BookingOrderByInput {
   end_DESC
   type_ASC
   type_DESC
+  room_ASC
+  room_DESC
   is_paid_ASC
   is_paid_DESC
   createdAt_ASC
@@ -226,6 +230,7 @@ type BookingPreviousValues {
   start: String!
   end: String!
   type: String!
+  room: String!
   is_paid: Boolean!
   createdAt: DateTime!
 }
@@ -255,6 +260,7 @@ input BookingUpdateInput {
   start: String
   end: String
   type: String
+  room: String
   is_paid: Boolean
   userId: UserUpdateOneRequiredInput
 }
@@ -266,6 +272,7 @@ input BookingUpdateManyMutationInput {
   start: String
   end: String
   type: String
+  room: String
   is_paid: Boolean
 }
 
@@ -350,6 +357,20 @@ input BookingWhereInput {
   type_not_starts_with: String
   type_ends_with: String
   type_not_ends_with: String
+  room: String
+  room_not: String
+  room_in: [String!]
+  room_not_in: [String!]
+  room_lt: String
+  room_lte: String
+  room_gt: String
+  room_gte: String
+  room_contains: String
+  room_not_contains: String
+  room_starts_with: String
+  room_not_starts_with: String
+  room_ends_with: String
+  room_not_ends_with: String
   is_paid: Boolean
   is_paid_not: Boolean
   createdAt: DateTime

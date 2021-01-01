@@ -73,7 +73,7 @@ const Mutations = {
     },
     async createBooking(parent, args, ctx, info) {
 
-        /*if(!ctx.request.userId){
+        if(!ctx.request.userId){
             throw new Error('Pour effectuer une réservation,vous devez être connecté!')
         }
         const [user] = await ctx.db.query.users({
@@ -81,7 +81,7 @@ const Mutations = {
                 resetToken: args.resetToken,
                 resetTokenExpiry_gte: Date.now() - 3600000
             }
-        });*/
+        });
         const booking = await ctx.db.mutation.createBooking({
             data: { 
                 idBooking: args.idBooking,
@@ -90,11 +90,11 @@ const Mutations = {
                 start: args.start,
                 end: args.end,
                 type: args.type,
+                room: args.room,
                 is_paid: args.is_paid,
-                /**userId:"ckejw83gxgusk0a32w32lhxeh",*/
                 userId:{
                     connect: {
-                        id: "ckejw83gxgusk0a32w32lhxeh"
+                        id: ctx.request.userId
                     }
                 },
             }

@@ -33,6 +33,7 @@ type Booking {
   start: String!
   end: String!
   type: String!
+  room: String!
   is_paid: Boolean!
   createdAt: DateTime! @createdAt
   userId: User! @relation(link : INLINE)

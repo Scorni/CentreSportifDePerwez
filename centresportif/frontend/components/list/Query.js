@@ -41,6 +41,7 @@ export const BOOKINGS_QUERY = gql`
             allDay,
             start,
             end,
+            room,
             type,
             is_paid,
 

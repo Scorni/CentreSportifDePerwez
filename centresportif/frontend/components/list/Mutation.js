@@ -43,6 +43,7 @@ export const CREATE_BOOKING_MUTATION= gql`
         $allDay: Boolean!
         $start: String!
         $end: String!
+        $room: String!
         $type: String!
         $is_paid: Boolean!
     ){
@@ -52,6 +53,7 @@ export const CREATE_BOOKING_MUTATION= gql`
         allDay : $allDay
         start : $start
         end : $end
+        room: $room
         type : $type
         is_paid : $is_paid
         ){
