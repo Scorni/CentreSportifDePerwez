@@ -247,40 +247,24 @@ const Mutations = {
         if(!ctx.request.userId){
             throw new Error('Pour effectuer une réservation,vous devez être connecté!')
         }
-        const currentUser = await ctx.db.query.user({
-            where: {
-                id : ctx.request.userId,
-            }
-        },
-        info
-        );
-        hasPermission(currentUser, ['ADMIN'])
         return ctx.db.mutation.updateSchedule({
             data: {
-                lundi: {
-                    set: args.lundi
-                },
-                mardi: {
-                    set: args.mardi
-                },
-                mercredi: {
-                    set: args.mercredi
-                },
-                jeudi: {
-                    set: args.jeudi
-                },
-                vendredi: {
-                    set: args.vendredi
-                },
-                samedi: {
-                    set: args.samedi
-                },
-                dimanche:{
-                    set: args.dimanche
-                },
-                vacances:{
-                    set: args.vacances
-                },
+                lundi: args.lundi
+                ,
+                mardi: args.mardi
+                ,
+                mercredi: args.mercredi
+                ,
+                jeudi: args.jeudi
+                ,
+                vendredi:args.vendredi
+                ,
+                samedi: args.samedi
+                ,
+                dimanche:args.dimanche
+                ,
+                vacances:args.vacances
+                ,
                 
 
             },

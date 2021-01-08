@@ -4,7 +4,7 @@ import gql from 'graphql-tag';
 
 export const UPDATE_SCHEDULE_MUTATION= gql`
     mutation updateSchedule(
-        $permissions : [Permission],
+        $id : ID!
         $userId: ID!  
         $lundi: String!
         $mardi: String!
@@ -16,7 +16,7 @@ export const UPDATE_SCHEDULE_MUTATION= gql`
         $vacances: String!
     ){
         updateSchedule(
-            permissions : $permissions,
+            id : $id
             userId: $userId, 
             lundi: $lundi,
             mardi: $mardi,
