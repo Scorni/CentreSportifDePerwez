@@ -13,7 +13,16 @@ type Mutation {
         date: String!
         content : String!
     ): Actuality!,
-
+    createSchedule(
+        lundi: String!
+        mardi: String!
+        mercredi: String!
+        jeudi: String!
+        vendredi: String!
+        samedi: String!
+        dimanche: String!
+        vacances: String!
+    ): Schedule!,
     createLocation(
         sport: String!
         hour: String!
@@ -48,7 +57,7 @@ type Mutation {
     signout: SuccessMessage,
     requestReset(
         email: String!)
-    : SuccessMessage
+    : SuccessMessage,
     resetPassword(
         resetToken : String!,
         password: String!, 
@@ -58,6 +67,7 @@ type Mutation {
     deleteMyLocation(locationId: String!): Location,
     deleteMyBooking(bookingId: String!): Booking,
     deleteActuality(actualityId: String!): Actuality,
+    updateSchedule(scheduleId: String!): Schedule,
 }
 type Query {
     rooms: [Room!]!,
@@ -68,8 +78,10 @@ type Query {
     userFilter(id: String!): [User!]!,
     locationFilter: [Location!]!,
     me:User,
-    actualities(where: ActualityWhereInput,orderBy: ActualityOrderByInput, skip: Int, first: Int): [Actuality!]!
-    actualitiesConnection(where: ActualityWhereInput): ActualityConnection!
+    actualities(where: ActualityWhereInput,orderBy: ActualityOrderByInput, skip: Int, first: Int): [Actuality!]!,
+    actualitiesConnection(where: ActualityWhereInput): ActualityConnection!,
+    schedules: [Schedule!]!,
+    scheduleFilter(id: String!): [Schedule!]!,
 }
 
 ## not query or mutation
@@ -132,4 +144,18 @@ type Actuality {
     title: String!
     date: String!
     content: String!
+}
+
+### Schedule
+
+type Schedule {
+    id: ID!
+    lundi: String!
+    mardi: String!
+    mercredi: String!
+    jeudi: String!
+    vendredi: String!
+    samedi: String!
+    dimanche: String!
+    vacances: String!
 }

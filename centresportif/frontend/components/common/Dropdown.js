@@ -47,6 +47,18 @@ function objectSort(tabs,cat){
         }else if(tabs[index][cat][value] === "Stages"){
           linkWithoutSpaceHidden = cat + "/stage"
         }
+      }else if( cat == "infos"){
+        if(tabs[index][cat][value] === "Histoire du Centre"){
+          linkWithoutSpaceHidden = cat + "/history"
+        }else if(tabs[index][cat][value] === "Cafétaria"){
+          linkWithoutSpaceHidden = cat + "/cafetaria"
+        }else if(tabs[index][cat][value] === "Foire aux questions"){
+          linkWithoutSpaceHidden = cat + "/faq"
+        }else if(tabs[index][cat][value] === "Contact"){
+          linkWithoutSpaceHidden = cat + "/contact"
+        }else if(tabs[index][cat][value] === "Horaire"){
+          linkWithoutSpaceHidden = cat + "/schedule"
+        }
       }
       newList[value] = 
         

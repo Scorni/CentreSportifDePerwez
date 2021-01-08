@@ -243,6 +243,54 @@ const Mutations = {
         info
         )
     },
+    async updateSchedule(parent,args,ctx,info){
+        if(!ctx.request.userId){
+            throw new Error('Pour effectuer une réservation,vous devez être connecté!')
+        }
+        const currentUser = await ctx.db.query.user({
+            where: {
+                id : ctx.request.userId,
+            }
+        },
+        info
+        );
+        hasPermission(currentUser, ['ADMIN'])
+        return ctx.db.mutation.updateSchedule({
+            data: {
+                lundi: {
+                    set: args.lundi
+                },
+                mardi: {
+                    set: args.mardi
+                },
+                mercredi: {
+                    set: args.mercredi
+                },
+                jeudi: {
+                    set: args.jeudi
+                },
+                vendredi: {
+                    set: args.vendredi
+                },
+                samedi: {
+                    set: args.samedi
+                },
+                dimanche:{
+                    set: args.dimanche
+                },
+                vacances:{
+                    set: args.vacances
+                },
+                
+
+            },
+            where: {
+                id: args.id
+            },
+        },
+        info
+        )
+    },
     async deleteMyLocation(parent,args,ctx,info){
         if(!ctx.request.userId){
             throw new Error('Pour annuler une réservation,vous devez être connecté!')
@@ -282,6 +330,23 @@ const Mutations = {
         },info);
            
         return await actuality;
+    },
+    async createSchedule(parents,args,ctx,info){
+        
+        const schedule = await ctx.db.mutation.createSchedule({
+            data: { 
+                lundi: args.lundi,
+                mardi: args.mardi,
+                mercredi: args.mercredi,
+                jeudi: args.jeudi,
+                vendredi: args.vendredi,
+                samedi: args.samedi,
+                dimanche: args.dimanche,
+                vacances: args.vacances
+            }
+        },info);
+           
+        return await schedule;
     }
 };
 

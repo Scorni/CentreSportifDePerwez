@@ -32,6 +32,9 @@ class Profile extends Component {
                                             </div>
                                         </Row>
                                         <Row className="mx-auto justify-content-center">
+                                            <Link href='/list/mylocations' >
+                                                <Button className="m-2 mt-1 customProfileButton">Voir mes réservations</Button>
+                                            </Link>
                                             <Link href='/list/locations' >
                                                 <Button className="m-2 mt-1 customProfileButton">Liste des réservations</Button>
                                             </Link>
@@ -61,7 +64,11 @@ class Profile extends Component {
                                                     <p><strong>Identifiant :</strong> {me.id}</p>
                                                 </div>
                                             </Row>
+                                            
                                             <Row className="mx-auto justify-content-center">
+                                                <Link href='/list/mylocations' >
+                                                    <Button className="m-2 mt-1 customProfileButton">Voir mes réservations</Button>
+                                                </Link>
                                                 <Link href='/list/locations' >
                                                     <Button className="m-2 mt-1 customProfileButton">Liste des réservations</Button>
                                                 </Link>

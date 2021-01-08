@@ -7,6 +7,7 @@ import withDragAndDrop from 'react-big-calendar/lib/addons/dragAndDrop'
 import {BOOKINGS_QUERY} from '../list/Query';
 import {CREATE_BOOKING_MUTATION} from '../list/Mutation'
 import Error from '../ErrorMessage'
+import { InMemoryCache, ApolloClient } from '@apollo/client';
 
 import moment, { defaultFormat } from 'moment';
 import 'moment/locale/fr';
@@ -102,7 +103,29 @@ class CreateNewBooking extends Component {
         this.newEvent = this.newEvent.bind(this)
 
     } 
-    
+    updateMutation = (cache,payload) => {
+      //Read of the cache
+      const data = cache.readQuery({ query:
+        BOOKINGS_QUERY
+      });
+      console.log(data.bookings)
+      //Then update our cache with the new boyyy
+      data.bookings = this.state.events
+      console.log(data.bookings)
+      if(data.bookings){
+        this.state.events = data.bookings;
+        console.log("juila")
+      }
+
+      cache.writeQuery({
+        query : BOOKINGS_QUERY,data
+      })
+      const data2 = cache.readQuery({ query:
+        BOOKINGS_QUERY
+      });
+      console.log(data2.bookings)
+
+    }
     updateValue = (e,inputType,idBooking) => {
       let regExp = /[a-zA-Z-!-\-@[-`{-~]/;
       if (this.state.newEvent > 0){
@@ -611,7 +634,6 @@ class CreateNewBooking extends Component {
         tooltip: this.state.tooltip.concat([tooltips]),
         tooltipRoom: this.state.tooltipRoom.concat([tooltipsRoom])
       })
-      console.log(this.state.events)
     }
     deleteEvent(e,index,tab){
       if(this.state.newEvent <= 0){        
@@ -997,25 +1019,28 @@ class CreateNewBooking extends Component {
         }
         return (
             <>
-                <Query query={BOOKINGS_QUERY}>
+                <Query query={BOOKINGS_QUERY} update={this.updateMutation}>
                   {({data,error,loading})=>{
                       if(loading) return <p>Chargement...</p>
                       if(error)   return <p>Erreur : {error.message}</p>
-                      data.bookings.map(booking =>
-                        events.push(
-                          {              
-                            idBooking: booking.idBooking,              
-                            title: booking.title,
-                            allDay: booking.allDay,
-                            start: booking.start,
-                            end: booking.end,
-                            room: booking.room,
-                            type: booking.type,
-                            is_paid: booking.is_paid,
-                            unchanging: true
-                          }
-                        ),
-                      )
+                      if(!this.state.events[0]){
+                        data.bookings.map(booking =>
+                          this.state.events.push(
+                            {              
+                              idBooking: booking.idBooking,              
+                              title: booking.title,
+                              allDay: booking.allDay,
+                              start: booking.start,
+                              end: booking.end,
+                              room: booking.room,
+                              type: booking.type,
+                              is_paid: booking.is_paid,
+                              unchanging: true
+                            }
+                          ),
+                        )
+                      }
+                      
                       return true
                   }}
                 </Query>
@@ -1071,7 +1096,7 @@ class CreateNewBooking extends Component {
                 />
                 
                         
-                <Mutation mutation={CREATE_BOOKING_MUTATION} 
+                <Mutation mutation={CREATE_BOOKING_MUTATION} update={this.updateMutation} 
                   >
                   {(createBooking,{loading,error})=> (
 
@@ -1096,6 +1121,7 @@ class CreateNewBooking extends Component {
                           return false
                         }                                 
                       }
+                      window.location.href = '/list/mylocations'
                     }}>
                     <Error error={error} />
                     

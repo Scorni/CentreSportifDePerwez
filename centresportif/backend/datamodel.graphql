@@ -55,6 +55,17 @@ type Actuality {
   date : String!
   content : String!
 }
+type Schedule {
+    id: ID! @id
+    lundi: String!
+    mardi: String!
+    mercredi: String!
+    jeudi: String!
+    vendredi: String!
+    samedi: String!
+    dimanche: String!
+    vacances: String!
+}
 enum Permission {
   SADMIN
   ADMIN
