@@ -55,6 +55,18 @@ type Actuality {
   date : String!
   content : String!
 }
+type Stage {
+  id: ID! @id
+  title : String!
+  date : String!
+  content : String!
+}
+type Faq {
+  id: ID! @id
+  question : String!
+  date : String!
+  answer : String!
+}
 type Schedule {
     id: ID! @id
     lundi: String!
@@ -65,6 +77,16 @@ type Schedule {
     samedi: String!
     dimanche: String!
     vacances: String!
+}
+type Contact {
+  id: ID! @id
+  adress: String!  
+  fix: String!
+  phone: String!
+  fax: String!
+  mail: String!
+  memberOne: String!
+  memberTwo: String!
 }
 enum Permission {
   SADMIN

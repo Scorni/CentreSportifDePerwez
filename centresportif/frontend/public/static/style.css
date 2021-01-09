@@ -627,3 +627,19 @@ iframe{
   50% {transform: scale(1.5)}
   100% {transform: scale(1.2)}
 }
+/* FAQ part */
+.customDivFaq{
+  background-image: url("../../public/static/img/svg/questions.svg");
+  
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position:center bottom;
+}
+/* Stage part */
+.customDivStage{
+  background-image: url("../../public/static/img/svg/stage.svg");
+  
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position:center bottom;
+}

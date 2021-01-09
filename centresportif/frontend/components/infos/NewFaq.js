@@ -7,7 +7,7 @@ import { Button }  from 'reactstrap';
 import DateFnsUtils from '@date-io/date-fns'; 
 import TextField from '@material-ui/core/TextField';
 import { Mutation } from 'react-apollo';
-import {CREATE_ACTUALITY_MUTATION} from '../actualite/Mutation'
+import {CREATE_FAQ_MUTATION} from '../infos/Mutation'
 import {  MuiPickersUtilsProvider, KeyboardDatePicker,} from '@material-ui/pickers'
 import Error from '../common/ErrorMessage'
 import User from '../common/User';
@@ -53,7 +53,7 @@ class MyEditor extends Component {
   this.state = {
     editorState: EditorState.createEmpty(),
     date: new Date(),
-    title :  "Actualité du "+ rightFormat(new Date),
+    question :  "",
     succeededMessage:false
 
     };
@@ -63,7 +63,7 @@ class MyEditor extends Component {
   /** update the state for the editor & html content for the submitting */
   onEditorStateChange = editorState => {
     this.setState({ editorState });
-    this.setState( { ["content"] : getHtml(editorState) })
+    this.setState( { ["answer"] : getHtml(editorState) })
     
   };
   /** update all the labels that has been change*/
@@ -86,9 +86,9 @@ class MyEditor extends Component {
         ["formatedDate"] : rightFormat(new Date)
       })
     }
-    if(!this.state.content){
+    if(!this.state.answer){
       this.setState( {
-        ["content"] : "<p>Contenu de l'actualité du " + rightFormat(new Date) + "</p>"
+        ["answer"] : "<p>Contenu de l'actualité du " + rightFormat(new Date) + "</p>"
       })
     }
   }
@@ -107,7 +107,7 @@ class MyEditor extends Component {
     const { editorState } = this.state;
     return (
       <div className="writenewsvg">
-        <HeadGenerator title="Créer une nouvelle actualité"/>
+        <HeadGenerator title="Rajouter une question/réponse"/>
         <User>
                     {({data}) => {
                       const me = data ? data.me : null
@@ -115,15 +115,15 @@ class MyEditor extends Component {
                         if(me.permissions[1] === "ADMIN" && me.permissions[2] === "SADMIN"){ 
                             return(
                                 <>
-                                    <Mutation mutation = {CREATE_ACTUALITY_MUTATION} 
+                                    <Mutation mutation = {CREATE_FAQ_MUTATION} 
                                       variables={this.state}>
-                                        {(createActuality, { loading, error}) =>(
+                                        {(createFaq, { loading, error}) =>(
                                           
                                         
                                     <form onSubmit={async e=> {
                                       e.preventDefault(); 
                                       console.log(this.state);
-                                      const res = await createActuality();
+                                      const res = await createFaq();
                                       console.log(res);
                                       this.setState({
                                         succeededMessage: !this.state.succeededMessage
@@ -144,17 +144,17 @@ class MyEditor extends Component {
                                                   KeyboardButtonProps={{
                                                   'aria-label': 'change date',
                                                   }}   
-                                                  className="labelActuality"                 
+                                                  className="labelFaq"                 
                                               />      
                                           </MuiPickersUtilsProvider>
                                           <br/>
                                           <TextField
-                                              id="title"
-                                              label="Titre"
-                                              name ="title"
-                                              value={this.state.title}
+                                              id="question"
+                                              label="Question"
+                                              name ="question"
+                                              value={this.state.question}
                                               onChange={this.handleChange}
-                                              className="labelActuality"
+                                              className="labelFaq"
                                               >
                                           </TextField>
                                       </fieldset>
@@ -173,8 +173,8 @@ class MyEditor extends Component {
                                         }} 
                                         className = "customEditor"
                                         disabled = {loading}/>
-                                      <h4 className = "editorTitle">version HTML</h4>
-                                      <div className="html-view">
+                                        <h4 className = "editorTitle">version HTML</h4>
+                                        <div className="html-view">
 
                                         {getHtml(editorState)}
                                           
@@ -204,15 +204,15 @@ class MyEditor extends Component {
                             }else if(me.permissions[1] === "ADMIN"){
                                 return(
                                     <>
-                                        <Mutation mutation = {CREATE_ACTUALITY_MUTATION} 
+                                        <Mutation mutation = {CREATE_FAQ_MUTATION} 
                                           variables={this.state}>
-                                            {(createActuality, { loading, error}) =>(
+                                            {(createFaq, { loading, error}) =>(
                                               
                                             
                                         <form onSubmit={async e=> {
                                           e.preventDefault(); 
                                           console.log(this.state);
-                                          const res = await createActuality();
+                                          const res = await createFaq();
                                           console.log(res);
                                         }}>
                                           <Error error={error} />
@@ -235,12 +235,12 @@ class MyEditor extends Component {
                                               </MuiPickersUtilsProvider>
                                               <br/>
                                               <TextField
-                                                  id="title"
-                                                  label="Titre"
-                                                  name ="title"
-                                                  value={this.state.title}
+                                                  id="question"
+                                                  label="Question"
+                                                  name ="question"
+                                                  value={this.state.question}
                                                   onChange={this.handleChange}
-                                                  className="labelActuality"
+                                                  className="labelFaq"
                                                   >
                                               </TextField>
                                           </fieldset>
@@ -284,6 +284,7 @@ class MyEditor extends Component {
                                           </Container>
                                         </form>
                                         )}
+                                           
                                         </Mutation>
                                     </>
                                 )

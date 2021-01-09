@@ -7,7 +7,7 @@ import { Button }  from 'reactstrap';
 import DateFnsUtils from '@date-io/date-fns'; 
 import TextField from '@material-ui/core/TextField';
 import { Mutation } from 'react-apollo';
-import {CREATE_ACTUALITY_MUTATION} from '../actualite/Mutation'
+import {CREATE_STAGE_MUTATION} from './Mutation'
 import {  MuiPickersUtilsProvider, KeyboardDatePicker,} from '@material-ui/pickers'
 import Error from '../common/ErrorMessage'
 import User from '../common/User';
@@ -53,7 +53,7 @@ class MyEditor extends Component {
   this.state = {
     editorState: EditorState.createEmpty(),
     date: new Date(),
-    title :  "Actualité du "+ rightFormat(new Date),
+    title :  "Stage",
     succeededMessage:false
 
     };
@@ -88,7 +88,7 @@ class MyEditor extends Component {
     }
     if(!this.state.content){
       this.setState( {
-        ["content"] : "<p>Contenu de l'actualité du " + rightFormat(new Date) + "</p>"
+        ["content"] : "<p>Stage</p>"
       })
     }
   }
@@ -107,7 +107,7 @@ class MyEditor extends Component {
     const { editorState } = this.state;
     return (
       <div className="writenewsvg">
-        <HeadGenerator title="Créer une nouvelle actualité"/>
+        <HeadGenerator title="Ajouter un nouveau stage"/>
         <User>
                     {({data}) => {
                       const me = data ? data.me : null
@@ -115,15 +115,15 @@ class MyEditor extends Component {
                         if(me.permissions[1] === "ADMIN" && me.permissions[2] === "SADMIN"){ 
                             return(
                                 <>
-                                    <Mutation mutation = {CREATE_ACTUALITY_MUTATION} 
+                                    <Mutation mutation = {CREATE_STAGE_MUTATION} 
                                       variables={this.state}>
-                                        {(createActuality, { loading, error}) =>(
+                                        {(createStage, { loading, error}) =>(
                                           
                                         
                                     <form onSubmit={async e=> {
                                       e.preventDefault(); 
                                       console.log(this.state);
-                                      const res = await createActuality();
+                                      const res = await createStage();
                                       console.log(res);
                                       this.setState({
                                         succeededMessage: !this.state.succeededMessage
@@ -204,15 +204,15 @@ class MyEditor extends Component {
                             }else if(me.permissions[1] === "ADMIN"){
                                 return(
                                     <>
-                                        <Mutation mutation = {CREATE_ACTUALITY_MUTATION} 
+                                        <Mutation mutation = {CREATE_STAGE_MUTATION} 
                                           variables={this.state}>
-                                            {(createActuality, { loading, error}) =>(
+                                            {(createStage, { loading, error}) =>(
                                               
                                             
                                         <form onSubmit={async e=> {
                                           e.preventDefault(); 
                                           console.log(this.state);
-                                          const res = await createActuality();
+                                          const res = await createStage();
                                           console.log(res);
                                         }}>
                                           <Error error={error} />

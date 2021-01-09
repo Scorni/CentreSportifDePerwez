@@ -6,7 +6,12 @@ const Query = {
     bookings:forwardTo('db'),
     actualities:forwardTo('db'),
     actualitiesConnection:forwardTo('db'),
+    stages:forwardTo('db'),
+    stagesConnection:forwardTo('db'),
+    faqs:forwardTo('db'),
+    faqsConnection:forwardTo('db'),
     schedules:forwardTo('db'),
+    contacts:forwardTo('db'),
     bookings:forwardTo('db'),
 
     async roomsFilter(parent, args, context, info) {
@@ -45,6 +50,15 @@ const Query = {
         throw new Error('Vous devez être connecté !')
       }*/
       return await ctx.db.query.schedules({
+        where:{
+          id :  args.id,
+    }})
+    },
+    async contactFilter(parent, args, ctx, info) {
+      /*if(!ctx.request.userId){
+        throw new Error('Vous devez être connecté !')
+      }*/
+      return await ctx.db.query.contacts({
         where:{
           id :  args.id,
     }})

@@ -13,6 +13,16 @@ type Mutation {
         date: String!
         content : String!
     ): Actuality!,
+    createStage(
+        title: String!
+        date: String!
+        content : String!
+    ): Stage!,
+    createFaq(
+        question: String!
+        date: String!
+        answer : String!
+    ): Faq!,
     createSchedule(
         lundi: String!
         mardi: String!
@@ -23,6 +33,15 @@ type Mutation {
         dimanche: String!
         vacances: String!
     ): Schedule!,
+    createContact(
+        adress: String!  
+        fix: String!
+        phone: String!
+        fax: String!
+        mail: String!
+        memberOne: String!
+        memberTwo: String!
+    ): Contact!,
     createLocation(
         sport: String!
         hour: String!
@@ -67,7 +86,10 @@ type Mutation {
     deleteMyLocation(locationId: String!): Location,
     deleteMyBooking(id: String!): Booking,
     deleteActuality(actualityId: String!): Actuality,
+    deleteStage(stageId: String!): Stage,
+    deleteFaq(faqId: String!): Faq,
     updateSchedule(id : ID!, userId: ID! ,lundi: String!, mardi: String!, mercredi: String!, jeudi: String!, vendredi: String!, samedi: String!,dimanche: String!,vacances: String!): Schedule,
+    updateContact(id : ID!, userId: ID! ,adress: String!, fix: String!, phone: String!, fax: String!, mail: String!, memberOne: String!,memberTwo: String!): Contact,
 }
 type Query {
     rooms: [Room!]!,
@@ -80,8 +102,14 @@ type Query {
     me:User,
     actualities(where: ActualityWhereInput,orderBy: ActualityOrderByInput, skip: Int, first: Int): [Actuality!]!,
     actualitiesConnection(where: ActualityWhereInput): ActualityConnection!,
+    stages(where: StageWhereInput,orderBy: StageOrderByInput, skip: Int, first: Int): [Stage!]!,
+    stagesConnection(where: StageWhereInput): StageConnection!,
+    faqs(where: FaqWhereInput,orderBy: FaqOrderByInput, skip: Int, first: Int): [Faq!]!,
+    faqsConnection(where: FaqWhereInput): FaqConnection!,
     schedules: [Schedule!]!,
     scheduleFilter(id: String!): [Schedule!]!,
+    contacts: [Contact!]!,
+    contactFilter(id: String!): [Contact!]!,
     bookingFilter: [Booking!]!,
 }
 
@@ -146,6 +174,22 @@ type Actuality {
     date: String!
     content: String!
 }
+### Stage
+
+type Stage {
+    id: ID!
+    title: String!
+    date: String!
+    content: String!
+}
+### Faq
+
+type Faq {
+    id: ID!
+    question: String!
+    date: String!
+    answer: String!
+}
 
 ### Schedule
 
@@ -159,4 +203,17 @@ type Schedule {
     samedi: String!
     dimanche: String!
     vacances: String!
+}
+
+### Contact
+
+type Contact {
+    id : ID!
+    adress: String!  
+    fix: String!
+    phone: String!
+    fax: String!
+    mail: String!
+    memberOne: String!
+    memberTwo: String!
 }

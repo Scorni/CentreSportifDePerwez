@@ -35,6 +35,7 @@ class Bookings extends Component {
                                                 <th>Est-elle payée?</th>
                                                 <th>Nom</th>
                                                 <th>Prénom</th>
+                                                <th>Annuler la réservation</th>
                                             </tr>
                                         </thead>
                                         <tbody>

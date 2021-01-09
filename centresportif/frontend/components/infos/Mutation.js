@@ -38,3 +38,67 @@ export const UPDATE_SCHEDULE_MUTATION= gql`
             }
     }
 `;
+export const UPDATE_CONTACT_MUTATION= gql`
+    mutation updateContact(
+        $id : ID!
+        $userId: ID!  
+        $adress: String!  
+        $fix: String!
+        $phone: String!
+        $fax: String!
+        $mail: String!
+        $memberOne: String!
+        $memberTwo: String!
+    ){
+        updateContact(
+            id : $id
+            userId: $userId, 
+            adress: $adress, 
+            fix: $fix,
+            phone: $phone,
+            fax: $fax,
+            mail: $mail,
+            memberOne: $memberOne,
+            memberTwo: $memberTwo,
+        ){
+            adress,
+            fix,
+            phone,
+            fax,
+            mail,
+            memberOne,
+            memberTwo,
+            }
+    }
+`;
+export const CREATE_FAQ_MUTATION = gql`
+
+    mutation CREATE_FAQ_MUTATION(
+        $question: String!
+        $formatedDate: String!
+        $answer : String!
+    )
+        {
+        createFaq(
+            question: $question
+            date: $formatedDate
+            answer : $answer
+        ){
+            id
+        }
+    }
+`;
+
+export const DELETE_FAQ = gql`
+
+        mutation DELETE_FAQ(
+            $faqId: String!
+        ){
+            deleteFaq(
+                faqId: $faqId
+            ){
+                id
+            }
+        }       
+        
+`;

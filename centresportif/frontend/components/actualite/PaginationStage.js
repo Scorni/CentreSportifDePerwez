@@ -9,7 +9,7 @@ import { Button } from 'reactstrap';
 const PAGINATION_QUERY = gql`
     query PAGINATION_QUERY
         {
-        actualitiesConnection{
+        stagesConnection{
             aggregate {
                 count
             }
@@ -22,7 +22,7 @@ const Pagination = props => {
         <Query query={PAGINATION_QUERY}>
             {({data,loading,error}) =>{
                 if (loading) return <p>Loading...</p>
-                    const count = data.actualitiesConnection.aggregate.count;
+                    const count = data.stagesConnection.aggregate.count;
                     const pages = Math.ceil(count / perPage);
                     const page = props.page;
                 return(
@@ -35,7 +35,7 @@ const Pagination = props => {
                             </Head>
                             <Link 
                                 href={{
-                                    pathname: 'actuality',
+                                    pathname: 'stage',
                                     query: { page: page - 1}
                                 }}
                             >
@@ -44,7 +44,7 @@ const Pagination = props => {
                             <Button className="customButtonPagination" disabled>Page {page} sur {pages}</Button>
                             <Link 
                                 href={{
-                                    pathname: 'actuality',
+                                    pathname: 'stage',
                                     query: { page: page + 1}
                                 }}
                             >

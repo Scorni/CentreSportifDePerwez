@@ -7,6 +7,7 @@ import { Button,Container, Row, } from 'reactstrap';
 import {HeadGenerator} from '../sports/category/generator';
 import PropTypes from 'prop-types';
 import {DeleteBooking} from '../list/DeleteBooking';
+import moment, { defaultFormat } from 'moment';
 
 
 class MyBookings extends Component {
@@ -25,6 +26,10 @@ class MyBookings extends Component {
         }
         console.log(this.state.id)
     }
+    cleanDateOnScreen(myDate){
+        return moment(myDate).format('DD/MM/YYYY HH:mm');
+    }
+    
     render() {
         return (
             <div console>
@@ -40,10 +45,14 @@ class MyBookings extends Component {
                                         <thead>
                                             <tr>
                                                 <th>ID</th>
-                                                <th>Sport</th>
-                                                <th>Jour</th>
-                                                <th>Heure</th>
-                                                <th>Annuler sa réservation</th>
+                                                <th>Titre</th>
+                                                <th>Salle</th>
+                                                <th>Début de la réservation</th>
+                                                <th>Fin de la réservation</th>
+                                                <th>Type de réservation</th>
+                                                <th>Est-elle payée?</th>
+                                                <th>Annuler ma réservation</th>
+
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -51,9 +60,12 @@ class MyBookings extends Component {
                                                 bookingFilter => 
                                                     <tr>
                                                         <td>{bookingFilter.id}</td>
+                                                        <td>{bookingFilter.title}</td>
+                                                        <td>{bookingFilter.room === "All" ? "Ensemble du complexe" : bookingFilter.room }</td>
+                                                        <td>{this.cleanDateOnScreen(bookingFilter.start)}</td>
+                                                        <td>{this.cleanDateOnScreen(bookingFilter.end)}</td>                                                        
                                                         <td>{bookingFilter.type}</td>
-                                                        <td>{bookingFilter.end}</td>
-                                                        <td>{bookingFilter.start}</td>
+                                                        <td>{bookingFilter.is_paid ? "Oui" : "Non"}</td>                                                       
                                                         <td><DeleteBooking id={bookingFilter.id}></DeleteBooking></td>
                                                     </tr>
                                                 )

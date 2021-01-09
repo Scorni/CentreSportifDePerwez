@@ -19,7 +19,7 @@ export class DeleteBooking extends Component {
         return (
             <Mutation mutation={DELETE_MY_BOOKING} variables={{id: this.props.id}} update={this.update}>
                 {(deleteMyBooking, {error,loading}) => (
-                <Button onClick={() => {
+                <Button className="customActualityButton" style={{width: '100px'}} onClick={() => {
                     //onClick Popup
                     if(confirm('Voulez-vous vraiment annuler cette réservation ?')){
                         deleteMyBooking();

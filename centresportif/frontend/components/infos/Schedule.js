@@ -230,7 +230,12 @@ class Schedule extends Component {
                                                             
                                                         </Modal>
                                                     </>
-                                                    )}}}}
+                                                    )}else{
+                                                        return(null)
+                                                    }
+                                                }else{
+                                                    return(null)
+                                                }}}
                                         </User>
                                         
                                     </Row>
@@ -378,7 +383,11 @@ class Schedule extends Component {
                                                             
                                                         </Modal>
                                                     </>
-                                                    )}}}}
+                                                    )}else{
+                                                        return(null)
+                                                    }}else{
+                                                        return(null)
+                                                    }}}
                                         </User>
                                     </Row>
                                 </Container>
