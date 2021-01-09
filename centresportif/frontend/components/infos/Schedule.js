@@ -5,8 +5,9 @@ import { Query, Mutation } from 'react-apollo';
 import {SCHEDULEFILTER_QUERY} from '../../components/infos/Query'
 import {UPDATE_SCHEDULE_MUTATION} from '../../components/infos/Mutation';
 import User from '../common/User';
-import Error from '../ErrorMessage'
 import {TextField,Select,MenuItem,InputLabel,FormControl,Tooltip    } from '@material-ui/core';
+import Error from '../common/ErrorMessage'
+import SweetAlert from 'react-bootstrap-sweetalert';
 
 /*<Mutation mutation={UPDATE_SCHEDULE_MUTATION} 
                     variables={{
@@ -57,7 +58,8 @@ class Schedule extends Component {
                 modalTwo: false,
                 fade: false,
                 variablesSchedule,
-                variablesPermanent
+                variablesPermanent,
+                succeededMessage:false
             };
             this.toggle = this.toggle.bind(this);            
             this.toggle2 = this.toggle2.bind(this)
@@ -121,9 +123,6 @@ class Schedule extends Component {
                                     <Row className="mx-auto justify-content-center">
                                         <Table hover responsive striped>
                                             
-                                            
-                                                {data.scheduleFilter.map(
-                                                    scheduleFilter => 
                                                     <tbody key={'mdr'}>
                                                      <tr>
                                                             <th></th>
@@ -132,42 +131,40 @@ class Schedule extends Component {
                                                         </tr>
                                                         <tr>
                                                             <th>Lundi</th>
-                                                            <td>{scheduleFilter.lundi}</td>
-                                                            <td>{scheduleFilter.vacances}</td>
+                                                            <td>{this.state.variablesSchedule.lundi}</td>
+                                                            <td>{this.state.variablesSchedule.vacances}</td>
                                                         </tr>
                                                         <tr>
                                                             <th>Mardi</th>
-                                                            <td>{scheduleFilter.mardi}</td>
-                                                            <td>{scheduleFilter.vacances}</td>
+                                                            <td>{this.state.variablesSchedule.mardi}</td>
+                                                            <td>{this.state.variablesSchedule.vacances}</td>
                                                         </tr>
                                                         <tr>
                                                             <th>Mercredi</th>
-                                                            <td>{scheduleFilter.mercredi}</td>
-                                                            <td>{scheduleFilter.vacances}</td>
+                                                            <td>{this.state.variablesSchedule.mercredi}</td>
+                                                            <td>{this.state.variablesSchedule.vacances}</td>
                                                         </tr>
                                                         <tr> 
                                                             <th>Jeudi</th>
-                                                            <td>{scheduleFilter.jeudi}</td>
-                                                            <td>{scheduleFilter.vacances}</td>
+                                                            <td>{this.state.variablesSchedule.jeudi}</td>
+                                                            <td>{this.state.variablesSchedule.vacances}</td>
                                                         </tr>
                                                         <tr>
                                                             <th>Vendredi</th>
-                                                            <td>{scheduleFilter.vendredi}</td>
-                                                            <td>{scheduleFilter.vacances}</td>
+                                                            <td>{this.state.variablesSchedule.vendredi}</td>
+                                                            <td>{this.state.variablesSchedule.vacances}</td>
                                                         </tr>
                                                         <tr>
                                                             <th>Samedi</th>
-                                                            <td>{scheduleFilter.samedi}</td>
-                                                            <td>{scheduleFilter.vacances}</td>
+                                                            <td>{this.state.variablesSchedule.samedi}</td>
+                                                            <td>{this.state.variablesSchedule.vacances}</td>
                                                         </tr>
                                                         <tr>
                                                             <th>Dimanche</th>
-                                                            <td>{scheduleFilter.dimanche}</td>
-                                                            <td>{scheduleFilter.vacances}</td>
+                                                            <td>{this.state.variablesSchedule.dimanche}</td>
+                                                            <td>{this.state.variablesSchedule.vacances}</td>
                                                         </tr>    
                                                     </tbody>
-                                                )}
-                                            
                                         </Table> 
                                         <User>
                                             {({data}) => {
@@ -208,12 +205,24 @@ class Schedule extends Component {
                                                                             dimanche: this.state.variablesSchedule.dimanche,
                                                                             vacances: this.state.variablesSchedule.vacances
                                                                         }
+                                                                        
+                                                                    });
+                                                                    this.setState({
+                                                                        succeededMessage: !this.state.succeededMessage
                                                                     });
                                                                     //window.location.href = '/list/mylocations'
                                                                     }}>
                                                                     <Error error={error} />
                                                                     <Button type="submit" className="customActualityButton" disabled={loading}>Confirm{loading ? 'ation' : 'er' }</Button>         
-                                                                    </form>
+                                                                    {this.state.succeededMessage? <SweetAlert
+                                                                    success
+                                                                    title="Modification sauvegardée!"
+                                                                    onConfirm={() => this.setState({ succeededMessage: false,modalOne: false })}
+                                                                    onCancel={() => this.setState({ succeededMessage: false,modalOne: false })}
+                                                                    timeout={2000}
+                                                                    >
+                                                                    Vos nouvelles données ont bien été mises à jour dans la base de données !
+                                                                    </SweetAlert>: true}</form>
                                                                 )}
                                                                 </Mutation>
                                                             </ModalFooter>
@@ -257,10 +266,6 @@ class Schedule extends Component {
                         return <Container className="themed-container"   >       
                                     <Row className="mx-auto justify-content-center">
                                         <Table hover responsive striped>
-                                            
-                                            
-                                                {data.scheduleFilter.map(
-                                                            scheduleFilter => 
                                                     <tbody key={'lol'}>
                                                         <tr >
                                                             <th> </th>
@@ -269,42 +274,40 @@ class Schedule extends Component {
                                                         </tr>
                                                         <tr >
                                                             <th>Lundi</th>
-                                                            <td>{scheduleFilter.lundi}</td>
-                                                            <td>{scheduleFilter.vacances}</td>
+                                                            <td>{this.state.variablesPermanent.lundi}</td>
+                                                            <td>{this.state.variablesPermanent.vacances}</td>
                                                         </tr>
                                                         <tr >
                                                             <th>Mardi</th>
-                                                            <td>{scheduleFilter.mardi}</td>
-                                                            <td>{scheduleFilter.vacances}</td>
+                                                            <td>{this.state.variablesPermanent.mardi}</td>
+                                                            <td>{this.state.variablesPermanent.vacances}</td>
                                                         </tr>
                                                         <tr>
                                                             <th>Mercredi</th>
-                                                            <td>{scheduleFilter.mercredi}</td>
-                                                            <td> {scheduleFilter.vacances}</td>
+                                                            <td>{this.state.variablesPermanent.mercredi}</td>
+                                                            <td> {this.state.variablesPermanent.vacances}</td>
                                                         </tr>
                                                         <tr> 
                                                             <th>Jeudi</th>
-                                                            <td>{scheduleFilter.jeudi}</td>
-                                                            <td>{scheduleFilter.vacances}</td>
+                                                            <td>{this.state.variablesPermanent.jeudi}</td>
+                                                            <td>{this.state.variablesPermanent.vacances}</td>
                                                         </tr>
                                                         <tr>
                                                             <th>Vendredi</th>
-                                                            <td>{scheduleFilter.vendredi}</td>
-                                                            <td>{scheduleFilter.vacances}</td>
+                                                            <td>{this.state.variablesPermanent.vendredi}</td>
+                                                            <td>{this.state.variablesPermanent.vacances}</td>
                                                         </tr>
                                                         <tr>
                                                             <th>Samedi</th>
-                                                            <td>{scheduleFilter.samedi}</td>
-                                                            <td>{scheduleFilter.vacances}</td>
+                                                            <td>{this.state.variablesPermanent.samedi}</td>
+                                                            <td>{this.state.variablesPermanent.vacances}</td>
                                                         </tr>
                                                         <tr>
                                                             <th>Dimanche</th>
-                                                            <td>{scheduleFilter.dimanche}</td>
-                                                            <td>{scheduleFilter.vacances}</td>
+                                                            <td>{this.state.variablesPermanent.dimanche}</td>
+                                                            <td>{this.state.variablesPermanent.vacances}</td>
                                                         </tr>  
                                                     </tbody>
-                                                )}
-                                            
                                         </Table> 
                                         <User>
                                             {({data}) => {
@@ -348,10 +351,25 @@ class Schedule extends Component {
                                                                                 vacances: this.state.variablesPermanent.vacances
                                                                             }
                                                                         });
+                                                                    this.setState({
+                                                                        succeededMessage: !this.state.succeededMessage
+                                                                    });
+                                                                    console.log('yyy')
                                                                     //window.location.href = '/list/mylocations'
                                                                     }}>
                                                                     <Error error={error} />
-                                                                    <Button type="submit" className="customActualityButton" disabled={loading}>Confirm{loading ? 'ation' : 'er' }</Button>         
+                                                                    <Button type="submit" className="customActualityButton" disabled={loading}>Confirm{loading ? 'ation' : 'er'
+                                                                    
+                                                                    }</Button>         
+                                                                    {this.state.succeededMessage? <SweetAlert
+                                                                    success
+                                                                    title="Modification sauvegardée!"
+                                                                    onConfirm={() => this.setState({ succeededMessage: false,modalTwo: false  })}
+                                                                    onCancel={() => this.setState({ succeededMessage: false,modalTwo: false  })}
+                                                                    timeout={2000}
+                                                                    >
+                                                                    Vos nouvelles données ont bien été mises à jour dans la base de données !
+                                                                    </SweetAlert>: true}
                                                                     </form>
                                                                 )}
                                                                 </Mutation>

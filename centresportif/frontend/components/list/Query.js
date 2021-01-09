@@ -36,7 +36,8 @@ export const BOOKINGS_QUERY = gql`
     
     query BOOKINGS_QUERY {
         bookings{
-            idBooking
+            idBooking,
+            id,
             title,
             allDay,
             start,
@@ -44,7 +45,21 @@ export const BOOKINGS_QUERY = gql`
             room,
             type,
             is_paid,
-
+            userId{name,surname}
+            }
+    }
+`;
+export const MYBOOKINGS_QUERY = gql`
+    
+    query BOOKINGS_QUERY {
+        bookingFilter{
+            id,
+            title,
+            start,
+            end,
+            room,
+            type,
+            is_paid,
             }
     }
 `;

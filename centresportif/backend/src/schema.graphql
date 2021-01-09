@@ -65,7 +65,7 @@ type Mutation {
     !): User!,
     updatePermissions(permissions: [Permission],userId: ID!): User,
     deleteMyLocation(locationId: String!): Location,
-    deleteMyBooking(bookingId: String!): Booking,
+    deleteMyBooking(id: String!): Booking,
     deleteActuality(actualityId: String!): Actuality,
     updateSchedule(id : ID!, userId: ID! ,lundi: String!, mardi: String!, mercredi: String!, jeudi: String!, vendredi: String!, samedi: String!,dimanche: String!,vacances: String!): Schedule,
 }
@@ -82,6 +82,7 @@ type Query {
     actualitiesConnection(where: ActualityWhereInput): ActualityConnection!,
     schedules: [Schedule!]!,
     scheduleFilter(id: String!): [Schedule!]!,
+    bookingFilter: [Booking!]!,
 }
 
 ## not query or mutation

@@ -61,7 +61,19 @@ export const CREATE_BOOKING_MUTATION= gql`
         }
     }
 `
+export const DELETE_MY_BOOKING = gql`
 
+        mutation DELETE_MY_BOOKING(
+            $id: String!
+        ){
+            deleteMyBooking(
+                id: $id
+            ){
+                id
+            }
+        }       
+        
+`;
 
 /*export const CREATE_BOOKING_MUTATION= gql`
     mutation CREATE_BOOKING_MUTATION(

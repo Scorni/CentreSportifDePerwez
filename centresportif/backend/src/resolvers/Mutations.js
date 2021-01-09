@@ -287,7 +287,7 @@ const Mutations = {
     },
     async deleteMyBooking(parent,args,ctx,info){
         
-        const where = {id : args.bookingId};
+        const where = {id : args.id};
 
         const item = await ctx.db.query.booking({where},`{id}`);
 

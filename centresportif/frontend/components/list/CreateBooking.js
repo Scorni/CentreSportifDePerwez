@@ -6,9 +6,9 @@ import {Calendar,momentLocalizer,Views } from 'react-big-calendar';
 import withDragAndDrop from 'react-big-calendar/lib/addons/dragAndDrop'
 import {BOOKINGS_QUERY} from '../list/Query';
 import {CREATE_BOOKING_MUTATION} from '../list/Mutation'
-import Error from '../ErrorMessage'
+import Error from '../common/ErrorMessage'
 import { InMemoryCache, ApolloClient } from '@apollo/client';
-
+import SweetAlert from 'react-bootstrap-sweetalert';
 import moment, { defaultFormat } from 'moment';
 import 'moment/locale/fr';
 import { func } from 'prop-types';
@@ -97,7 +97,9 @@ class CreateNewBooking extends Component {
             {
               open : false
             }
-          ] 
+          ],
+          succeededMessage:false
+
         }
         this.moveEvent = this.moveEvent.bind(this)
         this.newEvent = this.newEvent.bind(this)
@@ -105,7 +107,7 @@ class CreateNewBooking extends Component {
     } 
     updateMutation = (cache,payload) => {
       //Read of the cache
-      const data = cache.readQuery({ query:
+      /*const data = cache.readQuery({ query:
         BOOKINGS_QUERY
       });
       console.log(data.bookings)
@@ -124,7 +126,7 @@ class CreateNewBooking extends Component {
         BOOKINGS_QUERY
       });
       console.log(data2.bookings)
-
+*/
     }
     updateValue = (e,inputType,idBooking) => {
       let regExp = /[a-zA-Z-!-\-@[-`{-~]/;
@@ -1096,7 +1098,7 @@ class CreateNewBooking extends Component {
                 />
                 
                         
-                <Mutation mutation={CREATE_BOOKING_MUTATION} update={this.updateMutation} 
+                <Mutation mutation={CREATE_BOOKING_MUTATION} 
                   >
                   {(createBooking,{loading,error})=> (
 
@@ -1117,18 +1119,31 @@ class CreateNewBooking extends Component {
                               is_paid:this.state.events[this.state.events.length - (this.state.newEvent - i)].is_paid
                             }
                           });
+                          
+                          this.setState({
+                            succeededMessage: !this.state.succeededMessage
+                          });
                         }else{
                           return false
                         }                                 
                       }
-                      window.location.href = '/list/mylocations'
+                      //window.location.href = '/list/mylocations'
                     }}>
                     <Error error={error} />
                     
                     <div id="currentBookList" ref={this.currentBookList} >
                     {customOptions}{test}
-                    <Button type="submit">Réserver</Button>
-                    </div>                  
+                    <Button type="submit" disabled={loading}>Réserv{loading ? 'ation' : 'er' }</Button>
+                    </div> 
+                    {this.state.succeededMessage? <SweetAlert
+                      success
+                      title="Modification sauvegardée!"
+                      onConfirm={() => this.setState({ succeededMessage: false,modalOne: false })}
+                      onCancel={() => this.setState({ succeededMessage: false,modalOne: false })}
+                      timeout={2000}
+                      >
+                      Vos nouvelles données ont bien été mises à jour dans la base de données !
+                      </SweetAlert>: true}                 
                     </form>
                   )}
                 </Mutation>

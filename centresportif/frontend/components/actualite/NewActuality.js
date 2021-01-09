@@ -9,8 +9,10 @@ import TextField from '@material-ui/core/TextField';
 import { Mutation } from 'react-apollo';
 import {CREATE_ACTUALITY_MUTATION} from '../actualite/Mutation'
 import {  MuiPickersUtilsProvider, KeyboardDatePicker,} from '@material-ui/pickers'
-import Error from '../ErrorMessage'
+import Error from '../common/ErrorMessage'
 import User from '../common/User';
+import SweetAlert from 'react-bootstrap-sweetalert';
+
 import { Container, Row, } from 'reactstrap';
 
 
@@ -51,7 +53,9 @@ class MyEditor extends Component {
   this.state = {
     editorState: EditorState.createEmpty(),
     date: new Date(),
-    title :  "Actualité du "+ rightFormat(new Date)
+    title :  "Actualité du "+ rightFormat(new Date),
+    succeededMessage:false
+
     };
   this.handleClick = this.handleClick.bind(this);
   }
@@ -121,6 +125,9 @@ class MyEditor extends Component {
                                       console.log(this.state);
                                       const res = await createActuality();
                                       console.log(res);
+                                      this.setState({
+                                        succeededMessage: !this.state.succeededMessage
+                                    });
                                     }}>
                                       
                                       <div className ="fieldsetActuality">
@@ -172,9 +179,19 @@ class MyEditor extends Component {
                                         {getHtml(editorState)}
                                           
                                       </div>
-                                      <Button className="previewButton" type="submit" onClick={this.handleClick}>
-                                          Valider l'actualité
+                                      <Button className="previewButton" type="submit" onClick={this.handleClick} disabled={loading}>
+                                        Valid{loading ? 'ation' : 'er' }
                                       </Button>
+                                      {this.state.succeededMessage? 
+                                      <SweetAlert
+                                        success
+                                        title="Modification sauvegardée!"
+                                        onConfirm={() => this.setState({ succeededMessage: false,modalOne: false })}
+                                        onCancel={() => this.setState({ succeededMessage: false,modalOne: false })}
+                                        timeout={2000}
+                                        >
+                                        Vos nouvelles données ont bien été mises à jour dans la base de données !
+                                      </SweetAlert>: true}
                                     </form>
                                     )}
                                     </Mutation>

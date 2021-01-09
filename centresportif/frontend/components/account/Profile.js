@@ -32,10 +32,10 @@ class Profile extends Component {
                                             </div>
                                         </Row>
                                         <Row className="mx-auto justify-content-center">
-                                            <Link href='/list/mylocations' >
+                                            <Link href='/list/mybooking' >
                                                 <Button className="m-2 mt-1 customProfileButton">Voir mes réservations</Button>
                                             </Link>
-                                            <Link href='/list/locations' >
+                                            <Link href='/list/bookings' >
                                                 <Button className="m-2 mt-1 customProfileButton">Liste des réservations</Button>
                                             </Link>
                                             <Link href='/list/users'>

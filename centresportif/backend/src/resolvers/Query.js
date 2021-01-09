@@ -7,6 +7,7 @@ const Query = {
     actualities:forwardTo('db'),
     actualitiesConnection:forwardTo('db'),
     schedules:forwardTo('db'),
+    bookings:forwardTo('db'),
 
     async roomsFilter(parent, args, context, info) {
       return await ctx.db.query.rooms({
@@ -26,6 +27,15 @@ const Query = {
         throw new Error('Vous devez être connecté !')
       }
       return await ctx.db.query.locations({
+        where:{
+          userId : { id : ctx.request.userId},
+    }})
+    },
+    async bookingFilter(parent, args, ctx, info) {
+      if(!ctx.request.userId){
+        throw new Error('Vous devez être connecté !')
+      }
+      return await ctx.db.query.bookings({
         where:{
           userId : { id : ctx.request.userId},
     }})
