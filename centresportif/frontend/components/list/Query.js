@@ -17,21 +17,6 @@ export const USERS_QUERY = gql`
         }
     }
 `;
-
-export const LOCATIONS_QUERY = gql`
-    
-    query LOCATIONS_QUERY {
-        locations{
-            id
-            sport,
-            is_paid,
-            hour,
-            day
-            roomName{name,id},
-            userId{name,surname}
-            }
-    }
-`;
 export const BOOKINGS_QUERY = gql`
     
     query BOOKINGS_QUERY {
@@ -84,19 +69,6 @@ export const ROOMSFILTER_QUERY = gql`
         roomsFilter(name: $name,sport:$sport){
             id
         }
-    }
-`;
-
-export const MYLOCATIONS_QUERY = gql`
-    
-    query LOCATIONS_QUERY {
-        locationFilter{
-            id
-            sport
-            day
-            hour
-            is_paid
-            }
     }
 `;
 export default USERS_QUERY

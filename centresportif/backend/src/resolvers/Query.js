@@ -2,7 +2,6 @@ const {forwardTo} = require('prisma-binding');
 const {hasPermission} = require('../utils');
 const Query = {
     rooms:forwardTo('db'),
-    locations:forwardTo('db'),
     bookings:forwardTo('db'),
     actualities:forwardTo('db'),
     actualitiesConnection:forwardTo('db'),
@@ -26,16 +25,7 @@ const Query = {
           where:{
               id : args.id,
       }})
-    },
-    async locationFilter(parent, args, ctx, info) {
-      if(!ctx.request.userId){
-        throw new Error('Vous devez être connecté !')
-      }
-      return await ctx.db.query.locations({
-        where:{
-          userId : { id : ctx.request.userId},
-    }})
-    },
+    },    
     async bookingFilter(parent, args, ctx, info) {
       if(!ctx.request.userId){
         throw new Error('Vous devez être connecté !')

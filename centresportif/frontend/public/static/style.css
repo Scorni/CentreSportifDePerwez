@@ -627,6 +627,19 @@ iframe{
   50% {transform: scale(1.5)}
   100% {transform: scale(1.2)}
 }
+/* Contact part */
+.linkToSchedule{
+  color: #212529;
+  text-decoration: none;
+
+}
+
+.linkToSchedule:hover{
+  cursor: pointer;
+  text-decoration: none;
+  color: #021b3a;
+
+}
 /* FAQ part */
 .customDivFaq{
   background-image: url("../../public/static/img/svg/questions.svg");
@@ -655,4 +668,18 @@ iframe{
   justify-content: center;
   margin-top : 10em;
   color: rgb(255, 94, 0);
+}
+/** Carousel */
+.swiper-container {
+  widows: 700px;
+}
+.swiper-wrapper {
+  padding-inline-start: 0;
+}
+.linkToActuality{
+  text-align: center;
+  color: #021b3a;
+}
+.linkToActuality:hover{
+  cursor: pointer;
 }

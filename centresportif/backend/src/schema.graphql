@@ -42,14 +42,6 @@ type Mutation {
         memberOne: String!
         memberTwo: String!
     ): Contact!,
-    createLocation(
-        sport: String!
-        hour: String!
-        day: String!
-        roomName: String!
-        is_paid: Boolean!
-    ): Location!,
-   
     createBooking(
         idBooking: Int!
         title: String!,
@@ -83,7 +75,6 @@ type Mutation {
         confirmPassword: String
     !): User!,
     updatePermissions(permissions: [Permission],userId: ID!): User,
-    deleteMyLocation(locationId: String!): Location,
     deleteMyBooking(id: String!): Booking,
     deleteActuality(actualityId: String!): Actuality,
     deleteStage(stageId: String!): Stage,
@@ -93,12 +84,10 @@ type Mutation {
 }
 type Query {
     rooms: [Room!]!,
-    locations: [Location]!,
     bookings: [Booking]!,
     users: [User]!,
     roomsFilter(name: String!,sport : String!): [Room!]!,
     userFilter(id: String!): [User!]!,
-    locationFilter: [Location!]!,
     me:User,
     actualities(where: ActualityWhereInput,orderBy: ActualityOrderByInput, skip: Int, first: Int): [Actuality!]!,
     actualitiesConnection(where: ActualityWhereInput): ActualityConnection!,
@@ -127,16 +116,6 @@ type Room {
 
 ### Location
 
-type Location {
-    id: ID!
-    sport: String!
-    hour: String!
-    day: String!
-    is_paid: Boolean
-    roomName: Room!
-    userId: User!
-    uniqueLocationsRoomHourDay: String!
-}
 type Booking{
     id: ID!
     idBooking: Int!

@@ -10,6 +10,7 @@ import Error from '../common/ErrorMessage'
 import SweetAlert from 'react-bootstrap-sweetalert';
 import mapboxgl from 'mapbox-gl';
 import ReactMapGL from 'react-map-gl';
+import Link from 'next/link';
 
 
 const mapStyle = {
@@ -130,7 +131,7 @@ class Contact extends Component {
                                                         <tr>
                                                             <th>Téléphone fix</th>
                                                             <td>{this.state.contact.fix}</td>
-                                                            <td></td>
+                                                            <td><Link href='/infos/schedule' ><a className="linkToSchedule">Permanence téléphonique</a></Link></td>
 
                                                         </tr>
                                                         <tr>

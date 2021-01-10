@@ -18,19 +18,16 @@ const Header = () => (
             <div className="col-lg-5 col-xs-12 about-company">
               <h2>Centre Sportif de Perwez</h2>
               <p className="pr-5 text-white-50">Le centre sportif offre des infrastructures de haute qualité autant pour les sports collectifs qu'individuels. On peut y retrouver plus de 25 clubs, proposant un bel éventail de disciplines. </p>            
-              <p className="pr-5 text-white-50">Vous souhaitez en savoir plus ?</p>
-              <Link href='/' style={{color: "white"}}>Cliquez ici !</Link>
-              <p><a href="#"><i className="fa fa-facebook-square mr-1"></i></a><a href="#"><i className="fa fa-linkedin-square"></i></a></p>
             </div>
             <div className="col-lg-3 col-xs-12 links">
               <h4 className="mt-lg-0 mt-sm-3">Liens</h4>
                 <ul className="m-0 p-0">
                   <li>-  <Link href='/' style={{color: "white"}}>Accueil</Link></li>
-                  <li>-  <Link href='/' style={{color: "white"}}>Nous contacter</Link></li>
-                  <li>-  <Link href='/' style={{color: "white"}}>Réserver une salle | un terrain</Link></li>
-                  <li>-  <Link href='/' style={{color: "white"}}>Horaire</Link></li>
-                  <li>-  <Link href='/' style={{color: "white"}}>FAQ</Link></li>
-                  <li>-  <Link href='/' style={{color: "white"}}>Cafétaria</Link></li>
+                  <li>-  <Link href='/infos/contact' style={{color: "white"}}>Nous contacter</Link></li>
+                  <li>-  <Link href='/createBooking' style={{color: "white"}}>Réserver une salle | un terrain</Link></li>
+                  <li>-  <Link href='/infos/schedule' style={{color: "white"}}>Horaire</Link></li>
+                  <li>-  <Link href='/infos/faq' style={{color: "white"}}>FAQ</Link></li>
+                  <li>-  <Link href='/infos/cafetaria' style={{color: "white"}}>Cafétaria</Link></li>
                 </ul>
             </div>
             <div className="col-lg-4 col-xs-12 location">

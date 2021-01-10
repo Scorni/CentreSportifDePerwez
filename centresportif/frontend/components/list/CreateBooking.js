@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Query, Mutation,useMutation } from 'react-apollo';
-import StyledForm from "../list/Form"
 import gql from "graphql-tag";
 import {Calendar,momentLocalizer,Views } from 'react-big-calendar';
 import withDragAndDrop from 'react-big-calendar/lib/addons/dragAndDrop'
@@ -581,6 +580,10 @@ class CreateNewBooking extends Component {
 
     newEvent(event) {
       let type = "timeSlot"
+      if(moment(event.start).isBefore(new Date) || moment(event.end).isBefore(new Date)){
+        alert('Vous ne pouvez effectuer de réservations dans le passé !');
+        return false;
+      }
       for(let i =0;i < this.state.events.length;i++){
         if(this.state.events[i].type === "close"){
           console.log('allo')
