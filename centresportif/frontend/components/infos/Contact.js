@@ -8,9 +8,19 @@ import User from '../common/User';
 import {TextField,Select,MenuItem,InputLabel,FormControl,Tooltip    } from '@material-ui/core';
 import Error from '../common/ErrorMessage'
 import SweetAlert from 'react-bootstrap-sweetalert';
-import GoogleMapReact from 'google-map-react';
- 
-const AnyReactComponent = ({ text }) => <div>{text}</div>;
+import mapboxgl from 'mapbox-gl';
+import ReactMapGL from 'react-map-gl';
+
+
+const mapStyle = {
+    width: '100%',
+    height: '50vh',
+    
+}
+const params = {
+    country: "be"
+}
+const mapboxApiKey = 'pk.eyJ1Ijoic2Nvcm5pIiwiYSI6ImNranFhMDVyaTFrM2EycnFwOTJxbWRlZnMifQ.nGuZzx-y_vTyPaOr1QKPyw';
 /*<Mutation mutation={UPDATE_SCHEDULE_MUTATION} 
                     variables={{
                         userId: this.state.userId, 
@@ -47,17 +57,15 @@ class Contact extends Component {
                 modalOne: false,
                 fade: false,
                 contact,
-                succeededMessage:false
+                succeededMessage:false,
+                viewport: {
+                    latitude: 50.62514769900056,
+                    longitude: 4.805663982551348,
+                    zoom: 16
+                }
             };
             this.toggle = this.toggle.bind(this);            
         };
-        static defaultProps = {
-            center: {
-                lat:50.62501714141194,
-                lng:4.805150484189537
-            },
-            zoom: 11
-          };
         toggle() {          
             this.setState({
                 modalOne: !this.state.modalOne
@@ -81,8 +89,10 @@ class Contact extends Component {
             }  
         }
         render () {
+            const { viewport } = this.state;
             return (
             <>
+            
                 <HeadGenerator  title="Contact"></HeadGenerator>
                 <Query key={'12515'} query={CONTACTFILTER_QUERY} variables={{id: 'ckjpxrtx7rw5c0949o5rxm2v2'}}>
                     {({ data, error, loading }) => {
@@ -106,7 +116,7 @@ class Contact extends Component {
                                 ))}
                             }
                         }
-                        return (<Container className="themed-container"   >       
+                        return <Container className="themed-container"   >       
                                     <Row className="mx-auto justify-content-center">
                                         <Table hover responsive striped>
                                             
@@ -190,7 +200,7 @@ class Contact extends Component {
                                                                     });
                                                                     //window.location.href = '/list/mylocations'
                                                                     }}>
-                                                                    return (
+                                                                    
                                                                     <Error error={error} />
                                                                     <Button type="submit" className="customActualityButton" disabled={loading}>Confirm{loading ? 'ation' : 'er' }</Button>         
                                                                     {this.state.succeededMessage? <SweetAlert
@@ -202,7 +212,7 @@ class Contact extends Component {
                                                                     >
                                                                     Vos nouvelles données ont bien été mises à jour dans la base de données !
                                                                     </SweetAlert>: null}</form>
-                                                                )})
+                                                                )}
                                                                 </Mutation>
                                                             </ModalFooter>
                                                         </Modal>
@@ -217,24 +227,22 @@ class Contact extends Component {
                                         
                                     </Row>
                                     <Row>
-                                        <Col>
-                                        <div style={{height: '50vh', width: '100%',marginBottom:'1em'}}>
-                                        <GoogleMapReact
-                                        bootstrapURLKeys={{ key: 'AIzaSyBu_vFOa9sRSF4btIBXKEVOcgdxoZAP9BI' }}
-                                        defaultCenter={this.props.center}
-                                        defaultZoom={this.props.zoom}
+                                        <Col style={{marginBottom:'2em'}}>
+                                        <ReactMapGL
+                                        mapboxApiAccessToken={mapboxApiKey}
+                                        mapStyle="mapbox://styles/mapbox/streets-v11"
+                                        {...viewport}
+                                        {...mapStyle}
+                                        onViewportChange={(viewport) => this.setState({viewport})}
+                                    
                                         >
-                                        <AnyReactComponent
-                                            lat={50.62501714141194}
-                                            lng={4.805150484189537}
-                                            text="My Marker"
-                                        />
-                                        </GoogleMapReact>
-                                        </div>
+                                        </ReactMapGL>
+                                        
+                                        
                                         </Col>
                                     
                                     </Row>
-                                </Container>)
+                                </Container>
                         }               
                     }
                 </Query>

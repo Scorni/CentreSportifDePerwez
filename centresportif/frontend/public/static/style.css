@@ -643,3 +643,16 @@ iframe{
   background-size: contain;
   background-position:center bottom;
 }
+/** WIP part */
+.customDivWIP{
+  background-image: url("../../public/static/img/svg/building.svg");
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position:center bottom;
+}
+.customDivWIPInside{
+  display: flex;
+  justify-content: center;
+  margin-top : 10em;
+  color: rgb(255, 94, 0);
+}

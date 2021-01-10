@@ -340,32 +340,27 @@ class Schedule extends Component {
                                                                 {(updateSchedule,{loading,error})=> (
                                                                     <form onSubmit={async e=> {
                                                                     e.preventDefault(); 
-                                                                    console.log(me)
-                                                                        console.log(this.state.variablesPermanent.lundi)
-                                                                        const res = await updateSchedule({variables : 
-                                                                            { 
-                                                                                id: 'ckjnffadwby7g0949bifj4kqx',                                                                            
-                                                                                userId: me.id, 
-                                                                                lundi: this.state.variablesPermanent.lundi,
-                                                                                mardi: this.state.variablesPermanent.mardi,
-                                                                                mercredi: this.state.variablesPermanent.mercredi,
-                                                                                jeudi: this.state.variablesPermanent.jeudi,
-                                                                                vendredi: this.state.variablesPermanent.vendredi,
-                                                                                samedi: this.state.variablesPermanent.samedi,
-                                                                                dimanche: this.state.variablesPermanent.dimanche,
-                                                                                vacances: this.state.variablesPermanent.vacances
-                                                                            }
-                                                                        });
+                                                                    const res = await updateSchedule({variables : 
+                                                                        { 
+                                                                            id: 'ckjnffadwby7g0949bifj4kqx',                                                                            
+                                                                            userId: me.id, 
+                                                                            lundi: this.state.variablesPermanent.lundi,
+                                                                            mardi: this.state.variablesPermanent.mardi,
+                                                                            mercredi: this.state.variablesPermanent.mercredi,
+                                                                            jeudi: this.state.variablesPermanent.jeudi,
+                                                                            vendredi: this.state.variablesPermanent.vendredi,
+                                                                            samedi: this.state.variablesPermanent.samedi,
+                                                                            dimanche: this.state.variablesPermanent.dimanche,
+                                                                            vacances: this.state.variablesPermanent.vacances
+                                                                        }
+                                                                    });
                                                                     this.setState({
                                                                         succeededMessage: !this.state.succeededMessage
                                                                     });
-                                                                    console.log('yyy')
                                                                     //window.location.href = '/list/mylocations'
                                                                     }}>
                                                                     <Error error={error} />
-                                                                    <Button type="submit" className="customActualityButton" disabled={loading}>Confirm{loading ? 'ation' : 'er'
-                                                                    
-                                                                    }</Button>         
+                                                                    <Button type="submit" className="customActualityButton" disabled={loading}>Confirm{loading ? 'ation' : 'er'}</Button>         
                                                                     {this.state.succeededMessage? <SweetAlert
                                                                     success
                                                                     title="Modification sauvegardée!"
