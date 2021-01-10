@@ -32,14 +32,13 @@ class MyBookings extends Component {
     
     render() {
         return (
-            <div console>
+            <div>
                 <HeadGenerator title="Mes réservations"/>
                 <Query query={MYBOOKINGS_QUERY}>
                     {({ data, error, loading }) => {
                         if(loading) return <p> Loading...</p>
                         if(error) return <p> Error : { error.message }</p>
-                        return <div className="locationsvg">
-                            <Container className="themed-container"   >       
+                        return <Container className="themed-container">       
                                 <Row className="mx-auto justify-content-center">
                                     <Table  hover responsive striped className='transparentTable' size="sm">
                                         <thead>
@@ -74,7 +73,6 @@ class MyBookings extends Component {
                                     </Table> 
                                 </Row>
                             </Container>
-                        </div>
                         }               
                     }
                 </Query>

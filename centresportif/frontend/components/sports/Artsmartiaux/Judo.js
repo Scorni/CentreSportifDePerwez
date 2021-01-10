@@ -33,7 +33,7 @@ return (
           <CardMedia
             component="img"
             
-            image="../../../static/img/ArtsMartiaux/JudoClubThorembais.png"
+            image="https://res.cloudinary.com/csperwez/image/upload/v1610313947/clubs/ArtsMartiaux/JudoClubThorembais_faoaxj.png"
             title=""
           />
           <CardActionArea>

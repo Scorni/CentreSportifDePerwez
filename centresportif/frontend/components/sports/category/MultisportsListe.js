@@ -13,7 +13,7 @@ const Multisports = (props) => {
         <Container className="themed-container">
           <Row className="mx-5">
             <Col className =" mt-3 " sm={{offset : 3}} >
-              <CardGenerator tabs = {"multisports.jpg"} title = {"Multisports"} link ={"Multisports"}/>
+              <CardGenerator tabs = {"https://res.cloudinary.com/csperwez/image/upload/v1610310174/multisports_kowkb2.jpg"} title = {"Multisports"} link ={"Multisports"}/>
             </Col>
           </Row>
         </Container>
@@ -26,7 +26,7 @@ const Multisports = (props) => {
         <Container className="themed-container">
           <Row className="mx-auto">
             <Col className =" mt-3" sm={{offset : 4}} >
-              <CardGenerator tabs = {"multisports.jpg"} title = {"Multisports"} link ={"Multisports"}/>
+              <CardGenerator tabs = {"https://res.cloudinary.com/csperwez/image/upload/v1610310174/multisports_kowkb2.jpg"} title = {"Multisports"} link ={"Multisports"}/>
             </Col>
           </Row>
         </Container>
@@ -39,7 +39,7 @@ const Multisports = (props) => {
         <Container className="themed-container">
           <Row className="mx-auto">
             <Col className =" mt-3" sm={{offset : 4}} >
-              <CardGenerator tabs = {"multisports.jpg"} title = {"Multisports"} link ={"Multisports"}/>
+              <CardGenerator tabs = {"https://res.cloudinary.com/csperwez/image/upload/v1610310174/multisports_kowkb2.jpg"} title = {"Multisports"} link ={"Multisports"}/>
             </Col>
           </Row>
         </Container>
@@ -52,7 +52,7 @@ const Multisports = (props) => {
         <Container className="themed-container">
           <Row className="mx-auto">
             <Col className =" mt-3" >
-              <CardGenerator tabs = {"multisports.jpg"} title = {"Multisports"} link ={"Multisports"}/>
+              <CardGenerator tabs = {"https://res.cloudinary.com/csperwez/image/upload/v1610310174/multisports_kowkb2.jpg"} title = {"Multisports"} link ={"Multisports"}/>
             </Col>
           </Row>
         </Container>

@@ -236,7 +236,7 @@ body,
 }
 .locationsvg{
   
-  height: 70vh;
+  
   background-image: url("../../public/static/img/svg/booking.svg");
   background-repeat: no-repeat;
   background-size:contain;

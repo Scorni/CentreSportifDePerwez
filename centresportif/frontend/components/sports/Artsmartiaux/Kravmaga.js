@@ -32,7 +32,7 @@ return (
           <CardMedia
             component="img"
             
-            image="../../../static/img/ArtsMartiaux/KravMaga.jpg"
+            image="https://res.cloudinary.com/csperwez/image/upload/v1610313947/clubs/ArtsMartiaux/Kravmaga_k2usxv.png"
             title=""
           />
           <CardActionArea>

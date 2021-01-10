@@ -1130,13 +1130,17 @@ class CreateNewBooking extends Component {
                           return false
                         }                                 
                       }
-                      //window.location.href = '/list/mylocations'
+                      if(this.state.newEvent === 0){
+                        alert('Vous ne pouvez effectuer de réservation sans en avoir créé une ! 🏴‍☠️')
+                        return false
+                      }
+                      window.location.href = '/list/mylocations'
                     }}>
                     <Error error={error} />
                     
                     <div id="currentBookList" ref={this.currentBookList} >
                     {customOptions}{test}
-                    <Button type="submit" disabled={loading}>Réserv{loading ? 'ation' : 'er' }</Button>
+                    <Button className="previewButton" type="submit" disabled={loading}>Réserv{loading ? 'ation' : 'er' }</Button>
                     </div> 
                     {this.state.succeededMessage? <SweetAlert
                       success

@@ -1,1 +1,0 @@
-Responsive size : 1000x350

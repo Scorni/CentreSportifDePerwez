@@ -13,10 +13,10 @@ const Gymnastique = (props) => {
         <Container className="themed-container">
           <Row className="mx-auto">
             <Col className =" mt-3 " sm={{offset : 1}} >
-              <CardGenerator tabs = {"musculation.jpg"} title = {"Musculation"}  link ={"Musculation"}/>
+              <CardGenerator tabs = {"https://res.cloudinary.com/csperwez/image/upload/v1610310181/musculation_f8iioa.jpg"} title = {"Musculation"}  link ={"Musculation"}/>
             </Col>
             <Col className =" mt-3">
-              <CardGenerator tabs = {"relaxation.jpg"} title = {"Relaxation"} link ={"Relaxation"}/>
+              <CardGenerator tabs = {"https://res.cloudinary.com/csperwez/image/upload/v1610310174/relaxation_a0losx.jpg"} title = {"Relaxation"} link ={"Relaxation"}/>
             </Col>
           </Row>
         </Container>
@@ -29,10 +29,10 @@ const Gymnastique = (props) => {
         <Container className="themed-container">
           <Row className="mx-auto">
             <Col className =" mt-3" sm={{offset : 1}} >
-              <CardGenerator tabs = {"musculation.jpg"} title = {"Musculation"} link ={"Musculation"}/>
+              <CardGenerator tabs = {"https://res.cloudinary.com/csperwez/image/upload/v1610310181/musculation_f8iioa.jpg"} title = {"Musculation"} link ={"Musculation"}/>
             </Col>
             <Col className =" mt-3">
-              <CardGenerator tabs = {"relaxation.jpg"} title = {"Relaxation"} link ={"Relaxation"}/>
+              <CardGenerator tabs = {"https://res.cloudinary.com/csperwez/image/upload/v1610310174/relaxation_a0losx.jpg"} title = {"Relaxation"} link ={"Relaxation"}/>
             </Col>
           </Row>
         </Container>
@@ -45,10 +45,10 @@ const Gymnastique = (props) => {
         <Container className="themed-container">
           <Row className="mx-auto">
             <Col className =" mt-3" sm={{offset : 1}} >
-              <CardGenerator tabs = {"musculation.jpg"} title = {"Musculation"} link ={"Musculation"}/>
+              <CardGenerator tabs = {"https://res.cloudinary.com/csperwez/image/upload/v1610310181/musculation_f8iioa.jpg"} title = {"Musculation"} link ={"Musculation"}/>
             </Col>
             <Col className =" mt-3">
-              <CardGenerator tabs = {"relaxation.jpg"} title = {"Relaxation"} link ={"Relaxation"}/>
+              <CardGenerator tabs = {"https://res.cloudinary.com/csperwez/image/upload/v1610310174/relaxation_a0losx.jpg"} title = {"Relaxation"} link ={"Relaxation"}/>
             </Col>
           </Row>
         </Container>
@@ -61,10 +61,10 @@ const Gymnastique = (props) => {
         <Container className="themed-container">
           <Row className="mx-auto">
             <Col className =" mt-3" >
-              <CardGenerator tabs = {"musculation.jpg"} title = {"Musculation"} link ={"Musculation"}/>
+              <CardGenerator tabs = {"https://res.cloudinary.com/csperwez/image/upload/v1610310181/musculation_f8iioa.jpg"} title = {"Musculation"} link ={"Musculation"}/>
             </Col>
             <Col className =" mt-3" >
-              <CardGenerator tabs = {"relaxation.jpg"} title = {"Relaxation"} link ={"Relaxation"}/>
+              <CardGenerator tabs = {"https://res.cloudinary.com/csperwez/image/upload/v1610310174/relaxation_a0losx.jpg"} title = {"Relaxation"} link ={"Relaxation"}/>
             </Col>
           </Row>
         </Container>

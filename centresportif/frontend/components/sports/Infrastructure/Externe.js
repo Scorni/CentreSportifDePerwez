@@ -29,7 +29,6 @@ export default function Externe() {
           <Card className={classes.root}>
             <CardMedia
               component="img"
-              
               image="../../../static/img/Infrastructure/externe.jpg"
               title=""
             />
@@ -39,10 +38,11 @@ export default function Externe() {
                   Terrain synthétique
                 </Typography>
                 <Typography variant="body1"  component="p">
-                  -Constitué de granule de plastique.<br/>
-                  -Dimension standard de terrain de football.<br/> 
-                  -Adapté pour d'autres sports comme le Hockey sur gazon.
-
+                <b>Dimensions</b> : 106m L X 66m l<br/>
+                <b>Revêtement</b> : Gazon synthétique<br/>
+                <b>Équipements sportifs disponibles </b> :<br/>
+                  - 1 paire de buts de football seniors<br/>
+                  - 4 paires de buts de football juniors<br/>
                 </Typography>
               </CardContent>
             </CardActionArea>
@@ -60,8 +60,11 @@ export default function Externe() {
                   Terrain de Football en herbe
                 </Typography>
                 <Typography variant="body1"  component="p">
-                  -Constitué d'herbe du désert du Sahara.<br/>
-                  -Dimension standard de terrain de football.<br/>
+                <b>Dimensions</b> : 108m L X 69m l<br/>
+                <b>Revêtement</b> : Gazon naturel<br/>
+                <b>Équipements sportifs disponibles </b> :<br/>
+                  - 1 paire de buts de football seniors<br/>
+                  - 4 paires de buts de football juniors<br/>
                 </Typography>
               </CardContent>
             </CardActionArea>
@@ -73,7 +76,6 @@ export default function Externe() {
           <Card className={classes.root}>
             <CardMedia
               component="img"
-              
               image="../../../static/img/Infrastructure/externe.jpg"
               title=""
             />
@@ -83,11 +85,18 @@ export default function Externe() {
                 Piste d'Athlétisme
                 </Typography>
                 <Typography variant="body1"  component="p">
-                  -Piste de 400m constitué d'un revêtement en caoutchouc.<br/>
-                  -Plateau pour lancer du disque,du marteau et du poids.<br/>
-                  -Zone de lancer de javelot.<br/>
-                  -Zone de saut en longueur.<br/>
-                  -Zone de saut en hauteur.<br/>
+                <b>Dimensions</b> : Piste d'athlétisme de 6 couloirs sur 400m et 8 couloirs sur 100m et 110m haies<br/>
+                <b>Revêtement</b> : Tartan<br/>
+                <b>Équipements sportifs disponibles</b> :<br/>
+                - 1 sautoir à la perche<br/>
+                - 1 sautoir en hauteur<br/>
+                - 2 sautoirs en longueur<br/>
+                - 1 aire de lancer du poids<br/>
+                - 1 aire de lancer du javelot<br/>
+                - 1 cage de lancer du disque <br/>
+                - 1 fosse de steeple<br/>
+                - Haies<br/>
+                <b>Attention, le lancer du marteau est interdit sur le site</b><br/>
                 </Typography>
               </CardContent>
             </CardActionArea>
@@ -105,8 +114,10 @@ export default function Externe() {
                 Terrain de Beach Volley
                 </Typography>
                 <Typography variant="body1"  component="p">
-                  -2 terrains aux normes standard.<br/>
-                  -Sable provenant de la mer du Nord.<br/>
+                  <b>Dimensions</b> : 34m L X 10m l<br/>
+                  <b>Revêtement</b> : Sable<br/>
+                  <b>Équipements sportifs disponibles</b> :<br/>
+                  - 2 kits de beach volley (poteaux et filet)<br/>
                 </Typography>
               </CardContent>
             </CardActionArea>
@@ -118,7 +129,6 @@ export default function Externe() {
           <Card className={classes.root}>
             <CardMedia
               component="img"
-              
               image="../../../static/img/Infrastructure/externe.jpg"
               title=""
             ></CardMedia>
@@ -128,9 +138,10 @@ export default function Externe() {
                 Terrain de Beach Soccer
                 </Typography>
                 <Typography variant="body1"  component="p">
-                  -Terrain aux normes standards.<br/>
-                  -Sable provenant du Litoral.<br/>
-                </Typography>
+                  <b>Revêtement</b> : Sable<br/>
+                  <b>Équipements sportifs disponibles</b> :<br/>
+                  - 1 paire de buts de beach soccer
+                  </Typography>
               </CardContent>
             </CardActionArea>
           </Card>
@@ -139,7 +150,7 @@ export default function Externe() {
           <Card className={classes.root}>
             <CardMedia
               component="img"
-              image="../../../static/img/Infrastructure/externe.jpg"
+              image="https://res.cloudinary.com/csperwez/image/upload/v1610313388/Streetworkoutcomplete_jqs5pn.jpg"
             />
             <CardActionArea>
               <CardContent>
@@ -147,8 +158,9 @@ export default function Externe() {
                   Parcours de Street Workout
                 </Typography>
                 <Typography variant="body1"  component="p">
-                  -Barre de tractions,barre de dips,planche pour abdominaux,etc.<br/>
-                  -Engin de réeducation et de mise en forme.<br/>
+                <b>Équipements disponibles</b> :<br/>
+                  -table de ping-pong.<br/>
+                  -parcours Street workout.<br/>
                 </Typography>
               </CardContent>
             </CardActionArea>

@@ -32,7 +32,7 @@ return (
           <CardMedia
             component="img"
             
-            image="../../../static/img/Multisports/Promosport.png"
+            image="https://res.cloudinary.com/csperwez/image/upload/v1610313972/clubs/Multisports/Promosport_e49sr7.png"
           />
           <CardActionArea>
             <CardContent>
@@ -56,7 +56,7 @@ return (
           <CardMedia
             component="img"
             
-            image="../../../static/img/Multisports/CopainsDuSport.png"
+            image="https://res.cloudinary.com/csperwez/image/upload/v1610313972/clubs/Multisports/CopainsDuSport_naxvah.png"
           />
           <CardActionArea>
             <CardContent>
