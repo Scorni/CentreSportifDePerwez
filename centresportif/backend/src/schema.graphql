@@ -13,15 +13,45 @@ type Mutation {
         date: String!
         content : String!
     ): Actuality!,
-
-    createLocation(
-        sport: String!
-        hour: String!
-        day: String!
-        roomName: String!
+    createStage(
+        title: String!
+        date: String!
+        content : String!
+    ): Stage!,
+    createFaq(
+        question: String!
+        date: String!
+        answer : String!
+    ): Faq!,
+    createSchedule(
+        lundi: String!
+        mardi: String!
+        mercredi: String!
+        jeudi: String!
+        vendredi: String!
+        samedi: String!
+        dimanche: String!
+        vacances: String!
+    ): Schedule!,
+    createContact(
+        adress: String!  
+        fix: String!
+        phone: String!
+        fax: String!
+        mail: String!
+        memberOne: String!
+        memberTwo: String!
+    ): Contact!,
+    createBooking(
+        idBooking: Int!
+        title: String!,
+        allDay: Boolean!,
+        start: String!,
+        end: String!,
+        room: String!,
+        type: String!,
         is_paid: Boolean!
-    ): Location!,
-    
+    ): Booking!,
     signup(
         email: String!
         password: String!
@@ -38,26 +68,38 @@ type Mutation {
     signout: SuccessMessage,
     requestReset(
         email: String!)
-    : SuccessMessage
+    : SuccessMessage,
     resetPassword(
         resetToken : String!,
         password: String!, 
         confirmPassword: String
     !): User!,
     updatePermissions(permissions: [Permission],userId: ID!): User,
-    deleteMyLocation(locationId: String!): Location,
+    deleteMyBooking(id: String!): Booking,
     deleteActuality(actualityId: String!): Actuality,
+    deleteStage(stageId: String!): Stage,
+    deleteFaq(faqId: String!): Faq,
+    updateSchedule(id : ID!, userId: ID! ,lundi: String!, mardi: String!, mercredi: String!, jeudi: String!, vendredi: String!, samedi: String!,dimanche: String!,vacances: String!): Schedule,
+    updateContact(id : ID!, userId: ID! ,adress: String!, fix: String!, phone: String!, fax: String!, mail: String!, memberOne: String!,memberTwo: String!): Contact,
 }
 type Query {
     rooms: [Room!]!,
-    locations: [Location]!,
+    bookings: [Booking]!,
     users: [User]!,
     roomsFilter(name: String!,sport : String!): [Room!]!,
     userFilter(id: String!): [User!]!,
-    locationFilter: [Location!]!,
     me:User,
-    actualities(where: ActualityWhereInput,orderBy: ActualityOrderByInput, skip: Int, first: Int): [Actuality!]!
-    actualitiesConnection(where: ActualityWhereInput): ActualityConnection!
+    actualities(where: ActualityWhereInput,orderBy: ActualityOrderByInput, skip: Int, first: Int): [Actuality!]!,
+    actualitiesConnection(where: ActualityWhereInput): ActualityConnection!,
+    stages(where: StageWhereInput,orderBy: StageOrderByInput, skip: Int, first: Int): [Stage!]!,
+    stagesConnection(where: StageWhereInput): StageConnection!,
+    faqs(where: FaqWhereInput,orderBy: FaqOrderByInput, skip: Int, first: Int): [Faq!]!,
+    faqsConnection(where: FaqWhereInput): FaqConnection!,
+    schedules: [Schedule!]!,
+    scheduleFilter(id: String!): [Schedule!]!,
+    contacts: [Contact!]!,
+    contactFilter(id: String!): [Contact!]!,
+    bookingFilter: [Booking!]!,
 }
 
 ## not query or mutation
@@ -74,15 +116,18 @@ type Room {
 
 ### Location
 
-type Location {
+type Booking{
     id: ID!
-    sport: String!
-    hour: String!
-    day: String!
-    is_paid: Boolean
-    roomName: Room!
+    idBooking: Int!
+    title: String!
+    allDay: Boolean!
+    start: String!
+    end: String!
+    type: String!
+    room: String!
+    is_paid: Boolean!
     userId: User!
-    uniqueLocationsRoomHourDay: String!
+
 }
 
 ### User
@@ -107,4 +152,47 @@ type Actuality {
     title: String!
     date: String!
     content: String!
+}
+### Stage
+
+type Stage {
+    id: ID!
+    title: String!
+    date: String!
+    content: String!
+}
+### Faq
+
+type Faq {
+    id: ID!
+    question: String!
+    date: String!
+    answer: String!
+}
+
+### Schedule
+
+type Schedule {
+    id: ID!
+    lundi: String!
+    mardi: String!
+    mercredi: String!
+    jeudi: String!
+    vendredi: String!
+    samedi: String!
+    dimanche: String!
+    vacances: String!
+}
+
+### Contact
+
+type Contact {
+    id : ID!
+    adress: String!  
+    fix: String!
+    phone: String!
+    fax: String!
+    mail: String!
+    memberOne: String!
+    memberTwo: String!
 }

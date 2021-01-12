@@ -13,7 +13,7 @@ const Danse = (props) => {
         <Container className="themed-container">
           <Row className="mx-5">
             <Col className =" mt-3 " sm={{offset : 3}} >
-              <CardGenerator tabs = {"danse.jpg"} title = {"Danse"} link ={"Danse"}/>
+              <CardGenerator tabs = {"https://res.cloudinary.com/csperwez/image/upload/v1610310172/danse_yuizn3.jpg"} title = {"Danse"} link ={"Danse"}/>
             </Col>
           </Row>
         </Container>
@@ -26,7 +26,7 @@ const Danse = (props) => {
         <Container className="themed-container">
           <Row className="mx-auto">
             <Col className =" mt-3" sm={{offset : 4}} >
-              <CardGenerator tabs = {"danse.jpg"} title = {"Danse"} link ={"Danse"}/>
+              <CardGenerator tabs = {"https://res.cloudinary.com/csperwez/image/upload/v1610310172/danse_yuizn3.jpg"} title = {"Danse"} link ={"Danse"}/>
             </Col>
           </Row>
         </Container>
@@ -39,7 +39,7 @@ const Danse = (props) => {
         <Container className="themed-container">
           <Row className="mx-auto">
             <Col className =" mt-3" sm={{offset : 4}} >
-              <CardGenerator tabs = {"danse.jpg"} title = {"Danse"} link ={"Danse"}/>
+              <CardGenerator tabs = {"https://res.cloudinary.com/csperwez/image/upload/v1610310172/danse_yuizn3.jpg"} title = {"Danse"} link ={"Danse"}/>
             </Col>
           </Row>
         </Container>
@@ -52,7 +52,7 @@ const Danse = (props) => {
         <Container className="themed-container">
           <Row className="mx-auto">
             <Col className =" mt-3" >
-              <CardGenerator tabs = {"danse.jpg"} title = {"Danse"} link ={"Danse"}/>
+              <CardGenerator tabs = {"https://res.cloudinary.com/csperwez/image/upload/v1610310172/danse_yuizn3.jpg"} title = {"Danse"} link ={"Danse"}/>
             </Col>
           </Row>
         </Container>

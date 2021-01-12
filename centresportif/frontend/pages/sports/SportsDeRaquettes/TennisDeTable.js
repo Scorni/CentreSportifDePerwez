@@ -1,5 +1,5 @@
 import React from "react";
-import TennisDeTable from "../../../components/sports/Sportsderaquettes/Tennisdetable"
+import TennisDeTable from "../../../components/sports/Sportsderaquettes/TennisDeTable"
 
 const Sports = props => (
     <div>    

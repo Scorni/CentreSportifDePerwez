@@ -15,3 +15,15 @@ export const ACTUALITY_QUERY = gql`
         }
     }
 `;
+export const STAGE_QUERY = gql`
+
+    query STAGE_QUERY($skip: Int = 0, $first: Int = ${perPage})
+        {
+        stages(first: $first,skip: $skip,orderBy: date_DESC){
+            title
+            date
+            content
+            id
+        }
+    }
+`;

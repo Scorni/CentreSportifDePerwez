@@ -20,7 +20,7 @@ const Mutations = {
            
         return await room;
     },
-    async createLocation(parent, args, ctx, info) {
+    async createBooking(parent, args, ctx, info) {
 
         if(!ctx.request.userId){
             throw new Error('Pour effectuer une réservation,vous devez être connecté!')
@@ -31,45 +31,25 @@ const Mutations = {
                 resetTokenExpiry_gte: Date.now() - 3600000
             }
         });
-        const location = await ctx.db.mutation.createLocation({
+        const booking = await ctx.db.mutation.createBooking({
             data: { 
-                sport : args.sport,
-                is_paid : args.is_paid,
-                hour: args.hour,
-                day: args.day,
+                idBooking: args.idBooking,
+                title : args.title,
+                allDay : args.allDay,
+                start: args.start,
+                end: args.end,
+                type: args.type,
+                room: args.room,
+                is_paid: args.is_paid,
                 userId:{
                     connect: {
                         id: ctx.request.userId
                     }
                 },
-                roomName:{
-                    connect: {
-                        id: args.roomName
-                    }
-                },
-                uniqueLocationsRoomHourDay:  args.roomName + "_" + args.day + "_" + args.hour
-
             }
         },info);
            
-        return await location;
-        /** Location mutation in playground
-         * 
-         * mutation {
-             createLocation(
-                sport: "cheval"
-                is_paid: false
-                id_user : "cke442zlh8o0v0a358yxw9dxx"
-                id_room : "cke2zg916q6mg0a32j7jwhgav"
-            ) {
-                sport
-                is_paid
-                id_user{name}
-                id_room{name}
-            }
-            
-            }
-        */
+        return await booking;
     },
     async signup(parent, args, ctx, info) {
         // lowercase email
@@ -212,15 +192,75 @@ const Mutations = {
         info
         )
     },
-    async deleteMyLocation(parent,args,ctx,info){
+    async updateSchedule(parent,args,ctx,info){
         if(!ctx.request.userId){
-            throw new Error('Pour annuler une réservation,vous devez être connecté!')
+            throw new Error('Pour effectuer une réservation,vous devez être connecté!')
         }
-        const where = {id : args.locationId};
+        return ctx.db.mutation.updateSchedule({
+            data: {
+                lundi: args.lundi
+                ,
+                mardi: args.mardi
+                ,
+                mercredi: args.mercredi
+                ,
+                jeudi: args.jeudi
+                ,
+                vendredi:args.vendredi
+                ,
+                samedi: args.samedi
+                ,
+                dimanche:args.dimanche
+                ,
+                vacances:args.vacances
+                ,
+                
 
-        const item = await ctx.db.query.location({where},`{id}`);
+            },
+            where: {
+                id: args.id
+            },
+        },
+        info
+        )
+    }, 
+    async updateContact(parent,args,ctx,info){
+        if(!ctx.request.userId){
+            throw new Error('Pour effectuer une réservation,vous devez être connecté!')
+        }
+        return ctx.db.mutation.updateContact({
+            data: {
+                adress: args.lundi
+                ,
+                fix: args.fix
+                ,
+                phone: args.phone
+                ,
+                fax: args.fax
+                ,
+                mail:args.mail
+                ,
+                memberOne: args.memberOne
+                ,
+                memberTwo:args.memberTwo
+                ,
+                
 
-        return ctx.db.mutation.deleteLocation({where},info);
+            },
+            where: {
+                id: args.id
+            },
+        },
+        info
+        )
+    },
+    async deleteMyBooking(parent,args,ctx,info){
+        
+        const where = {id : args.id};
+
+        const item = await ctx.db.query.booking({where},`{id}`);
+
+        return ctx.db.mutation.deleteBooking({where},info);
     },
     async deleteActuality(parent,args,ctx,info){
         if(!ctx.request.userId){
@@ -231,6 +271,26 @@ const Mutations = {
         const item = await ctx.db.query.actuality({where},`{id}`);
 
         return ctx.db.mutation.deleteActuality({where},info);
+    },
+    async deleteStage(parent,args,ctx,info){
+        if(!ctx.request.userId){
+            throw new Error('Pour annuler une réservation,vous devez être connecté!')
+        }
+        const where = {id : args.stageId};
+
+        const item = await ctx.db.query.stage({where},`{id}`);
+
+        return ctx.db.mutation.deleteStage({where},info);
+    },
+    async deleteFaq(parent,args,ctx,info){
+        if(!ctx.request.userId){
+            throw new Error('Pour annuler une réservation,vous devez être connecté!')
+        }
+        const where = {id : args.faqId};
+
+        const item = await ctx.db.query.faq({where},`{id}`);
+
+        return ctx.db.mutation.deleteFaq({where},info);
     },
     async createActuality(parents,args,ctx,info){
         
@@ -243,6 +303,63 @@ const Mutations = {
         },info);
            
         return await actuality;
+    },
+    async createStage(parents,args,ctx,info){
+        
+        const stage = await ctx.db.mutation.createStage({
+            data: { 
+                title : args.title,
+                date : args.date,
+                content : args.content,
+            }
+        },info);
+           
+        return await stage;
+    },
+    async createFaq(parents,args,ctx,info){
+        
+        const faq = await ctx.db.mutation.createFaq({
+            data: { 
+                question : args.question,
+                date : args.date,
+                answer : args.answer,
+            }
+        },info);
+           
+        return await faq;
+    },
+    async createSchedule(parents,args,ctx,info){
+        
+        const schedule = await ctx.db.mutation.createSchedule({
+            data: { 
+                lundi: args.lundi,
+                mardi: args.mardi,
+                mercredi: args.mercredi,
+                jeudi: args.jeudi,
+                vendredi: args.vendredi,
+                samedi: args.samedi,
+                dimanche: args.dimanche,
+                vacances: args.vacances
+            }
+        },info);
+           
+        return await schedule;
+    },
+    async createContact(parents,args,ctx,info){
+        
+        const contact = await ctx.db.mutation.createContact({
+            data: { 
+                adress: args.adress,
+                fix: args.fix,
+                phone: args.phone,
+                fax: args.fax,
+                mail: args.mail,
+                memberOne: args.memberOne,
+                memberTwo: args.memberTwo,
+            }
+        },info);
+           
+        return await contact;
     }
 };
 

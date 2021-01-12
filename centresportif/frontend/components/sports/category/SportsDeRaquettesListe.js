@@ -13,15 +13,15 @@ const SportsDeRaquettes = (props) => {
         <Container className="themed-container">
           <Row className="mx-auto">
             <Col className =" mt-3 " sm={{offset : 1}} >
-              <CardGenerator tabs = {"tennis.jpg"} title = {"Tennis"} link ={"Tennis"}/>
+              <CardGenerator tabs = {"https://res.cloudinary.com/csperwez/image/upload/v1610310161/tennis_ywgxqx.jpg"} title = {"Tennis"} link ={"Tennis"}/>
             </Col>
             <Col className =" mt-3">
-              <CardGenerator tabs = {"pingpong.jpg"} title = {"Tennis de Table"} link ={"Tennisdetable"} />
+              <CardGenerator tabs = {"https://res.cloudinary.com/csperwez/image/upload/v1610310182/pingpong_omkfdq.jpg"} title = {"Tennis de Table"} link ={"TennisDeTable"} />
             </Col>
           </Row>
           <Row className="mx-auto">
             <Col className =" mt-3 " sm={{offset : 1}} >
-              <CardGenerator tabs = {"badminton.jpg"} title = {"Badminton"} link ={"Badminton"}/>
+              <CardGenerator tabs = {"https://res.cloudinary.com/csperwez/image/upload/v1610310167/badminton_qfx2fj.jpg"} title = {"Badminton"} link ={"Badminton"}/>
             </Col>
           </Row>
         </Container>
@@ -34,15 +34,15 @@ const SportsDeRaquettes = (props) => {
         <Container className="themed-container">
           <Row className="mx-auto">
             <Col className =" mt-3" sm={{offset : 2}} >
-              <CardGenerator tabs = {"tennis.jpg"} title = {"Tennis"} link ={"Tennis"}/>
+              <CardGenerator tabs = {"https://res.cloudinary.com/csperwez/image/upload/v1610310161/tennis_ywgxqx.jpg"} title = {"Tennis"} link ={"Tennis"}/>
             </Col>
             <Col className =" mt-3">
-              <CardGenerator tabs = {"pingpong.jpg"} title = {"Tennis de Table"} link ={"Tennisdetable"}/>
+              <CardGenerator tabs = {"https://res.cloudinary.com/csperwez/image/upload/v1610310182/pingpong_omkfdq.jpg"} title = {"Tennis de Table"} link ={"Tennisdetable"}/>
             </Col>
           </Row>
           <Row className="mx-auto">
             <Col className =" mt-3" sm={{offset : 2}} >
-              <CardGenerator tabs = {"badminton.jpg"} title = {"Badminton"} link ={"Badminton"}/>
+              <CardGenerator tabs = {"https://res.cloudinary.com/csperwez/image/upload/v1610310167/badminton_qfx2fj.jpg"} title = {"Badminton"} link ={"Badminton"}/>
             </Col>
           </Row>
         </Container>
@@ -55,15 +55,15 @@ const SportsDeRaquettes = (props) => {
         <Container className="themed-container">
           <Row className="mx-auto">
             <Col className =" mt-3" sm={{offset : 1}} >
-              <CardGenerator tabs = {"tennis.jpg"} title = {"Tennis"} link ={"Tennis"}/>
+              <CardGenerator tabs = {"https://res.cloudinary.com/csperwez/image/upload/v1610310161/tennis_ywgxqx.jpg"} title = {"Tennis"} link ={"Tennis"}/>
             </Col>
             <Col className =" mt-3">
-              <CardGenerator tabs = {"pingpong.jpg"} title = {"Tennis de Table"} link ={"Tennisdetable"}/>
+              <CardGenerator tabs = {"https://res.cloudinary.com/csperwez/image/upload/v1610310182/pingpong_omkfdq.jpg"} title = {"Tennis de Table"} link ={"Tennisdetable"}/>
             </Col>
           </Row>
           <Row className="mx-auto">
             <Col className =" mt-3" sm={{offset : 1}} >
-              <CardGenerator tabs = {"badminton.jpg"} title = {"Badminton"} link ={"Badminton"}/>
+              <CardGenerator tabs = {"https://res.cloudinary.com/csperwez/image/upload/v1610310167/badminton_qfx2fj.jpg"} title = {"Badminton"} link ={"Badminton"}/>
             </Col>
           </Row>
         </Container>
@@ -76,15 +76,15 @@ const SportsDeRaquettes = (props) => {
         <Container className="themed-container">
           <Row className="mx-auto">
             <Col className =" mt-3" >
-              <CardGenerator tabs = {"tennis.jpg"} title = {"Tennis"} link ={"Tennis"}/>
+              <CardGenerator tabs = {"https://res.cloudinary.com/csperwez/image/upload/v1610310161/tennis_ywgxqx.jpg"} title = {"Tennis"} link ={"Tennis"}/>
             </Col>
             <Col className =" mt-3" >
-              <CardGenerator tabs = {"pingpong.jpg"} title = {"Tennis de Table"} link ={"Tennisdetable"}/>
+              <CardGenerator tabs = {"https://res.cloudinary.com/csperwez/image/upload/v1610310182/pingpong_omkfdq.jpg"} title = {"Tennis de Table"} link ={"Tennisdetable"}/>
             </Col>
           </Row>
           <Row className="mx-auto">
             <Col className =" mt-3" >
-              <CardGenerator tabs = {"badminton.jpg"} title = {"Badminton"} link ={"Badminton"}/>
+              <CardGenerator tabs = {"https://res.cloudinary.com/csperwez/image/upload/v1610310167/badminton_qfx2fj.jpg"} title = {"Badminton"} link ={"Badminton"}/>
             </Col>
           </Row>
         </Container>

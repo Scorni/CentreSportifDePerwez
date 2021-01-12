@@ -33,3 +33,34 @@ export const DELETE_ACTUALITY = gql`
         }       
         
 `;
+export const CREATE_STAGE_MUTATION = gql`
+
+mutation CREATE_STAGE_MUTATION(
+    $title: String!
+    $formatedDate: String!
+    $content : String!
+)
+    {
+    createStage(
+        title: $title
+        date: $formatedDate
+        content : $content
+    ){
+        id
+    }
+}
+`;
+
+export const DELETE_STAGE = gql`
+
+    mutation DELETE_STAGE(
+        $stageId: String!
+    ){
+        deleteStage(
+            stageId: $stageId
+        ){
+            id
+        }
+    }       
+    
+`;

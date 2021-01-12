@@ -13,10 +13,10 @@ const Infrastructure = (props) => {
         <Container className="themed-container">
           <Row className="mx-auto">
             <Col className =" mt-3 " sm={{offset : 1}} >
-              <CardGenerator tabs = {"Infrastructure/interne.jpg"} title = {"Interne"} link ={"Interne"}/>
+              <CardGenerator tabs = {"https://res.cloudinary.com/csperwez/image/upload/v1610310974/interne_tmnlya.jpg"} title = {"Interne"} link ={"Interne"}/>
             </Col>
             <Col className =" mt-3" sm={{offset : 1}}>
-              <CardGenerator tabs = {"Infrastructure/externe.jpg"} title = {"Externe"} link ={"Externe"}/>
+              <CardGenerator tabs = {"https://res.cloudinary.com/csperwez/image/upload/v1610310911/externe_igsmrb.jpg"} title = {"Externe"} link ={"Externe"}/>
             </Col>
           </Row>
         </Container>
@@ -29,10 +29,10 @@ const Infrastructure = (props) => {
         <Container className="themed-container">
           <Row className="mx-auto">
             <Col className =" mt-3" sm={{offset : 1}} >
-              <CardGenerator tabs = {"Infrastructure/interne.jpg"} title = {"Interne"} link ={"Interne"}/>
+              <CardGenerator tabs = {"https://res.cloudinary.com/csperwez/image/upload/v1610310974/interne_tmnlya.jpg"} title = {"Interne"} link ={"Interne"}/>
             </Col>
             <Col className =" mt-3" sm={{offset : 1}}>
-              <CardGenerator tabs = {"Infrastructure/externe.jpg"} title = {"Externe"} link ={"Externe"}/>
+              <CardGenerator tabs = {"https://res.cloudinary.com/csperwez/image/upload/v1610310911/externe_igsmrb.jpg"} title = {"Externe"} link ={"Externe"}/>
             </Col>
           </Row>
         </Container>
@@ -45,10 +45,10 @@ const Infrastructure = (props) => {
         <Container className="themed-container">
           <Row className="mx-auto">
             <Col className =" mt-3" sm={{offset : 1}} >
-              <CardGenerator tabs = {"Infrastructure/interne.jpg"} title = {"Interne"} link ={"Interne"}/>
+              <CardGenerator tabs = {"https://res.cloudinary.com/csperwez/image/upload/v1610310974/interne_tmnlya.jpg"} title = {"Interne"} link ={"Interne"}/>
             </Col>
             <Col className =" mt-3" sm={{offset : 1}}>
-              <CardGenerator tabs = {"Infrastructure/externe.jpg"} title = {"Externe"} link ={"Externe"}/>
+              <CardGenerator tabs = {"https://res.cloudinary.com/csperwez/image/upload/v1610310911/externe_igsmrb.jpg"} title = {"Externe"} link ={"Externe"}/>
             </Col>
           </Row>
         </Container>
@@ -61,10 +61,10 @@ const Infrastructure = (props) => {
         <Container className="themed-container">
           <Row className="mx-auto">
             <Col className =" mt-3" sm={{offset : 1}}>
-              <CardGenerator tabs = {"Infrastructure/interne.jpg"} title = {"Interne"} link ={"Interne"}/>
+              <CardGenerator tabs = {"https://res.cloudinary.com/csperwez/image/upload/v1610310974/interne_tmnlya.jpg"} title = {"Interne"} link ={"Interne"}/>
             </Col>
             <Col className =" mt-3" sm={{offset : 1}}>
-              <CardGenerator tabs = {"Infrastructure/externe.jpg"} title = {"Externe"} link ={"Externe"}/>
+              <CardGenerator tabs = {"https://res.cloudinary.com/csperwez/image/upload/v1610310911/externe_igsmrb.jpg"} title = {"Externe"} link ={"Externe"}/>
             </Col>
           </Row>
         </Container>

@@ -31,7 +31,7 @@ return (
         <Card className={classes.root}>
           <CardMedia
             component="img"           
-            image="../../../static/img/Danse/Phenomena.png"
+            image="https://res.cloudinary.com/csperwez/image/upload/v1610313974/clubs/Danse/Phenomena_timdl5.png"
           />
           <CardActionArea>
             <CardContent>
@@ -53,7 +53,7 @@ return (
         <Card className={classes.root}>
           <CardMedia
             component="img"           
-            image="../../../static/img/Danse/Scenetic.jpg"
+            image="https://res.cloudinary.com/csperwez/image/upload/v1610313974/clubs/Danse/Scenetic_d4glri.jpg"
           />
           <CardActionArea>
             <CardContent>
@@ -78,7 +78,7 @@ return (
         <Card className={classes.root}>
           <CardMedia
             component="img"           
-            image="../../../static/img/Danse/Entrartist.jpg"
+            image="https://res.cloudinary.com/csperwez/image/upload/v1610313974/clubs/Danse/Entrartist_drb2rr.jpg"
           />
           <CardActionArea>
             <CardContent>
@@ -101,7 +101,7 @@ return (
         <Card className={classes.root}>
           <CardMedia
             component="img"           
-            image="../../../static/img/Danse/twodonstage.jpg"
+            image="https://res.cloudinary.com/csperwez/image/upload/v1610313974/clubs/Danse/twodonstage_a1rur9.jpg"
           />
           <CardActionArea>
             <CardContent>

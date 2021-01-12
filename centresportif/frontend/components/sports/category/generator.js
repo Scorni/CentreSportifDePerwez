@@ -51,7 +51,7 @@ export function CardGenerator({tabs,title,link}) {
             className= {"defaultCard"}
             onMouseMove={({ clientX: x, clientY: y }) => set({ xys: calc(x, y) })}
             onMouseLeave={() => set({ xys: [0, 0, 1] })}
-            style={{ transform: props.xys.interpolate(trans) , backgroundImage: "url("+ "../../../static/img/"+tabs +")"}}
+            style={{ transform: props.xys.interpolate(trans) , backgroundImage: "url("+ tabs +")"}}
             >
               <div className = {"textAnimatedDiv"}>
               <Link href={window.location.pathname +'/'+ link}>
@@ -69,7 +69,7 @@ export function CardGenerator({tabs,title,link}) {
           <animated.div 
           key= {tabs}
           className= {"responsiveCardBig"}
-          style={{backgroundImage: "url("+ "../../../static/img/"+tabs +")"}}
+          style={{backgroundImage: "url("+ tabs +")"}}
           >
             <div className = {"textAnimatedDiv"}>
               <Link href={window.location.pathname +'/'+ link} >
@@ -87,7 +87,7 @@ export function CardGenerator({tabs,title,link}) {
           <animated.div 
           key= {tabs}
           className= {"responsiveCardNormal"}
-          style={{backgroundImage: "url("+ "../../../static/img/"+tabs +")"}}
+          style={{backgroundImage: "url("+ tabs +")"}}
           >
             <div className = {"textAnimatedDivTiny"}>
               <Link href={window.location.pathname +'/'+ link}>
@@ -106,7 +106,7 @@ export function CardGenerator({tabs,title,link}) {
           id ={"tinyCard"}
           key= {tabs}
           className= {"responsiveCardTiny"}
-          style={{backgroundImage: "url("+ "../../../static/img/"+tabs +")"}}
+          style={{backgroundImage: "url("+ tabs +")"}}
           >
             <div className = {"textAnimatedDivTiny"}>
               <Link href={window.location.pathname +'/'+ link}>

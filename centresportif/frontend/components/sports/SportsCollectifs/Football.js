@@ -31,7 +31,7 @@ return (
         <Card className={classes.root}>
           <CardMedia
             component="img"            
-            image="../../../static/img/SportsCollectifs/RFCPerwez.png"
+            image="https://res.cloudinary.com/csperwez/image/upload/v1610313972/clubs/SportsCollectifs/RFCPerwez_amr78x.png"
           />
           <CardActionArea>
             <CardContent>

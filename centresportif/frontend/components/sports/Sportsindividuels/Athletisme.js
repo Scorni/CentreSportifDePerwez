@@ -32,7 +32,7 @@ return (
         <Card className={classes.root}>
           <CardMedia
             component="img"
-            image="../../../static/img/SportsIndividuels/CSDyle.jpeg"
+            image="https://res.cloudinary.com/csperwez/image/upload/v1610313973/clubs/SportsIndividuels/CSDyle_cudyjh.jpg"
           />
           <CardActionArea>
             <CardContent>

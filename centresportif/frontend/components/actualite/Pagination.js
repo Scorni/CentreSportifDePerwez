@@ -34,7 +34,6 @@ const Pagination = props => {
                             
                             </Head>
                             <Link 
-                                prefetch 
                                 href={{
                                     pathname: 'actuality',
                                     query: { page: page - 1}
@@ -44,7 +43,6 @@ const Pagination = props => {
                             </Link>
                             <Button className="customButtonPagination" disabled>Page {page} sur {pages}</Button>
                             <Link 
-                                prefetch 
                                 href={{
                                     pathname: 'actuality',
                                     query: { page: page + 1}

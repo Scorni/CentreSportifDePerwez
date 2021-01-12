@@ -32,7 +32,7 @@ return (
         <Card className={classes.root}>
           <CardMedia
             component="img"
-            image="../../../static/img/SportsDeRaquettes/TennisClubDePerwez.png"
+            image="https://res.cloudinary.com/csperwez/image/upload/v1610313973/clubs/SportsDeRaquettes/TennisClubDePerwez_kboqzh.png"
           />
           <CardActionArea>
             <CardContent>
@@ -56,7 +56,7 @@ return (
         <Card className={classes.root}>
           <CardMedia
             component="img"
-            image="../../../static/img/Workinprogress.jpg"
+            image="https://res.cloudinary.com/csperwez/image/upload/v1610314202/clubs/Musculation/Workinprogress_yomfnc.jpg"
           />
           <CardActionArea>
             <CardContent>

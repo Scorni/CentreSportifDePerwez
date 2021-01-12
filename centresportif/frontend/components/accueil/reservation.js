@@ -40,7 +40,7 @@ const MyReservation = (props) => {
                                 Effectuer une réservation?
                             </span>
                         </h5>
-                        <Link  href={'/createLocation'}>
+                        <Link  href={'/createBooking'}>
                             <Button style={{marginTop:"10px"}} className="customReservationButton">Cliquez ici !</Button>
                         </Link>
                     </div>

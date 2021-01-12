@@ -2,9 +2,16 @@ const {forwardTo} = require('prisma-binding');
 const {hasPermission} = require('../utils');
 const Query = {
     rooms:forwardTo('db'),
-    locations:forwardTo('db'),
+    bookings:forwardTo('db'),
     actualities:forwardTo('db'),
     actualitiesConnection:forwardTo('db'),
+    stages:forwardTo('db'),
+    stagesConnection:forwardTo('db'),
+    faqs:forwardTo('db'),
+    faqsConnection:forwardTo('db'),
+    schedules:forwardTo('db'),
+    contacts:forwardTo('db'),
+    bookings:forwardTo('db'),
 
     async roomsFilter(parent, args, context, info) {
       return await ctx.db.query.rooms({
@@ -18,14 +25,32 @@ const Query = {
           where:{
               id : args.id,
       }})
-    },
-    async locationFilter(parent, args, ctx, info) {
+    },    
+    async bookingFilter(parent, args, ctx, info) {
       if(!ctx.request.userId){
         throw new Error('Vous devez être connecté !')
       }
-      return await ctx.db.query.locations({
+      return await ctx.db.query.bookings({
         where:{
           userId : { id : ctx.request.userId},
+    }})
+    },
+    async scheduleFilter(parent, args, ctx, info) {
+      /*if(!ctx.request.userId){
+        throw new Error('Vous devez être connecté !')
+      }*/
+      return await ctx.db.query.schedules({
+        where:{
+          id :  args.id,
+    }})
+    },
+    async contactFilter(parent, args, ctx, info) {
+      /*if(!ctx.request.userId){
+        throw new Error('Vous devez être connecté !')
+      }*/
+      return await ctx.db.query.contacts({
+        where:{
+          id :  args.id,
     }})
     },
     me(parent, args, ctx, info) {

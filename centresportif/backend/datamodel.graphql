@@ -25,6 +25,21 @@ type Location {
   uniqueLocationsRoomHourDay: String! @unique
   createdAt: DateTime! @createdAt
 }
+type Booking {
+  id: ID! @id
+  idBooking: Int! @unique
+  title: String!
+  allDay: Boolean!
+  start: String!
+  end: String!
+  type: String!
+  room: String!
+  is_paid: Boolean!
+  createdAt: DateTime! @createdAt
+  userId: User! @relation(link : INLINE)
+
+
+}
 
 type Room {
   id: ID! @id
@@ -39,6 +54,39 @@ type Actuality {
   title : String!
   date : String!
   content : String!
+}
+type Stage {
+  id: ID! @id
+  title : String!
+  date : String!
+  content : String!
+}
+type Faq {
+  id: ID! @id
+  question : String!
+  date : String!
+  answer : String!
+}
+type Schedule {
+    id: ID! @id
+    lundi: String!
+    mardi: String!
+    mercredi: String!
+    jeudi: String!
+    vendredi: String!
+    samedi: String!
+    dimanche: String!
+    vacances: String!
+}
+type Contact {
+  id: ID! @id
+  adress: String!  
+  fix: String!
+  phone: String!
+  fax: String!
+  mail: String!
+  memberOne: String!
+  memberTwo: String!
 }
 enum Permission {
   SADMIN

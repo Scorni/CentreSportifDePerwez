@@ -1,84 +1,61 @@
-import React,{ useRef, useEffect, useState } from 'react';
-import { MDBCarousel, MDBCarouselInner, MDBCarouselItem, MDBView,MDBCarouselCaption } from 'mdbreact';
-import Link from "next/link";
+import React, { useState } from 'react';
+import { Swiper, SwiperSlide  } from 'swiper/react';
+import SwiperCore, { Autoplay,Navigation,Pagination } from 'swiper';
+import 'swiper/swiper-bundle.css';
+import HeadGenerator from '../sports/category/generator';
+import Link from 'next/link';
+import {ACTUALITY_QUERY} from '../actualite/Query';
+import { Query, Mutation } from 'react-apollo';
+import { perPage } from '../../config';
 
-const ComponentWithDimensions = props => {
-  const targetRef = useRef();
-  const [dimensions, setDimensions] = useState({ width:0, height: 0 });
-  var img;
 
-  useEffect(() => {
-    if (targetRef.current) {
-      setDimensions({
-        width: targetRef.current.offsetWidth,
-        height: targetRef.current.offsetHeight
-      });
-    }
-  }, []);
-  if(dimensions.width > 1024){
-    img = <img className="w-100" src="/static/img/computer/first.jpg" alt="Second slide" />;
-  }else{
-    img = <img className=" w-100" src="/static/img/responsive/first.jpg" alt="Second slide" />;;
-  }
+SwiperCore.use([Autoplay,Navigation,Pagination])
+
+const MyCarousel = (props) => {
+
   return (
-    <div ref={targetRef}>
-      {img}
+    <>
+<Query query={ACTUALITY_QUERY} 
+                >
+                    {({data,error,loading})=>{
+                        if(loading) return <p>Chargement...</p>
+                        if(error)   return <p>Erreur : {error.message}</p>
+                        
+                        return <div className="customAccordion">
+                            <Swiper
+                                        loop={true}
+                                        autoplay={{
+                                            delay: 3000,
+                                        }}
+                                        tag="section"
+                                        wrapperTag="ul"
+                                        navigation pagination
+                                        style={{marginTop : "2em"}}
+                                    >
+                            {data.actualities.map(actuality =>
+                                        <SwiperSlide tag="li" style={{listStyle : "none"}}>
+                                            <HeadGenerator title = {actuality.title} />
+                                            <Link href='/actualite/actuality'>
+                                                <h6 className ="linkToActuality">
+                                                    Vers les actualités
+                                                </h6>
+                                            </Link>
+                                        </SwiperSlide>
+                                )}
+                                 </Swiper>
+                                </div>
+                    }}
+                </Query>
+       
 
-    </div>
-  );
-};
-
-const MyCarousel = () => {
-  return (
-    <MDBCarousel activeItem={1} length={4} showControls={true} showIndicators={false} className="z-depth-1">
-      <MDBCarouselInner>
-        <MDBCarouselItem itemId="1">
-          <MDBView>
-          {ComponentWithDimensions()}
-          </MDBView>
-          <MDBCarouselCaption>
-            <h3 className="h3-responsive">L'été est là !</h3>
-            <Link href='/creation'>
-              <a style={{color: "white"}}>Réservation</a>
-            </Link>
-          </MDBCarouselCaption>
-        </MDBCarouselItem>
-        <MDBCarouselItem itemId="2">
-          <MDBView>
-          {ComponentWithDimensions()}
-          </MDBView>
-          <MDBCarouselCaption>
-            <h3 className="h3-responsive">L'été s'en va !</h3>
-            <Link href='/creation'>
-              <a style={{color: "white"}}>Réservation</a>
-            </Link>
-          </MDBCarouselCaption>
-        </MDBCarouselItem>
-        <MDBCarouselItem itemId="3">
-          <MDBView>
-          {ComponentWithDimensions()}
-          </MDBView>
-          <MDBCarouselCaption>
-            <h3 className="h3-responsive">L'été revient ! </h3>
-            <Link href='/creation'>
-              <a style={{color: "white"}}>Réservation</a>
-            </Link>
-          </MDBCarouselCaption>
-        </MDBCarouselItem>
-        <MDBCarouselItem itemId="4">
-          <MDBView>
-          {ComponentWithDimensions()}
-          </MDBView>
-          <MDBCarouselCaption>
-            <h3 className="h3-responsive">L'été dort !</h3>
-            <Link href='/actuality/actuality'>
-              <a style={{color: "white"}}>Réservation</a>
-            </Link>
-          </MDBCarouselCaption>
-        </MDBCarouselItem>
-      </MDBCarouselInner>
-    </MDBCarousel>
-  );
+        <style jsx global>{`
+                .swiper-container {
+                    height: 120px
+                    
+                }
+       `}</style>
+    </>
+)
 }
 
 export default MyCarousel;

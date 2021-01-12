@@ -31,7 +31,7 @@ return (
           <CardMedia
             component="img"
             
-            image="../../../static/img/ArtsMartiaux/Ju-jutsu.jpg"
+            image="https://res.cloudinary.com/csperwez/image/upload/v1610313947/clubs/ArtsMartiaux/Ju-jutsu_cyliag.jpg"
             title=""
           />
           <CardActionArea>

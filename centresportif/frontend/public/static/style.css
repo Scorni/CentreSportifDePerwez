@@ -236,7 +236,7 @@ body,
 }
 .locationsvg{
   
-  height: 70vh;
+  
   background-image: url("../../public/static/img/svg/booking.svg");
   background-repeat: no-repeat;
   background-size:contain;
@@ -617,4 +617,69 @@ iframe{
   align-items: center;
   flex-direction: row;
 
+}
+/* Schedule part */
+.animate-pulse {
+  animation: animate-pulse 300ms;
+}
+@keyframes animate-pulse {
+  0% {transform: scale(1.2)}
+  50% {transform: scale(1.5)}
+  100% {transform: scale(1.2)}
+}
+/* Contact part */
+.linkToSchedule{
+  color: #212529;
+  text-decoration: none;
+
+}
+
+.linkToSchedule:hover{
+  cursor: pointer;
+  text-decoration: none;
+  color: #021b3a;
+
+}
+/* FAQ part */
+.customDivFaq{
+  background-image: url("../../public/static/img/svg/questions.svg");
+  
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position:center bottom;
+}
+/* Stage part */
+.customDivStage{
+  background-image: url("../../public/static/img/svg/stage.svg");
+  
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position:center bottom;
+}
+/** WIP part */
+.customDivWIP{
+  background-image: url("../../public/static/img/svg/building.svg");
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position:center bottom;
+}
+.customDivWIPInside{
+  display: flex;
+  justify-content: center;
+  margin-top : 10em;
+  color: rgb(255, 94, 0);
+}
+/** Carousel */
+.swiper-container {
+  widows: 700px;
+}
+.swiper-wrapper {
+  padding-inline-start: 0;
+}
+.linkToActuality{
+  text-align: center;
+  color: #021b3a;
+}
+.linkToActuality:hover{
+  cursor: pointer;
 }
