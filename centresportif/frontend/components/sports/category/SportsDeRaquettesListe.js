@@ -16,7 +16,7 @@ const SportsDeRaquettes = (props) => {
               <CardGenerator tabs = {"https://res.cloudinary.com/csperwez/image/upload/v1610310161/tennis_ywgxqx.jpg"} title = {"Tennis"} link ={"Tennis"}/>
             </Col>
             <Col className =" mt-3">
-              <CardGenerator tabs = {"https://res.cloudinary.com/csperwez/image/upload/v1610310182/pingpong_omkfdq.jpg"} title = {"Tennis de Table"} link ={"TennisDeTable"} />
+              <CardGenerator tabs = {"https://res.cloudinary.com/csperwez/image/upload/v1610310182/pingpong_omkfdq.jpg"} title = {"Tennis de Table"} link ={"Tennisdetable"} />
             </Col>
           </Row>
           <Row className="mx-auto">

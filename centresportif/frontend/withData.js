@@ -4,8 +4,8 @@ import {endpoint,prodEndpoint} from './config'
 
 function createClient({ headers }) {
     return new ApolloClient({
-        /*  "https://csp-yoga-prod.herokuapp.com/" | `http://localhost:4000`*/
-        uri: "http://localhost:4000",
+        /*  "https://cspperwez-yoga-prod.herokuapp.com/" | `http://localhost:4000`*/
+        uri: "https://cspperwez-yoga-prod.herokuapp.com/",
         request : operation => {
             operation.setContext({
                 fetchOptions: {

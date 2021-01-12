@@ -29,10 +29,25 @@
       "static/chunks/webpack.js",
       "static/chunks/pages/_error.js"
     ],
-    "/sports/Infrastructure/Interne": [
+    "/actualite/actuality": [
       "static/chunks/main.js",
       "static/chunks/webpack.js",
-      "static/chunks/pages/sports/Infrastructure/Interne.js"
+      "static/chunks/pages/actualite/actuality.js"
+    ],
+    "/actualite/stage": [
+      "static/chunks/main.js",
+      "static/chunks/webpack.js",
+      "static/chunks/pages/actualite/stage.js"
+    ],
+    "/createBooking": [
+      "static/chunks/main.js",
+      "static/chunks/webpack.js",
+      "static/chunks/pages/createBooking.js"
+    ],
+    "/sports/Sportscollectifs": [
+      "static/chunks/main.js",
+      "static/chunks/webpack.js",
+      "static/chunks/pages/sports/Sportscollectifs.js"
     ]
   },
   "ampFirstPages": []

@@ -16,7 +16,6 @@ const DropDownItemsTabs = [
     actualite:[
             "Actualités Sportives",
             "Evènements",
-            "Actualités du Centre",
             "Stages"
     ],
     infos:[
@@ -42,9 +41,9 @@ function objectSort(tabs,cat){
           linkWithoutSpaceHidden = cat + "/actuality"
         }else if(tabs[index][cat][value] === "Evènements"){
           linkWithoutSpaceHidden = cat + "/evenements"
-        }else if(tabs[index][cat][value] === "Actualités du centre"){
+        }/*else if(tabs[index][cat][value] === "Actualités du centre"){
           linkWithoutSpaceHidden = cat + "/actualiteDuCentre"
-        }else if(tabs[index][cat][value] === "Stages"){
+        }*/else if(tabs[index][cat][value] === "Stages"){
           linkWithoutSpaceHidden = cat + "/stage"
         }
       }else if( cat == "infos"){

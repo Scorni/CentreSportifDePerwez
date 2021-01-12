@@ -4,7 +4,7 @@
   "description": "frontend",
   "proxy": "http://localhost:8080",
   "scripts": {
-    "dev": "node ssr-server.js",
+    "dev": "next -p 3000",
     "build": "next build",
     "start": "next start -p $PORT",
     "test": "NODE_ENV=test jest --watch",

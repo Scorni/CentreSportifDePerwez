@@ -2,6 +2,9 @@
   "/_app": "pages/_app.js",
   "/_error": "pages/_error.js",
   "/_document": "pages/_document.js",
-  "/sports/Infrastructure/Interne": "pages/sports/Infrastructure/Interne.js",
-  "/": "pages/index.js"
+  "/": "pages/index.js",
+  "/sports/Sportscollectifs": "pages/sports/Sportscollectifs.js",
+  "/createBooking": "pages/createBooking.js",
+  "/actualite/stage": "pages/actualite/stage.js",
+  "/actualite/actuality": "pages/actualite/actuality.js"
 }
