@@ -29,20 +29,35 @@
       "static/chunks/webpack.js",
       "static/chunks/pages/_error.js"
     ],
-    "/actualite/actuality": [
+    "/account/profile": [
       "static/chunks/main.js",
       "static/chunks/webpack.js",
-      "static/chunks/pages/actualite/actuality.js"
-    ],
-    "/actualite/stage": [
-      "static/chunks/main.js",
-      "static/chunks/webpack.js",
-      "static/chunks/pages/actualite/stage.js"
+      "static/chunks/pages/account/profile.js"
     ],
     "/createBooking": [
       "static/chunks/main.js",
       "static/chunks/webpack.js",
       "static/chunks/pages/createBooking.js"
+    ],
+    "/list/bookings": [
+      "static/chunks/main.js",
+      "static/chunks/webpack.js",
+      "static/chunks/pages/list/bookings.js"
+    ],
+    "/list/mybooking": [
+      "static/chunks/main.js",
+      "static/chunks/webpack.js",
+      "static/chunks/pages/list/mybooking.js"
+    ],
+    "/list/users": [
+      "static/chunks/main.js",
+      "static/chunks/webpack.js",
+      "static/chunks/pages/list/users.js"
+    ],
+    "/permissions": [
+      "static/chunks/main.js",
+      "static/chunks/webpack.js",
+      "static/chunks/pages/permissions.js"
     ],
     "/sports/Sportscollectifs": [
       "static/chunks/main.js",

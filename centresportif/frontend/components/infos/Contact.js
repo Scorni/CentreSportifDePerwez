@@ -95,7 +95,7 @@ class Contact extends Component {
             <>
             
                 <HeadGenerator  title="Contact"></HeadGenerator>
-                <Query key={'12515'} query={CONTACTFILTER_QUERY} variables={{id: 'ckjpxrtx7rw5c0949o5rxm2v2'}}>
+                <Query key={'12515'} query={CONTACTFILTER_QUERY} variables={{id: 'ckju9veml00220756h6h13h66'}}>
                     {({ data, error, loading }) => {
                         if(loading) return <p> Loading...</p>
                         if(error) return <p> Error : { error.message }</p>
@@ -184,7 +184,7 @@ class Contact extends Component {
                                                                     e.preventDefault(); 
                                                                     const res = await updateContact({variables : 
                                                                         { 
-                                                                            id: 'ckjpxrtx7rw5c0949o5rxm2v2',                                                                            
+                                                                            id: 'ckju9veml00220756h6h13h66',                                                                            
                                                                             userId: me.id, 
                                                                             adress: this.state.contact.adress,
                                                                             fix: this.state.contact.fix,

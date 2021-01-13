@@ -96,7 +96,7 @@ class Schedule extends Component {
             return (
             <>
                 <HeadGenerator  title="Horaire d'ouverture"></HeadGenerator>
-                <Query key={'12515'} query={SCHEDULEFILTER_QUERY} variables={{id: 'ckjnfcn1obxrz094996hynkrf'}}>
+                <Query key={'12515'} query={SCHEDULEFILTER_QUERY} variables={{id: 'ckju9xn14002c0756p6rd7yb2'}}>
                     {({ data, error, loading }) => {
                         if(loading) return <p> Loading...</p>
                         if(error) return <p> Error : { error.message }</p>
@@ -194,7 +194,7 @@ class Schedule extends Component {
                                                                     e.preventDefault(); 
                                                                     const res = await updateSchedule({variables : 
                                                                         { 
-                                                                            id: 'ckjnfcn1obxrz094996hynkrf',                                                                            
+                                                                            id: 'ckju9xn14002c0756p6rd7yb2',                                                                            
                                                                             userId: me.id, 
                                                                             lundi: this.state.variablesSchedule.lundi,
                                                                             mardi: this.state.variablesSchedule.mardi,
@@ -230,8 +230,69 @@ class Schedule extends Component {
                                                             
                                                         </Modal>
                                                     </>
-                                                    )}else{
-                                                        return(null)
+                                                    )}else if(me.permissions[1] === "ADMIN"){
+                                                        return(
+                                                        <>
+                                                        <Button color="danger" onClick={this.toggle}  className="customActualityButton" style={{ marginBottom : "1em"}}>Modifier</Button>
+                                                        <Modal isOpen={this.state.modalOne} toggle={this.toggle} >
+                                                            <ModalHeader toggle={this.toggle}>Mettre à jour l'horaire du centre sportif</ModalHeader>
+                                                            <ModalBody>
+                                                            <TextField label="Lundi" id={"lundiHoraire"} placeholder="Horaire" style={{margin:"0.5em"}} onBlur={e => this.updateValue(e.target.value,"lundi","horaire")} InputLabelProps={{ shrink: true }} defaultValue ={this.state.variablesSchedule.lundi}></TextField>
+                                                            <TextField label="Mardi" id={"mardiHoraire"}  placeholder="Horaire" style={{margin:"0.5em"}} onBlur={e => this.updateValue(e.target.value,"mardi","horaire")} InputLabelProps={{ shrink: true }} defaultValue ={this.state.variablesSchedule.mardi}></TextField>
+                                                            <TextField label="Mercredi" id={"mercrediHoraire"}  placeholder="Horaire" style={{margin:"0.5em"}} onBlur={e => this.updateValue(e.target.value,"mercredi","horaire")} InputLabelProps={{ shrink: true }} defaultValue ={this.state.variablesSchedule.mercredi}></TextField>
+                                                            <TextField label="jeudi" id={"jeudiHoraire"}  placeholder="Horaire" style={{margin:"0.5em"}} onBlur={e => this.updateValue(e.target.value,"jeudi","horaire")} InputLabelProps={{ shrink: true }} defaultValue ={this.state.variablesSchedule.jeudi}></TextField>
+                                                            <TextField label="Vendredi" id={"vendrediHoraire"}  placeholder="Horaire" style={{margin:"0.5em"}} onBlur={e => this.updateValue(e.target.value,"vendredi","horaire")} InputLabelProps={{ shrink: true }} defaultValue ={this.state.variablesSchedule.vendredi}></TextField>
+                                                            <TextField label="Samedi" id={"samediHoraire"}   placeholder="Horaire" style={{margin:"0.5em"}} onBlur={e => this.updateValue(e.target.value,"samedi","horaire")} InputLabelProps={{ shrink: true }} defaultValue ={this.state.variablesSchedule.samedi}></TextField>
+                                                            <TextField label="Dimanche" id={"dimancheHoraire"}   placeholder="Horaire" style={{margin:"0.5em"}} onBlur={e => this.updateValue(e.target.value,"dimanche","horaire")} InputLabelProps={{ shrink: true }} defaultValue ={this.state.variablesSchedule.dimanche}></TextField>
+                                                            <TextField label="Vacances" id={"vacancesHoraire"}   placeholder="Horaire" style={{margin:"0.5em"}} onBlur={e => this.updateValue(e.target.value,"vacances","horaire")} InputLabelProps={{ shrink: true }} defaultValue ={this.state.variablesSchedule.vacances}></TextField>
+
+                                                            </ModalBody>
+                                                            <ModalFooter>
+                                                                <Mutation mutation={UPDATE_SCHEDULE_MUTATION}>
+                                                                {(updateSchedule,{loading,error})=> (
+                                                                    <form onSubmit={async e=> {
+                                                                    e.preventDefault(); 
+                                                                    const res = await updateSchedule({variables : 
+                                                                        { 
+                                                                            id: 'ckju9xn14002c0756p6rd7yb2',                                                                            
+                                                                            userId: me.id, 
+                                                                            lundi: this.state.variablesSchedule.lundi,
+                                                                            mardi: this.state.variablesSchedule.mardi,
+                                                                            mercredi: this.state.variablesSchedule.mercredi,
+                                                                            jeudi: this.state.variablesSchedule.jeudi,
+                                                                            vendredi: this.state.variablesSchedule.vendredi,
+                                                                            samedi: this.state.variablesSchedule.samedi,
+                                                                            dimanche: this.state.variablesSchedule.dimanche,
+                                                                            vacances: this.state.variablesSchedule.vacances
+                                                                        }
+                                                                        
+                                                                    });
+                                                                    this.setState({
+                                                                        succeededMessage: !this.state.succeededMessage
+                                                                    });
+                                                                    //window.location.href = '/list/mylocations'
+                                                                    }}>
+                                                                    <Error error={error} />
+                                                                    <Button type="submit" className="customActualityButton" disabled={loading}>Confirm{loading ? 'ation' : 'er' }</Button>         
+                                                                    {this.state.succeededMessage? <SweetAlert
+                                                                    success
+                                                                    title="Modification sauvegardée!"
+                                                                    onConfirm={() => this.setState({ succeededMessage: false,modalOne: false })}
+                                                                    onCancel={() => this.setState({ succeededMessage: false,modalOne: false })}
+                                                                    timeout={2000}
+                                                                    >
+                                                                    Vos nouvelles données ont bien été mises à jour dans la base de données !
+                                                                    </SweetAlert>: true}</form>
+                                                                )}
+                                                                </Mutation>
+                                                            </ModalFooter>
+                                                            
+                                                            
+                                                        </Modal>
+                                                    </>
+                                                    )
+                                                    }else{
+                                                        return true
                                                     }
                                                 }else{
                                                     return(null)
@@ -245,7 +306,7 @@ class Schedule extends Component {
                 </Query>
                 
                 <HeadGenerator  title="Permanence téléphonique"></HeadGenerator>
-                <Query key={'1251544'} query={SCHEDULEFILTER_QUERY} variables={{id: 'ckjnffadwby7g0949bifj4kqx'}}>
+                <Query key={'1251544'} query={SCHEDULEFILTER_QUERY} variables={{id: 'ckju9xn14002c0756p6rd7yb2'}}>
                     {({ data, error, loading }) => {
                         if(loading) return <p> Loading...</p>
                         if(error) return <p> Error : { error.message }</p>
@@ -342,7 +403,7 @@ class Schedule extends Component {
                                                                     e.preventDefault(); 
                                                                     const res = await updateSchedule({variables : 
                                                                         { 
-                                                                            id: 'ckjnffadwby7g0949bifj4kqx',                                                                            
+                                                                            id: 'ckju9xn14002c0756p6rd7yb2',                                                                            
                                                                             userId: me.id, 
                                                                             lundi: this.state.variablesPermanent.lundi,
                                                                             mardi: this.state.variablesPermanent.mardi,

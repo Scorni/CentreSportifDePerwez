@@ -31,7 +31,7 @@ return (
         <Card className={classes.root}>
           <CardMedia
             component="img"           
-            image="../../../static/img/Cafetaria/MontageCafet.jpg"
+            image="https://res.cloudinary.com/csperwez/image/upload/v1610293525/MontageCafet_nkht52.jpg"
           />
           <CardActionArea>
             <CardContent>
