@@ -71,8 +71,9 @@ const Mutations = {
         const token = jwt.sign({ userId: user.id }, process.env.APP_SECRET);
         // set jwt as a cookie 
         ctx.response.cookie("token", token, {
+            domain: '.centresportifperwez.com',
             httpOnly: true,
-            maxAge: 1000 * 60 * 60 * 24 * 365
+            maxAge: 1000 * 60 * 60 * 24 * 365,
           });
           
         return user;
@@ -92,14 +93,18 @@ const Mutations = {
         const token = jwt.sign({ userId : user.id}, process.env.APP_SECRET)
         //set the cookie with the token
         ctx.response.cookie("token",token, {
+            domain: '.centresportifperwez.com',
             httpOnly: true,
-            maxAge: 1000 *60 *60 *24 *365 
+            maxAge: 1000 *60 *60 *24 *365 ,
          });
         //return the user
         return user;
     },
     signout(parent,args,ctx,info){
-        ctx.response.clearCookie('token');
+        ctx.response.clearCookie('token',{
+            domain: '.centresportifperwez.com',
+            httpOnly: true,
+        });
         return{message: "Au revoir !"};
     },
     async requestReset(parent,args,ctx,info){

@@ -17,11 +17,11 @@ import User from '../common/User';
 import { perPage } from '../../config';
 import TextLoop from "react-text-loop";
 
-class History extends Component {
+class Evenements extends Component {
     render(){
             return (
             <div style={{width:"100%",height:"70vh"}}className="customDivWIP">
-                <HeadGenerator title={'Histoire du Centre Sportif'}></HeadGenerator>
+                <HeadGenerator title={'Evènements'}></HeadGenerator>
                 <div className="customDivWIPInside">
                     <TextLoop style={{}}>
                         <h3>Cette partie du site&nbsp;</h3>
@@ -41,4 +41,4 @@ class History extends Component {
     }
   }
   
-  export default History;
+  export default Evenements;
