@@ -618,6 +618,32 @@ iframe{
   flex-direction: row;
 
 }
+.deleteBookingButton{
+  background-color: rgba(11, 3, 39);
+  position: absolute;
+  bottom: -27px;
+  right: 48%;
+  border-radius: 20%;
+  transition: 0.3s;
+}
+.deleteBookingButton:hover{
+  animation: shake 0.1s ease-in-out 0.1s   alternate;
+  background-color: rgba(136, 0, 0);
+  position: absolute;
+  bottom: -27px;
+  right: 48%;
+  border-radius: 20%;
+}
+
+@keyframes shake {
+  from {
+    -webkit-transform: rotate(10deg);
+ }
+ to {
+   -webkit-transform-origin:center center;
+   -webkit-transform: rotate(-10deg);
+ }
+}
 /* Schedule part */
 .animate-pulse {
   animation: animate-pulse 300ms;
