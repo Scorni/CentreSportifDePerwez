@@ -12,12 +12,13 @@ import moment, { defaultFormat } from 'moment';
 import 'moment/locale/fr';
 import { func } from 'prop-types';
 import {    
-    Button, Label,Input,Container,Col,Row} from 'reactstrap';
+    Button, Label,Input,Container,Col,Row, Modal, ModalHeader, ModalBody, ModalFooter  } from 'reactstrap';
 import Link from "next/link";
 import {TextField,Select,MenuItem,InputLabel,FormControl,Tooltip} from '@material-ui/core';
 import { getDay } from 'date-fns';
 import User from '../common/User';
 import { FaTrashAlt } from 'react-icons/fa';
+import {HeadGenerator} from '../sports/category/generator';
 
 /** TO DO IN DB
  *  Is_confirmed 
@@ -101,12 +102,19 @@ class CreateNewBooking extends Component {
           ],
           succeededMessage:false,
           validatedEvents:true,
+          modalOne: false,
 
         }
         this.moveEvent = this.moveEvent.bind(this)
         this.newEvent = this.newEvent.bind(this)
+        this.toggle = this.toggle.bind(this);            
 
     } 
+    toggle() {          
+      this.setState({
+          modalOne: !this.state.modalOne
+      });
+  }
     checkStateEvents =() =>{
       for(let i =0;i < this.state.events.length;i++){
         console.log(this.state.events[i].room)
@@ -319,7 +327,7 @@ class CreateNewBooking extends Component {
           for(let i =0;i < this.state.events.length;i++){
             for(let j =0;j < this.state.events.length;j++){
               
-              if(this.state.events[i].idBooking === id && this.state.events[i].idBooking !== this.state.events[j].idBooking){
+              if(this.state.events[i].idBooking === idBooking && this.state.events[i].idBooking !== this.state.events[j].idBooking){
                 let defaultFormat = new Date(moment(e,'DD/MM/YYYY HH:mm').format('MM/DD/YYYY HH:mm'))
                 if(regExp.test(e)){
                   alert("La date rentrée n'est pas au bon format,veuillez entrer une date dans le format par défaut")
@@ -335,15 +343,12 @@ class CreateNewBooking extends Component {
                   return false;
                 }
                 if(this.state.events[i].type === 'close' || this.state.events[j].type === 'close'){
+                  console.log(this.state.events[i].type)
                   if(moment(defaultFormat).isBetween(moment(this.state.events[j].start),moment(this.state.events[j].end),'days', '[]') || moment(defaultFormat - 1).isBetween(moment(this.state.events[j].start),moment(this.state.events[j].end),'days', '[]')){
                       alert("vous ne pouvez pas ajouter un/des jour(s) de fermeture sur le(s) date(s) choisie(s) si une réservation existe au préalable")
                       this.currentBookList.current.querySelector("#CalendarInputStart"+idBooking).value = moment(this.state.events[i].start).format('DD/MM/YYYY HH:mm')  
                       return false                    
                   }else if(moment(this.state.events[j].start).isSame(moment(defaultFormat - 1))){
-                    alert("vous ne pouvez pas réserver ce jour-ci,le centre est fermé,veuillez choisir une autre date ")
-                    this.currentBookList.current.querySelector("#CalendarInputStart"+idBooking).value = moment(this.state.events[i].start).format('DD/MM/YYYY HH:mm')  
-                    return false
-                  }else if(moment(this.state.events[j].start).isBetween(moment(this.state.events[j].start),moment(defaultFormat),'days', '[)')){
                     alert("vous ne pouvez pas réserver ce jour-ci,le centre est fermé,veuillez choisir une autre date ")
                     this.currentBookList.current.querySelector("#CalendarInputStart"+idBooking).value = moment(this.state.events[i].start).format('DD/MM/YYYY HH:mm')  
                     return false
@@ -393,10 +398,6 @@ class CreateNewBooking extends Component {
                       this.currentBookList.current.querySelector("#CalendarInputEnd"+idBooking).value = moment(this.state.events[i].end).format('DD/MM/YYYY HH:mm')  
                       return false                    
                   }else if(moment(this.state.events[j].start).isSame(moment(defaultFormat - 1))){
-                    alert("vous ne pouvez pas réserver ce jour-ci,le centre est fermé,veuillez choisir une autre date ")
-                    this.currentBookList.current.querySelector("#CalendarInputEnd"+idBooking).value = moment(this.state.events[i].end).format('DD/MM/YYYY HH:mm')  
-                    return false
-                  }else if(moment(this.state.events[j].start).isBetween(moment(this.state.events[j].start),moment(defaultFormat),'days', '[)')){
                     alert("vous ne pouvez pas réserver ce jour-ci,le centre est fermé,veuillez choisir une autre date ")
                     this.currentBookList.current.querySelector("#CalendarInputEnd"+idBooking).value = moment(this.state.events[i].end).format('DD/MM/YYYY HH:mm')  
                     return false
@@ -542,7 +543,6 @@ class CreateNewBooking extends Component {
 
       let allDay = event.allDay
       let type = event.type
-      console.log('alooooooooooo')
       for(let i =0;i < this.state.events.length;i++){
         if(this.state.events[i].idBooking !== event.idBooking){
 
@@ -575,16 +575,16 @@ class CreateNewBooking extends Component {
         }else if(this.state.events[i].unchanging){
           alert("Hey bg,tu peux pas changer des réservations déjà effectuées,retourne te ronger les ongles 🏊‍♀️")
           return false
+        }else if (moment(start).isBefore(new Date) || moment(end).isBefore(new Date)){
+          alert("Vous ne pouvez effectuer de réservation dans le passé !")
+          return false
         }
       }
-      console.log(event)
       if(event.hebdomadaire === "Yes"){
-        console.log('salut mon pote à la compote de pomme')
         alert("Vous ne pouvez pas changer l'heure d'une réservation hebdomadaire")
         return false
       }
       if(event.type === 'timeSlotHebdo'){
-        console.log('salut mon pote à la compote')
         alert("Vous ne pouvez pas changer l'heure d'une réservation hebdomadaire")
         return false
       }
@@ -724,7 +724,8 @@ class CreateNewBooking extends Component {
         start: event.start,
         end: event.end,
         type: type,
-        is_paid: false
+        is_paid: false,
+        DDSizeable : true
       }
       let tooltips = {
         id : newId,
@@ -1137,6 +1138,7 @@ class CreateNewBooking extends Component {
         }
         return (
             <>
+              <HeadGenerator title="Effectuer une réservation"></HeadGenerator>
               <Query query={BOOKINGS_QUERY}>
                 {({data,error,loading})=>{
                     if(loading) return <p>Chargement...</p>
@@ -1159,7 +1161,8 @@ class CreateNewBooking extends Component {
                       )
                     }
                     
-                    return <DragAndDropCalendar
+                    return <>
+                    <DragAndDropCalendar
                     selectable
                     messages={messages}
                     style={{minHeight : "60vh", margin : "3em"}}
@@ -1167,6 +1170,8 @@ class CreateNewBooking extends Component {
                     events={this.state.events}
                     onEventDrop={this.moveEvent}
                     resizableAccessor={() => true}
+                    draggableAccessor={event => event.DDSizeable ? true : false }
+
                     onEventResize={this.resizeEvent}
                     onSelectSlot={this.newEvent}
                     onDragStart={console.log}
@@ -1209,6 +1214,55 @@ class CreateNewBooking extends Component {
                         }
                       }
                     />
+                    <Container>
+                      <Row>
+                      <Button className="previewButton" onClick={this.toggle}>Aide</Button>
+                      <Modal isOpen={this.state.modalOne} toggle={this.toggle} >
+                          <ModalHeader toggle={this.toggle}>Comment effectuer une réservation ?</ModalHeader>
+                          <ModalBody>
+                            <p><b>Effectuer une nouvelle réservation :</b></p>
+                            <li>Il suffit d'effectuer un click sur la date concernée.</li>
+                            <li>Choisissez un titre pour votre réservation.</li>
+                            <li>Choisissez votre salle ou votre terrain.</li>
+                            <li>Choisissez votre type de réservation.</li>
+                            <br />
+                            <p><b>Modifiez les dates/heures de votre réservation(avant la réservation finale de celle-ci) :</b></p>
+                            <b>Soit :</b>
+                            <li>Effectuez un click sur la réservation concernée,de garder le click enfoncé et de déplacez l'évènement aux dates voulues.</li>
+                            <b>Soit :</b>
+                            <li>Changez les dates dans les champs correspondant tout en gardant les mêmes formats.</li>
+                            <br />
+                            <p><b>Ajouter des jours/heures à votre réservation(avant la réservation finale de celle-ci) :</b></p>
+                            <b>Soit :</b>
+                            <li>Choisir le type de vue voulue (en haut à droite : Mois/Semaine/Jour).</li>
+                            <li>Retrouvez votre réservation.</li>
+                            <li>En passant la souris sur votre réservation vous devriez remarqué 2 barres horizontales semblables à celles-ci "||".</li>
+                            <li>Passez votre souris sur ces 2 barres et votre souris vous permettra d'aggrandir votre réservation.</li>
+                            <b>Soit :</b>
+                            <li>Changez les dates dans les champs correspondant tout en gardant les mêmes formats.</li>
+                            <br />
+                            <p><b>Effectuer une réservation hebdomadaire :</b></p>
+                            <li>Choisissez le type de vue "Semaine" ou "Jour".</li>
+                            <li>Cliquez sur la plage d'heures voulue.</li>
+                            <li>Définissez un titre,choisissez la salle ou terrain voulu et choisissez "plage d'heures" comme type de réservation.</li>
+                            <li>Une fois cela fait,le champs "réservation hebdomadaire devrait vous être accessible,choisissez "Oui".</li>
+                            <li>Choisissez le nombre de mois voulu.</li>
+                            <p> vous pouvez supprimer l'une de vos réservations hebdomaires si elle ne vous convient pas (avant de l'avoir valider).</p>
+                            <br />
+                            <p><b>Annuler ma réservation :</b></p>
+                            <li>Cliquez sur le button "Mon Profil" en haut à droite de votre fenêtre.</li>
+                            <li>Après chargement de la page,cliquez sur le button "Voir mes réservations" se trouvant au milieu de votre page.</li>
+                            <li>Après chargement de la page,Cliquez sur le button "Annuler" se trouvant à côté de la réservation à annuler.</li>
+
+                          </ModalBody>
+                          <ModalFooter>
+                              
+                          </ModalFooter>
+                      </Modal>
+                      </Row>
+                    </Container>
+
+                    </>
                 }}
                 </Query>
                 <User>
@@ -1262,8 +1316,8 @@ class CreateNewBooking extends Component {
                                 {this.state.succeededMessage? <SweetAlert
                                   success
                                   title="Modification sauvegardée!"
-                                  onConfirm={() => this.setState({ succeededMessage: false,modalOne: false })}
-                                  onCancel={() => this.setState({ succeededMessage: false,modalOne: false })}
+                                  onConfirm={() => this.setState({ succeededMessage: false})}
+                                  onCancel={() => this.setState({ succeededMessage: false})}
                                   timeout={2000}
                                   >
                                   Vos nouvelles données ont bien été mises à jour dans la base de données !
