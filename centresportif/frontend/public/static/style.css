@@ -644,6 +644,15 @@ iframe{
    -webkit-transform: rotate(-10deg);
  }
 }
+.customModalImg{
+  width: 1671px;
+  height: 802px;
+  position: absolute;
+  top: 10px;
+  right: 0px;
+  bottom: 0;
+  left: -115%;
+}
 /* Schedule part */
 .animate-pulse {
   animation: animate-pulse 300ms;

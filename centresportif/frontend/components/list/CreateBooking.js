@@ -61,6 +61,7 @@ const rooms = [
   'T3',
   'F1',
   'F2',
+  'BV1',
   'BS1',
   'P1'
 ]
@@ -103,18 +104,24 @@ class CreateNewBooking extends Component {
           succeededMessage:false,
           validatedEvents:true,
           modalOne: false,
+          modalTwo: false,
 
         }
         this.moveEvent = this.moveEvent.bind(this)
         this.newEvent = this.newEvent.bind(this)
-        this.toggle = this.toggle.bind(this);            
-
+        this.toggle = this.toggle.bind(this);
+        this.toggle2 = this.toggle2.bind(this)       
     } 
     toggle() {          
       this.setState({
           modalOne: !this.state.modalOne
       });
-  }
+    }
+    toggle2() {
+      this.setState({
+          modalTwo: !this.state.modalTwo
+      });           
+    } 
     checkStateEvents =() =>{
       for(let i =0;i < this.state.events.length;i++){
         console.log(this.state.events[i].room)
@@ -838,6 +845,7 @@ class CreateNewBooking extends Component {
                           <MenuItem  value="T3">T3</MenuItem>
                           <MenuItem  value="F1">F1</MenuItem>
                           <MenuItem  value="F2">F2</MenuItem>
+                          <MenuItem  value="BV1">BV1</MenuItem>
                           <MenuItem  value="BS1">BS1</MenuItem>
                           <MenuItem  value="P1">P1</MenuItem>
                         </Select>
@@ -890,6 +898,7 @@ class CreateNewBooking extends Component {
                           <MenuItem  value="T3">T3</MenuItem>
                           <MenuItem  value="F1">F1</MenuItem>
                           <MenuItem  value="F2">F2</MenuItem>
+                          <MenuItem  value="BV1">BV1</MenuItem>
                           <MenuItem  value="BS1">BS1</MenuItem>
                           <MenuItem  value="P1">P1</MenuItem>
                         </Select>
@@ -942,6 +951,7 @@ class CreateNewBooking extends Component {
                           <MenuItem  value="T3">T3</MenuItem>
                           <MenuItem  value="F1">F1</MenuItem>
                           <MenuItem  value="F2">F2</MenuItem>
+                          <MenuItem  value="BV1">BV1</MenuItem>
                           <MenuItem  value="BS1">BS1</MenuItem>
                           <MenuItem  value="P1">P1</MenuItem>
                         </Select>
@@ -993,6 +1003,7 @@ class CreateNewBooking extends Component {
                           <MenuItem  value="T3">T3</MenuItem>
                           <MenuItem  value="F1">F1</MenuItem>
                           <MenuItem  value="F2">F2</MenuItem>
+                          <MenuItem  value="BV1">BV1</MenuItem>
                           <MenuItem  value="BS1">BS1</MenuItem>
                           <MenuItem  value="P1">P1</MenuItem>
                         </Select>
@@ -1058,6 +1069,7 @@ class CreateNewBooking extends Component {
                           <MenuItem  value="T3">T3</MenuItem>
                           <MenuItem  value="F1">F1</MenuItem>
                           <MenuItem  value="F2">F2</MenuItem>
+                          <MenuItem  value="BV1">BV1</MenuItem>
                           <MenuItem  value="BS1">BS1</MenuItem>
                           <MenuItem  value="P1">P1</MenuItem>
                         </Select>
@@ -1106,6 +1118,7 @@ class CreateNewBooking extends Component {
                           <MenuItem  value="T3">T3</MenuItem>
                           <MenuItem  value="F1">F1</MenuItem>
                           <MenuItem  value="F2">F2</MenuItem>
+                          <MenuItem  value="BV1">BV1</MenuItem>
                           <MenuItem  value="BS1">BS1</MenuItem>
                           <MenuItem  value="P1">P1</MenuItem>
                         </Select>
@@ -1259,9 +1272,15 @@ class CreateNewBooking extends Component {
                               
                           </ModalFooter>
                       </Modal>
+                      
                       </Row>
                     </Container>
-
+<Button color="danger" onClick={this.toggle2}  className="customActualityButton" style={{ marginBottom : "1em"}} >Modifier</Button>
+                      <Modal isOpen={this.state.modalTwo} toggle={this.toggle2} contentClassName="customModalImg" >
+                      <ModalBody>
+                            <img src="https://res.cloudinary.com/csperwez/image/upload/v1610913892/centre_retouch_d9z6u8.jpg"></img>
+                          </ModalBody>
+                    </Modal>
                     </>
                 }}
                 </Query>
