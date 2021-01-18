@@ -122,44 +122,6 @@ class CreateNewBooking extends Component {
           modalTwo: !this.state.modalTwo
       });           
     } 
-    checkStateEvents =() =>{
-      for(let i =0;i < this.state.events.length;i++){
-        console.log(this.state.events[i].room)
-        if(!this.state.events[i].room){
-          this.setState({
-            validatedEvents: true
-          })
-        }else{
-          this.setState({
-            validatedEvents: false
-          })
-        }
-      }
-      return false
-    }
-    updateMutation = (cache,payload) => {
-      //Read of the cache
-      /*const data = cache.readQuery({ query:
-        BOOKINGS_QUERY
-      });
-      console.log(data.bookings)
-      //Then update our cache with the new boyyy
-      data.bookings = this.state.events
-      console.log(data.bookings)
-      if(data.bookings){
-        this.state.events = data.bookings;
-        console.log("juila")
-      }
-
-      cache.writeQuery({
-        query : BOOKINGS_QUERY,data
-      })
-      const data2 = cache.readQuery({ query:
-        BOOKINGS_QUERY
-      });
-      console.log(data2.bookings)
-*/
-    }
     updateValue = (e,inputType,idBooking) => {
       let test;
       let regExp = /[a-zA-Z-!-\-@[-`{-~]/;
@@ -1229,58 +1191,62 @@ class CreateNewBooking extends Component {
                     />
                     <Container>
                       <Row>
-                      <Button className="previewButton" onClick={this.toggle}>Aide</Button>
-                      <Modal isOpen={this.state.modalOne} toggle={this.toggle} >
-                          <ModalHeader toggle={this.toggle}>Comment effectuer une réservation ?</ModalHeader>
-                          <ModalBody>
-                            <p><b>Effectuer une nouvelle réservation :</b></p>
-                            <li>Il suffit d'effectuer un click sur la date concernée.</li>
-                            <li>Choisissez un titre pour votre réservation.</li>
-                            <li>Choisissez votre salle ou votre terrain.</li>
-                            <li>Choisissez votre type de réservation.</li>
-                            <br />
-                            <p><b>Modifiez les dates/heures de votre réservation(avant la réservation finale de celle-ci) :</b></p>
-                            <b>Soit :</b>
-                            <li>Effectuez un click sur la réservation concernée,de garder le click enfoncé et de déplacez l'évènement aux dates voulues.</li>
-                            <b>Soit :</b>
-                            <li>Changez les dates dans les champs correspondant tout en gardant les mêmes formats.</li>
-                            <br />
-                            <p><b>Ajouter des jours/heures à votre réservation(avant la réservation finale de celle-ci) :</b></p>
-                            <b>Soit :</b>
-                            <li>Choisir le type de vue voulue (en haut à droite : Mois/Semaine/Jour).</li>
-                            <li>Retrouvez votre réservation.</li>
-                            <li>En passant la souris sur votre réservation vous devriez remarqué 2 barres horizontales semblables à celles-ci "||".</li>
-                            <li>Passez votre souris sur ces 2 barres et votre souris vous permettra d'aggrandir votre réservation.</li>
-                            <b>Soit :</b>
-                            <li>Changez les dates dans les champs correspondant tout en gardant les mêmes formats.</li>
-                            <br />
-                            <p><b>Effectuer une réservation hebdomadaire :</b></p>
-                            <li>Choisissez le type de vue "Semaine" ou "Jour".</li>
-                            <li>Cliquez sur la plage d'heures voulue.</li>
-                            <li>Définissez un titre,choisissez la salle ou terrain voulu et choisissez "plage d'heures" comme type de réservation.</li>
-                            <li>Une fois cela fait,le champs "réservation hebdomadaire devrait vous être accessible,choisissez "Oui".</li>
-                            <li>Choisissez le nombre de mois voulu.</li>
-                            <p> vous pouvez supprimer l'une de vos réservations hebdomaires si elle ne vous convient pas (avant de l'avoir valider).</p>
-                            <br />
-                            <p><b>Annuler ma réservation :</b></p>
-                            <li>Cliquez sur le button "Mon Profil" en haut à droite de votre fenêtre.</li>
-                            <li>Après chargement de la page,cliquez sur le button "Voir mes réservations" se trouvant au milieu de votre page.</li>
-                            <li>Après chargement de la page,Cliquez sur le button "Annuler" se trouvant à côté de la réservation à annuler.</li>
+                        <Button className="previewButton" onClick={this.toggle}>Aide</Button>
+                        <Modal isOpen={this.state.modalOne} toggle={this.toggle} size="lg">
+                            <ModalHeader toggle={this.toggle}>Comment effectuer une réservation ?</ModalHeader>
+                            <ModalBody>
+                              <p><b>Effectuer une nouvelle réservation :</b></p>
+                              <li>Il suffit d'effectuer un click sur la date concernée.</li>
+                              <li>Choisissez un titre pour votre réservation.</li>
+                              <li>Choisissez votre salle ou votre terrain.</li>
+                              <li>Choisissez votre type de réservation.</li>
+                              <br />
+                              <p><b>Modifiez les dates/heures de votre réservation(avant la réservation finale de celle-ci) :</b></p>
+                              <b>Soit :</b>
+                              <li>Effectuez un click sur la réservation concernée,de garder le click enfoncé et de déplacez l'évènement aux dates voulues.</li>
+                              <b>Soit :</b>
+                              <li>Changez les dates dans les champs correspondant tout en gardant les mêmes formats.</li>
+                              <br />
+                              <p><b>Ajouter des jours/heures à votre réservation(avant la réservation finale de celle-ci) :</b></p>
+                              <b>Soit :</b>
+                              <li>Choisir le type de vue voulue (en haut à droite : Mois/Semaine/Jour).</li>
+                              <li>Retrouvez votre réservation.</li>
+                              <li>En passant la souris sur votre réservation vous devriez remarqué 2 barres horizontales semblables à celles-ci "||".</li>
+                              <li>Passez votre souris sur ces 2 barres et votre souris vous permettra d'aggrandir votre réservation.</li>
+                              <b>Soit :</b>
+                              <li>Changez les dates dans les champs correspondant tout en gardant les mêmes formats.</li>
+                              <br />
+                              <p><b>Effectuer une réservation hebdomadaire :</b></p>
+                              <li>Choisissez le type de vue "Semaine" ou "Jour".</li>
+                              <li>Cliquez sur la plage d'heures voulue.</li>
+                              <li>Définissez un titre,choisissez la salle ou terrain voulu et choisissez "plage d'heures" comme type de réservation.</li>
+                              <li>Une fois cela fait,le champs "réservation hebdomadaire devrait vous être accessible,choisissez "Oui".</li>
+                              <li>Choisissez le nombre de mois voulu.</li>
+                              <p> vous pouvez supprimer l'une de vos réservations hebdomaires si elle ne vous convient pas (avant de l'avoir valider).</p>
+                              <br />
+                              <p><b>Annuler ma réservation :</b></p>
+                              <li>Cliquez sur le button "Mon Profil" en haut à droite de votre fenêtre.</li>
+                              <li>Après chargement de la page,cliquez sur le button "Voir mes réservations" se trouvant au milieu de votre page.</li>
+                              <li>Après chargement de la page,Cliquez sur le button "Annuler" se trouvant à côté de la réservation à annuler.</li>
 
+                            </ModalBody>
+                            <ModalFooter>
+                                
+                            </ModalFooter>
+                        </Modal>
+                        <Button onClick={this.toggle2}  className="previewButton">Plan du centre</Button>
+                        <Modal isOpen={this.state.modalTwo} toggle={this.toggle2} contentClassName="customModalImg" size="lg" >
+                          <ModalHeader toggle={this.toggle}>Plan du centre sportif</ModalHeader>
+                          <ModalBody>
+                            <img className="img-responsive-height" src="https://res.cloudinary.com/csperwez/image/upload/v1610913892/centre_retouch_d9z6u8.jpg"></img>
                           </ModalBody>
                           <ModalFooter>
-                              
+                            <Link href="https://res.cloudinary.com/csperwez/image/upload/v1610913892/centre_retouch_d9z6u8.jpg"><a>Voir en annexe</a></Link>
                           </ModalFooter>
-                      </Modal>
-                      
+                        </Modal>
                       </Row>
                     </Container>
-<Button color="danger" onClick={this.toggle2}  className="customActualityButton" style={{ marginBottom : "1em"}} >Modifier</Button>
-                      <Modal isOpen={this.state.modalTwo} toggle={this.toggle2} contentClassName="customModalImg" >
-                      <ModalBody>
-                            <img src="https://res.cloudinary.com/csperwez/image/upload/v1610913892/centre_retouch_d9z6u8.jpg"></img>
-                          </ModalBody>
-                    </Modal>
+                      
                     </>
                 }}
                 </Query>
