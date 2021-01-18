@@ -1,0 +1,108 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Pagination/> renders pagination for 15 actualities 1`] = `
+<div
+  className="customPaginationDiv"
+  data-test="pagination"
+>
+  <Head>
+    <_default
+      headManager={Object {}}
+      inAmpMode={false}
+      reduceComponentsToState={[Function]}
+    />
+  </Head>
+  <Link
+    href={
+      Object {
+        "pathname": "actuality",
+        "query": Object {
+          "page": 0,
+        },
+      }
+    }
+  >
+    <Button
+      className="customActualityButtonPage precedentButton"
+      color="secondary"
+      disabled={true}
+      onClick={[Function]}
+      onMouseEnter={[Function]}
+      tag="button"
+    >
+      <button
+        aria-label={null}
+        className="customActualityButtonPage precedentButton btn btn-secondary disabled"
+        disabled={true}
+        onClick={[Function]}
+        onMouseEnter={[Function]}
+        type="button"
+      >
+        <a
+          className="precedent"
+          role="button"
+        >
+          Précédent
+        </a>
+      </button>
+    </Button>
+  </Link>
+  <Button
+    className="customButtonPagination"
+    color="secondary"
+    disabled={true}
+    tag="button"
+  >
+    <button
+      aria-label={null}
+      className="customButtonPagination btn btn-secondary disabled"
+      disabled={true}
+      onClick={[Function]}
+    >
+      Page 
+      1
+       sur 
+      <span
+        className="totalPages"
+      >
+        3
+      </span>
+    </button>
+  </Button>
+  <Link
+    href={
+      Object {
+        "pathname": "faq",
+        "query": Object {
+          "page": 2,
+        },
+      }
+    }
+  >
+    <Button
+      className="customActualityButtonPage suivantButton"
+      color="secondary"
+      disabled={false}
+      onClick={[Function]}
+      onMouseEnter={[Function]}
+      tag="button"
+    >
+      <button
+        aria-label={null}
+        className="customActualityButtonPage suivantButton btn btn-secondary"
+        disabled={false}
+        onClick={[Function]}
+        onMouseEnter={[Function]}
+        type="button"
+      >
+        <a
+          className="suivant"
+          role="button"
+        >
+          Suivant
+        </a>
+      </button>
+    </Button>
+  </Link>
+</div>
+`;
