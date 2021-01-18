@@ -14,11 +14,6 @@
     "static/development/_ssgManifest.js"
   ],
   "pages": {
-    "/": [
-      "static/chunks/main.js",
-      "static/chunks/webpack.js",
-      "static/chunks/pages/index.js"
-    ],
     "/_app": [
       "static/chunks/main.js",
       "static/chunks/webpack.js",
@@ -29,40 +24,15 @@
       "static/chunks/webpack.js",
       "static/chunks/pages/_error.js"
     ],
-    "/account/profile": [
-      "static/chunks/main.js",
-      "static/chunks/webpack.js",
-      "static/chunks/pages/account/profile.js"
-    ],
     "/createBooking": [
       "static/chunks/main.js",
       "static/chunks/webpack.js",
       "static/chunks/pages/createBooking.js"
     ],
-    "/list/bookings": [
+    "/sports/Infrastructure/Externe": [
       "static/chunks/main.js",
       "static/chunks/webpack.js",
-      "static/chunks/pages/list/bookings.js"
-    ],
-    "/list/mybooking": [
-      "static/chunks/main.js",
-      "static/chunks/webpack.js",
-      "static/chunks/pages/list/mybooking.js"
-    ],
-    "/list/users": [
-      "static/chunks/main.js",
-      "static/chunks/webpack.js",
-      "static/chunks/pages/list/users.js"
-    ],
-    "/permissions": [
-      "static/chunks/main.js",
-      "static/chunks/webpack.js",
-      "static/chunks/pages/permissions.js"
-    ],
-    "/sports/Sportscollectifs": [
-      "static/chunks/main.js",
-      "static/chunks/webpack.js",
-      "static/chunks/pages/sports/Sportscollectifs.js"
+      "static/chunks/pages/sports/Infrastructure/Externe.js"
     ]
   },
   "ampFirstPages": []

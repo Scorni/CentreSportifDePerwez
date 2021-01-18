@@ -2,12 +2,6 @@
   "/_app": "pages/_app.js",
   "/_error": "pages/_error.js",
   "/_document": "pages/_document.js",
-  "/": "pages/index.js",
-  "/sports/Sportscollectifs": "pages/sports/Sportscollectifs.js",
   "/createBooking": "pages/createBooking.js",
-  "/account/profile": "pages/account/profile.js",
-  "/list/mybooking": "pages/list/mybooking.js",
-  "/list/bookings": "pages/list/bookings.js",
-  "/list/users": "pages/list/users.js",
-  "/permissions": "pages/permissions.js"
+  "/sports/Infrastructure/Externe": "pages/sports/Infrastructure/Externe.js"
 }
