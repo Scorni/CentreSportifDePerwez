@@ -6,7 +6,6 @@ import 'react-big-calendar/lib/css/react-big-calendar.css';
 import "react-big-calendar/lib/addons/dragAndDrop/styles.css";
 import { FaHome } from 'react-icons/fa';
 
-import Loading from '../components/common/ProgressBar';
 import { ApolloProvider } from 'react-apollo';
 import withData from '../withData';
 
@@ -51,14 +50,14 @@ class MyApp extends App{
     render(){
         const {Component, pageProps, apollo} = this.props;
         return (
-          
+          <Container>
             <ApolloProvider client={apollo}>
-            <Page>
-                {/*<Loading {...this.state}/> */}
-                <Component {...pageProps}/>
-            </Page>
+              <Page>
+                  {/*<Loading {...this.state}/> */}
+                  <Component {...pageProps}/>
+              </Page>
             </ApolloProvider>
-           
+          </Container>
         )
     }
 }

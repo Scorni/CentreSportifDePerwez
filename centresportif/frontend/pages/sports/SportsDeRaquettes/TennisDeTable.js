@@ -1,9 +1,9 @@
 import React from "react";
-import TennisDeTable from "../../../components/sports/Sportsderaquettes/TennisDeTable"
+import Tennisdetable from "../../../components/sports/Sportsderaquettes/Tennisdetable"
 
 const Sports = props => (
     <div>    
-        <TennisDeTable></TennisDeTable>
+        <Tennisdetable></Tennisdetable>
     </div>
 )
 export default Sports;

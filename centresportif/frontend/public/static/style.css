@@ -618,6 +618,46 @@ iframe{
   flex-direction: row;
 
 }
+.deleteBookingButton{
+  background-color: rgba(11, 3, 39);
+  position: absolute;
+  bottom: -27px;
+  right: 48%;
+  border-radius: 20%;
+  transition: 0.3s;
+}
+.deleteBookingButton:hover{
+  animation: shake 0.1s ease-in-out 0.1s   alternate;
+  background-color: rgba(136, 0, 0);
+  position: absolute;
+  bottom: -27px;
+  right: 48%;
+  border-radius: 20%;
+}
+
+@keyframes shake {
+  from {
+    -webkit-transform: rotate(10deg);
+ }
+ to {
+   -webkit-transform-origin:center center;
+   -webkit-transform: rotate(-10deg);
+ }
+}
+.customModalImg{
+  min-width: 50vw;
+  height: auto;
+  display: inline-block;
+  z-index: -1;
+  justify-content: center;
+  align-items: center;
+}
+.img-responsive-height{
+  width: 100%;
+  height: 100%;
+  display: inline-block;
+ 
+}
 /* Schedule part */
 .animate-pulse {
   animation: animate-pulse 300ms;

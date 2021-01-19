@@ -36,18 +36,14 @@ const Query = {
     }})
     },
     async scheduleFilter(parent, args, ctx, info) {
-      /*if(!ctx.request.userId){
-        throw new Error('Vous devez être connecté !')
-      }*/
+      
       return await ctx.db.query.schedules({
         where:{
           id :  args.id,
     }})
     },
     async contactFilter(parent, args, ctx, info) {
-      /*if(!ctx.request.userId){
-        throw new Error('Vous devez être connecté !')
-      }*/
+      
       return await ctx.db.query.contacts({
         where:{
           id :  args.id,

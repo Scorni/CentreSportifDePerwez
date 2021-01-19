@@ -3,10 +3,10 @@ import Link from 'next/link';
 const MyLogo = (props) => {
     return(
             <div style = {{
-                backgroundImage: `url("/static/img/centresportif.jpg")`,backgroundRepeat: 'no-repeat',backgroundSize :'cover'
+                backgroundImage: `url("https://res.cloudinary.com/csperwez/image/upload/v1610467880/centresportif_qna1yv.jpg")`,backgroundRepeat: 'no-repeat',backgroundSize :'cover'
              }}>
                 <Link href='/'>
-                    <img src="/static/img/commune.png" style = {{maxWidth:"100%"}}></img>
+                    <img src="https://res.cloudinary.com/csperwez/image/upload/v1610467879/commune_lnhn44.png" style = {{maxWidth:"100%"}}></img>
                 </Link>
             </div>
     );

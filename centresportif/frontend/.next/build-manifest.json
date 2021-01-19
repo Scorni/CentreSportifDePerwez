@@ -14,11 +14,6 @@
     "static/development/_ssgManifest.js"
   ],
   "pages": {
-    "/": [
-      "static/chunks/main.js",
-      "static/chunks/webpack.js",
-      "static/chunks/pages/index.js"
-    ],
     "/_app": [
       "static/chunks/main.js",
       "static/chunks/webpack.js",
@@ -29,10 +24,15 @@
       "static/chunks/webpack.js",
       "static/chunks/pages/_error.js"
     ],
-    "/sports/Infrastructure/Interne": [
+    "/createBooking": [
       "static/chunks/main.js",
       "static/chunks/webpack.js",
-      "static/chunks/pages/sports/Infrastructure/Interne.js"
+      "static/chunks/pages/createBooking.js"
+    ],
+    "/sports/Infrastructure/Externe": [
+      "static/chunks/main.js",
+      "static/chunks/webpack.js",
+      "static/chunks/pages/sports/Infrastructure/Externe.js"
     ]
   },
   "ampFirstPages": []

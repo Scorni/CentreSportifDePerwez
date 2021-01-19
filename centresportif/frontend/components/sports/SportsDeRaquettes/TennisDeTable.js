@@ -13,7 +13,7 @@ import { GiEarthAfricaEurope } from 'react-icons/gi';
 
 
 
-export default function TennisDeTable() {
+export default function Tennisdetable() {
   const {width,height} = useWindowDimensions();
   const useStyles = makeStyles({
       root: {

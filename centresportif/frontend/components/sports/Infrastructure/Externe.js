@@ -29,7 +29,7 @@ export default function Externe() {
           <Card className={classes.root}>
             <CardMedia
               component="img"
-              image="../../../static/img/Infrastructure/externe.jpg"
+              image="https://res.cloudinary.com/csperwez/image/upload/v1610313388/Streetworkoutcomplete_jqs5pn.jpg"
               title=""
             />
             <CardActionArea>
@@ -52,7 +52,7 @@ export default function Externe() {
           <Card className={classes.root}>
             <CardMedia
               component="img"
-              image="../../../static/img/Infrastructure/externe.jpg"
+              image="https://res.cloudinary.com/csperwez/image/upload/v1610313388/Streetworkoutcomplete_jqs5pn.jpg"
             />
             <CardActionArea>
               <CardContent>
@@ -76,7 +76,7 @@ export default function Externe() {
           <Card className={classes.root}>
             <CardMedia
               component="img"
-              image="../../../static/img/Infrastructure/externe.jpg"
+              image="https://res.cloudinary.com/csperwez/image/upload/v1610313388/Streetworkoutcomplete_jqs5pn.jpg"
               title=""
             />
             <CardActionArea>
@@ -106,7 +106,7 @@ export default function Externe() {
           <Card className={classes.root}>
             <CardMedia
               component="img"
-              image="../../../static/img/Infrastructure/externe.jpg"
+              image="https://res.cloudinary.com/csperwez/image/upload/v1610313388/Streetworkoutcomplete_jqs5pn.jpg"
             />
             <CardActionArea>
               <CardContent>
@@ -129,7 +129,7 @@ export default function Externe() {
           <Card className={classes.root}>
             <CardMedia
               component="img"
-              image="../../../static/img/Infrastructure/externe.jpg"
+              image="https://res.cloudinary.com/csperwez/image/upload/v1610313388/Streetworkoutcomplete_jqs5pn.jpg"
               title=""
             ></CardMedia>
             <CardActionArea>
